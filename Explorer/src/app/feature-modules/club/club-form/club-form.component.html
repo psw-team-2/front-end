@@ -1,0 +1,23 @@
+<header>
+    <h1>Create a Club</h1>
+</header>
+<main>
+    <form>
+        <table>
+            <tr>
+                <td><label for="clubName">Name:</label></td>
+                <td><input type="text" id="clubName" formControlName="name" required></td>
+            </tr>
+            <tr>
+                <td><label for="clubDescription">Description:</label></td>
+                <td><textarea id="clubDescription" formControlName="description" rows="4" required></textarea></td>
+            </tr>
+            <tr>
+                <td><label for="clubImageUrl">Image Url:</label></td>
+                <td><textarea id="clubImageUrl" formControlName="imageUrl" rows="4" required></textarea></td>
+            </tr>
+        </table>
+        <br>
+        <input type="submit" value="Create Club" (click)="addClub()">
+    </form>
+</main>
