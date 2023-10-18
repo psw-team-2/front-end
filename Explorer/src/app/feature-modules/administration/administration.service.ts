@@ -4,6 +4,7 @@ import { Equipment } from './model/equipment.model';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Profile } from './model/profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,4 +29,12 @@ export class AdministrationService {
     return this.http.put<Equipment>(environment.apiHost + 'administration/equipment/' + equipment.id, equipment);
   }
 
+  // dodato
+  addProfile(profile: Profile): Observable<Profile> {
+    return this.http.post<Profile>(environment.apiHost + 'administration/profile', profile);
+  }
+
+  updateProfile(profile: Profile): Observable<Profile> {
+    return this.http.put<Profile>(environment.apiHost + 'administration/profile/' + profile.id, profile);
+  }
 }

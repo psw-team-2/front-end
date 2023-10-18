@@ -6,6 +6,10 @@
             <button *ngIf="user && user.username !== ''" color="accent" mat-raised-button (click)="onLogout()">Logout</button>
             <button color="primary" mat-raised-button [routerLink]="['home']">Home</button>
             <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['equipment']">Manage equipment</button>
+            <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['profile']">Profile</button>
+            <button *ngIf="user && user.role === 'author'" color="primary" mat-raised-button [routerLink]="['profile']">Profile</button>
+            <button *ngIf="user && user.role === 'author' && isProfilePage()" color="primary" mat-raised-button [routerLink]="['profile-form']">Create Profile</button>
+            <button *ngIf="user && user.role === 'tourist' && isProfilePage()" color="primary" mat-raised-button [routerLink]="['profile-form']">Create Profile</button>
         </div>
     </div>
 </mat-toolbar>
