@@ -23,10 +23,10 @@ export class ProfileFormComponent {
     console.log(this.profileForm.value)
     const profile: Profile = {
       firstName: this.profileForm.value.firstName || "",
-      lastName: this.profileForm.value.firstName || "",
-      profilePicture: this.profileForm.value.firstName || "",
-      biography: this.profileForm.value.firstName || "",
-      motto: this.profileForm.value.firstName || ""
+      lastName: this.profileForm.value.lastName || "",
+      profilePicture: this.profileForm.value.profilePicture || "",
+      biography: this.profileForm.value.biography || "",
+      motto: this.profileForm.value.motto || ""
     }
 
     this.service.addProfile(profile).subscribe({
