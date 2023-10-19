@@ -1,0 +1,29 @@
+<form [formGroup] = "checkpointForm"> 
+    <div>
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" type="text">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            formControlName="description"
+            cdkAutosizeMaxRows="5"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Longitude</mat-label>
+            <input matInput formControlName="longitude" type="number">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Latitude</mat-label>
+            <input matInput formControlName="latitude" type="number">
+        </mat-form-field>
+            <mat-label>Image</mat-label>
+                <button mat-raised-button color="primary" (click)="fileInput.click()">Upload File</button>
+                <input hidden #fileInput type="file" (change)="onFileSelected($event)">
+        <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" (click)="addCheckpoint()">Done</button>
+        <button *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateCheckpoint()">Done</button>
+    </div>
+</form>
