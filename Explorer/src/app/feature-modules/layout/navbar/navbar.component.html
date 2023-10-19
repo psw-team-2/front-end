@@ -6,6 +6,9 @@
             <button *ngIf="user && user.username !== ''" color="accent" mat-raised-button (click)="onLogout()">Logout</button>
             <button color="primary" mat-raised-button [routerLink]="['home']">Home</button>
             <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['equipment']">Manage equipment</button>
+            <!-- Needs routerLink to be change to Tour/Mock Tour -->
+            <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['equipment']">Manage mock tour</button> 
+            <button *ngIf="user && (user.role === 'administrator' || user.role === 'tourist')"color="primary" mat-raised-button [routerLink]="['tour-problem']">Manage tour problem</button>
         </div>
     </div>
 </mat-toolbar>
