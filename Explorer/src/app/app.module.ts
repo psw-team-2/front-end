@@ -16,6 +16,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { ClubModule } from './feature-modules/club/club.module';
 
+import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
+
 @NgModule({
   declarations: [
     AppComponent
@@ -33,7 +35,8 @@ import { ClubModule } from './feature-modules/club/club.module';
     TourExecutionModule,
     AuthModule,
     HttpClientModule,
-    ClubModule
+    ClubModule,
+    ReactiveFormsModule
   ],
   providers: [
     {

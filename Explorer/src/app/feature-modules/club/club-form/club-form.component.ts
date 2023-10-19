@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { Club } from '../model/club.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClubService } from '../club.service';
@@ -8,18 +8,16 @@ import { ClubService } from '../club.service';
   templateUrl: './club-form.component.html',
   styleUrls: ['./club-form.component.css']
 })
-export class ClubFormComponent implements OnChanges {
+export class ClubFormComponent implements OnInit {
   @Output() clubUpdated = new EventEmitter<null>();
   @Input() club: Club;
-
+  @Input() shouldEdit: boolean = false;
   constructor(private service: ClubService) {
   }
 
-  ngOnChanges(): void {
-    this.clubForm.reset();
+  ngOnInit(): void {
+
   }
-
-
   clubForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
@@ -28,19 +26,38 @@ export class ClubFormComponent implements OnChanges {
 
   addClub(): void {
     const club: Club = {
-      name: this.clubForm.value.name || "",
+      name: this.clubForm.value.name ||  "",
       description: this.clubForm.value.description || "",
       imageUrl: this.clubForm.value.imageUrl || "",
       ownerId: 0,
       memberIds: [0]
     };
-    console.log("sdfds");
+
+    console.log(club)
     this.service.addClub(club).subscribe({
-      next: () => { this.clubUpdated.emit() },
+      next: () => { console.log("success") },
 
       error: (error) => {
         console.error('Error adding club:', error);
       }
+    });
+  }
+
+  updateClub(): void {
+    const club: Club = {
+      name: this.clubForm.value.name || "",
+      description: this.clubForm.value.description || "",
+      imageUrl: this.clubForm.value.imageUrl || "",
+      ownerId: this.club.ownerId,
+      memberIds: this.club.memberIds
+    };
+    club.id = this.club.id;
+    console.log(club.name);
+    console.log(club.description);
+    console.log(club.imageUrl);
+    console.log(club.ownerId);
+    this.service.updateClub(club).subscribe({
+      next: () => { this.clubUpdated.emit();}
     });
   }
 }
