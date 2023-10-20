@@ -15,13 +15,13 @@ export class EquipmentComponent implements OnInit {
   selectedEquipment: Equipment;
   shouldRenderEquipmentForm: boolean = false;
   shouldEdit: boolean = false;
-  
+
   constructor(private service: AdministrationService) { }
 
   ngOnInit(): void {
     this.getEquipment();
   }
-  
+
   deleteEquipment(id: number): void {
     this.service.deleteEquipment(id).subscribe({
       next: () => {
