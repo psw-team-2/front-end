@@ -1,10 +1,37 @@
-div {
-    width: 100%;
-    display: flex;
-    gap: 10px;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background:  linear-gradient(rgb(28, 83, 117), rgb(65, 89, 114));
+  
 }
 
-#buttons {
-    width: auto;
-    margin-left: auto;
+.navbar-left {
+  display: flex;
+  align-items: center;
+  font-weight: 350;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  font-weight: 350;
+}
+
+.menuButton {
+  margin-right: 10px; /* Adjust the spacing between the menu button and the Explorer text */
+  font-weight: 350;
+}
+
+.explorer {
+  font-size: 24px; /* Adjust the font size for Explorer text */
+  margin-top: 5px;
+  
+}
+
+
+.logButton{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 350;
 }
