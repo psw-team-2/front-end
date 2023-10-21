@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AdministrationService } from '../administration.service';
 import { TourProblem } from '../model/tour-problem.model';
+import { TourModelService } from '../tour-model.service';
 
 @Component({
   selector: 'xp-tour-problem-form', 
@@ -14,7 +14,7 @@ export class TourProblemFormComponent implements OnChanges {
   @Input() tourProblem: TourProblem;
   @Input() shouldEdit: boolean = false;
 
-  constructor(private service: AdministrationService) {
+  constructor(private service: TourModelService) {
   }
 
   ngOnChanges(): void {
@@ -35,7 +35,7 @@ export class TourProblemFormComponent implements OnChanges {
       problemCategory: this.tourProblemForm.value.problemCategory || "",
       problemPriority: this.tourProblemForm.value.problemPriority || "",
       description: this.tourProblemForm.value.description || "",
-      timeStamp: new Date(), // Assuming timeStamp is a required field of type Date
+      timeStamp: new Date(), 
       mockTourId: 1
     };
 
@@ -51,7 +51,7 @@ export class TourProblemFormComponent implements OnChanges {
       problemCategory: this.tourProblemForm.value.problemCategory || "",
       problemPriority: this.tourProblemForm.value.problemPriority || "",
       description: this.tourProblemForm.value.description || "",
-      timeStamp: new Date(), // Assuming timeStamp is a required field of type Date
+      timeStamp: new Date(), 
       mockTourId: 1
     };
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdministrationService } from '../administration.service';
+import { TourModelService } from '../tour-model.service';
 import { TourProblem } from '../model/tour-problem.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
@@ -15,7 +15,7 @@ export class TourProblemsComponent implements OnInit {
   shouldRenderTourProblemForm: boolean = false;
   shouldEdit: boolean = false;
   
-  constructor(private service: AdministrationService) { }
+  constructor(private service: TourModelService) { }
 
   ngOnInit(): void {
     this.getTourProblems();
