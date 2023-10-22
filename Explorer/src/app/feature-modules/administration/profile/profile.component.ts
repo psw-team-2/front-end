@@ -23,9 +23,9 @@ export class ProfileComponent implements OnInit{
   
   getByUserId(): void {
     this.service.getByUserId().subscribe({
-      next: (result: PagedResults<Profile>) => {
+      next: (result: Profile) => {
         console.log('Result from API:', result);
-        this.profile = result.results;
+        this.profile = [result]; // Wrap the result in an array, as it's a single Profile object
         console.log('Profile data in component:', this.profile);
       },
       error: (err: any) => {

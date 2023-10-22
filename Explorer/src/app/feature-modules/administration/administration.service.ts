@@ -31,7 +31,8 @@ export class AdministrationService {
 
   // dodato
   // PROFIL
-  getByUserId(): Observable<PagedResults<Profile>> {
-    return this.http.get<PagedResults<Profile>>('https://localhost:44333/api/administration/profile/by-user')
+  getByUserId(): Observable<Profile> {
+    return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-user');
   }
+  
 }
