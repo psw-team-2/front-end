@@ -13,5 +13,7 @@
     <td><img class="thumbnail" src={{individualProfile.profilePicture}} alt="" srcset=""></td>
     <td>{{ individualProfile.biography }}</td>
     <td>{{ individualProfile.motto }}</td>
+    <button (click) = "onEditClicked(individualProfile)">Edit</button>
   </tr>
 </table>
+<xp-profile-form (profileUpdated) = "getByUserId()" [profile] = "selectedProfile"></xp-profile-form>

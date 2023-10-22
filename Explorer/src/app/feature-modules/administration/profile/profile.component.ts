@@ -12,6 +12,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 })
 export class ProfileComponent implements OnInit{
   profile: Profile[] = [];
+  selectedProfile: Profile;
   
   
   constructor(private service: AdministrationService) { }
@@ -32,5 +33,10 @@ export class ProfileComponent implements OnInit{
         console.log(err);
       }
     });
+  }
+
+  onEditClicked(profile: Profile): void {
+    this.selectedProfile = profile;
+    console.log(this.selectedProfile);
   }
 }

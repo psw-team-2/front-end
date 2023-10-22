@@ -1,4 +1,4 @@
-<h1>KREIRANJE PROFILA</h1>
+<h1>Profile update:</h1>
 <form [formGroup]="profileForm">
     <div>
         <mat-form-field>
@@ -25,6 +25,6 @@
             <mat-label>Motto:</mat-label>
             <input matInput type="text" formControlName="motto">
         </mat-form-field>
-        <button mat-raised-button type="submit" color="primary" click="addProfile()">Done</button>
+        <button mat-raised-button type="submit" color="primary" (click)="updateProfile()">Done</button>
     </div>
 </form>

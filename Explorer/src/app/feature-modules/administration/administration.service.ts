@@ -35,4 +35,7 @@ export class AdministrationService {
     return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-user');
   }
   
+  updateProfile(profile: Profile): Observable<Profile> {
+    return this.http.put<Profile>('https://localhost:44333/api/administration/profile/' + profile.id + '/' + profile.userId, profile);
+  }
 }
