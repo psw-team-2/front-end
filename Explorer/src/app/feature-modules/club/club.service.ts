@@ -4,6 +4,7 @@ import { Club } from './model/club.model';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { ClubRequest } from './model/club-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,8 @@ export class ClubService {
   deleteClub(id: number): Observable<Club> {
     return this.http.delete<Club>(environment.apiHost + 'club' + id);
   }
-
+  
+  sendRequest(clubRequest: ClubRequest): Observable<ClubRequest> {
+    return this.http.post<ClubRequest>(environment.apiHost + 'clubRequests/sendRequest', clubRequest);
+  }
 }
