@@ -1,0 +1,40 @@
+<div id="blog-comments">
+    <p>Comments</p>
+    <hr>
+    <div id="blog-comments-details">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    
+                    <th>Opis</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let bc of blogComments">
+                    
+                    <td>{{bc.text}}</td>
+                    <td>
+                        <button color="accent" (click)="deleteBlogComment(bc.id || 0)" mat-icon-button>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        <button color="primary" (click)="onEditClicked(bc)" mat-icon-button>
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr><button color="primary" (click)="onAddClicked()" mat-icon-button>
+                    <mat-icon>add</mat-icon>
+                </button></tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <xp-blog-comment-form *ngIf="shouldRenderBlogCommentForm" [shouldEdit]="shouldEdit" [blogComment]="selectedBlogComment" (blogCommentUpdated)="getBlogComment()"></xp-blog-comment-form>
+    </div>
+    </div>
+</div>
+
+
