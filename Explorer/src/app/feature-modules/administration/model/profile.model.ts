@@ -5,4 +5,6 @@ export interface Profile {
     profilePicture: string;
     biography: string;
     motto: string;
+    userId?: number;
+    isActive: boolean;
 }

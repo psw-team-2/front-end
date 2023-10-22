@@ -1,1 +1,17 @@
 <h1>PRIKAZ PROFILA</h1>
+<table> <!-- Use *ngIf to conditionally render the table -->
+  <tr>
+    <th>Ime:</th>
+    <th>Prezime:</th>
+    <th>Slika:</th>
+    <th>Bio:</th>
+    <th>Moto:</th>
+  </tr>
+  <tr *ngFor="let individualProfile of profile">
+    <td>{{ individualProfile.firstName }}</td>
+    <td>{{ individualProfile.lastName }}</td>
+    <td>{{ individualProfile.profilePicture }}</td>
+    <td>{{ individualProfile.biography }}</td>
+    <td>{{ individualProfile.motto }}</td>
+  </tr>
+</table>

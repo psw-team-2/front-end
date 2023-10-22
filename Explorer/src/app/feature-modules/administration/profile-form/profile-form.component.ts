@@ -19,6 +19,7 @@ export class ProfileFormComponent {
     motto: new FormControl('', [Validators.required])
   })
 
+  /*
   addProfile(): void{
     console.log(this.profileForm.value)
     const profile: Profile = {
@@ -34,5 +35,5 @@ export class ProfileFormComponent {
         console.log("Uspesan zahtev!")
       }
     });
-  }
+  } */
 }

@@ -30,11 +30,8 @@ export class AdministrationService {
   }
 
   // dodato
-  addProfile(profile: Profile): Observable<Profile> {
-    return this.http.post<Profile>(environment.apiHost + 'administration/profile', profile);
-  }
-
-  updateProfile(profile: Profile): Observable<Profile> {
-    return this.http.put<Profile>(environment.apiHost + 'administration/profile/' + profile.id, profile);
+  // PROFIL
+  getByUserId(): Observable<PagedResults<Profile>> {
+    return this.http.get<PagedResults<Profile>>('https://localhost:44333/api/administration/profile/by-user')
   }
 }
