@@ -9,10 +9,9 @@
             <mat-label>Last Name:</mat-label>
             <input matInput type="text" formControlName="lastName">
         </mat-form-field>
-        <mat-form-field>
-            <mat-label>Profile picture URL:</mat-label>
-            <input matInput type="text" formControlName="profilePicture">
-        </mat-form-field>
+        <mat-label>Image</mat-label>
+        <button mat-raised-button color="primary" (click)="fileInput.click()">Upload File</button>
+        <input hidden #fileInput type="file" (change)="onFileSelected($event)">
         <mat-form-field>
             <mat-label>Biography:</mat-label>
             <textarea matInput
