@@ -10,7 +10,7 @@
   <tr *ngFor="let individualProfile of profile">
     <td>{{ individualProfile.firstName }}</td>
     <td>{{ individualProfile.lastName }}</td>
-    <td>{{ individualProfile.profilePicture }}</td>
+    <td><img class="thumbnail" src={{individualProfile.profilePicture}} alt="" srcset=""></td>
     <td>{{ individualProfile.biography }}</td>
     <td>{{ individualProfile.motto }}</td>
   </tr>
