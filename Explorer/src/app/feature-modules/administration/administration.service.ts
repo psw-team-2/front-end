@@ -1,8 +1,8 @@
-import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Equipment } from './model/equipment.model';
 import { environment } from 'src/env/environment';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Profile } from './model/profile.model';
 
@@ -34,9 +34,23 @@ export class AdministrationService {
   getByUserId(): Observable<Profile> {
     return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-user');
   }
+
+  getByUserId2(): Observable<Profile> {
+    return this.http.get<Profile>('https://localhost:44333/api/administration/profile2/by-user');
+  }
   
   updateProfile(profile: Profile): Observable<Profile> {
     return this.http.put<Profile>('https://localhost:44333/api/administration/profile/' + profile.id + '/' + profile.userId, profile);
+  }
+
+  updateProfile2(profile: Profile): Observable<Profile> {
+    return this.http.put<Profile>('https://localhost:44333/api/administration/profile2/' + profile.id + '/' + profile.userId, profile)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Request failed:', error);
+          return throwError('An error occurred. Please try again later.');
+        })
+      );
   }
 
   upload(file: File): Observable<HttpEvent<any>> {
@@ -45,6 +59,19 @@ export class AdministrationService {
     formData.append('file', file);
 
     const req = new HttpRequest('POST', `https://localhost:44333/api/administration/profile/UploadFile`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
+  }
+
+  upload2(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST', `https://localhost:44333/api/administration/profile2/UploadFile`, formData, {
       reportProgress: true,
       responseType: 'json'
     });

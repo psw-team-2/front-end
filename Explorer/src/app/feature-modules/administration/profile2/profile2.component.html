@@ -1,4 +1,4 @@
-<h1>Your profile (tourist):</h1>
+<h1>Your profile (author):</h1>
 <table>
   <tr>
     <th>First Name:</th>
@@ -17,5 +17,5 @@
     <button (click) = "onChangeClicked(individualProfile)">Change profile picture</button>
   </tr>
 </table>
-<xp-profile-form *ngIf="selectedProfile && showProfileForm" (profileUpdated) = "getByUserId()" [profile] = "selectedProfile"></xp-profile-form>
-<xp-picture-form *ngIf="selectedProfile && showPictureForm" (profileUpdated) = "getByUserId()" [profile] = "selectedProfile"></xp-picture-form>
+<xp-profile-form2 *ngIf="selectedProfile && showProfileForm" (profileUpdated) = "getByUserId()" [profile] = "selectedProfile"></xp-profile-form2>
+<xp-picture-form2 *ngIf="selectedProfile && showPictureForm" (profileUpdated) = "getByUserId()" [profile] = "selectedProfile"></xp-picture-form2>

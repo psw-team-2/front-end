@@ -7,6 +7,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileFormComponent } from './profile-form/profile-form.component';
 import { PictureFormComponent } from './picture-form/picture-form.component';
+import { Profile2Component } from './profile2/profile2.component';
+import { ProfileForm2Component } from './profile-form2/profile-form2.component';
+import { PictureForm2Component } from './picture-form2/picture-form2.component';
 
 
 
@@ -16,7 +19,10 @@ import { PictureFormComponent } from './picture-form/picture-form.component';
     EquipmentComponent,
     ProfileComponent,
     ProfileFormComponent,
-    PictureFormComponent
+    PictureFormComponent,
+    Profile2Component,
+    ProfileForm2Component,
+    PictureForm2Component
   ],
   imports: [
     CommonModule,
@@ -26,7 +32,8 @@ import { PictureFormComponent } from './picture-form/picture-form.component';
   exports: [
     EquipmentComponent,
     EquipmentFormComponent,
-    ProfileComponent
+    ProfileComponent,
+    Profile2Component
   ]
 })
 export class AdministrationModule { }
