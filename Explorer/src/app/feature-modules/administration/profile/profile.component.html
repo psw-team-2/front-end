@@ -1,11 +1,11 @@
-<h1>PRIKAZ PROFILA</h1>
-<table> <!-- Use *ngIf to conditionally render the table -->
+<h1>Your profile:</h1>
+<table>
   <tr>
-    <th>Ime:</th>
-    <th>Prezime:</th>
-    <th>Slika:</th>
-    <th>Bio:</th>
-    <th>Moto:</th>
+    <th>First Name:</th>
+    <th>Last Name:</th>
+    <th>Profile Picture:</th>
+    <th>Biography:</th>
+    <th>Motto:</th>
   </tr>
   <tr *ngFor="let individualProfile of profile">
     <td>{{ individualProfile.firstName }}</td>
@@ -13,7 +13,9 @@
     <td><img class="thumbnail" src={{individualProfile.profilePicture}} alt="" srcset=""></td>
     <td>{{ individualProfile.biography }}</td>
     <td>{{ individualProfile.motto }}</td>
-    <button (click) = "onEditClicked(individualProfile)">Edit</button>
+    <button (click) = "onEditClicked(individualProfile)">Edit profile info</button>
+    <button (click) = "onChangeClicked(individualProfile)">Change profile picture</button>
   </tr>
 </table>
-<xp-profile-form (profileUpdated) = "getByUserId()" [profile] = "selectedProfile"></xp-profile-form>
+<xp-profile-form *ngIf="selectedProfile && showProfileForm" (profileUpdated) = "getByUserId()" [profile] = "selectedProfile"></xp-profile-form>
+<xp-picture-form *ngIf="selectedProfile && showPictureForm" (profileUpdated) = "getByUserId()" [profile] = "selectedProfile"></xp-picture-form>

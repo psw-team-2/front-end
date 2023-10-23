@@ -6,6 +6,7 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileFormComponent } from './profile-form/profile-form.component';
+import { PictureFormComponent } from './picture-form/picture-form.component';
 
 
 
@@ -14,7 +15,8 @@ import { ProfileFormComponent } from './profile-form/profile-form.component';
     EquipmentFormComponent,
     EquipmentComponent,
     ProfileComponent,
-    ProfileFormComponent
+    ProfileFormComponent,
+    PictureFormComponent
   ],
   imports: [
     CommonModule,

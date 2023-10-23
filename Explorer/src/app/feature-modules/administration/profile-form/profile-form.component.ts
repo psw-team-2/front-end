@@ -23,7 +23,6 @@ export class ProfileFormComponent implements OnChanges {
   profileForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    profilePicture: new FormControl('', [Validators.required]),
     biography: new FormControl('', [Validators.required]),
     motto: new FormControl('', [Validators.required])
   })
@@ -37,7 +36,7 @@ export class ProfileFormComponent implements OnChanges {
     const profile: Profile = {
       firstName: this.profileForm.value.firstName || "",
       lastName: this.profileForm.value.lastName || "",
-      profilePicture: 'https://localhost:44333/Images/' + this.currentFile.name || "",
+      profilePicture: this.profile.profilePicture,
       biography: this.profileForm.value.biography || "",
       motto: this.profileForm.value.motto || "",
       isActive: true
@@ -45,6 +44,7 @@ export class ProfileFormComponent implements OnChanges {
     profile.id = this.profile.id;
     profile.userId = this.profile.userId;
 
+    /*
     await this.service.upload(this.currentFile).subscribe({
       next: (value) => {
 
@@ -54,6 +54,7 @@ export class ProfileFormComponent implements OnChanges {
       }, complete: () => {
       },
     });
+    */
 
     this.service.updateProfile(profile).subscribe({
       next: (_) => {

@@ -13,6 +13,8 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 export class ProfileComponent implements OnInit{
   profile: Profile[] = [];
   selectedProfile: Profile;
+  showProfileForm: boolean = false;
+  showPictureForm: boolean = false;
   
   
   constructor(private service: AdministrationService) { }
@@ -38,5 +40,14 @@ export class ProfileComponent implements OnInit{
   onEditClicked(profile: Profile): void {
     this.selectedProfile = profile;
     console.log(this.selectedProfile);
+    this.showProfileForm = true;
+    this.showPictureForm = false;
+  }
+
+  onChangeClicked(profile: Profile): void {
+    this.selectedProfile = profile;
+    console.log(this.selectedProfile);
+    this.showProfileForm = false;
+    this.showPictureForm = true;
   }
 }
