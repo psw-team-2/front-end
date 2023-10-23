@@ -20,4 +20,12 @@ export class ClubRequestService {
     return this.http.delete<ClubRequest>(environment.apiHost + 'clubRequests/withdrawRequest/' + id);
   }
  
+  acceptRequest(clubRequest: ClubRequest): Observable<ClubRequest> {
+    return this.http.post<ClubRequest>(environment.apiHost + 'clubRequests/acceptRequest', clubRequest);
+  }
+
+  rejectRequest(clubRequest: ClubRequest): Observable<ClubRequest> {
+    return this.http.post<ClubRequest>(environment.apiHost + 'clubRequests/rejectRequest', clubRequest);
+  }
+
 }
