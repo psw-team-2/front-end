@@ -14,6 +14,7 @@ export class CheckpointComponent implements OnInit{
   selectedCheckpoint: Checkpoint;
   shouldEdit: boolean = false;
   shouldRenderCheckpointForm: boolean = false;
+  isClickEnabled: boolean = false;
 
   constructor(private service: TourAuthoringService) {}
 

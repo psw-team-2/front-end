@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { Checkpoint } from '../model/checkpoint.model';
+import { MapService } from 'src/app/shared/map/map.service';
 
 @Component({
   selector: 'xp-checkpoint-form',
@@ -14,7 +15,11 @@ export class CheckpointFormComponent {
   @Input() checkpoint: Checkpoint;
   @Input() shouldEdit: boolean = false;
 
-  currentFile: File;
+  mapService: MapService;
+  currentFile: File | null;
+  selectedCoordinates: number[] = [];
+  isClickEnabled: boolean = true;
+
   constructor(private service: TourAuthoringService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -38,13 +43,16 @@ export class CheckpointFormComponent {
     image: new FormControl('', [Validators.required])
   })
 
-  async addCheckpoint():  Promise<void> {
+  async addCheckpoint(): Promise<void> {
 
+    if(this.currentFile == null){
+      return;
+    }
     const checkpoint: Checkpoint = {
       name: this.checkpointForm.value.name || "",
       description: this.checkpointForm.value.description || "",
-      longitude: Number(this.checkpointForm.value.longitude) || 0,
-      latitude: Number(this.checkpointForm.value.latitude) || 0,
+      longitude: this.selectedCoordinates[1] || 0,
+      latitude: this.selectedCoordinates[0] || 0,
       image: 'https://localhost:44333/Images/' + this.currentFile.name
     }
     await this.service.upload(this.currentFile).subscribe({
@@ -59,19 +67,24 @@ export class CheckpointFormComponent {
     this.service.addCheckpoint(checkpoint).subscribe({
       next: (_) => {
         this.checkpointUpdated.emit()
-      }});
+      }
+    });
   }
 
   onFileSelected(event: any) {
     this.currentFile = event.target.files[0];
   }
 
+  deleteFile() {
+    this.currentFile = null;
+  }
+
   updateCheckpoint(): void {
     const checkpoint: Checkpoint = {
       name: this.checkpointForm.value.name || "",
       description: this.checkpointForm.value.description || "",
-      longitude: Number(this.checkpointForm.value.longitude) || 0,
-      latitude: Number(this.checkpointForm.value.latitude) || 0,
+      longitude: this.selectedCoordinates[1] || 0,
+      latitude: this.selectedCoordinates[0] || 0,
       image: this.checkpointForm.value.image || ""
     }
     checkpoint.id = this.checkpoint.id;
@@ -81,4 +94,13 @@ export class CheckpointFormComponent {
       }
     })
   }
+
+  toggleClickEvent() {
+    this.isClickEnabled = !this.isClickEnabled;
+  }
+
+  onCoordinatesSelected(coordinates: number[]) {
+    this.selectedCoordinates = coordinates;
+  }
+
 }

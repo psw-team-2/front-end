@@ -2,46 +2,46 @@
     <p>Checkpoints</p>
     <hr>
     <div id="checkpoint-details">
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Longitude</th>
-                    <th>Latitude</th>
-                    <th>Image</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let cp of checkpoint">
-                    <td>{{cp.name}}</td>
-                    <td>{{cp.description}}</td>
-                    <td>{{cp.longitude}}</td>
-                    <td>{{cp.latitude}}</td>
-                    <td><img class="thumbnail" src={{cp.image}} alt="" srcset=""></td>
-                    <td>
-                        <button (click)="deleteCheckpoint(cp.id || 0)" color="accent" mat-icon-button>
-                            <mat-icon>delete</mat-icon>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Longitude</th>
+                        <th>Latitude</th>
+                        <th>Image</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cp of checkpoint">
+                        <td>{{cp.name}}</td>
+                        <td>{{cp.description}}</td>
+                        <td>{{cp.longitude}}</td>
+                        <td>{{cp.latitude}}</td>
+                        <td><img class="thumbnail" src={{cp.image}} alt="" srcset=""></td>
+                        <td>
+                            <button (click)="deleteCheckpoint(cp.id || 0)" color="accent" mat-icon-button>
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                            <button (click)="onEditClicked(cp)" color="primary" mat-icon-button>
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <button (click)="onAddClicked()" color="primary" mat-icon-button>
+                            <mat-icon>add</mat-icon>
                         </button>
-                        <button (click)="onEditClicked(cp)" color="primary" mat-icon-button>
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <button (click)="onAddClicked()" color="primary" mat-icon-button>
-                        <mat-icon>add</mat-icon>
-                    </button>
-                </tr>
-            </tbody>
-        </table>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <xp-checkpoint-form *ngIf="shouldRenderCheckpointForm" (checkpointUpdated)="getCheckpoint()"
+                [checkpoint]="selectedCheckpoint" [shouldEdit]="shouldEdit"></xp-checkpoint-form>
+        </div>
     </div>
-    <div>
-        <xp-checkpoint-form *ngIf="shouldRenderCheckpointForm" (checkpointUpdated) = "getCheckpoint()" [checkpoint] = "selectedCheckpoint" [shouldEdit]="shouldEdit"></xp-checkpoint-form>
-    </div>
-    </div>
-    
 </div>
