@@ -31,6 +31,9 @@ export class RegistrationComponent {
       email: this.registrationForm.value.email || "",
       username: this.registrationForm.value.username || "",
       password: this.registrationForm.value.password || "",
+      profilePicture: "/",
+      biography: "/",
+      motto: "/"
     };
 
     if (this.registrationForm.valid) {
