@@ -2,7 +2,7 @@ import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output } fro
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BlogComment } from '../model/blog-comment.model';
 import { BlogService } from '../blog.service';
-import { DatePipe } from '@angular/common';
+
 
 
 @Component({
@@ -32,13 +32,16 @@ export class BlogCommentFormComponent {
 
     addBlogComment(): void {
       
-    console.log(this.blogComment.creationTime);
+  
     const blogComment: BlogComment = {
       
       text: this.blogCommentForm.value.text || "",
-      creationTime: this.blogComment.creationTime
+      creationTime: new Date('2023-10-22T10:30:00'),
+      userId: 0,
+      blogId:0,
+      lastModification: new Date('2023-10-22T10:30:00')
     };
-    console.log(blogComment.creationTime);
+    
     this.service.addBlogComment(blogComment).subscribe({
       next: () => { this.blogCommentUpdated.emit() }
     });
@@ -48,7 +51,10 @@ export class BlogCommentFormComponent {
     const blogComment: BlogComment = {
       
       text: this.blogCommentForm.value.text || "",
-      creationTime: this.blogComment.creationTime
+      creationTime: this.blogComment.creationTime,
+      userId: 0,
+      blogId:0,
+      lastModification: new Date('2023-10-22T10:30:00')
 
     };
     blogComment.id = this.blogComment.id;
