@@ -58,7 +58,8 @@ export class ClubListComponent implements OnInit {
     this.shouldRenderClubForm = true;
   }
 
-  onSendRequestClicked(): void {
+  onSendRequestClicked(club: Club): void {
+    this.selectedClub = club;
     if (this.currentUser && this.currentUser.role === 'tourist') {
       const clubRequest: ClubRequest = {
         id: undefined, 

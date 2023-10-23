@@ -1,1 +1,30 @@
-<p>club-request works!</p>
+<div id="clubRequest">
+    <p>Club Requests</p>
+    <hr>
+    <div id="clubRequest-details">
+        <table>
+            <thead>
+                <tr>
+                    <th>Club id</th>
+                    <th>Account id</th>
+                    <th>Request status</th>
+                    <th>Request type</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cr of clubRequest">
+                    <td>{{cr.clubId}}</td>
+                    <td>{{cr.accountId}}</td>
+                    <td>{{cr.requestStatus}}</td>
+                    <td>{{cr.requestType}}</td>
+                    <td>
+                        <button color="accent" (click)="onWithdrawRequestClicked(cr.id || 0)" mat-icon-button>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

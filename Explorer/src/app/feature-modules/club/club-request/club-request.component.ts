@@ -1,27 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { ClubService } from '../club.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import { Club } from '../model/club.model';
+import { ClubRequest } from '../model/club-request.model';
+import { ClubRequestService } from '../club-request.service';
 
 @Component({
   selector: 'xp-club-request',
   templateUrl: './club-request.component.html',
   styleUrls: ['./club-request.component.css']
 })
-export class ClubRequestComponent /*implements OnInit*/ {
+export class ClubRequestComponent implements OnInit {
 
-/*club: Club[] = [];
+  clubRequest: ClubRequest[] = [];
+  selectedRequest: ClubRequest;
 
-  constructor(private service: ClubService) {}
+
+  constructor(private service: ClubRequestService) {}
 
   ngOnInit(): void {
-    this.service.getClubs().subscribe({
-      next: (result: PagedResults<Club>) => {
-        this.club = result.results;
+    this.getClubRequests();
+  }  
+
+  getClubRequests(): void {
+    this.service.getClubRequests().subscribe({
+      next: (result: PagedResults<ClubRequest>) => {
+        this.clubRequest = result.results;
       },
-      error: (err: any) => {
-        console.log(err)
+      error: () => {
       }
     })
-  }  */
+  }
+
+  onWithdrawRequestClicked(id: number): void {
+    this.service.withdrawRequest(id).subscribe({
+      next: () => {
+        console.log("The request for joining the club has been successfully withdraw!");
+        this.getClubRequests();
+      },
+      error: () => {
+      } 
+    })
+  }
+
 }

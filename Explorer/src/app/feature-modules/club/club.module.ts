@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ClubFormComponent } from './club-form/club-form.component';
 import { ClubListComponent } from './club-list/club-list.component';
 import { ClubRequestComponent } from './club-request/club-request.component';
+import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { ClubRequestComponent } from './club-request/club-request.component';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule
   ],
   exports: [
     ClubFormComponent, 
