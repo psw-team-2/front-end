@@ -10,6 +10,7 @@ import { PictureFormComponent } from './picture-form/picture-form.component';
 import { Profile2Component } from './profile2/profile2.component';
 import { ProfileForm2Component } from './profile-form2/profile-form2.component';
 import { PictureForm2Component } from './picture-form2/picture-form2.component';
+import { TourPreferenceModule } from '../tour-preference/tour-preference.module';
 
 
 
@@ -27,7 +28,8 @@ import { PictureForm2Component } from './picture-form2/picture-form2.component';
   imports: [
     CommonModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TourPreferenceModule
   ],
   exports: [
     EquipmentComponent,
