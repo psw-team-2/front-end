@@ -14,6 +14,8 @@ import { TourExecutionModule } from './feature-modules/tour-execution/tour-execu
 import { AuthModule } from './infrastructure/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
+import { AuthService } from './infrastructure/auth/auth.service'; 
+
 
 @NgModule({
   declarations: [
@@ -37,8 +39,9 @@ import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
-      multi: true,
+      multi: true,     
     },
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ApplicationReviewComponent } from './application-review/application-review.component';
+import { ApplicationReviewFormComponent } from './application-review-form/application-review-form.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    ApplicationReviewComponent
+    ApplicationReviewFormComponent
   ],
   imports: [
     CommonModule,
@@ -14,7 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   exports: [
-    ApplicationReviewComponent,
+    ApplicationReviewFormComponent,
   ]
 })
 export class MarketplaceModule { }

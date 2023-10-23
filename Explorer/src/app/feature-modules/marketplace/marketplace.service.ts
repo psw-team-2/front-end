@@ -13,7 +13,11 @@ export class MarketplaceService {
 
   constructor(private http: HttpClient) { }
 
-  getApplicationReview(): Observable<PagedResults<ApplicationReview>> { 
+  addApplicationReview(applicationReview: ApplicationReview): Observable<ApplicationReview> { 
+    return this.http.post<ApplicationReview>(environment.apiHost + 'tourist/applicationReview', applicationReview); 
+  }
+
+  /*getApplicationReview(): Observable<PagedResults<ApplicationReview>> { 
     return this.http.get<PagedResults<ApplicationReview>>(environment.apiHost + 'tourist/applicationReview'); 
   }
 
@@ -21,11 +25,7 @@ export class MarketplaceService {
     return this.http.delete<ApplicationReview>(environment.apiHost + 'tourist/applicationReview/' + id); 
   }
 
-  addApplicationReview(applicationReview: ApplicationReview): Observable<ApplicationReview> { 
-    return this.http.post<ApplicationReview>(environment.apiHost + 'tourist/applicationReview', applicationReview); 
-  }
-
   updateApplicationReview(applicationReview: ApplicationReview): Observable<ApplicationReview> { 
     return this.http.put<ApplicationReview>(environment.apiHost + 'tourist/applicationReview/' + applicationReview.id, applicationReview); // Updated endpoint
-  }
+  }*/
 }
