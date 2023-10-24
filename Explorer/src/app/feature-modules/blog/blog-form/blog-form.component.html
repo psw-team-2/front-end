@@ -1,4 +1,4 @@
-<form [formGroup]="blogForm">
+<form [formGroup]="blogForm"  >
     <div>
         <mat-form-field>
             <mat-label>Title</mat-label>
@@ -12,10 +12,11 @@
             formControlName="description"
             cdkAutosizeMaxRows="5"></textarea>
           </mat-form-field>
-        <mat-form-field>
-            <mat-label>Image</mat-label>
-            <input matInput formControlName="image" type="text"/>
-        </mat-form-field>
+          <img *ngIf="currentFile" [src]="currentFileUrl" alt="Selected Image" class="thumbnail"/>
+          <img *ngIf="!currentFile" [src]="currentFileUrl" class="thumbnail"/>
+          <mat-label>Images</mat-label>
+            <button mat-raised-button color="primary" (click)="fileInput.click()">Upload File</button>
+            <input hidden #fileInput type="file" (change)="onFileSelected($event)">
         <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addBlog()" mat-raised-button>Done</button>
     <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateBlog()" mat-raised-button>Done</button>
     </div>
