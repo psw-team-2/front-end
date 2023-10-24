@@ -18,7 +18,8 @@ h2 {
 }
 
 .image-cell {
-    width: 50%;
+    width: 30%;
+    height: auto;
     text-align: center;
 }
 
