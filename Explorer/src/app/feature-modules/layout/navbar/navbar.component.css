@@ -20,13 +20,13 @@
 }
 
 .menuButton {
-  margin-right: 10px; /* Adjust the spacing between the menu button and the Explorer text */
+  margin-right: 0vh; /* Adjust the spacing between the menu button and the Explorer text */
   font-weight: 350;
 }
 
 .explorer {
-  font-size: 24px; /* Adjust the font size for Explorer text */
-  margin-top: 5px;
+  font-size: 3vh; /* Adjust the font size for Explorer text */
+  margin-top: 1vh;
   
 }
 
