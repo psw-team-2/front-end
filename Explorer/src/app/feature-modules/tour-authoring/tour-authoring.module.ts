@@ -1,17 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TourFormComponent } from './tour-form/tour-form.component';
 import { TourComponent } from './tour/tour.component';
+import { TourFormComponent } from './tour-form/tour-form.component';
+import { MaterialModule } from 'src/app/infrastructure/material/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
 @NgModule({
   declarations: [
-    TourFormComponent,
-    TourComponent
+    TourComponent,
+    TourFormComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    SharedModule
+  ],
+  exports: [
+    TourComponent,
+    TourFormComponent
   ]
 })
 export class TourAuthoringModule { }
