@@ -5,6 +5,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { RouterModule } from '@angular/router';
 import { StartYourJourneyComponent } from './start-your-journey/start-your-journey.component';
+import { HeroComponent } from './home/hero/hero.component';
 
 @NgModule({
   declarations: [
