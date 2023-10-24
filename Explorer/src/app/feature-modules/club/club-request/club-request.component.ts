@@ -85,11 +85,15 @@ export class ClubRequestComponent implements OnInit {
 
     if (club && this.currentUser && this.currentUser.id === club.ownerId) {
       this.selectedRequest.requestStatus = 1;
-  
+
       this.service.acceptRequest(clubRequest).subscribe({
         next: () => {
            console.log("Your request to join the club has been accepted!")
            this.getClubRequests();
+
+           club.memberIds.push(this.selectedRequest.accountId);
+           this.clubService.updateClub(club);
+           this.getClubs();
         },
         error: () => {}
       });
@@ -103,7 +107,7 @@ export class ClubRequestComponent implements OnInit {
     if (club && this.currentUser && this.currentUser.id === club.ownerId) {
       this.selectedRequest.requestStatus = 2;
 
-      this.service.acceptRequest(clubRequest).subscribe({
+      this.service.rejectRequest(clubRequest).subscribe({
         next: () => {
            console.log("Your request to join the club has been rejected!")
            this.getClubRequests();
