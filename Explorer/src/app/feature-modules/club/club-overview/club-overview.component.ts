@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ClubService } from '../club.service';
 import { Club } from '../model/club.model';
+import { ClubRequest } from '../model/club-request.model';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, concatMap, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'xp-club-overview',
@@ -20,6 +21,9 @@ export class ClubOverviewComponent {
   isOwner: boolean;
   user: User | undefined;
   memberUsernames: string[] = [];
+  allMemberIds: number[] = [];
+  nonMemberIds: number[] = [];
+  nonMemberUsernames: string[] = [];
 
   ngOnInit(): void {
     this.clubId = Number(this.route.snapshot.paramMap.get('id'));
@@ -40,7 +44,24 @@ export class ClubOverviewComponent {
           this.isOwner = false;
         }
 
-        this.memberUsernames = [];
+        this.authService.getAllUserIds().subscribe(response => {
+          const userIds = Object.values(response);
+          for (const userId of userIds) {
+            this.allMemberIds.push(userId);
+        }
+          for (let userId of this.allMemberIds) {
+            if (this.club.memberIds.indexOf(userId) === -1) {
+              this.nonMemberIds.push(userId);
+            }
+          }
+          for (let i = 0; i < this.nonMemberIds.length; i++) {
+            const currentValue = this.nonMemberIds[i];
+            this.authService.getUsername(currentValue).subscribe((response: object) => {
+              const username = response as { username: string, password: string};
+              this.nonMemberUsernames.push(username.username);
+            });
+          }
+        });
 
         for (let i = 0; i < this.club.memberIds.length; i++) {
           const currentValue = this.club.memberIds[i];
@@ -60,5 +81,23 @@ export class ClubOverviewComponent {
     this.service.updateClub(this.club).subscribe({
       next: () => {}
     });
-}
+  }
+
+  inviteMember(nonMemberId: number) {
+    this.nonMemberIds = this.nonMemberIds.filter(id => id !== nonMemberId);
+    
+    let clubId = this.clubId;
+    let ownerId = this.club.ownerId;
+
+    const request: ClubRequest = {
+      clubId: clubId,
+      accountId: ownerId,
+      requestStatus: 0,
+      requestType: 0
+    } 
+
+    this.service.inviteMember(request).subscribe({
+      next: () => {}
+    });
+  }
 }
