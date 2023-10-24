@@ -16,7 +16,6 @@
                         <td>{{cl.name}}</td>
                         <td>{{cl.description}}</td>
                         <td>
-                            <button color="accent" (click)="deleteClub(cl.id || 0)" mat-icon-button>Delete</button>
                             <button color="primary" (click)="onEditClicked(cl)" mat-icon-button>Edit</button>
                             <button color="primary" [routerLink]="['/clubs', cl.id]">Go to Club</button>
                         </td>
