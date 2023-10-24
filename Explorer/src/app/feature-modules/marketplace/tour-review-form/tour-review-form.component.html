@@ -12,6 +12,7 @@
           formControlName="comment"
           cdkAutosizeMaxRows="5"></textarea>
         </mat-form-field>
+        <img *ngIf="currentFile" [src]="currentFileURL" alt="Selected Image" class="thumbnail" />
             <mat-label>Images</mat-label>
             <button mat-raised-button color="primary" (click)="fileInput.click()">Upload File</button>
             <input hidden #fileInput type="file" (change)="onFileSelected($event)">

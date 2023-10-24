@@ -21,7 +21,7 @@ export class TourReviewFormComponent {
   @Output() tourReviewUpdated = new EventEmitter<null>();
 
   currentFile: File;
-
+  currentFileURL: string | null = null;
   tourReviewForm = new FormGroup({
     grade: new FormControl('', [Validators.required]),
     comment: new FormControl('', [Validators.required]),
@@ -64,6 +64,10 @@ export class TourReviewFormComponent {
 
   onFileSelected(event: any) {
     this.currentFile = event.target.files[0];
+    if (this.currentFile) {
+      // Create a URL for the selected file
+      this.currentFileURL = window.URL.createObjectURL(this.currentFile);
+    }
   }
 
   

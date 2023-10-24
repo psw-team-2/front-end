@@ -5,6 +5,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>Username</th>
                     <th>Grade</th>
                     <th>Comment</th>
                     <th>Image</th>
@@ -14,6 +15,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let tr of tourReview">
+                    <td>{{ getUserName(tr.userId) }}</td>
                     <td>{{tr.grade}}</td>
                     <td>{{tr.comment}}</td>
                     <td class="thumbnail">
