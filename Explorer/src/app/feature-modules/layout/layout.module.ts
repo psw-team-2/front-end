@@ -4,11 +4,13 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { RouterModule } from '@angular/router';
+import { StartYourJourneyComponent } from './start-your-journey/start-your-journey.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    StartYourJourneyComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    StartYourJourneyComponent
   ]
 })
 export class LayoutModule { }
