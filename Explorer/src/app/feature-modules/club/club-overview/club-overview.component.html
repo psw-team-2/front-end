@@ -1,0 +1,9 @@
+<div>
+    <h1>{{ club?.name }}</h1>
+    <p>{{ club?.description }}</p>
+    <ul>
+        <li *ngFor="let memberId of club?.memberIds; let i=index">{{ memberUsernames[i] || 'Unknown' }}
+            <button *ngIf="isOwner" (click)="kickMember(memberId)">Kick</button>
+        </li>
+    </ul>
+</div>

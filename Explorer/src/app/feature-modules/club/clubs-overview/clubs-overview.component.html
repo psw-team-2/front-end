@@ -1,0 +1,32 @@
+<div id="equipment">
+    <p>Clubs</p>
+    <hr>
+    <div id="equipment-details">
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naziv</th>
+                        <th>Opis</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cl of clubs">
+                        <td>{{cl.name}}</td>
+                        <td>{{cl.description}}</td>
+                        <td>
+                            <button color="accent" (click)="deleteClub(cl.id || 0)" mat-icon-button>Delete</button>
+                            <button color="primary" (click)="onEditClicked(cl)" mat-icon-button>Edit</button>
+                            <button color="primary" [routerLink]="['/clubs', cl.id]">Go to Club</button>
+                        </td>
+                    </tr>
+                    <tr><button color="primary" (click)="onAddClicked()" mat-icon-button>Add
+                    </button></tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+        </div>
+    </div>
+</div>

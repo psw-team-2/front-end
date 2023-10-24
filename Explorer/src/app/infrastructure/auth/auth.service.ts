@@ -58,6 +58,10 @@ export class AuthService {
     this.setUser();
   }
 
+  getUsername(id: number): Observable<object> {
+    return this.http.get(environment.apiHost + 'users/' + id);
+  }
+
   private setUser(): void {
     const jwtHelperService = new JwtHelperService();
     const accessToken = this.tokenStorage.getAccessToken() || "";
