@@ -23,7 +23,7 @@ export class ApplicationReviewFormComponent{
 
   applicationReviewForm = new FormGroup({
     grade: new FormControl('', [Validators.required]),
-    comment: new FormControl('', [Validators.required]),
+    comment: new FormControl(''),
   });
 
   addApplicationReview(): void {

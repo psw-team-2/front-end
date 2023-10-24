@@ -6,6 +6,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>Username</th>
                     <th>Grade</th>
                     <th>Comment</th>
                     <th></th>
@@ -14,8 +15,9 @@
             </thead>
             <tbody>
                 <tr *ngFor="let ar of applicationReview">
-                    <td>{{ar.grade}}</td>
-                    <td>{{ar.comment}}</td>                   
+                    <td>{{ getUserName(ar.userId) }}</td>
+                    <td>{{ ar.grade }}</td>
+                    <td>{{ ar.comment }}</td>                   
                 </tr>               
             </tbody>
         </table>

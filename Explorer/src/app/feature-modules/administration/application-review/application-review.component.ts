@@ -2,6 +2,8 @@ import { Component,OnInit } from '@angular/core';
 import { AdministrationService } from '../administration.service';
 import { ApplicationReview } from '../../marketplace/model/application-review.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { User } from 'src/app/infrastructure/auth/model/user.model'; 
 
 @Component({
   selector: 'xp-application-review',
@@ -10,44 +12,42 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 })
 export class ApplicationReviewComponent implements OnInit {
   applicationReview: ApplicationReview[] = [];
-  selectedApplicationReview: ApplicationReview;
-  shouldRenderApplicationReviewForm: boolean = false;
-  shouldEdit: boolean = false;
+  userNames: { [key: number]: string } = {};
   
-  constructor(private service: AdministrationService) { }
+  
+  constructor(private authService: AuthService,private service: AdministrationService) { }
   
   ngOnInit(): void {
     this.getApplicationReview();
   }
   
-  deleteApplicationReview(id: number): void {
-    this.service.deleteApplicationReview(id).subscribe({
-      next: () => {
-        this.getApplicationReview();
-      },
-    });
-  }
   
   getApplicationReview(): void {
     this.service.getApplicationReview().subscribe({
       next: (result: PagedResults<ApplicationReview>) => {
         this.applicationReview = result.results;
+        this.loadUserNames();
       },
       error: () => {
-        // Ovde možete obraditi greške ako je potrebno
+        
       },
     });
   }
-  
-  onEditClicked(applicationReview: ApplicationReview): void {
-    this.selectedApplicationReview = applicationReview;
-    this.shouldRenderApplicationReviewForm = true;
-    this.shouldEdit = true;
+
+  loadUserNames(): void {
+    this.applicationReview.forEach((applicationReview) => {
+      this.authService.getUserById(applicationReview.userId).subscribe((user: User) => {
+        this.userNames[applicationReview.userId] = user.username;
+      });
+    });
   }
-  
-  onAddClicked(): void {
-    this.shouldEdit = false;
-    this.shouldRenderApplicationReviewForm = true;
+
+  getUserName(userId: number): string {
+    if (this.userNames[userId]) {
+      return this.userNames[userId];
+    }
+    return 'Nepoznato';
   }
+
   
 }
