@@ -15,7 +15,7 @@ export class TourAuthoringService {
     return this.http.get<PagedResults<Tour>>('https://localhost:44333/api/addcheckpoint/checkpoint?page=0&pageSize=0');
   }
 
-  addTpur(tour: Tour) : Observable<Tour>{
+  addTour(tour: Tour) : Observable<Tour>{
     return this.http.post<Tour>('https://localhost:44333/api/addcheckpoint/checkpoint/', tour)
   }
 
