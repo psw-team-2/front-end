@@ -9,6 +9,7 @@
                         <th>Name</th>
                         <th>Description</th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -18,6 +19,9 @@
                         <td>
                             <button color="primary" (click)="onEditClicked(cl)" mat-icon-button><mat-icon>edit</mat-icon></button>
                             <button color="primary" [routerLink]="['/clubs', cl.id]">Go to Club</button>
+                        </td>
+                        <td>
+                            <button (click)="onSendRequestClicked(cl)" color="primary">send request</button>
                         </td>
                     </tr>
                     <tr><button color="primary" (click)="onAddClicked()" mat-icon-button>

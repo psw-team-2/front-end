@@ -91,7 +91,7 @@ export class ClubOverviewComponent {
 
     const request: ClubRequest = {
       clubId: clubId,
-      accountId: ownerId,
+      accountId: nonMemberId,
       requestStatus: 0,
       requestType: 0
     } 
