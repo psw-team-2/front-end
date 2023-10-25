@@ -36,4 +36,8 @@ export class ClubService {
   inviteMember(request: ClubRequest) {
     return this.http.post<ClubRequest>(environment.apiHost + 'tourist/clubRequests', request);
   }
+  
+  sendRequest(clubRequest: ClubRequest): Observable<ClubRequest> {
+    return this.http.post<ClubRequest>(environment.apiHost + 'clubRequests/sendRequest', clubRequest);
+  }
 }

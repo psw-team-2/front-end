@@ -6,13 +6,14 @@ import { RouterModule } from '@angular/router';
 import { ClubFormComponent } from './club-form/club-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
-
+import { ClubRequestComponent } from './club-request/club-request.component';
 
 @NgModule({
   declarations: [
     ClubsOverviewComponent,
     ClubOverviewComponent,
-    ClubFormComponent
+    ClubFormComponent,
+    ClubRequestComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +24,8 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
   exports: [
     ClubsOverviewComponent,
     ClubOverviewComponent,
-    ClubFormComponent
+    ClubFormComponent,
+    ClubRequestComponent
   ]
 })
-export class ClubModule { }
+export class ClubModule {}
