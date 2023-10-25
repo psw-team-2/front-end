@@ -16,6 +16,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { TouristSelectedEquipmentComponent } from './feature-modules/tourist/tourist-selected-equipment/tourist-selected-equipment.component';
 import { TouristModule } from './feature-modules/tourist/tourist.module';
+import { MatMenu, MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { TouristModule } from './feature-modules/tourist/tourist.module';
     AuthModule,
     HttpClientModule,
     TouristModule
+    MatMenuModule
   ],
   providers: [
     {
