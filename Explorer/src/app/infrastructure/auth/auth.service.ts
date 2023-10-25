@@ -70,4 +70,8 @@ export class AuthService {
     };
     this.user$.next(user);
   }
+
+  getUserById(userId: number): Observable<User> {
+    return this.http.get<User>(`${environment.apiHost}users/${userId}`);
+  }
 }
