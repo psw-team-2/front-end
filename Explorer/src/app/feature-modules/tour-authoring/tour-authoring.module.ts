@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CheckpointComponent } from './checkpoint/checkpoint.component';
 import { CheckpointFormComponent } from './checkpoint-form/checkpoint-form.component';
+import { TourComponent } from './tour/tour.component';
+import { TourFormComponent } from './tour-form/tour-form.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -11,7 +13,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
 @NgModule({
   declarations: [
     CheckpointComponent,
-    CheckpointFormComponent
+    CheckpointFormComponent,
+    TourComponent,
+    TourFormComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +25,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
   ],
   exports: [
     CheckpointComponent,
-    CheckpointFormComponent
+    CheckpointFormComponent,
+    TourComponent,
+    TourFormComponent
   ]
 })
 export class TourAuthoringModule { }
