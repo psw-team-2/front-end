@@ -1,0 +1,53 @@
+button.custom-button {
+    margin: 0px; 
+    background-color: #2a2133; 
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#blog-management{
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: medium;
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1.title{
+    font-size: 30px;
+    color: #2a2133;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#blog-management-details {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: Montserrat;
+    width: 1400px; 
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.323);
+}
+
+th, td {
+    padding: 10px; 
+    font-family: Montserrat;
+  }
+
+.thumbnail {
+    width: 60px; 
+    height: 60px; 
+}
+
+.thumbnail img {
+    width: 100%; 
+    height: auto; 
+  }
