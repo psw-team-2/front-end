@@ -32,7 +32,7 @@ import { AuthService } from './infrastructure/auth/auth.service';
     TourAuthoringModule,
     TourExecutionModule,
     AuthModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     {
