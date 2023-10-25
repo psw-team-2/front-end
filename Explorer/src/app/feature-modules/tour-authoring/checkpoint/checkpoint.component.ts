@@ -24,20 +24,22 @@ export class CheckpointComponent implements OnInit{
   constructor(private service: TourAuthoringService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.getCheckpoint();
     this.route.params.subscribe(params => {
-      this.tourId = params['id'];
-      console.log(this.tourId);
+      const id = +params['id']; // Parse the 'id' as a number
+      if (!isNaN(id)) {
+        this.tourId = id; // Set the 'tourId' if it's a valid number
+        this.getCheckpoint();
+        console.log(this.tourId);
+      } else {
+      }
     });
   }
 
   getCheckpoint(): void {
-
     this.service.getTour(this.tourId).subscribe({
       next: (result: Tour) =>
       {
-        this.checkpointIds = result.checkpoints;
-        console.log(this.checkpointIds);
+       console.log(result);
       },
       error: () => {
       }     
