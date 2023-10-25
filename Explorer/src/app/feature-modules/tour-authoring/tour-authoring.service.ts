@@ -13,19 +13,19 @@ export class TourAuthoringService {
   constructor(private http: HttpClient) { }
 
   getTours() : Observable<PagedResults<Tour>> {
-    return this.http.get<PagedResults<Tour>>(environment.apiHost + 'tour-authoring/tour');
+    return this.http.get<PagedResults<Tour>>('https://localhost:44333/api/author/tour?page=0&pageSize=0');
   }
 
   addTour(tour: Tour) : Observable<Tour>{
-    return this.http.post<Tour>(environment.apiHost + 'tour-authoring/tour' , tour);
+    return this.http.post<Tour>('https://localhost:44333/api/author/tour/' , tour)
   }
 
 
   updateTour(tour: Tour): Observable<Tour>{
-    return this.http.put<Tour>(environment.apiHost + 'tour-authoring' + tour.id, tour)
+    return this.http.put<Tour>('https://localhost:44333/api/author/tour/' + tour.id, tour)
   }
 
   deleteTour(id: number): Observable<Tour> {
-    return this.http.delete<Tour>(environment.apiHost + 'tour-authoring/tour' + id);
+    return this.http.delete<Tour>('https://localhost:44333/api/author/tour/' + id);
   }
 }

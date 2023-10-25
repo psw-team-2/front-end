@@ -25,7 +25,7 @@ export class TourFormComponent {
         name: this.tour.name || null,
         description: this.tour.description || null,
         difficulty: String(this.tour.difficulty) || null,
-        tags: String(this.tour.tags) || null,
+        tags: this.tour.tags || null,
        
       });
     }
@@ -44,8 +44,8 @@ export class TourFormComponent {
       name: this.tourForm.value.name || "",
       description: this.tourForm.value.description || "",
       difficulty: Number(this.tourForm.value.difficulty) || 0,
-      tags: String(this.tourForm.value.tags) || "",
-      checkpoint: String(this.tourForm.value.tags) || ""
+      tags: this.tourForm.value.tags || ""
+      
     }
   
 
@@ -65,8 +65,8 @@ export class TourFormComponent {
       name: this.tourForm.value.name || "",
       description: this.tourForm.value.description || "",
       difficulty: Number(this.tourForm.value.difficulty) || 0,
-      tags: String(this.tourForm.value.tags) || "",
-      checkpoint: String(this.tourForm.value.tags) || ""
+      tags: String(this.tourForm.value.tags) || ""
+      
     }
     tour.id = this.tour.id;
     this.service.updateTour(tour).subscribe({
