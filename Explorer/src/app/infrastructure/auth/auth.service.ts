@@ -62,6 +62,10 @@ export class AuthService {
     return this.http.get(environment.apiHost + 'users/' + id);
   }
 
+  getAllUserIds(): Observable<object> {
+    return this.http.get(environment.apiHost + 'users/userids');
+  }
+
   private setUser(): void {
     const jwtHelperService = new JwtHelperService();
     const accessToken = this.tokenStorage.getAccessToken() || "";
