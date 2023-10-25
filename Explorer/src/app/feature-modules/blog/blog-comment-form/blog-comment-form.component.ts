@@ -2,6 +2,7 @@ import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output } fro
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BlogComment } from '../model/blog-comment.model';
 import { BlogService } from '../blog.service';
+import { AuthService } from '../../../infrastructure/auth/auth.service';
 
 
 
@@ -20,7 +21,7 @@ export class BlogCommentFormComponent {
     text: new FormControl('', [Validators.required]),
   });
 
-  constructor(private service: BlogService) {
+  constructor(private service: BlogService,private authService: AuthService) {
   }
 
   ngOnChanges(): void {
@@ -32,15 +33,18 @@ export class BlogCommentFormComponent {
 
     addBlogComment(): void {
       
-  
+    const userId = this.authService.user$.value.id;
     const blogComment: BlogComment = {
+
       
       text: this.blogCommentForm.value.text || "",
       creationTime: new Date('2023-10-22T10:30:00'),
-      userId: 0,
+      userId: userId,
       blogId:0,
       lastModification: new Date('2023-10-22T10:30:00')
     };
+
+    
     
     this.service.addBlogComment(blogComment).subscribe({
       next: () => { this.blogCommentUpdated.emit() }
@@ -48,11 +52,12 @@ export class BlogCommentFormComponent {
   }
 
   updateBlogComment(): void {
+    const userId = this.authService.user$.value.id;
     const blogComment: BlogComment = {
       
       text: this.blogCommentForm.value.text || "",
       creationTime: this.blogComment.creationTime,
-      userId: 0,
+      userId: userId,
       blogId:0,
       lastModification: new Date('2023-10-22T10:30:00')
 

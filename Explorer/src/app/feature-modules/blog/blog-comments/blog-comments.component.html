@@ -8,14 +8,17 @@
                 <tr>
                     
                     <th>Opis</th>
+                    <th>Korisnik</th>
                     <th></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let bc of blogComments">
+                    <td>{{ bc.text }}</td>
+                    <td>{{ getUserName(bc.userId) }}</td> <!-- Prikaz korisničkog imena -->
+                    <td>
                     
-                    <td>{{bc.text}}</td>
                     <td>
                         <button color="accent" (click)="deleteBlogComment(bc.id || 0)" mat-icon-button>
                             <mat-icon>delete</mat-icon>

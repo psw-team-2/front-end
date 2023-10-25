@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BlogComment } from '../model/blog-comment.model';
 import { BlogService } from '../blog.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
 
 @Component({
   selector: 'xp-blog-comments',
@@ -14,8 +16,9 @@ export class BlogCommentsComponent implements OnInit {
   selectedBlogComment: BlogComment;
   shouldRenderBlogCommentForm: boolean = false;
   shouldEdit: boolean = false;
+  userNames: { [key: number]: string } = {};
   
-  constructor(private service: BlogService) { }
+  constructor(private service: BlogService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getBlogComment();
@@ -33,10 +36,19 @@ export class BlogCommentsComponent implements OnInit {
     this.service.getBlogComment().subscribe({
       next: (result: PagedResults<BlogComment>) => {
         this.blogComments = result.results;
+        this.loadUserNames(); 
       },
       error: () => {
       }
     })
+  }
+
+  loadUserNames(): void {
+    this.blogComments.forEach((blogComment) => {
+      this.authService.getUserById(blogComment.userId).subscribe((user: User) => {
+        this.userNames[blogComment.userId] = user.username;
+      });
+    });
   }
 
   onEditClicked(blogComment: BlogComment): void {
@@ -49,5 +61,13 @@ export class BlogCommentsComponent implements OnInit {
     this.shouldEdit = false;
     this.shouldRenderBlogCommentForm = true;
   }
+
+  getUserName(userId: number): string {
+    if (this.userNames[userId]) {
+      return this.userNames[userId];
+    }
+    return 'Nepoznato';
+  }
+
 
 }
