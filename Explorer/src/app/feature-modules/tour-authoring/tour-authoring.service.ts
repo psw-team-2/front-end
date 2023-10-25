@@ -46,6 +46,10 @@ export class TourAuthoringService {
     return this.http.get<PagedResults<Tour>>('https://localhost:44333/api/author/tour?page=0&pageSize=0');
   }
 
+  getTour(id: Number) : Observable<Tour> {
+    return this.http.get<Tour>('https://localhost:44333/api/author/tour?id='+ id);
+  }
+
   addTour(tour: Tour) : Observable<Tour>{
     return this.http.post<Tour>('https://localhost:44333/api/author/tour/' , tour)
   }

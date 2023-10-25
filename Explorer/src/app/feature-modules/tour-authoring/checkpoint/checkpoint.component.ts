@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Checkpoint } from '../model/checkpoint.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { ActivatedRoute } from '@angular/router';
+import { Tour } from '../model/tour.model';
 
 @Component({
   selector: 'xp-checkpoint',
@@ -15,18 +17,27 @@ export class CheckpointComponent implements OnInit{
   shouldEdit: boolean = false;
   shouldRenderCheckpointForm: boolean = false;
   isClickEnabled: boolean = false;
+  tourId : Number;
+  tour : Tour;
+  checkpointIds : Number[];
 
-  constructor(private service: TourAuthoringService) {}
+  constructor(private service: TourAuthoringService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.getCheckpoint();
+    this.route.params.subscribe(params => {
+      this.tourId = params['id'];
+      console.log(this.tourId);
+    });
   }
 
   getCheckpoint(): void {
-    this.service.getCheckpoints().subscribe({
-      next: (result: PagedResults<Checkpoint>) =>
+
+    this.service.getTour(this.tourId).subscribe({
+      next: (result: Tour) =>
       {
-        this.checkpoint = result.results;
+        this.checkpointIds = result.checkpoints;
+        console.log(this.checkpointIds);
       },
       error: () => {
       }     

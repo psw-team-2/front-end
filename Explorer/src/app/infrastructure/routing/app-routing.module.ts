@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
-  {path: 'checkpoint', component: CheckpointComponent},
+  {path: 'checkpoint/:id', component: CheckpointComponent},
   {path: 'tour', component: TourComponent}
 ];
 

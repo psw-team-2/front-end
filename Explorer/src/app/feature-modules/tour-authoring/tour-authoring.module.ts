@@ -7,6 +7,7 @@ import { TourFormComponent } from './tour-form/tour-form.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { AppRoutingModule } from 'src/app/infrastructure/routing/app-routing.module';
 
 
 
@@ -21,7 +22,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    AppRoutingModule
   ],
   exports: [
     CheckpointComponent,
