@@ -5,7 +5,8 @@
         <button mat-menu-item color="primary" [routerLink]="['home']">Home</button>
         <button mat-menu-item *ngIf="user && user.role === 'administrator'" color="primary" [routerLink]="['equipment']">Manage equipment</button>
         <button mat-menu-item color="primary" [routerLink]="['tour-review']">TourReview</button>
-        <button mat-menu-item *ngIf="user && user.role === 'author'"color="primary" [routerLink]="['tour']" routerLinkActive="active">Manage tour</button>        
+        <button mat-menu-item *ngIf="user && user.role === 'author'"color="primary" [routerLink]="['tour']" routerLinkActive="active">Manage tour</button>
+        <button mat-menu-item *ngIf="user && user.role === 'author'" color="primary" [routerLink]="['object']">Add Object</button>
     </mat-menu>
     </div>
   
