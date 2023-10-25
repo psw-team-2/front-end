@@ -9,16 +9,18 @@ import { BlogFormComponent } from 'src/app/feature-modules/blog/blog-form/blog-f
 import { SinglePostComponent } from 'src/app/feature-modules/blog/single-post/single-post.component';
 import { BlogManagemetComponent } from 'src/app/feature-modules/blog/blog-managemet/blog-managemet.component';
 
+import { BlogCommentsComponent } from 'src/app/feature-modules/blog/blog-comments/blog-comments.component';
+
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
+  {path: 'blog-comments', component: BlogCommentsComponent, canActivate: [AuthGuard],},
   {path: 'post', component: SinglePostComponent},
   {path: 'blog-management', component: BlogManagemetComponent, canActivate: [AuthGuard],},
   { path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
   { path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], }
-
 
 
 ];

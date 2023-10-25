@@ -16,9 +16,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { AuthService } from './infrastructure/auth/auth.service';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent

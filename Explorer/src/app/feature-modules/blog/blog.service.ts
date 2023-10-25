@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BlogComment } from './model/blog-comment.model';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Blog } from './model/blog.model';
 import { environment } from 'src/env/environment';
@@ -11,6 +12,23 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 export class BlogService {
 
   constructor(private http: HttpClient) { }
+
+  getBlogComment(): Observable<PagedResults<BlogComment>> {
+    return this.http.get<PagedResults<BlogComment>>(environment.apiHost + 'tourist/comment')
+  }
+
+  deleteBlogComment(id: number): Observable<BlogComment> {
+    return this.http.delete<BlogComment>(environment.apiHost + 'tourist/comment/' + id);
+  }
+
+  addBlogComment(comment: BlogComment): Observable<BlogComment> {
+    return this.http.post<BlogComment>(environment.apiHost + 'tourist/comment', comment);
+  }
+
+  updateBlogComment(comment: BlogComment): Observable<BlogComment> {
+    return this.http.put<BlogComment>(environment.apiHost + 'tourist/comment/' + comment.id, comment);
+  }
+
   getBlogs(): Observable<PagedResults<Blog>> {
     return this.http.get<PagedResults<Blog>>(environment.apiHost + 'tourist/blog')
   }
@@ -41,4 +59,5 @@ export class BlogService {
 
     return this.http.request(req);
   }
+
 }
