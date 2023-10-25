@@ -1,5 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
+import 'leaflet-routing-machine';
 import { MapViewService } from './map-view.service';
 
 @Component({
@@ -29,8 +30,21 @@ export class MapViewComponent implements AfterViewInit {
     );
     tiles.addTo(this.map);
 
-    this.registerOnClick();
-    this.search();
+    //this.registerOnClick();
+    //this.search();
+    const waypoints = [
+      { lat: 45.2396, lng: 19.8227 },
+      { lat: 45.25, lng: 19.85 },
+      // Add more waypoints as needed
+    ];
+    
+    const waypointsArray = waypoints.map(waypoint => L.latLng(waypoint.lat, waypoint.lng));
+
+    // Fit the map view to the bounds of the waypoints
+    this.map.fitBounds(waypointsArray);
+  
+    this.setRoute(waypoints);
+    
   }
 
   ngAfterViewInit(): void {
@@ -68,6 +82,33 @@ export class MapViewComponent implements AfterViewInit {
       );
       const mp = new L.Marker([lat, lng]).addTo(this.map);
       alert(mp.getLatLng());
+    });
+  }
+
+  setRoute(waypoints: { lat: number, lng: number }[]): void {
+    if (waypoints.length < 2) {
+      console.error('At least two waypoints are required for a route.');
+      return;
+    }
+  
+    const waypointsArray = waypoints.map(waypoint => L.latLng(waypoint.lat, waypoint.lng));
+    const routeControl = L.Routing.control({
+      waypoints: waypointsArray,
+      router: L.routing.mapbox('pk.eyJ1IjoiZGpucGxtcyIsImEiOiJjbG56Mzh3a2gwNWwzMnZxdDljdHIzNDIyIn0.iZjiPJJV-SgTiIOeF8UWvA', { profile: 'mapbox/walking' })
+    }).addTo(this.map);
+  
+    routeControl.on('routesfound', function (e) {
+      var routes = e.routes;
+      var summary = routes[0].summary;
+      alert('Total distance is ' + summary.totalDistance / 1000 + ' km and total time is ' + Math.round(summary.totalTime % 3600 / 60) + ' minutes');
+    });
+  
+    // Add markers for all waypoints
+    waypoints.forEach((waypoint, index) => {
+      L.marker([waypoint.lat, waypoint.lng])
+        .addTo(this.map)
+        .bindPopup(`Waypoint ${index + 1}`)
+        .openPopup();
     });
   }
 }
