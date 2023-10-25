@@ -122,4 +122,45 @@ export class ClubRequestComponent implements OnInit {
       });
     }
   }
+
+  onAcceptInvitationClicked(clubRequest: ClubRequest): void {
+    this.selectedRequest = clubRequest;
+    const club = this.clubs.find(c => c.id === clubRequest.clubId);
+
+    if (club && this.currentUser) {
+      this.selectedRequest.requestStatus = 1;
+
+      this.service.acceptRequest(clubRequest).subscribe({
+        next: () => {
+           this.getClubRequests();
+        },
+        error: () => {}
+      });
+
+      club.memberIds.push(this.selectedRequest.accountId);
+      this.clubService.updateClub(club).subscribe({
+        next: () => {
+          this.getClubs();
+        },
+        error: () => {}
+      });
+      
+    }
+  }
+
+  onRejectInvitationClicked(clubRequest: ClubRequest): void {
+    this.selectedRequest = clubRequest;
+    const club = this.clubs.find(c => c.id === clubRequest.clubId);
+
+    if (club && this.currentUser) {
+      this.selectedRequest.requestStatus = 2;
+
+      this.service.rejectRequest(clubRequest).subscribe({
+        next: () => {
+           this.getClubRequests();
+        },
+        error: () => {}
+      });
+    }
+  }
 }
