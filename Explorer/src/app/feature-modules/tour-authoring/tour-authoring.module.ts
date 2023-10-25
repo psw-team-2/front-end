@@ -8,7 +8,6 @@ import { ObjectComponent } from './object-form/object.component';
 import { TourComponent } from './tour/tour.component';
 import { TourFormComponent } from './tour-form/tour-form.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 

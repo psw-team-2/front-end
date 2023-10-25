@@ -19,13 +19,14 @@ export class TourReviewFormComponent {
   @Input() tourReview: TourReview;
   @Input() shouldEdit: boolean = false;
   @Output() tourReviewUpdated = new EventEmitter<null>();
-
+  public value = new Date();
   currentFile: File;
   currentFileURL: string | null = null;
   tourReviewForm = new FormGroup({
     grade: new FormControl('', [Validators.required]),
     comment: new FormControl('', [Validators.required]),
-    images: new FormControl('', [Validators.required])
+    images: new FormControl('', [Validators.required]),
+    reviewDate: new FormControl('', [Validators.required]),
   });
   
   ngOnChanges(changes: SimpleChanges): void {
@@ -35,6 +36,7 @@ export class TourReviewFormComponent {
         grade: String(this.tourReview.grade) || null,
         comment: this.tourReview.comment || null,
         images: this.tourReview.images || null,
+        reviewDate: this.tourReview.reviewDate ? this.tourReview.reviewDate.toISOString() : null
       });
     }
   }
@@ -45,7 +47,9 @@ export class TourReviewFormComponent {
       grade: Number(this.tourReviewForm.value.grade) || 0,
       comment: this.tourReviewForm.value.comment || "",
       images: 'https://localhost:44333/Images/' + this.currentFile.name,
-      userId: userId
+      userId: userId,
+      reviewDate: this.value
+ 
     };
     await this.service.upload(this.currentFile).subscribe({
       next: (value) => {

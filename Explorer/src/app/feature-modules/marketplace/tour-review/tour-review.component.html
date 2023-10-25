@@ -9,6 +9,7 @@
                     <th>Grade</th>
                     <th>Comment</th>
                     <th>Image</th>
+                    <th>Review date</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -21,6 +22,7 @@
                     <td class="thumbnail">
                         <img   src={{tr.images}} alt="" srcset="">
                     </td>
+                    <td>{{tr.reviewDate}}</td>
                     <td>
                         <button color="accent" (click)="deleteTourReview(tr.id || 0)"  mat-icon-button>
                             <mat-icon>delete</mat-icon>

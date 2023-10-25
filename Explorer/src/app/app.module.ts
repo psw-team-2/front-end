@@ -35,7 +35,7 @@ import { MatMenu, MatMenuModule } from '@angular/material/menu';
     TourExecutionModule,
     AuthModule,
     HttpClientModule,
-    TouristModule
+    TouristModule,
     MatMenuModule
   ],
   providers: [
