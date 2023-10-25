@@ -36,6 +36,9 @@ export class MapComponent implements AfterViewInit {
   
     if (this.enableClick) {
       this.registerOnClick();
+      if(this.coordinatesToDisplay != null){
+        this.displayCoordinates(this.coordinatesToDisplay);
+      }   
     } else {
       this.displayCoordinates(this.coordinatesToDisplay);
     }
