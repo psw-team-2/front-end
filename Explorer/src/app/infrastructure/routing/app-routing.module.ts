@@ -5,6 +5,9 @@ import { LoginComponent } from '../auth/login/login.component';
 import { EquipmentComponent } from 'src/app/feature-modules/administration/equipment/equipment.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
+import { ClubsOverviewComponent } from 'src/app/feature-modules/club/clubs-overview/clubs-overview.component';
+import { ClubOverviewComponent } from 'src/app/feature-modules/club/club-overview/club-overview.component';
+import { ClubRequestComponent } from 'src/app/feature-modules/club/club-request/club-request.component';
 import { ApplicationReviewFormComponent } from 'src/app/feature-modules/marketplace/application-review-form/application-review-form.component';
 import { ApplicationReviewComponent } from 'src/app/feature-modules/administration/application-review/application-review.component';
 import { UserAccountAdministrationComponent } from 'src/app/feature-modules/administration/user-account-administration/user-account-administration.component';
@@ -17,6 +20,9 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
+  {path: 'clubs', component: ClubsOverviewComponent},
+  {path: 'clubs/:id', component: ClubOverviewComponent},
+  {path: 'clubRequest', component: ClubRequestComponent, canActivate: [AuthGuard],}
   {path: 'applicationReviewForm', component: ApplicationReviewFormComponent},
   {path: 'applicationReview', component: ApplicationReviewComponent},
   {path: 'userAccounts', component: UserAccountAdministrationComponent, canActivate: [AuthGuard]},
