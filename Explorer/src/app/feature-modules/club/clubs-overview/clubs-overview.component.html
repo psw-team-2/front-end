@@ -27,7 +27,7 @@
             </table>
         </div>
         <div>
-            <xp-club-form *ngIf="shouldRenderClubForm" [shouldEdit]="shouldEdit" [club]="selectedClub" ></xp-club-form>
+            <xp-club-form *ngIf="shouldRenderClubForm" [shouldEdit]="shouldEdit" [club]="selectedClub" (clubUpdated)="getClubs()" (clubAdded)="getClubs()"></xp-club-form>
         </div>
     </div>
 </div>
