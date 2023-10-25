@@ -8,3 +8,7 @@ div {
     width: auto;
     margin-left: auto;
 }
+
+.active-link {
+    display: none;
+}

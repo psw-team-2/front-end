@@ -1,0 +1,41 @@
+
+/* Style the image container */
+.hero-image-container {
+    position: relative;
+    overflow: hidden; /* Clip image overflow */
+    width: 100%; /* Stretch to full width of the page */
+  }
+  
+  /* Style the background image */
+.hero-image-background {
+    width: 100%; /* Stretch image to full container width */
+    height: 50%;
+    display: block;
+  }
+  
+/* Style the text overlay container */
+.hero-image-text-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* Align text to the left */
+    text-align: left;
+    background: rgba(0, 0, 0, 0.25); /* Semi-transparent background for text */
+    color: #fff; /* Text color */
+}
+  
+/* Style the text within the overlay */
+.hero-image-text-overlay h1 {
+    font-size: 100px;
+    font-family: 'Montserrat', sans-serif; /* Montserrat font family */
+    position: relative;
+    left: 20px;
+    margin-bottom: 0px;
+}
+
+
