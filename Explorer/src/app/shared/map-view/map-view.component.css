@@ -1,0 +1,7 @@
+.map-frame {
+    border: 2px solid black;
+  }
+  
+  #map {
+    height: 600px;
+  }
