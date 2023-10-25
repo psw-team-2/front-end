@@ -7,7 +7,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 @Component({
   selector: 'xp-equipment',
   templateUrl: './equipment.component.html',
-  styleUrls: ['./equipment.component.css']
+  // styleUrls: ['../../../app.component.css']
 })
 export class EquipmentComponent implements OnInit {
 
@@ -15,13 +15,13 @@ export class EquipmentComponent implements OnInit {
   selectedEquipment: Equipment;
   shouldRenderEquipmentForm: boolean = false;
   shouldEdit: boolean = false;
-  
+
   constructor(private service: AdministrationService) { }
 
   ngOnInit(): void {
     this.getEquipment();
   }
-  
+
   deleteEquipment(id: number): void {
     this.service.deleteEquipment(id).subscribe({
       next: () => {
