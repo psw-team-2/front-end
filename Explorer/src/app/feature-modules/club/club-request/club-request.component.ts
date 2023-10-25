@@ -90,13 +90,19 @@ export class ClubRequestComponent implements OnInit {
         next: () => {
            console.log("Your request to join the club has been accepted!")
            this.getClubRequests();
-
-           club.memberIds.push(this.selectedRequest.accountId);
-           this.clubService.updateClub(club);
-           this.getClubs();
         },
         error: () => {}
       });
+
+      club.memberIds.push(this.selectedRequest.accountId);
+      this.clubService.updateClub(club).subscribe({
+        next: () => {
+          console.log('New member added to the club!')
+          this.getClubs();
+        },
+        error: () => {}
+      });
+      
     }
   }
 
