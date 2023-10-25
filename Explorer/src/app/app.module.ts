@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './infrastructure/routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,8 @@ import { AuthModule } from './infrastructure/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { AuthService } from './infrastructure/auth/auth.service'; 
+import { TourPreferenceModule } from './feature-modules/tour-preference/tour-preference.module';
+
 
 
 @NgModule({
@@ -33,7 +36,8 @@ import { AuthService } from './infrastructure/auth/auth.service';
     TourAuthoringModule,
     TourExecutionModule,
     AuthModule,
-    HttpClientModule
+    HttpClientModule,
+    TourPreferenceModule
   ],
   providers: [
     {

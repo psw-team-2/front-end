@@ -1,0 +1,38 @@
+<div id="userAccounts">
+    <div class="user-title-section">
+        <h1 class="user-title">Users</h1>
+    </div>
+
+    <div class="table-container">
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Account status</th>
+                    <th>Deactivation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ua of userAccounts">
+                    <td>{{ ua.username }}</td>
+                    <td>{{ ua.email }}</td>
+                    <td>
+                        {{ ua.role === 0 ? 'Administrator' : ua.role === 1 ? 'Autor' : 'Turist' }}
+                    </td>
+                    <td>{{ ua.isActive ? 'Active' : 'Not Active' }}</td>
+                    <td>
+                        <button *ngIf="ua.role !== 0 && ua.isActive" (click)="deactivateUser(ua)">Deactivate</button>
+                        <ng-container *ngIf="ua.role === 0" class="info-text">
+                            Administrator accounts can't be deactivated
+                        </ng-container>
+                        <ng-container *ngIf="!ua.isActive" class="info-text">
+                            Deactivated
+                        </ng-container>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
