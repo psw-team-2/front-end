@@ -1,4 +1,173 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
+
+
+#entity {
+    margin-top: 20px;
+    margin-left: 20px;
+    background-color: ffffff;
+}
+
+#entity-details {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+#entity-form {
+    width: 400px;
+    display:flex;
+    gap: 20px;
+    flex-direction: column;
+    background-color: #ffffff;
+}
+
+#entity-icon-button{
+    color:#2e003e;
+}
+
+#entity-raised-button{
+    color: #ffffff;
+    background-color: #2e003e;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Montserrat', sans-serif; /* Montserrat font family */
+}
+
+p {
+    font-family: 'Montserrat', sans-serif; /* Montserrat font family */    
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: 'Montserrat', sans-serif; /* Montserrat font family */
+    min-width: 300px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+thead tr {
+    background-color: #2e003e;
+    color: #ffffff;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 15px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+    border-bottom: 2px solid #2e003e;
+    
+}
+
+tbody tr.active-row {
+    font-weight: bold;
+    color: #2e003e;
+}
+
+hr {
+    border: 0.5px solid #2e003e;
+}
+
+.mat-icon {
+    vertical-align: middle;
+}
+
+.entity-mat-mdc-form-field .mat-mdc-form-field {
+    height: 40px;
+    color: #8874a3;
+}
+
+.entity-mat-mdc-form-field .mat-mdc-form-field:focus {
+    color: #2e003e;
+}
+
+.entity-mat-mdc-form-field .mat-mdc-form-field:invalid {
+    color: #d62828;
+}
+
+.entity-mat-mdc-form-field .mat-mdc-form-field:focus:invalid {
+    color: #b80000;
+}
+
+::ng-deep.entity-mat-mdc-form-field {
+    display: flex;
+    align-items: flex-start;
+    height: 75px;
+    padding: 5px;
+    margin: 5px;
+    text-align: left;
+    flex: 1;
+}
+
+
+.mat-mdc-raised-button.mat-primary {
+    background-color: #2e003e
+    
+}
+
+/* Styling the footer */
+footer {
+    position: relative;
+    margin-top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333; /* Dark grey background */
+    color: #fff; /* White text color */
+    font-family: 'Montserrat', sans-serif; /* Montserrat font family */
+    padding: 0px; /* Add padding for spacing */
+    display: flex; /* Use flex display to align items in a row */
+    justify-content: space-between; /* Space between items in the row */
+    align-items: center; /* Vertically align content */
+}
+
+/* Styling for the title (bigger font) */
+footer .title {
+    font-size: 48px; /* Increase the font size to 60px or adjust as needed */
+    font-weight: bold;
+    max-width: 40%; /* Limit the width to 50% of the footer to fit within the screen */
+    text-align: right; /* Right-align the h1 element */
+    position: relative; /* Enable relative positioning */
+    right: 200px;
+    bottom: 0px;
+}
+
+/* Styling for the contact information (left-aligned, smaller, and organized vertically) */
+footer .contact-info {
+    font-size: 20px; /* Adjust the font size for <p> */
+    text-align: left; /* Left-align <p> elements */
+    margin-left: 75px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+footer .contact-info-title {
+    font-size: 20px; /* Adjust the font size for <p> */
+    text-align: left; /* Left-align <p> elements */
+    font-weight: normal;
+    margin-bottom: 15px;
+}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@font-face {
+    font-family: Montserrat;
+    src: url(assets/fonts/Montserrat-Regular.ttf) format('truetype');
+}
+
+.Monserrat{
+    font-family: Montserrat;
+
+}

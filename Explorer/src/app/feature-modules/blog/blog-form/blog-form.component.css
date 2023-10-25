@@ -1,0 +1,9 @@
+div {
+    width: 400px;
+    margin: 30px auto 0 auto;
+    display:flex;
+    gap: 5px;
+    flex-direction: column;
+    min-height: 150px;
+    height: 50vh;
+}

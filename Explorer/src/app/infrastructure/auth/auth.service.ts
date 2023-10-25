@@ -10,6 +10,7 @@ import { AuthenticationResponse } from './model/authentication-response.model';
 import { User } from './model/user.model';
 import { Registration } from './model/registration.model';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -58,6 +59,14 @@ export class AuthService {
     this.setUser();
   }
 
+  getUsername(id: number): Observable<object> {
+    return this.http.get(environment.apiHost + 'users/' + id);
+  }
+
+  getAllUserIds(): Observable<object> {
+    return this.http.get(environment.apiHost + 'users/userids');
+  }
+
   private setUser(): void {
     const jwtHelperService = new JwtHelperService();
     const accessToken = this.tokenStorage.getAccessToken() || "";
@@ -70,4 +79,9 @@ export class AuthService {
     };
     this.user$.next(user);
   }
+
+  getUserById(userId: number): Observable<User> {
+    return this.http.get<User>(`${environment.apiHost}users/${userId}`);
+  }
+
 }

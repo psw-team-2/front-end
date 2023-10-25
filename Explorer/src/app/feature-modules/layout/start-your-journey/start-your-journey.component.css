@@ -1,0 +1,102 @@
+.container {
+    margin: 0 7vw;
+    text-align: center;
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 3vw;
+    color: #2E003D;
+    margin-top: 5vw;
+    margin-bottom: 2vw;
+}
+
+.content-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.image-cell {
+    width: 50vw;
+    height: auto;
+    text-align: center;
+}
+
+.image-cell img {
+    max-width: 100%;
+    height: auto;
+}
+
+.text-cell {
+    width: 40vw;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.first-paragraph {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: 1.32vw; /* Make the first paragraph 10% bigger */
+    padding-left: 2vw;
+    padding-right: 2vw;
+    color: #000000;
+    opacity: 0.75;
+    letter-spacing: 0.08vw;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.second-paragraph {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 1.4vw;
+    text-align: center;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    padding-top: 1vw;
+    color: #000000;
+    opacity: 1;
+    letter-spacing: 0.2vw;
+    margin-top: 1vw;
+    line-height: 1.2;
+}
+
+.button-container {
+    padding-top: 3vw;
+    padding-bottom: 3vw;
+    text-align: center;
+    margin-top: 1.33vw;
+}
+
+.register-button {
+    display: inline-block;
+    padding: 1.5vw 3vw; /* Make the register button 25% bigger */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 2.0625vw; /* Make the register button 25% bigger */
+    color: #2E003D;
+    background-color: #ffffff;
+    border: 0.2vw solid #2E003D;
+    border-radius: 0.375vw;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.register-button:hover {
+    background-color: #2E003D;
+    color: #ffffff;
+}
+
+.intro-paragraph {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.95vw;
+    text-align: center;
+    color: #181818;
+    margin-top: 2.5vw;
+    margin-bottom: 2.5vw;
+    line-height: 1.5;
+    padding-right: 5vw;
+    padding-left: 5vw;
+    line-height: 1.5;
+}
