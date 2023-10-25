@@ -5,6 +5,7 @@ import { ClubOverviewComponent } from './club-overview/club-overview.component';
 import { RouterModule } from '@angular/router';
 import { ClubFormComponent } from './club-form/club-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     RouterModule,
+    MaterialModule,
     ReactiveFormsModule
   ],
   exports: [

@@ -4,7 +4,7 @@
     <h2>Members:</h2>
     <ul>
         <li *ngFor="let memberId of club?.memberIds; let i=index">{{ memberUsernames[i] || 'Unknown' }}
-            <button *ngIf="isOwner" (click)="kickMember(memberId)">Kick</button>
+            <button *ngIf="isOwner && memberId !== club?.ownerId" (click)="kickMember(memberId)">Kick</button>
         </li>
     </ul>
     <div *ngIf="isOwner">

@@ -6,8 +6,8 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Naziv</th>
-                        <th>Opis</th>
+                        <th>Name</th>
+                        <th>Description</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -16,11 +16,12 @@
                         <td>{{cl.name}}</td>
                         <td>{{cl.description}}</td>
                         <td>
-                            <button color="primary" (click)="onEditClicked(cl)" mat-icon-button>Edit</button>
+                            <button color="primary" (click)="onEditClicked(cl)" mat-icon-button><mat-icon>edit</mat-icon></button>
                             <button color="primary" [routerLink]="['/clubs', cl.id]">Go to Club</button>
                         </td>
                     </tr>
-                    <tr><button color="primary" (click)="onAddClicked()" mat-icon-button>Add
+                    <tr><button color="primary" (click)="onAddClicked()" mat-icon-button>
+                        <mat-icon>add</mat-icon>
                     </button></tr>
                 </tbody>
             </table>
