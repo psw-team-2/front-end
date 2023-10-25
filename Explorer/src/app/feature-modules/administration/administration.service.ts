@@ -4,6 +4,7 @@ import { Equipment } from './model/equipment.model';
 import { environment } from 'src/env/environment';
 import { Observable, catchError, throwError } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { ApplicationReview } from './../marketplace/model/application-review.model';
 import { User } from './model/user-account.model';
 import { Profile } from './model/profile.model';
 
@@ -29,6 +30,24 @@ export class AdministrationService {
   updateEquipment(equipment: Equipment): Observable<Equipment> {
     return this.http.put<Equipment>(environment.apiHost + 'administration/equipment/' + equipment.id, equipment);
   }
+
+
+  getApplicationReview(): Observable<PagedResults<ApplicationReview>> {
+    return this.http.get<PagedResults<ApplicationReview>>(environment.apiHost + 'tourist/applicationReview');
+  }
+  
+  deleteApplicationReview(id: number): Observable<ApplicationReview> {
+    return this.http.delete<ApplicationReview>(environment.apiHost + 'tourist/applicationReview' + id);
+  }
+  
+  addApplicationReview(applicationReview: ApplicationReview): Observable<ApplicationReview> {
+    return this.http.post<ApplicationReview>(environment.apiHost + 'tourist/applicationReview', applicationReview);
+  }
+  
+  updateApplicationReview(applicationReview: ApplicationReview): Observable<ApplicationReview> {
+    return this.http.put<ApplicationReview>(environment.apiHost + 'tourist/applicationReview' + applicationReview.id, applicationReview);
+  }
+  
 
   getUserAccounts():Observable<PagedResults<User>>{
     return this.http.get<PagedResults<User>>(environment.apiHost + 'administration/userAccounts')
