@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, AfterViewInit, Input, Output, EventEmitter, SimpleChanges} from '@angular/core';
 import * as L from 'leaflet';
 
 @Component({
@@ -9,12 +9,21 @@ import * as L from 'leaflet';
 export class MapComponent implements AfterViewInit {
   @Input() map: L.Map;
   @Input() enableClick: boolean = true; 
-  @Input() coordinatesToDisplay: number[] = [];
+  @Input() coordinatesToDisplay: number[];
   @Output() coordinatesSelected: EventEmitter<number[]> = new EventEmitter<number[]>();
   
   marker: L.Marker;
 
   constructor() { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.coordinatesToDisplay) {
+      setTimeout((()=>{
+        this.displayCoordinates(changes['coordinatesToDisplay'].currentValue)
+      }),300);
+    }
+  }
+
 
   private initMap(): void {
     this.map = L.map('map', {
@@ -33,14 +42,8 @@ export class MapComponent implements AfterViewInit {
     );
 
     tiles.addTo(this.map);
-  
     if (this.enableClick) {
       this.registerOnClick();
-      if(this.coordinatesToDisplay != null){
-        this.displayCoordinates(this.coordinatesToDisplay);
-      }   
-    } else {
-      this.displayCoordinates(this.coordinatesToDisplay);
     }
   }
 
@@ -51,6 +54,7 @@ export class MapComponent implements AfterViewInit {
 
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
+    this.displayCoordinates(this.coordinatesToDisplay);
   }
 
   registerOnClick(): void {
@@ -73,13 +77,11 @@ export class MapComponent implements AfterViewInit {
     }
   }
 
-  displayCoordinates(coordinates: number[]): void {
+  displayCoordinates(coordinates:any): void {
     if (this.marker) {
       this.map.removeLayer(this.marker);
     }
-    const [lat, lng] = coordinates;
-
-    this.marker = L.marker([lat, lng]).addTo(this.map);
-    this.map.setView([lat, lng], this.map.getZoom());
+    this.marker = new L.Marker(coordinates).addTo(this.map);
+    this.map.setView([coordinates[0],coordinates[1]], this.map.getZoom());
   }
 }

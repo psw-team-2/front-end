@@ -1,6 +1,6 @@
 <form [formGroup]="checkpointForm">
     <div>
-        <app-map [enableClick]="isClickEnabled" (coordinatesSelected)="onCoordinatesSelected($event)" [coordinatesToDisplay]="[checkpoint.latitude, checkpoint.longitude]"></app-map>
+        <app-map [enableClick]="isClickEnabled" (coordinatesSelected)="onCoordinatesSelected($event)"  [coordinatesToDisplay]="[checkpointToPresent.latitude, checkpointToPresent.longitude]"></app-map> 
         <mat-form-field>
             <mat-label>Name</mat-label>
             <input matInput formControlName="name" type="text">
@@ -11,8 +11,8 @@
                 cdkAutosizeMaxRows="5"></textarea>
         </mat-form-field>
         <mat-label>Image:</mat-label>
-        <button mat-raised-button color="primary" width="200" (click)="fileInput.click()">Upload File</button>
-        <input hidden #fileInput type="file" (change)="onFileSelected($event)">
+        <button mat-raised-button color="primary" width="200" (click)="fileInput.click()">Upload File</button> 
+        <input hidden #fileInput type="file" (change)="onFileSelected($event)"> 
         <div *ngIf="currentFile">
             <span>{{ currentFile.name }}</span>
             <button icon-button (click)="deleteFile()">X</button>

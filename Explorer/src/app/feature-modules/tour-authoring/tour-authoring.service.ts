@@ -59,6 +59,15 @@ export class TourAuthoringService {
     return this.http.put<Tour>('https://localhost:44333/api/author/tour/' + tour.id, tour)
   }
 
+  updateTourCheckpoints(tour:Tour,checkpointId:number) {
+    return this.http.put<Tour>('https://localhost:44333/api/author/tour/' + tour.id + '/' + checkpointId,tour);
+
+  }
+  deleteTourCheckpoint(tour:Tour,checkpointId:number) {
+    return this.http.put<Tour>('https://localhost:44333/api/author/tour/delete/' + tour.id + '/' + checkpointId,tour);
+
+  }
+
   deleteTour(id: number): Observable<Tour> {
     return this.http.delete<Tour>('https://localhost:44333/api/author/tour/' + id);
   }

@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class MapService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,) {}
+
 
   search(street: string): Observable<any> {
     return this.http.get(

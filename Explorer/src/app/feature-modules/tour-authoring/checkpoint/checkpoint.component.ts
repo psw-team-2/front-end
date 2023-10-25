@@ -10,18 +10,18 @@ import { Tour } from '../model/tour.model';
   templateUrl: './checkpoint.component.html',
   styleUrls: ['./checkpoint.component.css']
 })
-export class CheckpointComponent implements OnInit{
+export class CheckpointComponent implements OnInit {
 
   checkpoint: Checkpoint[] = [];
   selectedCheckpoint: Checkpoint;
   shouldEdit: boolean = false;
   shouldRenderCheckpointForm: boolean = false;
   isClickEnabled: boolean = false;
-  tourId : Number;
-  tour : Tour;
-  checkpointIds : Number[];
+  tourId: Number;
+  tour: Tour;
+  checkpointIds: Number[];
 
-  constructor(private service: TourAuthoringService, private route: ActivatedRoute) {}
+  constructor(private service: TourAuthoringService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -29,7 +29,6 @@ export class CheckpointComponent implements OnInit{
       if (!isNaN(id)) {
         this.tourId = id; // Set the 'tourId' if it's a valid number
         this.getCheckpoint();
-        console.log(this.tourId);
       } else {
       }
     });
@@ -37,16 +36,34 @@ export class CheckpointComponent implements OnInit{
 
   getCheckpoint(): void {
     this.service.getTour(this.tourId).subscribe({
-      next: (result: Tour) =>
-      {
-       console.log(result);
+      next: (result: Tour) => {
+        this.tour = result;
+        let temporaryList: Checkpoint[] = [];
+        this.service.getCheckpoints().subscribe({
+          next: (results: PagedResults<Checkpoint>) => {
+            for (let i = 0; i < results.results.length; i++) {
+              const checkpoint = results.results[i];
+              results.results.forEach((cp: Checkpoint) => {
+                if (checkpoint.id == cp.id) {
+                  temporaryList.push(cp);
+                }
+              });
+
+            }
+            this.checkpoint = temporaryList;
+          }
+        })
       },
       error: () => {
-      }     
+      }
     })
   }
 
-  onEditClicked(checkpoint: Checkpoint): void{
+  resetForm() {
+    this.shouldRenderCheckpointForm = false;
+  }
+
+  onEditClicked(checkpoint: Checkpoint): void {
     this.shouldRenderCheckpointForm = true;
     this.shouldEdit = true;
     this.selectedCheckpoint = checkpoint;
@@ -57,12 +74,17 @@ export class CheckpointComponent implements OnInit{
     this.shouldEdit = false;
   }
 
-  deleteCheckpoint(id: number):void {
+  deleteCheckpoint(id: number): void {
     this.service.deleteCheckpoint(id).subscribe({
       next: () => {
-        this.getCheckpoint();
+        this.service.deleteTourCheckpoint(this.tour, id).subscribe({
+          next: (val) => {
+            this.getCheckpoint();
+          }
+        })
+        
       },
     })
   }
-  
+
 }
