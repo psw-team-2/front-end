@@ -14,8 +14,14 @@ import { UserAccountAdministrationComponent } from 'src/app/feature-modules/admi
 import { ProfileComponent } from 'src/app/feature-modules/administration/profile/profile.component';
 import { ProfileFormComponent } from 'src/app/feature-modules/administration/profile-form/profile-form.component';
 import { Profile2Component } from 'src/app/feature-modules/administration/profile2/profile2.component';
+import { BlogFormComponent } from 'src/app/feature-modules/blog/blog-form/blog-form.component';
+import { SinglePostComponent } from 'src/app/feature-modules/blog/single-post/single-post.component';
+import { BlogManagemetComponent } from 'src/app/feature-modules/blog/blog-managemet/blog-managemet.component';
+import { BlogCommentsComponent } from 'src/app/feature-modules/blog/blog-comments/blog-comments.component';
+
 
 const routes: Routes = [
+  {path: '', component:HomeComponent},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
@@ -28,7 +34,13 @@ const routes: Routes = [
   {path: 'userAccounts', component: UserAccountAdministrationComponent, canActivate: [AuthGuard]},
   {path: 'profile', component: ProfileComponent},
   {path: 'profile-form', component: ProfileFormComponent},
-  {path: 'profile2', component: Profile2Component}
+  {path: 'profile2', component: Profile2Component},
+  {path: 'blog-comments', component: BlogCommentsComponent, canActivate: [AuthGuard],},
+  {path: 'post', component: SinglePostComponent},
+  {path: 'blog-management', component: BlogManagemetComponent, canActivate: [AuthGuard],},
+  { path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
+  { path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], }
+
 ];
 
 @NgModule({

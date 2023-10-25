@@ -17,10 +17,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { ClubModule } from './feature-modules/club/club.module';
 import { ClubFormComponent } from './feature-modules/club/club-form/club-form.component';
-import { AuthService } from './infrastructure/auth/auth.service'; 
 import { TourPreferenceModule } from './feature-modules/tour-preference/tour-preference.module';
-
-
+import { AuthService } from './infrastructure/auth/auth.service';
 
 
 @NgModule({

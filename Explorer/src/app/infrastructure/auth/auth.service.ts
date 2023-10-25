@@ -10,6 +10,7 @@ import { AuthenticationResponse } from './model/authentication-response.model';
 import { User } from './model/user.model';
 import { Registration } from './model/registration.model';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -82,4 +83,5 @@ export class AuthService {
   getUserById(userId: number): Observable<User> {
     return this.http.get<User>(`${environment.apiHost}users/${userId}`);
   }
+
 }
