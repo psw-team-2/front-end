@@ -1,0 +1,48 @@
+<div id="tour">
+    <p>Tours</p>
+    <hr>
+    <div id="tour-details">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Difficulty</th>
+                    <th>Tags</th>
+                             
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let t of tour">
+                    <td>{{t.name}}</td>
+                    <td>{{t.description}}</td>
+                    <td>{{t.difficulty}}</td>
+                    <td>{{t.tags}}</td>
+                    
+                    <td>
+                        <button color="accent" (click)="deleteTour(t.id || 0)" mat-icon-button>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        <button color="primary" (click)="onEditClicked(t)" mat-icon-button>
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button color="primary" mat-raised-button [routerLink]="['/checkpoint', t.id]">Manage checkpoint</button>
+                    </td>
+                </tr>
+                <tr>
+                    <button (click)="onAddClicked()" color="primary" mat-icon-button>
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <xp-tour-form *ngIf="shouldRenderTourForm" (tourUpdated) = "getTour()" [tour] = "selectedTour" [shouldEdit]="shouldEdit"></xp-tour-form>
+    </div>
+    </div>
+    
+</div>
