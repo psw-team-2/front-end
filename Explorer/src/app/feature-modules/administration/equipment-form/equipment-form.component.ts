@@ -6,7 +6,7 @@ import { AdministrationService } from '../administration.service';
 @Component({
   selector: 'xp-equipment-form',
   templateUrl: './equipment-form.component.html',
-  styleUrls: ['./equipment-form.component.css']
+  // styleUrls: ['./../../../app.component.css']
 })
 export class EquipmentFormComponent implements OnChanges {
 

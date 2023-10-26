@@ -1,6 +1,8 @@
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { TourReview } from './model/tour-review.model';
+import { Injectable } from '@angular/core';
+import { ApplicationReview } from './model/application-review.model'; // Updated import
+
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/env/environment';
@@ -12,6 +14,7 @@ import { Equipment } from '../administration/model/equipment.model';
 export class MarketplaceService {
 
   constructor(private http: HttpClient) { }
+
 
   
   getTourReview(): Observable<PagedResults<TourReview>> {
@@ -45,4 +48,21 @@ export class MarketplaceService {
 
     return this.http.request(req);
   }
+
+  addApplicationReview(applicationReview: ApplicationReview): Observable<ApplicationReview> { 
+    return this.http.post<ApplicationReview>(environment.apiHost + 'tourist/applicationReview', applicationReview); 
+  }
+
+  /*getApplicationReview(): Observable<PagedResults<ApplicationReview>> { 
+    return this.http.get<PagedResults<ApplicationReview>>(environment.apiHost + 'tourist/applicationReview'); 
+  }
+
+  deleteApplicationReview(id: number): Observable<ApplicationReview> { 
+    return this.http.delete<ApplicationReview>(environment.apiHost + 'tourist/applicationReview/' + id); 
+  }
+
+  updateApplicationReview(applicationReview: ApplicationReview): Observable<ApplicationReview> { 
+    return this.http.put<ApplicationReview>(environment.apiHost + 'tourist/applicationReview/' + applicationReview.id, applicationReview); // Updated endpoint
+  }*/
+
 }

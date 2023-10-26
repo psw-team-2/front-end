@@ -1,9 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Equipment } from './model/equipment.model';
 import { environment } from 'src/env/environment';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { ApplicationReview } from './../marketplace/model/application-review.model';
+import { User } from './model/user-account.model';
+import { Profile } from './model/profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +31,81 @@ export class AdministrationService {
     return this.http.put<Equipment>(environment.apiHost + 'administration/equipment/' + equipment.id, equipment);
   }
 
+
+
+  getApplicationReview(): Observable<PagedResults<ApplicationReview>> {
+    return this.http.get<PagedResults<ApplicationReview>>(environment.apiHost + 'tourist/applicationReview');
+  }
+  
+  deleteApplicationReview(id: number): Observable<ApplicationReview> {
+    return this.http.delete<ApplicationReview>(environment.apiHost + 'tourist/applicationReview' + id);
+  }
+  
+  addApplicationReview(applicationReview: ApplicationReview): Observable<ApplicationReview> {
+    return this.http.post<ApplicationReview>(environment.apiHost + 'tourist/applicationReview', applicationReview);
+  }
+  
+  updateApplicationReview(applicationReview: ApplicationReview): Observable<ApplicationReview> {
+    return this.http.put<ApplicationReview>(environment.apiHost + 'tourist/applicationReview' + applicationReview.id, applicationReview);
+  }
+  
+
+  getUserAccounts():Observable<PagedResults<User>>{
+    return this.http.get<PagedResults<User>>(environment.apiHost + 'administration/userAccounts')
+  }
+  
+  deactivateUserAccount(user: User): Observable<User> {
+    return this.http.put<User>(environment.apiHost + 'administration/userAccounts/' + user.id, user);
+  }
+
+  // dodato
+  // PROFIL
+  getByUserId(): Observable<Profile> {
+    return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-user');
+  }
+
+  getByUserId2(): Observable<Profile> {
+    return this.http.get<Profile>('https://localhost:44333/api/administration/profile2/by-user');
+  }
+  
+  updateProfile(profile: Profile): Observable<Profile> {
+    return this.http.put<Profile>('https://localhost:44333/api/administration/profile/' + profile.id + '/' + profile.userId, profile);
+  }
+
+  updateProfile2(profile: Profile): Observable<Profile> {
+    return this.http.put<Profile>('https://localhost:44333/api/administration/profile2/' + profile.id + '/' + profile.userId, profile)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Request failed:', error);
+          return throwError('An error occurred. Please try again later.');
+        })
+      );
+  }
+
+  upload(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST', `https://localhost:44333/api/administration/profile/UploadFile`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
+  }
+
+  upload2(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST', `https://localhost:44333/api/administration/profile2/UploadFile`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
+  }
 
 }
