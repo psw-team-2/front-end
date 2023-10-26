@@ -1,10 +1,48 @@
-div {
-    width: 100%;
-    display: flex;
-    gap: 10px;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  
+}
+
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  font-weight: 350;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  font-weight: 350;
+}
+
+.menuButton {
+  margin-right: 0vw; /* Adjust the spacing between the menu button and the Explorer text */
+  font-weight: 350;
+}
+
+.explorer {
+  font-size: 1.5vw; /* Adjust the font size for Explorer text */
+  margin-top: 1vw;
+  
+}
+
+
+.logButton{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 350;
 }
 
 #buttons {
     width: auto;
     margin-left: auto;
 }
+
+.active-link {
+    display: none;
+}
+

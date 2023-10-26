@@ -1,0 +1,22 @@
+<h1>Your profile (tourist):</h1>
+<table>
+  <tr>
+    <th>First Name:</th>
+    <th>Last Name:</th>
+    <th>Profile Picture:</th>
+    <th>Biography:</th>
+    <th>Motto:</th>
+  </tr>
+  <tr *ngFor="let individualProfile of profile">
+    <td>{{ individualProfile.firstName }}</td>
+    <td>{{ individualProfile.lastName }}</td>
+    <td><img class="thumbnail" src={{individualProfile.profilePicture}} alt="" srcset=""></td>
+    <td>{{ individualProfile.biography }}</td>
+    <td>{{ individualProfile.motto }}</td>
+    <button (click) = "onEditClicked(individualProfile)">Edit profile info</button>
+    <button (click) = "onChangeClicked(individualProfile)">Change profile picture</button>
+  </tr>
+</table>
+<xp-profile-form *ngIf="selectedProfile && showProfileForm" (profileUpdated) = "getByUserId()" [profile] = "selectedProfile"></xp-profile-form>
+<xp-picture-form *ngIf="selectedProfile && showPictureForm" (profileUpdated) = "getByUserId()" [profile] = "selectedProfile"></xp-picture-form>
+<xp-tour-preference-field></xp-tour-preference-field>

@@ -1,0 +1,53 @@
+<div id="blog-management">
+    <button mat-raised-button class="custom-button" (click)="onAddClicked()">CREATE BLOG</button>
+  <div style="text-align: center;">
+    <h1 class="title">Manage posts</h1>
+  </div>
+  <div id="blog-management-details">
+    <div>
+      <table>
+          <thead>
+              <tr>
+                  <th>Title</th>
+                  <th>Creation Date</th>
+                  <th>Change status</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let bl of blogs">
+                  <td>{{bl.title}}</td>
+                  <td>{{bl.creationTime}}</td>
+                  <td>
+                    <ng-container *ngIf="bl.status === 1; then publishedBlog else closedBlog"></ng-container>
+                    <ng-template #publishedBlog>
+                        <button color="accent" (click)="closeBlog(bl)" mat-raised-button> Close</button>
+                    </ng-template>
+                    <ng-template #closedBlog>
+                        <ng-container *ngIf="bl.status === 2; then closedBlog else draftBlog"></ng-container>
+                        <ng-template #closedBlog>
+                            <button class="custom-button" (click)="publishBlog(bl)" mat-raised-button>Publish</button>
+                        </ng-template>
+                        <ng-template #draftBlog>
+                            <span>Draft</span>
+                        </ng-template>
+                    </ng-template>
+                </td>
+                <td  class="thumbnail">
+                    <img  src={{bl.image}} alt="" srcset="">
+                </td>
+                  <td>
+                      <button color="accent" (click)="deleteBlog(bl.id || 0)" mat-icon-button>
+                          <mat-icon>delete</mat-icon>
+                      </button>
+                      <button color="primary" (click)="onEditClicked(bl)" mat-icon-button>
+                          <mat-icon>edit</mat-icon>
+                      </button>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>

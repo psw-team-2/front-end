@@ -1,0 +1,17 @@
+<form [formGroup]="applicationReviewForm">
+    <div>
+        <mat-form-field>
+            <mat-label>Grade (1-5):</mat-label>
+            <input matInput formControlName="grade" type="number" required min="1" max="5"/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Comment:</mat-label>
+          <textarea matInput
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="1"
+          formControlName="comment"
+          cdkAutosizeMaxRows="5"></textarea>
+        </mat-form-field>
+        <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addApplicationReview()" mat-raised-button>Submit</button>  
+    </div>
+</form>
