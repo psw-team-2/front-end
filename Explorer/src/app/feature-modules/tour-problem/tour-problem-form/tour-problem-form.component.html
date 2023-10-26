@@ -1,0 +1,33 @@
+<form [formGroup]="tourProblemForm">
+    <div>
+        <mat-form-field>
+            <mat-label>Problem Category</mat-label>
+            <mat-select formControlName="problemCategory">
+                <mat-option value="category1">Category 1</mat-option>
+                <mat-option value="category2">Category 2</mat-option>
+                <mat-option value="category3">Category 3</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Problem Priority</mat-label>
+            <mat-select formControlName="problemPriority">
+                <mat-option value="priority1">Priority 1</mat-option>
+                <mat-option value="priority2">Priority 2</mat-option>
+                <mat-option value="priority3">Priority 3</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="1"
+                formControlName="description"
+                cdkAutosizeMaxRows="5"></textarea>
+        </mat-form-field>
+
+        <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addTourProblem()" mat-raised-button>Done</button>
+        <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateTourProblem()" mat-raised-button>Done</button>
+    </div>
+</form>
