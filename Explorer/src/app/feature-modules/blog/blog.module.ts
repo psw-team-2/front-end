@@ -22,7 +22,7 @@ import { BlogManagemetComponent } from './blog-managemet/blog-managemet.componen
     ReactiveFormsModule
   ],
   exports: [
-    BlogCommentFormComponent
+    BlogCommentFormComponent,
     BlogFormComponent,
     SinglePostComponent,
     BlogManagemetComponent,
