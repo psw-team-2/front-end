@@ -8,7 +8,11 @@ import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.
 import { EquipmentComponent } from 'src/app/feature-modules/administration/equipment/equipment.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { TourEquipmentComponent } from 'src/app/feature-modules/tour-authoring/tour-equipment/tour-equipment.component';
-
+import { ObjectComponent } from 'src/app/feature-modules/tour-authoring/object-form/object.component';
+import { TouristSelectedEquipmentComponent } from 'src/app/feature-modules/tourist/tourist-selected-equipment/tourist-selected-equipment.component';
+import { TourReviewFormComponent } from 'src/app/feature-modules/marketplace/tour-review-form/tour-review-form.component';
+import { TourReviewComponent } from 'src/app/feature-modules/marketplace/tour-review/tour-review.component';
+import { AuthGuard } from '../auth/auth.guard';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -17,7 +21,11 @@ const routes: Routes = [
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
   {path: 'checkpoint/:id', component: CheckpointComponent},
   {path: 'tour', component: TourComponent},
-  {path: 'equipment/:id', component: TourEquipmentComponent}
+  {path: 'equipment/:id', component: TourEquipmentComponent},
+  {path: 'object', component: ObjectComponent},
+  {path: 'touristSelectingEquipment', component: TouristSelectedEquipmentComponent},
+  {path: 'tour-review-form', component: TourReviewFormComponent},
+  {path: 'tour-review', component: TourReviewComponent},
 
 ];
 
