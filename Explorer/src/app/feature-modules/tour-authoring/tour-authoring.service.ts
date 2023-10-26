@@ -2,6 +2,7 @@ import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Checkpoint } from './model/checkpoint.model';
+import { Equipment } from './model/equipment.model';
 import { Observable } from 'rxjs';
 import { Tour } from './model/tour.model';
 import { environment } from 'src/env/environment';
@@ -12,6 +13,10 @@ import { environment } from 'src/env/environment';
 export class TourAuthoringService {
 
   constructor(private http: HttpClient) { }
+
+  getEquipment(): Observable<PagedResults<Equipment>> {
+    return this.http.get<PagedResults<Equipment>>('https://localhost:44333/api/author/equipment?page=0&pageSize=0')
+  }
 
   getCheckpoints() : Observable<PagedResults<Checkpoint>> {
     return this.http.get<PagedResults<Checkpoint>>('https://localhost:44333/api/addcheckpoint/checkpoint?page=0&pageSize=0');
@@ -71,4 +76,27 @@ export class TourAuthoringService {
   deleteTour(id: number): Observable<Tour> {
     return this.http.delete<Tour>('https://localhost:44333/api/author/tour/' + id);
   }
+
+  addEquipmentToTour(equipment: Equipment, tour: Tour) : Observable<Equipment>{
+    console.log(equipment);
+    console.log(tour);
+    return this.http.post<Equipment>('https://localhost:44333/api/author/tour/tourEquipment/' + tour.id +  '/' + equipment.id,tour)
+  }
+
+  removeEquipmentFromTour(equipmentId: number, tour: Tour) : Observable<Equipment>{
+    return this.http.put<Equipment>('https://localhost:44333/api/author/tour/remove/' + tour.id +  '/' + equipmentId,tour)
+  }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+

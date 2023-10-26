@@ -16,6 +16,9 @@ import { AuthModule } from './infrastructure/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { SharedModule } from './shared/shared.module';
+import { TouristSelectedEquipmentComponent } from './feature-modules/tourist/tourist-selected-equipment/tourist-selected-equipment.component';
+import { TouristModule } from './feature-modules/tourist/tourist.module';
+import { MatMenu, MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,8 @@ import { SharedModule } from './shared/shared.module';
     AuthModule,
     HttpClientModule,
     SharedModule
+    TouristModule,
+    MatMenuModule
   ],
   providers: [
     {
