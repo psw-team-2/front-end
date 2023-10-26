@@ -6,6 +6,7 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { RouterModule } from '@angular/router';
 import { HeroComponent } from './hero/hero.component';
 import { StartYourJourneyComponent } from './start-your-journey/start-your-journey.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { StartYourJourneyComponent } from './start-your-journey/start-your-journ
     NavbarComponent,
     HeroComponent,
     StartYourJourneyComponent,    
+    FooterComponent
   ],
   imports: [
     CommonModule,
@@ -24,6 +26,7 @@ import { StartYourJourneyComponent } from './start-your-journey/start-your-journ
     HomeComponent,
     HeroComponent,
     StartYourJourneyComponent,
+    FooterComponent
   ]
 })
 export class LayoutModule { }
