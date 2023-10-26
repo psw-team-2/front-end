@@ -4,6 +4,9 @@ import { EquipmentFormComponent } from './equipment-form/equipment-form.componen
 import { EquipmentComponent } from './equipment/equipment.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ApplicationReviewComponent } from './application-review/application-review.component';
+
+
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileFormComponent } from './profile-form/profile-form.component';
 import { PictureFormComponent } from './picture-form/picture-form.component';
@@ -13,10 +16,12 @@ import { PictureForm2Component } from './picture-form2/picture-form2.component';
 import { TourPreferenceModule } from '../tour-preference/tour-preference.module';
 import { UserAccountAdministrationComponent } from './user-account-administration/user-account-administration.component';
 
+
 @NgModule({
   declarations: [
     EquipmentFormComponent,
     EquipmentComponent,
+    ApplicationReviewComponent,
     ProfileComponent,
     ProfileFormComponent,
     PictureFormComponent,
@@ -34,6 +39,7 @@ import { UserAccountAdministrationComponent } from './user-account-administratio
   exports: [
     EquipmentComponent,
     EquipmentFormComponent,
+    ApplicationReviewComponent,
     ProfileComponent,
     Profile2Component,
     UserAccountAdministrationComponent

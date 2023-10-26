@@ -1,0 +1,25 @@
+<form [formGroup]="clubForm">
+    <div>
+        <div>
+            <label>Name: </label>
+            <input formControlName="name" type="text"/>
+        </div>
+
+        <div>
+            <label>Description: </label>
+                <textarea
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="1"
+                formControlName="description"
+                cdkAutosizeMaxRows="4"></textarea>
+        </div>
+
+        <div>
+            <label>Image URL: </label>
+            <input formControlName="imageUrl" type="text"/>
+        </div>
+    </div>
+    <br>
+    <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addClub()" mat-raised-button>Done</button>
+    <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateClub()" mat-raised-button>Done</button>
+</form>
