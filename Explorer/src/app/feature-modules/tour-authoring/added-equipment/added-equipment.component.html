@@ -17,8 +17,7 @@
                     <td>{{eq.name}}</td>
                     <td>{{eq.description}}</td>
                     <td>
-                        <button color="accent" (click)="deleteEquipment(eq.id || 0)" mat-icon-button>
-                            <mat-icon>delete</mat-icon>
+                        <button color="accent" (click)="deleteEquipment(eq.id || 0)">-
                         </button>
                     </td>
                 </tr>
@@ -27,7 +26,6 @@
         </table>
     </div>
     <div>
-        <xp-equipment-form *ngIf="shouldRenderEquipmentForm" [shouldEdit]="shouldEdit" [equipment]="selectedEquipment" (equimpentUpdated)="getEquipment()"></xp-equipment-form>
     </div>
     </div>
 </div>

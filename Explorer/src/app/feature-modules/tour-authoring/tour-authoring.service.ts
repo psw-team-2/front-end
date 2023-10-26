@@ -14,6 +14,10 @@ export class TourAuthoringService {
 
   constructor(private http: HttpClient) { }
 
+  getEquipment(): Observable<PagedResults<Equipment>> {
+    return this.http.get<PagedResults<Equipment>>('https://localhost:44333/api/author/equipment?page=0&pageSize=0')
+  }
+
   getCheckpoints() : Observable<PagedResults<Checkpoint>> {
     return this.http.get<PagedResults<Checkpoint>>('https://localhost:44333/api/addcheckpoint/checkpoint?page=0&pageSize=0');
   }
@@ -73,12 +77,14 @@ export class TourAuthoringService {
     return this.http.delete<Tour>('https://localhost:44333/api/author/tour/' + id);
   }
 
-  addEquipmentToTour(equipment: Equipment) : Observable<Equipment>{
-    return this.http.post<Equipment>(environment.apiHost + 'tour-authoring/equipment', equipment)
+  addEquipmentToTour(equipment: Equipment, tour: Tour) : Observable<Equipment>{
+    console.log(equipment);
+    console.log(tour);
+    return this.http.post<Equipment>('https://localhost:44333/api/author/tour/tourEquipment/' + tour.id +  '/' + equipment.id,tour)
   }
 
-  removeEquipmentFromTour(equipment: Equipment, tour: Tour) : Observable<Equipment>{
-    return this.http.post<Equipment>('https://localhost:44333/api/author/tour/tourEquipment/' + equipment.id + '/' + equipment,tour)
+  removeEquipmentFromTour(equipmentId: number, tour: Tour) : Observable<Equipment>{
+    return this.http.put<Equipment>('https://localhost:44333/api/author/tour/remove/' + tour.id +  '/' + equipmentId,tour)
   }
 
 }

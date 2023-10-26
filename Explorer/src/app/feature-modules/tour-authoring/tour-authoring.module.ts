@@ -8,6 +8,8 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AppRoutingModule } from 'src/app/infrastructure/routing/app-routing.module';
+import { AddedEquipmentComponent } from './added-equipment/added-equipment.component';
+import { TourEquipmentComponent } from './tour-equipment/tour-equipment.component';
 
 
 
@@ -16,7 +18,9 @@ import { AppRoutingModule } from 'src/app/infrastructure/routing/app-routing.mod
     CheckpointComponent,
     CheckpointFormComponent,
     TourComponent,
-    TourFormComponent
+    TourFormComponent,
+    TourEquipmentComponent,
+    AddedEquipmentComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +33,9 @@ import { AppRoutingModule } from 'src/app/infrastructure/routing/app-routing.mod
     CheckpointComponent,
     CheckpointFormComponent,
     TourComponent,
-    TourFormComponent
+    TourFormComponent,
+    TourEquipmentComponent,
+    AddedEquipmentComponent
   ]
 })
 export class TourAuthoringModule { }

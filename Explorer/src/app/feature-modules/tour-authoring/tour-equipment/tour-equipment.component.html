@@ -17,8 +17,7 @@
                     <td>{{eq.name}}</td>
                     <td>{{eq.description}}</td>
                     <td>
-                        <button color="primary" (click)="onAddClicked()" mat-icon-button>
-                            <mat-icon>add</mat-icon>
+                        <button color="primary" (click)="onAddClicked(eq)" mat-icon-button>+
                         </button>
                     </td>
                 </tr>
@@ -27,8 +26,8 @@
         </table>
     </div>
     <div>
-        <xp-equipment-form *ngIf="shouldRenderEquipmentForm" [shouldEdit]="shouldEdit" [equipment]="selectedEquipment" (equimpentUpdated)="getEquipment()"></xp-equipment-form>
     </div>
     </div>
+    <xp-added-equipment></xp-added-equipment>
 </div>
 
