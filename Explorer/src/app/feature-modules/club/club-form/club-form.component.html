@@ -14,9 +14,12 @@
                 cdkAutosizeMaxRows="4"></textarea>
         </div>
 
-        <div>
-            <label>Image URL: </label>
-            <input formControlName="imageUrl" type="text"/>
+        <mat-label>Image:</mat-label>
+        <button mat-raised-button color="primary" width="200" (click)="fileInput.click()">Upload File</button>
+        <input hidden #fileInput type="file" (change)="onFileSelected($event)">
+        <div *ngIf="currentFile">
+          <span>{{ currentFile.name }}</span>
+          <button icon-button (click)="deleteFile()">X</button>
         </div>
     </div>
     <br>
