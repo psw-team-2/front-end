@@ -29,6 +29,8 @@
                         <button color="primary" (click)="onEditClicked(t)" mat-icon-button>
                             <mat-icon>edit</mat-icon>
                         </button>
+                        <button color="primary" mat-raised-button [routerLink]="['/checkpoint', t.id]">Manage checkpoint</button>
+                        <button color="primary" mat-raised-button [routerLink]="['/equipment', t.id]">Manage equipment</button>
                     </td>
                 </tr>
                 <tr>

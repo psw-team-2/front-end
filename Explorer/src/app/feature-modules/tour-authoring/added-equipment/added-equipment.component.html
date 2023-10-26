@@ -1,0 +1,32 @@
+<div id="equipment">
+    <p>Equipment</p>
+    <hr>
+    <div id="equipment-details">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Naziv</th>
+                    <th>Opis</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let eq of equipment">
+                    <td>{{eq.name}}</td>
+                    <td>{{eq.description}}</td>
+                    <td>
+                        <button color="accent" (click)="deleteEquipment(eq.id || 0)">-
+                        </button>
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    <div>
+    </div>
+    </div>
+</div>
+
