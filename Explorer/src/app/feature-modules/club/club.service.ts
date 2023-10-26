@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Club } from './model/club.model';
 import { environment } from 'src/env/environment';
@@ -39,5 +39,18 @@ export class ClubService {
   
   sendRequest(clubRequest: ClubRequest): Observable<ClubRequest> {
     return this.http.post<ClubRequest>(environment.apiHost + 'clubRequests/sendRequest', clubRequest);
+  }
+
+  upload(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST', `https://localhost:44333/api/clubs/UploadFile`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
   }
 }

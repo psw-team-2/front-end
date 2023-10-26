@@ -41,9 +41,9 @@ export class MapViewComponent implements AfterViewInit {
     const waypointsArray = waypoints.map(waypoint => L.latLng(waypoint.lat, waypoint.lng));
 
     // Fit the map view to the bounds of the waypoints
-    this.map.fitBounds(waypointsArray);
+    //this.map.fitBounds(waypointsArray);
   
-    this.setRoute(waypoints);
+   // this.setRoute(waypoints);
     
   }
 

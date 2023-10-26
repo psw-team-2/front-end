@@ -1,0 +1,36 @@
+<form [formGroup]="objectForm">
+
+
+<div>
+    <mat-form-field>
+        <label>Name</label>
+        <input matInput formControlName="name" type="text">
+    </mat-form-field>
+
+    <mat-form-field>
+      <label>Description</label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+
+      <mat-label>Image:</mat-label>
+      <button mat-raised-button color="primary" width="200" (click)="fileInput.click()">Upload File</button>
+      <input hidden #fileInput type="file" (change)="onFileSelected($event)">
+      <div *ngIf="currentFile">
+          <span>{{ currentFile.name }}</span>
+          <button icon-button (click)="deleteFile()">X</button>
+        </div>
+    
+    <mat-form-field>
+    <select formControlName="category" id="category">
+      <option value="0">WC</option>
+      <option value="1">Restaurant</option>
+      <option value="2">Parking</option>
+      <option value="3">Other</option>
+    </select>
+  </mat-form-field>
+      <button mat-raised-button type="submit" (click)="addObject()">Submit</button>
+
+</div>
+
+
+</form>

@@ -1,0 +1,18 @@
+div {
+    width: 400px;
+    display:flex;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.mat-icon {
+    vertical-align: middle;
+}
+.thumbnail {
+    width: 100px; /* Adjust the width to your desired size */
+    height: 100px; /* Adjust the height to your desired size */
+  }
+.thumbnail img {
+    width: 100%; /* Ensure the image fills the cell */
+    height: auto; 
+  }

@@ -17,6 +17,7 @@ export class ClubFormComponent implements OnChanges {
   @Input() shouldEdit: boolean = false;
 
   user: User | undefined;
+  currentFile: File | null;
   memberIds: number[] = [];
 
   constructor(private service: ClubService, private authService: AuthService){}
@@ -46,30 +47,75 @@ export class ClubFormComponent implements OnChanges {
     // memberIds: new FormControl('', [Validators.required]),
   });
 
-  addClub(): void{
+  async addClub(): Promise<void> {
+
+    if (this.currentFile == null) {
+      return;
+    }
+
+    let memberId = this.user?.id as number;
     const club: Club = {
       name: this.clubForm.value.name || "",
       description: this.clubForm.value.description || "",
-      imageUrl: this.clubForm.value.name || "",
+      imageUrl: 'https://localhost:44333/Images/' + this.currentFile.name || "",
       ownerId : this.user?.id || 0,
-      memberIds : [],
+      memberIds : [ memberId ],
     };
     this.service.addClub(club).subscribe({
       next: () => { this.clubUpdated.emit() }
     });
+
+    await this.service.upload(this.currentFile).subscribe({
+      next: (value) => {
+        // Obrada uspešnog upload-a
+      },
+      error: (value) => {
+        // Obrada greške tokom upload-a
+      }, complete: () => {
+        // Obrada završetka upload-a
+      },
+    });
   }
 
-  updateClub(): void{
+  async updateClub(): Promise<void> {
+    let newImageUrl = 'https://localhost:44333/Images/' + this.currentFile?.name;
+    if (newImageUrl === 'https://localhost:44333/Images/undefined') {
+      newImageUrl = this.club.imageUrl;
+    }
+
     const club: Club = {
       name: this.clubForm.value.name || "",
       description: this.clubForm.value.description || "",
-      imageUrl: this.clubForm.value.name || "",
+      imageUrl: newImageUrl,
       ownerId : this.user?.id || 0,
-      memberIds : [],
+      memberIds : this.club.memberIds,
     }
     club.id = this.club.id;
     this.service.updateClub(club).subscribe({
       next: () => { this.clubUpdated.emit();}
     });
+
+    if (this.currentFile == null) {
+      return;
+    }
+
+    await this.service.upload(this.currentFile).subscribe({
+      next: (value) => {
+        // Obrada uspešnog upload-a
+      },
+      error: (value) => {
+        // Obrada greške tokom upload-a
+      }, complete: () => {
+        // Obrada završetka upload-a
+      },
+    });
+  }
+
+  onFileSelected(event: any) {
+    this.currentFile = event.target.files[0];
+  }
+
+  deleteFile() {
+    this.currentFile = null;
   }
 }

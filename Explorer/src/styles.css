@@ -1,7 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-
 
 #entity {
     margin-top: 20px;
@@ -118,48 +116,6 @@ hr {
     
 }
 
-/* Styling the footer */
-footer {
-    position: relative;
-    margin-top: auto;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #333; /* Dark grey background */
-    color: #fff; /* White text color */
-    font-family: 'Montserrat', sans-serif; /* Montserrat font family */
-    padding: 0px; /* Add padding for spacing */
-    display: flex; /* Use flex display to align items in a row */
-    justify-content: space-between; /* Space between items in the row */
-    align-items: center; /* Vertically align content */
-}
-
-/* Styling for the title (bigger font) */
-footer .title {
-    font-size: 48px; /* Increase the font size to 60px or adjust as needed */
-    font-weight: bold;
-    max-width: 40%; /* Limit the width to 50% of the footer to fit within the screen */
-    text-align: right; /* Right-align the h1 element */
-    position: relative; /* Enable relative positioning */
-    right: 200px;
-    bottom: 0px;
-}
-
-/* Styling for the contact information (left-aligned, smaller, and organized vertically) */
-footer .contact-info {
-    font-size: 20px; /* Adjust the font size for <p> */
-    text-align: left; /* Left-align <p> elements */
-    margin-left: 75px;
-    margin-top: 25px;
-    margin-bottom: 15px;
-}
-
-footer .contact-info-title {
-    font-size: 20px; /* Adjust the font size for <p> */
-    text-align: left; /* Left-align <p> elements */
-    font-weight: normal;
-    margin-bottom: 15px;
-}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 @font-face {
