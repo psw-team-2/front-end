@@ -43,7 +43,7 @@ import { UserAccountAdministrationComponent } from './user-account-administratio
     ReactiveFormsModule,
 
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
 
     TourPreferenceModule
 
@@ -51,15 +51,12 @@ import { UserAccountAdministrationComponent } from './user-account-administratio
   exports: [
     EquipmentComponent,
     EquipmentFormComponent,
-
-  ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
-
     ApplicationReviewComponent,
     ProfileComponent,
     Profile2Component,
     UserAccountAdministrationComponent
-  ]
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
 })
 export class AdministrationModule { }

@@ -10,10 +10,10 @@
         <button mat-menu-item *ngIf="user && (user.role === 'administrator' || user.role === 'tourist')"color="primary" [routerLink]="['tour-problem']">Manage tour problem</button>
    
         <button mat-raised-button color="primary" [routerLink]="['clubs']" *ngIf="user && user.username !== ''">Clubs</button>
-        <button mat-raised-button color="primary" [routerLink]="['clubRequest']" *ngIf="user && user.role === 'tourist">Manage club request</button>
-        <button mat-raised-button color="primary" [routerLink]="['userAccounts']" *ngIf="user && user.role === 'administrator">User accounts</button>
-        <button mat-raised-button color="primary" [routerLink]="['profile']" *ngIf="user && user.role === 'tourist" routerLinkActive="active-link">Profile</button>
-        <button mat-raised-button color="primary" [routerLink]="['profile2']" *ngIf="user && user.role === 'author" routerLinkActive="active-link">Profile</button>
+        <button mat-raised-button color="primary" [routerLink]="['clubRequest']" *ngIf="user && user.role === 'tourist'">Manage club request</button>
+        <button mat-raised-button color="primary" [routerLink]="['userAccounts']" *ngIf="user && user.role === 'administrator'">User accounts</button>
+        <button mat-raised-button color="primary" [routerLink]="['profile']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">Profile</button>
+        <button mat-raised-button color="primary" [routerLink]="['profile2']" *ngIf="user && user.role === 'author'" routerLinkActive="active-link">Profile</button>
         
         
     </mat-menu>

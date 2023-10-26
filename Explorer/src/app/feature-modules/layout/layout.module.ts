@@ -16,7 +16,7 @@ import { FooterComponent } from './footer/footer.component';
     HomeComponent,
     NavbarComponent,
 
-    WhyusComponent
+    WhyusComponent,
 
     HeroComponent,
     StartYourJourneyComponent,    
@@ -32,7 +32,7 @@ import { FooterComponent } from './footer/footer.component';
     NavbarComponent,
     HomeComponent,
 
-    WhyusComponent
+    WhyusComponent,
 
     HeroComponent,
     StartYourJourneyComponent,
