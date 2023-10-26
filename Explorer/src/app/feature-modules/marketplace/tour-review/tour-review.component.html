@@ -1,0 +1,47 @@
+<div id="tour-review">
+    <hr>
+    <div id="tourReview-details">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Grade</th>
+                    <th>Comment</th>
+                    <th>Image</th>
+                    <th>Review date</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tr of tourReview">
+                    <td>{{ getUserName(tr.userId) }}</td>
+                    <td>{{tr.grade}}</td>
+                    <td>{{tr.comment}}</td>
+                    <td class="thumbnail">
+                        <img   src={{tr.images}} alt="" srcset="">
+                    </td>
+                    <td>{{tr.reviewDate}}</td>
+                    <td>
+                        <button color="accent" (click)="deleteTourReview(tr.id || 0)"  mat-icon-button>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        <button color="primary"  mat-icon-button>
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr><button color="primary" (click)="onAddClicked()"  mat-icon-button>
+                    <mat-icon>add</mat-icon>
+                </button></tr>
+                
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <xp-tour-review-form *ngIf="shouldRenderTourReviewForm"[shouldEdit]="shouldEdit" [tourReview]="selectedTourReview" (tourReviewUpdated)="getTourReview()"></xp-tour-review-form>
+    </div>
+    </div>
+</div>
+
