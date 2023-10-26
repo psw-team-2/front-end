@@ -31,11 +31,11 @@
   
 /* Style the text within the overlay */
 .hero-image-text-overlay h1 {
-    font-size: 100px;
+    font-size: 10vw;
     font-family: 'Montserrat', sans-serif; /* Montserrat font family */
     position: relative;
-    left: 20px;
-    margin-bottom: 0px;
+    left: 5vw;
+    margin-bottom: 7.5vw;
 }
 
 
