@@ -1,17 +1,19 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, Input } from '@angular/core';
 import * as L from 'leaflet';
-import 'leaflet-routing-machine';
+import { Checkpoint } from 'src/app/feature-modules/tour-authoring/model/checkpoint.model';
 import { MapViewService } from './map-view.service';
+import 'leaflet-routing-machine';
 
 @Component({
   selector: 'xp-map-view',
   templateUrl: './map-view.component.html',
-  styleUrls: ['./map-view.component.css']
+  styleUrls: ['./map-view.component.css'],
 })
 export class MapViewComponent implements AfterViewInit {
+  @Input() loadedCheckpoints: Checkpoint[];
   private map: any;
 
-  constructor(private mapService : MapViewService) {}
+  constructor(private mapService:  MapViewService) {}
 
   private initMap(): void {
     this.map = L.map('map', {
@@ -32,18 +34,16 @@ export class MapViewComponent implements AfterViewInit {
 
     //this.registerOnClick();
     //this.search();
-    const waypoints = [
-      { lat: 45.2396, lng: 19.8227 },
-      { lat: 45.25, lng: 19.85 },
-      // Add more waypoints as needed
-    ];
-    
-    const waypointsArray = waypoints.map(waypoint => L.latLng(waypoint.lat, waypoint.lng));
+      console.log(this.loadedCheckpoints)
+      let xd : Checkpoint[] = [];
+      for(let checkpoint of this.loadedCheckpoints)
+      {
+        xd.push(checkpoint)
+        console.log(checkpoint)
+      }
 
-    // Fit the map view to the bounds of the waypoints
-    //this.map.fitBounds(waypointsArray);
-  
-   // this.setRoute(waypoints);
+      console.log(xd);
+    // Access other properties as needed
     
   }
 
@@ -55,7 +55,6 @@ export class MapViewComponent implements AfterViewInit {
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
   }
-
   search(): void {
     this.mapService.search('Strazilovska 19, Novi Sad').subscribe({
       next: (result) => {
@@ -84,31 +83,27 @@ export class MapViewComponent implements AfterViewInit {
       alert(mp.getLatLng());
     });
   }
+  setRoute(checkpoints: Checkpoint[]): void {
+    console.log(checkpoints);
 
-  setRoute(waypoints: { lat: number, lng: number }[]): void {
-    if (waypoints.length < 2) {
-      console.error('At least two waypoints are required for a route.');
-      return;
-    }
-  
-    const waypointsArray = waypoints.map(waypoint => L.latLng(waypoint.lat, waypoint.lng));
+    console.log(checkpoints[1])
+    const waypointCoordinates = checkpoints.map(checkpoint => {
+        return L.latLng(checkpoint.latitude, checkpoint.longitude);
+    });
+    console.log(checkpoints);
+    console.log(waypointCoordinates);
+
     const routeControl = L.Routing.control({
-      waypoints: waypointsArray,
-      router: L.routing.mapbox('pk.eyJ1IjoiZGpucGxtcyIsImEiOiJjbG56Mzh3a2gwNWwzMnZxdDljdHIzNDIyIn0.iZjiPJJV-SgTiIOeF8UWvA', { profile: 'mapbox/walking' })
+        waypoints: waypointCoordinates,
+        router: L.Routing.mapbox('pk.eyJ1IjoiZGpucGxtcyIsImEiOiJjbG56Mzh3a2gwNWwzMnZxdDljdHIzNDIyIn0.iZjiPJJV-SgTiIOeF8UWvA', { profile: 'mapbox/walking' })
     }).addTo(this.map);
-  
+
     routeControl.on('routesfound', function (e) {
-      var routes = e.routes;
-      var summary = routes[0].summary;
-      alert('Total distance is ' + summary.totalDistance / 1000 + ' km and total time is ' + Math.round(summary.totalTime % 3600 / 60) + ' minutes');
+        var routes = e.routes;
+        var summary = routes[0].summary;
+        alert('Total distance is ' + summary.totalDistance / 1000 + ' km and total time is ' + Math.round(summary.totalTime % 3600 / 60) + ' minutes');
     });
-  
-    // Add markers for all waypoints
-    waypoints.forEach((waypoint, index) => {
-      L.marker([waypoint.lat, waypoint.lng])
-        .addTo(this.map)
-        .bindPopup(`Waypoint ${index + 1}`)
-        .openPopup();
-    });
-  }
+}
+
+
 }
