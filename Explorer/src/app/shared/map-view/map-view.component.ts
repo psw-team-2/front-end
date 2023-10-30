@@ -16,6 +16,7 @@ export class MapViewComponent implements AfterViewInit {
   constructor(private mapService:  MapViewService) {}
 
   private initMap(): void {
+    console.log(new Date())
     this.map = L.map('map', {
       center: [45.2396, 19.8227],
       zoom: 13,
@@ -34,16 +35,7 @@ export class MapViewComponent implements AfterViewInit {
 
     //this.registerOnClick();
     //this.search();
-      console.log(this.loadedCheckpoints)
-      let xd : Checkpoint[] = [];
-      for(let checkpoint of this.loadedCheckpoints)
-      {
-        xd.push(checkpoint)
-        console.log(checkpoint)
-      }
-
-      console.log(xd);
-    // Access other properties as needed
+    this.setRoute(this.loadedCheckpoints)
     
   }
 
@@ -84,14 +76,9 @@ export class MapViewComponent implements AfterViewInit {
     });
   }
   setRoute(checkpoints: Checkpoint[]): void {
-    console.log(checkpoints);
-
-    console.log(checkpoints[1])
     const waypointCoordinates = checkpoints.map(checkpoint => {
         return L.latLng(checkpoint.latitude, checkpoint.longitude);
     });
-    console.log(checkpoints);
-    console.log(waypointCoordinates);
 
     const routeControl = L.Routing.control({
         waypoints: waypointCoordinates,
@@ -101,7 +88,7 @@ export class MapViewComponent implements AfterViewInit {
     routeControl.on('routesfound', function (e) {
         var routes = e.routes;
         var summary = routes[0].summary;
-        alert('Total distance is ' + summary.totalDistance / 1000 + ' km and total time is ' + Math.round(summary.totalTime % 3600 / 60) + ' minutes');
+        //alert('Total distance is ' + summary.totalDistance / 1000 + ' km and total time is ' + Math.round(summary.totalTime % 3600 / 60) + ' minutes');
     });
 }
 
