@@ -7,6 +7,7 @@ import { BlogCommentsComponent } from './blog-comments/blog-comments.component';
 import { BlogFormComponent } from './blog-form/blog-form.component';
 import { SinglePostComponent } from './single-post/single-post.component';
 import { BlogManagemetComponent } from './blog-managemet/blog-managemet.component';
+import { BlogReviewComponent } from './blog-review/blog-review.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { BlogManagemetComponent } from './blog-managemet/blog-managemet.componen
     BlogManagemetComponent,
     BlogCommentFormComponent,
     BlogCommentsComponent,
+    BlogReviewComponent,
   ],
   imports: [
     CommonModule,
