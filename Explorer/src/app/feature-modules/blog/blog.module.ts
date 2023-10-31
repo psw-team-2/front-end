@@ -29,6 +29,7 @@ import { BlogReviewComponent } from './blog-review/blog-review.component';
     SinglePostComponent,
     BlogManagemetComponent,
     BlogCommentsComponent,
+    BlogReviewComponent,
   ]
 })
 export class BlogModule { }
