@@ -32,6 +32,7 @@ import { SinglePostComponent } from 'src/app/feature-modules/blog/single-post/si
 import { BlogManagemetComponent } from 'src/app/feature-modules/blog/blog-managemet/blog-managemet.component';
 import { BlogCommentsComponent } from 'src/app/feature-modules/blog/blog-comments/blog-comments.component';
 import { BlogSinglePostComponent } from 'src/app/feature-modules/blog/blog-single-post/blog-single-post.component';
+import { BlogReviewComponent } from 'src/app/feature-modules/blog/blog-review/blog-review.component';
 
 
 const routes: Routes = [
@@ -62,7 +63,8 @@ const routes: Routes = [
   {path: 'blog-management', component: BlogManagemetComponent, canActivate: [AuthGuard],},
   { path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
   { path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
-  { path: 'blog-single-post/:id', component: BlogSinglePostComponent, }
+  { path: 'blog-single-post/:id', component: BlogSinglePostComponent, },
+  {path: 'blog-review', component: BlogReviewComponent},
 
 
 ];

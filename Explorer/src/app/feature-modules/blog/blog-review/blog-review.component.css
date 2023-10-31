@@ -1,0 +1,89 @@
+#blog-review {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+    
+}
+
+.blog-card {
+    width: calc(80% - 20px);  /* Podelite dostupan prostor na tri dela, sa razmakom od 10px između kartica */
+    height: 330px;
+    margin: 20px;
+    border: 1px solid #e1e1e1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+}
+
+.blog-card:hover {
+    transform: translateY(-3px);
+}
+
+
+
+.blog-details {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+}
+
+.blog-image {
+    width: 100%;
+    max-height: 200px; /* Maksimalna visina slike */
+    object-fit: cover; /* Održava proporcije slike */
+}
+
+.blog-title {
+    text-align: center;
+    font-size: 1.25rem; /* Prilagodite veličinu fonta prema vašem stilu */
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.blog-title-section {
+    background-color: #2a2133; 
+    color: white;
+    text-align: center;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+}
+
+.page-title{
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+}
+
+
+.read-more-button {
+    
+    background-color: #2a2133;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+}
+
+.read-more-button:hover {
+    background-color: #660089; /* Promenite boju prilikom hover-a prema vašem stilu */
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+  

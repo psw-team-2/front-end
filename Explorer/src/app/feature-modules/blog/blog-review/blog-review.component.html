@@ -1,0 +1,26 @@
+<div id="blog-review">
+    <div class="blog-title-section">
+        <h1 class="page-title">See latest blog posts </h1>
+      </div>
+      <ng-container *ngFor="let row of blogRows">
+        <div class="row">
+          <ng-container *ngFor="let blog of row">
+            <div class="col-md-4">
+              <div class="blog-card">
+                <img [src]="blog.image" alt="Blog Image" class="blog-image">
+                <div class="blog-details">
+                  <h3 class="blog-title">{{ blog.title }}</h3>
+                </div>
+                <button class="read-more-button">Read More</button>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+  </div>
+  
+  <div class="pagination">
+    <button *ngFor="let page of totalPageArray" (click)="changePage(page)">{{ page }}</button>
+  </div>
+  
+  
