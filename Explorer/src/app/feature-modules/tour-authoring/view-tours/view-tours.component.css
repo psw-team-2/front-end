@@ -6,21 +6,14 @@
 }
 
 .card {
-  width: 240px;
-  height: 320px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-  position: relative;
-  margin-bottom: 20px; /* Add space below each card */
-}
-
-.card {
-  width: 230px;
-  height: 320px;
+  width: 220px;
+  height: 340px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   position: relative;
   margin-bottom: 20px;
   background: url('https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg') no-repeat center center;
   background-size: cover;
+  border: 3px solid rgb(56, 28, 117); /* Add a purple border */
 }
 
 
@@ -76,4 +69,12 @@
 .view-button:hover {
   background-color: #2E003D;
   color: #ffffff;
+}
+.header {
+  font-size: 30px;
+  color: #2E003D; /* Text color */
+  text-align: center; /* Center the text */
+  margin: 20px; /* Add space below the header */
+  font-weight: bold; /* Make the text bold if desired */
+  text-transform: uppercase; /* Convert text to uppercase if desired */
 }

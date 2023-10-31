@@ -5,3 +5,15 @@
 #map {
   height: 600px;
 }
+
+.custom-popup {
+  background-color: purple;
+  color: white;
+  padding: 10px;
+}
+
+/* Styles for category labels */
+.category-label {
+  text-align: center;
+  font-weight: bold;
+}
