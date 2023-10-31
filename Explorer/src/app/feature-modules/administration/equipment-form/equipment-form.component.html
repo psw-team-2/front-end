@@ -1,10 +1,11 @@
+
 <form [formGroup]="equipmentForm">
     <div id="entity-form">
-        <mat-form-field class="entity-mat-mdc-form-field">
+        <mat-form-field id="entity-mat-mdc-form-field">
             <mat-label>Name</mat-label>
             <input matInput formControlName="name" type="text"/>
         </mat-form-field>
-        <mat-form-field class="entity-mat-mdc-form-field">
+        <mat-form-field id="entity-mat-mdc-form-field">
             <mat-label>Description</mat-label>
             <textarea matInput
             cdkTextareaAutosize
@@ -17,3 +18,4 @@
         <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateEquipment()" mat-raised-button id="entity-raised-button">Done</button>
     </div>    
 </form>
+

@@ -32,6 +32,7 @@ export class AdministrationService {
   }
 
 
+
   getApplicationReview(): Observable<PagedResults<ApplicationReview>> {
     return this.http.get<PagedResults<ApplicationReview>>(environment.apiHost + 'tourist/applicationReview');
   }
@@ -106,4 +107,5 @@ export class AdministrationService {
 
     return this.http.request(req);
   }
+
 }

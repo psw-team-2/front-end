@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EquipmentFormComponent } from './equipment-form/equipment-form.component';
 import { EquipmentComponent } from './equipment/equipment.component';
@@ -6,6 +6,10 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApplicationReviewComponent } from './application-review/application-review.component';
 
+
+
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileFormComponent } from './profile-form/profile-form.component';
@@ -17,10 +21,12 @@ import { TourPreferenceModule } from '../tour-preference/tour-preference.module'
 import { UserAccountAdministrationComponent } from './user-account-administration/user-account-administration.component';
 
 
+
 @NgModule({
   declarations: [
     EquipmentFormComponent,
     EquipmentComponent,
+
     ApplicationReviewComponent,
     ProfileComponent,
     ProfileFormComponent,
@@ -28,13 +34,19 @@ import { UserAccountAdministrationComponent } from './user-account-administratio
     Profile2Component,
     ProfileForm2Component,
     PictureForm2Component,
-    UserAccountAdministrationComponent
+    UserAccountAdministrationComponent,
+
   ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
+
+    MatSelectModule,
+    MatIconModule,
+
     TourPreferenceModule
+
   ],
   exports: [
     EquipmentComponent,
@@ -43,6 +55,8 @@ import { UserAccountAdministrationComponent } from './user-account-administratio
     ProfileComponent,
     Profile2Component,
     UserAccountAdministrationComponent
-  ]
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+
 })
 export class AdministrationModule { }

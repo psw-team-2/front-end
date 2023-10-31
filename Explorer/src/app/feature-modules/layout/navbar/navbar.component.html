@@ -1,16 +1,29 @@
-<mat-toolbar color="primary">
-    <div>
-        <p>Explorer</p>
-        <div id="buttons">
-            <button *ngIf="user && user.username === ''" color="accent" mat-raised-button [routerLink]="['login']">Login</button>
-            <button *ngIf="user && user.username !== ''" color="accent" mat-raised-button (click)="onLogout()">Logout</button>
-            <button color="primary" mat-raised-button [routerLink]="['home']">Home</button>
-            <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['equipment']">Manage equipment</button>
-            <button *ngIf="user && user.username !== ''" color="primary" mat-raised-button [routerLink]="['clubs']">Clubs</button>
-            <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['clubRequest']">Manage club request</button>
-            <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['userAccounts']">User accounts</button>
-            <button *ngIf="user && user.role === 'tourist'" color="primary" mat-raised-button [routerLink]="['profile']" routerLinkActive="active-link">Profile</button>
-            <button *ngIf="user && user.role === 'author'" color="primary" mat-raised-button [routerLink]="['profile2']" routerLinkActive="active-link">Profile</button>
-        </div>
+<mat-toolbar class="navbar" color="primary">
+    <div class="navbar-left">
+      <button class="menuButton" mat-button [matMenuTriggerFor]="menu">Menu</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item color="primary" [routerLink]="['home']">Home</button>
+        <button mat-menu-item *ngIf="user && user.role === 'administrator'" color="primary" [routerLink]="['equipment']">Manage equipment</button>
+        <button mat-menu-item  *ngIf="user && user.role === 'tourist'" color="primary" [routerLink]="['tour-review']">TourReview</button>
+        <button mat-menu-item *ngIf="user && user.role === 'author'"color="primary" [routerLink]="['tour']" routerLinkActive="active">Manage tour</button>
+        <button mat-menu-item *ngIf="user && user.role === 'author'" color="primary" [routerLink]="['object']">Add Object</button>
+        <button mat-menu-item *ngIf="user && (user.role === 'administrator' || user.role === 'tourist')"color="primary" [routerLink]="['tour-problem']">Manage tour problem</button>
+   
+        <button mat-menu-item color="primary" [routerLink]="['clubs']" *ngIf="user && user.username !== ''">Clubs</button>
+        <button mat-menu-item color="primary" [routerLink]="['clubRequest']" *ngIf="user && user.role === 'tourist'">Manage club request</button>
+        <button mat-menu-item color="primary" [routerLink]="['userAccounts']" *ngIf="user && user.role === 'administrator'">User accounts</button>
+        <button mat-menu-item color="primary" [routerLink]="['profile']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">Profile</button>
+        <button mat-menu-item color="primary" [routerLink]="['profile2']" *ngIf="user && user.role === 'author'" routerLinkActive="active-link">Profile</button>
+        
+        
+    </mat-menu>
     </div>
-</mat-toolbar>
+  
+    <p class="explorer">Explorer</p>
+  
+    <div class="navbar-right">
+      <button class="logButton" *ngIf="user && user.username === ''" mat-button [routerLink]="['login']">Log In</button>
+      <button class="logButton" *ngIf="user && user.username !== ''" mat-button (click)="onLogout()">Logout</button>
+    </div>
+  </mat-toolbar>
+  
