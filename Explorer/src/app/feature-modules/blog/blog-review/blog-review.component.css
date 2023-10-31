@@ -45,17 +45,46 @@
     letter-spacing: 1px;
     font-weight: bold;
 }
-
 .blog-title-section {
-    background-color: #2a2133; 
+    background-color: #2a2133;
     color: white;
     text-align: center;
-    height: 150px;
+    height: 180px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+}
+  
+.blog-options {
+    display:none;
+    background-color:#3d3148;
+    flex-direction: column;
+    gap: 5px;
+    position:absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+    z-index: 2;
+}
+  
+.blog-title-section:hover .blog-options {
+    display: flex;
+}
+  
+.blog-options a {
+    color: white;
+    text-decoration: none;
+}
+  
+.blog-options a:hover {
+        text-decoration: underline;
+        background-color: #4e415a;
 }
 
 .page-title{
@@ -78,7 +107,7 @@
 }
 
 .read-more-button:hover {
-    background-color: #660089; /* Promenite boju prilikom hover-a prema vašem stilu */
+    background-color: #660089; 
 }
 
 .row {
@@ -86,4 +115,29 @@
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .pagination button {
+    background-color: #2a2133;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin: 5px;
+    cursor: pointer;
+  }
+  
+  .pagination button:hover {
+    background-color: #660089;
+  }
+
+  
   

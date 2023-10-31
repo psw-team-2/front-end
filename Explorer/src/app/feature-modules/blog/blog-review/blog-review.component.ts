@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BlogService } from '../blog.service';
 import { Blog } from '../model/blog.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-blog-review',
@@ -16,7 +17,7 @@ export class BlogReviewComponent {
   totalPages: number; 
   totalPageArray: number[] = [];
 
-  constructor(private service: BlogService) {}
+  constructor(private service: BlogService, private router: Router) {}
 
   ngOnInit(): void {
     this.getBlogs();
@@ -57,5 +58,6 @@ export class BlogReviewComponent {
     }
     return result;
   }
+
 
 }

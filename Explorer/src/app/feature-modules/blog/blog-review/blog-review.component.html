@@ -1,7 +1,11 @@
 <div id="blog-review">
-    <div class="blog-title-section">
-        <h1 class="page-title">See latest blog posts </h1>
-      </div>
+  <div class="blog-title-section">
+    <h1 class="page-title">See latest blog posts</h1>
+    <div class="blog-options">
+      <a href="blog-form" class="create-blog-link" >Create new blog</a>
+      <a href="blog-management"class="manage-blogs-link" >Manage your blogs</a>
+    </div>
+  </div>
       <ng-container *ngFor="let row of blogRows">
         <div class="row">
           <ng-container *ngFor="let blog of row">
