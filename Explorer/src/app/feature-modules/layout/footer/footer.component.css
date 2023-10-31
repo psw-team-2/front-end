@@ -1,20 +1,21 @@
 /* Styling the footer */
+
+
 footer {
     position: relative;
-    margin-top: auto;
     bottom: 0;
     left: 0;
     width: 100%;
     padding-top: 1vw;
-    margin-top: 1vw;
+    margin-top: 17vw;
     background-color: #333; /* Dark grey background */
     color: #fff; /* White text color */
     font-family: 'Montserrat', sans-serif; /* Montserrat font family */
-    padding: 1vw; /* Add padding for spacing */
+    padding-bottom: 1vw; /* Add padding for spacing */
     display: flex; /* Use flex display to align items in a row */
     justify-content: space-between; /* Space between items in the row */
     align-items: center; /* Vertically align content */
-}
+  }
 
 /* Styling for the title (bigger font) */
 footer .title {
@@ -31,7 +32,7 @@ footer .title {
 footer .contact-info {
     font-size: 1vw; /* Adjust the font size for <p> */
     text-align: left; /* Left-align <p> elements */
-    margin-left: 2vw;
+    margin-left: 4vw;
     margin-top: 1vw;
     margin-bottom: 1vw;
 }

@@ -27,6 +27,7 @@
     text-align: left;
     background: rgba(0, 0, 0, 0.25); /* Semi-transparent background for text */
     color: #fff; /* Text color */
+    margin-bottom: 4vw;
 }
   
 /* Style the text within the overlay */
@@ -35,7 +36,8 @@
     font-family: 'Montserrat', sans-serif; /* Montserrat font family */
     position: relative;
     left: 5vw;
-    margin-bottom: 7.5vw;
+    margin-top: 1.5vw;
+    margin-bottom: 1.5vw;
 }
 
 
