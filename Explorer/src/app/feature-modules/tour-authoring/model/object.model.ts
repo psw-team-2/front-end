@@ -4,4 +4,6 @@ export interface Object{
     description:string,
     image:string,
     category:number
+    longitude: number,
+    latitude: number,
 }

@@ -14,6 +14,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { AppRoutingModule } from 'src/app/infrastructure/routing/app-routing.module';
 import { AddedEquipmentComponent } from './added-equipment/added-equipment.component';
 import { TourEquipmentComponent } from './tour-equipment/tour-equipment.component';
+import { ViewToursComponent } from './view-tours/view-tours.component';
+import { TourOverviewComponent } from './tour-overview/tour-overview.component';
 
 
 
@@ -26,6 +28,8 @@ import { TourEquipmentComponent } from './tour-equipment/tour-equipment.componen
     TourEquipmentComponent,
     AddedEquipmentComponent,
     ObjectComponent,
+    ViewToursComponent,
+    TourOverviewComponent,
 
   ],
   imports: [
