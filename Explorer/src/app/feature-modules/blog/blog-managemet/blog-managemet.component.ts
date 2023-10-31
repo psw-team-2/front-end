@@ -73,4 +73,8 @@ export class BlogManagemetComponent {
     })
   }
 
+  onSeeMoreClicked(id: number){
+    this.router.navigate(['blog-single-post', id]);
+  }
+
 }

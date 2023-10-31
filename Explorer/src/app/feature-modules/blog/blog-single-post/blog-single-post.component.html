@@ -1,0 +1,16 @@
+<div class="blog-post">
+    <div class="blog-title">
+      {{ blogPost.title }}
+    </div>
+    <div class="image-container">
+        <img [src]="blogPost.image" alt="Blog Image">
+    </div>
+    <div class="blog-text">
+      {{ blogPost.description }}
+    </div>
+    <div class="blog-info">
+      <p>Author: {{ blogPost.userId }}</p>
+      <p>Created: {{ blogPost.creationTime | date:'medium' }}</p>
+    </div>
+  </div>
+  
