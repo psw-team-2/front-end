@@ -27,6 +27,15 @@
                 cdkAutosizeMaxRows="5"></textarea>
         </mat-form-field>
 
+        <mat-form-field>
+            <mat-label>Select a Tour</mat-label>
+            <mat-select formControlName="selectedTour">
+              <mat-option *ngFor="let tour of tours" [value]="tour.id">{{ tour.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+          
+
+
         <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addTourProblem()" mat-raised-button>Done</button>
         <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateTourProblem()" mat-raised-button>Done</button>
     </div>

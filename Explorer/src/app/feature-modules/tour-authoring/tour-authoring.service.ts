@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Checkpoint } from './model/checkpoint.model';
 import { Equipment } from './model/equipment.model';
-import { Observable } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
 import { Tour } from './model/tour.model';
 import { environment } from 'src/env/environment';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,33 @@ export class TourAuthoringService {
     });
 
     return this.http.request(req);
+  }
+
+  getToursWithAuth(user:User | undefined) : Observable<PagedResults<Tour>> {
+
+    if(user){
+      if(user.role === 'administrator'){
+        return this.http.get<PagedResults<Tour>>('https://localhost:44333/api/administrator/tour?page=0&pageSize=0');
+      }
+      else if(user.role === 'author'){
+        return this.http.get<PagedResults<Tour>>('https://localhost:44333/api/author/tour?page=0&pageSize=0');
+      }else if(user.role === 'tourist'){
+        //      Function call if need for tourist role in the future, not implemented in back-end currently
+        //      return this.http.get<PagedResults<Tour>>('https://localhost:44333/api/tourist/tour?page=0&pageSize=0');
+        //      Temporary return result
+        return this.http.get<PagedResults<Tour>>('https://localhost:44333/api/administrator/tour?page=0&pageSize=0');
+      }
+      else{
+        error: () => {
+          console.error('An error occurred: Given Role is non-existent');
+          return throwError('Given Role is non-existent');
+          
+        }
+        return this.http.get<PagedResults<Tour>>('https://localhost:44333/api/administrator/tour?page=0&pageSize=0');
+      }
+    }else{
+      return this.http.get<PagedResults<Tour>>('https://localhost:44333/api/administrator/tour?page=0&pageSize=0');      
+    }
   }
 
   getTours() : Observable<PagedResults<Tour>> {

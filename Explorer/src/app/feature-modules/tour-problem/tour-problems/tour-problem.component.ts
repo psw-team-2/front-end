@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TourModelService } from '../tour-model.service';
+import { TourModelService } from '../tour-problem-model.service';
 import { TourProblem } from '../model/tour-problem.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
