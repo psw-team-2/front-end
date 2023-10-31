@@ -17,5 +17,6 @@
             <button mat-raised-button color="primary" (click)="fileInput.click()">Upload File</button>
             <input hidden #fileInput type="file" (change)="onFileSelected($event)">
     <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addTourReview()" mat-raised-button>Done</button>
+    <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateTourReview()" mat-raised-button id="entity-raised-button">Done</button>
     </div>
 </form>

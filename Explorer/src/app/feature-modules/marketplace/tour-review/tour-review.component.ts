@@ -4,6 +4,7 @@ import { MarketplaceService } from '../marketplace.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model'; // Import the User model
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'xp-tour-review',
@@ -16,13 +17,25 @@ export class TourReviewComponent implements OnInit {
   shouldEdit: boolean = false;
   selectedTourReview: TourReview;
   userNames: { [key: number]: string } = {};
-
+  showTable: boolean = false; // Initialize to hide the table
+  currentUserId = this.authService.user$.value.id;
+  
   constructor(private authService: AuthService, private service: MarketplaceService) { }
-
+  
+  toggleTable() {
+        this.showTable = !this.showTable;
+  }
+    
   onAddClicked(): void {
     this.shouldEdit = false;
-    this.shouldRenderTourReviewForm = true;
+    this.shouldRenderTourReviewForm = !this.shouldRenderTourReviewForm;
   }
+  onEditClicked(tourReview: TourReview): void {
+    this.selectedTourReview = tourReview;
+    this.shouldRenderTourReviewForm = !this.shouldRenderTourReviewForm;
+    this.shouldEdit = true;
+  }
+
 
   ngOnInit(): void {
     this.getTourReview();

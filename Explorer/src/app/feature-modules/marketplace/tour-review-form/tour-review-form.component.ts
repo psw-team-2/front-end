@@ -10,16 +10,18 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
   styleUrls: ['./tour-review-form.component.css']
 })
 
-export class TourReviewFormComponent {
+export class TourReviewFormComponent implements OnChanges {
   
   constructor(private authService: AuthService, private service: MarketplaceService) {}
 
   @Input() tourReview: TourReview;
   @Input() shouldEdit: boolean = false;
   @Output() tourReviewUpdated = new EventEmitter<null>();
+  
   public value = new Date();
   currentFile: File;
   currentFileURL: string | null = null;
+  
   tourReviewForm = new FormGroup({
     grade: new FormControl('', [Validators.required]),
     comment: new FormControl('', [Validators.required]),
@@ -28,16 +30,16 @@ export class TourReviewFormComponent {
   });
   
   ngOnChanges(changes: SimpleChanges): void {
-    this.tourReviewForm.reset();
-    if (this.shouldEdit) {
-      this.tourReviewForm.patchValue({
-        grade: String(this.tourReview.grade) || null,
-        comment: this.tourReview.comment || null,
-        images: this.tourReview.images || null,
-        reviewDate: this.tourReview.reviewDate ? this.tourReview.reviewDate.toISOString() : null
-      });
-    }
+  if (this.shouldEdit) {
+    this.tourReviewForm.patchValue({
+      grade: String(this.tourReview.grade) || null,
+      comment: this.tourReview.comment || null,
+      images: this.tourReview.images || null,
+      reviewDate: this.tourReview.reviewDate ? this.tourReview.reviewDate.toISOString() : null
+    });
   }
+}
+
 
   async addTourReview():  Promise<void> {
     const userId = this.authService.user$.value.id;
@@ -71,9 +73,48 @@ export class TourReviewFormComponent {
       this.currentFileURL = window.URL.createObjectURL(this.currentFile);
     }
   }
+  async updateTourReview(): Promise<void> {
+    const userId = this.authService.user$.value.id;
+    if (this.tourReview.id !== null) {
+      if (!this.currentFile) {
+        const tourReview: TourReview = {
+          userId : userId,
+          comment: this.tourReviewForm.value.comment || "",
+          grade: Number(this.tourReviewForm.value.grade) || 0,
+          reviewDate:  this.value,
+          id: this.tourReview.id,
+          images: this.tourReviewForm.value.images || "",
+        };
+        this.service.updateTourReview(tourReview).subscribe({
+          next: (_) => {
+            this.tourReviewUpdated.emit();
+          }
+        });
+      } else {
+        const tourReview: TourReview = {
+          userId : userId,
+          comment: this.tourReviewForm.value.comment || "",
+          grade: Number(this.tourReviewForm.value.grade) || 0,
+          reviewDate:  this.value,
+          id: this.tourReview.id,
+          images: 'https://localhost:44333/Images/' + this.currentFile.name,
+        };
+        await this.service.upload(this.currentFile).subscribe({
+          next: (value) => {
+  
+          },
+          error: (value) => {
+  
+          }, complete: () => {
+          },
+        });
+        this.service.updateTourReview(tourReview).subscribe({
+          next: (_) => { this.tourReviewUpdated.emit() }
+        });
+      }
+    }
+  }
 
-  
-  
   
 }
 
