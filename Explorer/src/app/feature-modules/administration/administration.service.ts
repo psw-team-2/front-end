@@ -7,6 +7,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { ApplicationReview } from './../marketplace/model/application-review.model';
 import { User } from './model/user-account.model';
 import { Profile } from './model/profile.model';
+import { Follow} from './model/follow.model';
 
 @Injectable({
   providedIn: 'root'
@@ -58,7 +59,6 @@ export class AdministrationService {
     return this.http.put<User>(environment.apiHost + 'administration/userAccounts/' + user.id, user);
   }
 
-  // dodato
   // PROFIL
   getByUserId(): Observable<Profile> {
     return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-user');
@@ -110,5 +110,15 @@ export class AdministrationService {
   
   getProfiles(): Observable<PagedResults<Profile>> {
     return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile/all-profiles');
+  }
+
+
+  // FOLLOW
+  getFollows(): Observable<PagedResults<Follow>> {
+    return this.http.get<PagedResults<Follow>>(environment.apiHost + 'administration/follow/all-follows');
+  }
+
+  addFollow(follow: Follow): Observable<Follow> {
+    return this.http.post<Follow>(environment.apiHost + 'administration/follow', follow);
   }
 }

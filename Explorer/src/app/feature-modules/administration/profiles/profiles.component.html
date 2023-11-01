@@ -10,6 +10,6 @@
       <td><img class="thumbnail" src={{individualProfile.profilePicture}} alt="" srcset=""></td>
       <td>{{ individualProfile.firstName }}</td>
       <td>{{ individualProfile.lastName }}</td>
-      <td><button>Follow</button></td>
+      <td><button (click) = "onFollowClicked(individualProfile)" *ngIf="!followedProfiles[individualProfile.id!]">Follow</button></td>
     </tr>
 </table>
