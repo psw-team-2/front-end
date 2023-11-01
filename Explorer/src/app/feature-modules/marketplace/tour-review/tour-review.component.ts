@@ -55,28 +55,44 @@ export class TourReviewComponent implements OnInit {
 
   loadUserNames(): void {
     if (!this.tourReview) {
-      return; // Exit the function if tourReview is undefined
+      return;
     }
   
-    this.tourReview.forEach((tourReview) => {
-      this.authService.getUserById(tourReview.userId).subscribe((user: User) => {
-        this.userNames[tourReview.userId] = user.username;
+    const userObservables = this.tourReview.map((tourReview) =>
+      this.authService.getUserById(tourReview.userId)
+    );
+  
+    forkJoin(userObservables).subscribe((users: User[]) => {
+      users.forEach((user, index) => {
+        this.userNames[this.tourReview[index].userId] = user.username;
       });
     });
   }
   
   
   
-  getTourReviewByTourId(tourId: number): void {
-    this.service.getTourReviewByTourId(tourId).subscribe({
-      next: (result: PagedResults<TourReview>) => {
-        this.tourReview = result.results;
-        this.loadUserNames(); 
-      },
-      error: () => {
-        
+  
+  async getTourReviewByTourId(tourId: number): Promise<void> {
+    try {
+      const result = await this.service.getTourReviewByTourId(tourId).toPromise();
+  
+      if (result && Array.isArray(result) && result.length > 0) {
+  
+        // Make sure that the response structure is as expected.
+        // If it's an array of objects, you can access the first item like this:
+        const firstReview = result[0];
+  
+        // Assign the entire result to this.tourReview if that's your intention.
+        this.tourReview = result;
+  
+        // Make sure to call other functions that depend on this data here.
+        await this.loadUserNames();
+      } else {
+        console.error('Invalid response format: Tour review data is unavailable.');
       }
-    });
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
   }
   
 
