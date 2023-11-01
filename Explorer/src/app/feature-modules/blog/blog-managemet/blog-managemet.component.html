@@ -19,7 +19,7 @@
           <tbody>
               <tr *ngFor="let bl of blogs">
                   <td>{{bl.title}}</td>
-                  <td>{{bl.creationTime}}</td>
+                  <td>{{ bl.creationTime | date: 'medium' }}</td>
                   <td>
                     <ng-container *ngIf="bl.status === 1; then publishedBlog else closedBlog"></ng-container>
                     <ng-template #publishedBlog>

@@ -60,4 +60,8 @@ export class BlogService {
     return this.http.request(req);
   }
 
+  getBlogsByUserId(id: number): Observable<PagedResults<Blog>> {
+    return this.http.get<PagedResults<Blog>>(environment.apiHost + 'tourist/blog/byUser/' + id);
+  }
+
 }
