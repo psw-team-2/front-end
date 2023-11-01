@@ -107,5 +107,8 @@ export class AdministrationService {
 
     return this.http.request(req);
   }
-
+  
+  getProfiles(): Observable<PagedResults<Profile>> {
+    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile/all-profiles');
+  }
 }
