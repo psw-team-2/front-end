@@ -16,6 +16,7 @@ import { AddedEquipmentComponent } from './added-equipment/added-equipment.compo
 import { TourEquipmentComponent } from './tour-equipment/tour-equipment.component';
 import { ViewToursComponent } from './view-tours/view-tours.component';
 import { TourOverviewComponent } from './tour-overview/tour-overview.component';
+import { MarketplaceModule } from '../marketplace/marketplace.module';
 
 
 
@@ -41,7 +42,7 @@ import { TourOverviewComponent } from './tour-overview/tour-overview.component';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-
+    MarketplaceModule
   ],
   exports: [
     CheckpointComponent,

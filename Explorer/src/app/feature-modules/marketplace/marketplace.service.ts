@@ -20,6 +20,10 @@ export class MarketplaceService {
   getTourReview(): Observable<PagedResults<TourReview>> {
     return this.http.get<PagedResults<TourReview>>(environment.apiHost + 'tourist/tourReview')
   }
+  getTourReviewByTourId(id: number): Observable<PagedResults<TourReview>> {
+    return this.http.get<PagedResults<TourReview>>(environment.apiHost + 'tourist/tourReview/byTour/' + id);
+  }
+  
 
   deleteTourReview(id: number): Observable<TourReview> {
     return this.http.delete<TourReview>(environment.apiHost + 'tourist/tourReview/' + id);
@@ -64,5 +68,6 @@ export class MarketplaceService {
   updateApplicationReview(applicationReview: ApplicationReview): Observable<ApplicationReview> { 
     return this.http.put<ApplicationReview>(environment.apiHost + 'tourist/applicationReview/' + applicationReview.id, applicationReview); // Updated endpoint
   }*/
-
+ 
+  
 }

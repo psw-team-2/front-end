@@ -53,7 +53,7 @@
             </button>
         </div>
         <div>
-            <xp-tour-review-form *ngIf="shouldRenderTourReviewForm" [shouldEdit]="shouldEdit" [tourReview]="selectedTourReview" (tourReviewUpdated)="getTourReview()"></xp-tour-review-form>
+            <xp-tour-review-form *ngIf="shouldRenderTourReviewForm" [shouldEdit]="shouldEdit" [tourReview]="selectedTourReview" (tourReviewUpdated)="getTourReviewByTourId(tourId)"></xp-tour-review-form>
         </div>
     </div>
 </div>

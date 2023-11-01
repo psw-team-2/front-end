@@ -3,7 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourReview } from '../model/tour-review.model';
 import { MarketplaceService } from '../marketplace.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 
+import { ActivatedRoute } from '@angular/router'; 
 @Component({
   selector: 'xp-tour-review-form',
   templateUrl: './tour-review-form.component.html',
@@ -12,7 +14,11 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 export class TourReviewFormComponent implements OnChanges {
   
-  constructor(private authService: AuthService, private service: MarketplaceService) {}
+  constructor(private authService: AuthService, private service: MarketplaceService, private tourAuthoringService: TourAuthoringService, private route: ActivatedRoute) {
+    this.route.params.subscribe(params => {
+      this.tourId = +params['tourId']; // Read the tourId from the URL
+    });
+  }
 
   @Input() tourReview: TourReview;
   @Input() shouldEdit: boolean = false;
@@ -21,12 +27,13 @@ export class TourReviewFormComponent implements OnChanges {
   public value = new Date();
   currentFile: File;
   currentFileURL: string | null = null;
-  
+  tourId: number;
   tourReviewForm = new FormGroup({
     grade: new FormControl('', [Validators.required]),
     comment: new FormControl('', [Validators.required]),
     images: new FormControl('', [Validators.required]),
     reviewDate: new FormControl('', [Validators.required]),
+    tourId: new FormControl('', [Validators.required])
   });
   
   ngOnChanges(changes: SimpleChanges): void {
@@ -35,7 +42,8 @@ export class TourReviewFormComponent implements OnChanges {
       grade: String(this.tourReview.grade) || null,
       comment: this.tourReview.comment || null,
       images: this.tourReview.images || null,
-      reviewDate: this.tourReview.reviewDate ? this.tourReview.reviewDate.toISOString() : null
+      reviewDate: this.tourReview.reviewDate ? this.tourReview.reviewDate.toISOString() : null,
+      tourId : String(this.tourReview.grade) || null,
     });
   }
 }
@@ -48,7 +56,8 @@ export class TourReviewFormComponent implements OnChanges {
       comment: this.tourReviewForm.value.comment || "",
       images: 'https://localhost:44333/Images/' + this.currentFile.name,
       userId: userId,
-      reviewDate: this.value
+      reviewDate: this.value,
+      tourId: this.tourId
  
     };
     await this.service.upload(this.currentFile).subscribe({
@@ -84,6 +93,7 @@ export class TourReviewFormComponent implements OnChanges {
           reviewDate:  this.value,
           id: this.tourReview.id,
           images: this.tourReviewForm.value.images || "",
+          tourId: this.tourId
         };
         this.service.updateTourReview(tourReview).subscribe({
           next: (_) => {
@@ -98,6 +108,7 @@ export class TourReviewFormComponent implements OnChanges {
           reviewDate:  this.value,
           id: this.tourReview.id,
           images: 'https://localhost:44333/Images/' + this.currentFile.name,
+          tourId: this.tourId
         };
         await this.service.upload(this.currentFile).subscribe({
           next: (value) => {

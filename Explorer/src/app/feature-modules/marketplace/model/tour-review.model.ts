@@ -5,4 +5,5 @@ export interface TourReview {
     images: string;
     userId: number;
     reviewDate: Date;
+    tourId: number;
 }
