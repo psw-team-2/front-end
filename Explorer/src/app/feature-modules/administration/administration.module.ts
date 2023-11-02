@@ -20,6 +20,7 @@ import { PictureForm2Component } from './picture-form2/picture-form2.component';
 import { TourPreferenceModule } from '../tour-preference/tour-preference.module';
 import { UserAccountAdministrationComponent } from './user-account-administration/user-account-administration.component';
 import { ProfilesComponent } from './profiles/profiles.component';
+import { FollowersComponent } from './followers/followers.component';
 
 
 
@@ -37,6 +38,7 @@ import { ProfilesComponent } from './profiles/profiles.component';
     PictureForm2Component,
     UserAccountAdministrationComponent,
     ProfilesComponent,
+    FollowersComponent,
 
   ],
   imports: [

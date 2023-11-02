@@ -118,6 +118,10 @@ export class AdministrationService {
     return this.http.get<PagedResults<Follow>>(environment.apiHost + 'administration/follow/all-follows');
   }
 
+  getAllFollowers(profile: Profile): Observable<PagedResults<Profile>> {
+    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/follow/all-followers/' + profile.id);
+  }
+
   addFollow(follow: Follow): Observable<Follow> {
     return this.http.post<Follow>(environment.apiHost + 'administration/follow', follow);
   }
