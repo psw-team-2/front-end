@@ -1,5 +1,5 @@
 <div>
-  <xp-map-search></xp-map-search>
+  <xp-map-search [tours]="tours"></xp-map-search>
   <h1 class="header">Available Tours</h1>
 <div class="card-container">
     <div *ngFor="let tour of tours" class="card">
@@ -7,9 +7,6 @@
       </div>
       <div class="details">
         <label>{{ tour.name }}</label>
-        <p>{{ tour.description }}</p>
-        <p>{{ tour.description }}</p>
-        <p>{{ tour.description }}</p>
         <p>{{ tour.description }}</p>
         <div class="button-container">
           <a class="view-button" [routerLink]="'/tour/' + tour.id">View more</a>
