@@ -32,7 +32,9 @@ export class ObjectComponent {
       name: this.objectForm.value.name || "",
       description: this.objectForm.value.description || "",
       image: 'https://localhost:44333/Images/' + this.currentFile.name || "",
-      category: parseInt(this.objectForm.value.category as string) || 0
+      category: parseInt(this.objectForm.value.category as string) || 0,
+      longitude: 0,
+      latitude: 0
     };
 
     await this.service.upload(this.currentFile).subscribe({

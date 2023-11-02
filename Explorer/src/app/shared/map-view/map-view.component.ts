@@ -1,22 +1,61 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, Input } from '@angular/core';
 import * as L from 'leaflet';
-import 'leaflet-routing-machine';
+import { Checkpoint } from 'src/app/feature-modules/tour-authoring/model/checkpoint.model';
 import { MapViewService } from './map-view.service';
+import 'leaflet-routing-machine';
+import { Object } from 'src/app/feature-modules/tour-authoring/model/object.model';
 
 @Component({
   selector: 'xp-map-view',
   templateUrl: './map-view.component.html',
-  styleUrls: ['./map-view.component.css']
+  styleUrls: ['./map-view.component.css'],
 })
 export class MapViewComponent implements AfterViewInit {
+  @Input() loadedCheckpoints: Checkpoint[];
   private map: any;
-
-  constructor(private mapService : MapViewService) {}
+  private objects: Object[] = [
+    {
+      name: 'Restroom 1',
+      description: 'Restroom at location 1',
+      image: 'https://media.cnn.com/api/v1/images/stellar/prod/200619190852-public-restroom-coronavirus.jpg?q=x_30,y_106,h_874,w_1554,c_crop/h_720,w_1280',
+      category: 1,
+      latitude: 45.2400, // Replace with actual latitude
+      longitude: 19.8210, // Replace with actual longitude
+    },
+    {
+      name: 'Restaurant 1',
+      description: 'Restaurant at location 1',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl-WAwtX-kFdN4fiFJJ6IaHzVcAASJZPAUxw&usqp=CAU',
+      category: 2,
+      latitude: 45.2390, // Replace with actual latitude
+      longitude: 19.8230, // Replace with actual longitude
+    },
+    {
+      name: 'Parking 1',
+      description: 'Parking at location 1',
+      image: 'https://www.parkingns.rs/wp-content/uploads/2023/07/IMG_9491.jpg',
+      category: 3,
+      latitude: 45.2380, // Replace with actual latitude
+      longitude: 19.8215, // Replace with actual longitude
+    },
+    {
+      name: 'Other 1',
+      description: 'Other facility at location 1',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNHtp5f_rI48vPpi1kIsPcTcDVZHpcWOT7UQ&usqp=CAU',
+      category: 4,
+      latitude: 45.2410, // Replace with actual latitude
+      longitude: 19.8225, // Replace with actual longitude
+    },
+    // Add more objects with different categories
+  ];
+  constructor(private mapService:  MapViewService) {}
 
   private initMap(): void {
+    console.log(new Date())
     this.map = L.map('map', {
       center: [45.2396, 19.8227],
       zoom: 13,
+      
     });
 
     const tiles = L.tileLayer(
@@ -32,18 +71,11 @@ export class MapViewComponent implements AfterViewInit {
 
     //this.registerOnClick();
     //this.search();
-    const waypoints = [
-      { lat: 45.2396, lng: 19.8227 },
-      { lat: 45.25, lng: 19.85 },
-      // Add more waypoints as needed
-    ];
-    
-    const waypointsArray = waypoints.map(waypoint => L.latLng(waypoint.lat, waypoint.lng));
-
-    // Fit the map view to the bounds of the waypoints
-    //this.map.fitBounds(waypointsArray);
-  
-   // this.setRoute(waypoints);
+    this.setRoute(this.loadedCheckpoints)
+    this.addMarkersForCategory(1); // Restrooms
+    this.addMarkersForCategory(2); // Restaurants
+    this.addMarkersForCategory(3); // Parking
+    this.addMarkersForCategory(4); // Other
     
   }
 
@@ -55,7 +87,6 @@ export class MapViewComponent implements AfterViewInit {
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
   }
-
   search(): void {
     this.mapService.search('Strazilovska 19, Novi Sad').subscribe({
       next: (result) => {
@@ -84,31 +115,176 @@ export class MapViewComponent implements AfterViewInit {
       alert(mp.getLatLng());
     });
   }
+// Add a label to the popup content
+// Add a label to the popup content with fixed size and smaller font
+private addLabelToPopupContent(categoryLabel: string, imageSrc: string, name: string, location: string) {
+  const popupContent = `
+    <div style="
+      text-align: center;
+    ">
+      <table style="
+        width: 100%;
+        text-align: center;
+        border-spacing: 5px;
+      ">
+        <tr>
+          <td colspan="2" style="
+            background-color: rgb(56, 28, 117);
+            color: white;
+            font-weight: bold;
+            padding: 5px;
+          ">
+            ${categoryLabel}
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <img src="${imageSrc}" style="max-width: 100%; max-height: 100%;" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="
+            font-weight: bold;
+            font-size: 18px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          ">
+            ${name}
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          ">
+            ${location}
+          </td>
+        </tr>
+      </table>
+    </div>
+  `;
 
-  setRoute(waypoints: { lat: number, lng: number }[]): void {
-    if (waypoints.length < 2) {
-      console.error('At least two waypoints are required for a route.');
-      return;
+  // Set a fixed maximum width for the popup
+  const maxPopupWidth = 350; // Adjust the width as needed
+  return `<div style="max-width: ${maxPopupWidth}px;">${popupContent}</div>`;
+}
+
+
+
+
+// Updated setRoute method
+setRoute(checkpoints: Checkpoint[]): void {
+  const waypointCoordinates = checkpoints.map(checkpoint => {
+    return L.latLng(checkpoint.latitude, checkpoint.longitude);
+  });
+
+  const routeControl = L.Routing.control({
+    waypoints: waypointCoordinates,
+    router: L.Routing.mapbox('pk.eyJ1IjoiZGpucGxtcyIsImEiOiJjbG56Mzh3a2gwNWwzMnZxdDljdHIzNDIyIn0.iZjiPJJV-SgTiIOeF8UWvA', { profile: 'mapbox/walking' }),
+    routeWhileDragging: false, // Set routeWhileDragging to false to disable route movement during dragging
+  }).addTo(this.map);
+
+  const markerGroup = L.layerGroup(); // Create a layer group for markers
+
+  routeControl.on('routesfound', (e) => {
+    const routes = e.routes;
+
+    checkpoints.forEach((checkpoint, index) => {
+      this.mapService.reverseSearch(checkpoint.latitude, checkpoint.longitude).subscribe((res) => {
+        if (res.address) {
+          const street = res.address.road || res.address.street;
+          const number = res.address.house_number;
+          const city = res.address.city_district || res.address.city || res.address.town || res.address.village || res.address.suburb;
+          const location = `${street} ${number}, ${city}`;
+
+          const marker = L.marker([checkpoint.latitude, checkpoint.longitude], {
+            draggable: false,
+          })
+            .addTo(markerGroup)
+            .bindPopup(this.addLabelToPopupContent("CHECKPOINT " + ++index, checkpoint.image, checkpoint.name, location))
+            .on('mouseover', (event) => {
+              marker.openPopup();
+            })
+            .on('mouseout', (event) => {
+              marker.closePopup();
+            });
+
+            markerGroup.addTo(this.map);
+
+        }
+      });
+    });
+
+    markerGroup.addTo(this.map); // Add the marker group to the map
+  });
+}
+
+
+// Updated addMarkersForCategory method
+private addMarkersForCategory(category: number): void {
+  const filteredObjects = this.objects.filter((obj) => obj.category === category);
+
+  filteredObjects.forEach((object) => {
+    this.mapService.reverseSearch(object.latitude, object.longitude).subscribe((res) => {
+      if (res.address) {
+        const street = res.address.road || res.address.street;
+        const number = res.address.house_number;
+        const city = res.address.city_district || res.address.city || res.address.town || res.address.village || res.address.suburb;
+    
+        const location = `${street} ${number}, ${city}`;
+        
+        // Create a custom popup content with the location
+        const popupContent = this.addLabelToPopupContent(this.getCategoryLabel(category), object.image, object.name,  location);
+        
+        const iconUrl = this.getCategoryIcon(category); // Get the icon URL based on the category
+        const marker = L.marker([object.latitude, object.longitude], {
+          icon: L.icon({
+            iconUrl: iconUrl,
+            iconSize: [32, 32], // Adjust icon size as needed
+          }),
+        })
+          .addTo(this.map)
+          .bindPopup(popupContent) // Use the custom popup content
+          .on('mouseover', (event) => {
+            marker.openPopup();
+          })
+          .on('mouseout', (event) => {
+            marker.closePopup();
+          });
+      }
+    });
+  });
+}
+
+  
+  private getCategoryIcon(category: number): string {
+    switch (category) {
+      case 1:
+        return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Z_8qJz1C6JP0SzIzWWZgkg9w3IPYRfnZhg&usqp=CAU';
+      case 2:
+        return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4zKuR01phE9NC8JsXP8TiTkpfnuVeCppMYg&usqp=CAU';
+      case 3:
+        return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4a_2ILTJlglpbH6LvmK2c3p8AbUlc-KWYNw&usqp=CAU';
+      case 4:
+        return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVtgwde-vuShwwABAvomrXDCWZ-PifJuJ42w&usqp=CAU';
+      default:
+        return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVtgwde-vuShwwABAvomrXDCWZ-PifJuJ42w&usqp=CAU'; // Provide a default icon for unknown categories
     }
-  
-    const waypointsArray = waypoints.map(waypoint => L.latLng(waypoint.lat, waypoint.lng));
-    const routeControl = L.Routing.control({
-      waypoints: waypointsArray,
-      router: L.routing.mapbox('pk.eyJ1IjoiZGpucGxtcyIsImEiOiJjbG56Mzh3a2gwNWwzMnZxdDljdHIzNDIyIn0.iZjiPJJV-SgTiIOeF8UWvA', { profile: 'mapbox/walking' })
-    }).addTo(this.map);
-  
-    routeControl.on('routesfound', function (e) {
-      var routes = e.routes;
-      var summary = routes[0].summary;
-      alert('Total distance is ' + summary.totalDistance / 1000 + ' km and total time is ' + Math.round(summary.totalTime % 3600 / 60) + ' minutes');
-    });
-  
-    // Add markers for all waypoints
-    waypoints.forEach((waypoint, index) => {
-      L.marker([waypoint.lat, waypoint.lng])
-        .addTo(this.map)
-        .bindPopup(`Waypoint ${index + 1}`)
-        .openPopup();
-    });
   }
+  private getCategoryLabel(category: number): string {
+    switch (category) {
+      case 1:
+        return 'RESTROOM';
+      case 2:
+        return 'RESTAURANT';
+      case 3:
+        return 'PARKING';
+      default:
+        return 'OTHER'; // Provide a default label for unknown categories
+    }
+  }
+
 }
