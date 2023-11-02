@@ -22,7 +22,9 @@ export class TourAuthoringService {
   getCheckpoints() : Observable<PagedResults<Checkpoint>> {
     return this.http.get<PagedResults<Checkpoint>>('https://localhost:44333/api/addcheckpoint/checkpoint?page=0&pageSize=0');
   }
-
+  getCheckpointById(checkpointId: Number): Observable<Checkpoint> {
+    return this.http.get<Checkpoint>(`https://localhost:44333/api/addcheckpoint/checkpoint/${checkpointId}`);
+  }
   addCheckpoint(checkpoint: Checkpoint) : Observable<Checkpoint>{
     return this.http.post<Checkpoint>('https://localhost:44333/api/addcheckpoint/checkpoint/', checkpoint)
   }
