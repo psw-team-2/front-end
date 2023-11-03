@@ -131,4 +131,8 @@ export class AdministrationService {
   addMessage(message: Message): Observable<Message> {
     return this.http.post<Message>(environment.apiHost + 'administration/message', message);
   }
+
+  getAllUnreadMessages(profile: Profile): Observable<PagedResults<Message>> {
+    return this.http.get<PagedResults<Message>>(environment.apiHost + 'administration/message/unread-messages/' + profile.id);
+  }
 }

@@ -22,6 +22,7 @@ import { UserAccountAdministrationComponent } from './user-account-administratio
 import { ProfilesComponent } from './profiles/profiles.component';
 import { FollowersComponent } from './followers/followers.component';
 import { MessageFormComponent } from './message-form/message-form.component';
+import { MessageComponent } from './message/message.component';
 
 
 
@@ -41,6 +42,7 @@ import { MessageFormComponent } from './message-form/message-form.component';
     ProfilesComponent,
     FollowersComponent,
     MessageFormComponent,
+    MessageComponent,
 
   ],
   imports: [
