@@ -12,6 +12,7 @@ export class FollowersComponent implements OnInit {
   loggedInProfile: Profile | null = null;
   followers: Profile[] = [];
   profiles: Profile[];
+  selectedFollower: Profile | null = null; // Initialize as null
 
   constructor(private service: AdministrationService) {}
   
@@ -47,4 +48,10 @@ export class FollowersComponent implements OnInit {
       }
     });
   }
+
+  sendMessageTo(follower: Profile): void {
+    this.selectedFollower = follower;
+    console.log(this.selectedFollower);
+  }
+  
 }

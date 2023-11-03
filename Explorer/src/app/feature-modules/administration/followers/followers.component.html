@@ -10,6 +10,7 @@
       <td><img class="thumbnail" src={{individualFollower.profilePicture}} alt="" srcset=""></td>
       <td>{{ individualFollower.firstName }}</td>
       <td>{{ individualFollower.lastName }}</td>
-      <td><button>Send a message</button></td>
+      <td><button (click)="sendMessageTo(individualFollower)">Send a message</button></td>
     </tr>
 </table>
+<xp-message-form [selectedFollower]="selectedFollower"></xp-message-form>

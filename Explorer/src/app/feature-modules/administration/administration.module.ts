@@ -21,6 +21,7 @@ import { TourPreferenceModule } from '../tour-preference/tour-preference.module'
 import { UserAccountAdministrationComponent } from './user-account-administration/user-account-administration.component';
 import { ProfilesComponent } from './profiles/profiles.component';
 import { FollowersComponent } from './followers/followers.component';
+import { MessageFormComponent } from './message-form/message-form.component';
 
 
 
@@ -39,6 +40,7 @@ import { FollowersComponent } from './followers/followers.component';
     UserAccountAdministrationComponent,
     ProfilesComponent,
     FollowersComponent,
+    MessageFormComponent,
 
   ],
   imports: [

@@ -8,6 +8,7 @@ import { ApplicationReview } from './../marketplace/model/application-review.mod
 import { User } from './model/user-account.model';
 import { Profile } from './model/profile.model';
 import { Follow} from './model/follow.model';
+import { Message } from './model/message.model';
 
 @Injectable({
   providedIn: 'root'
@@ -59,7 +60,7 @@ export class AdministrationService {
     return this.http.put<User>(environment.apiHost + 'administration/userAccounts/' + user.id, user);
   }
 
-  // PROFIL
+  // PROFILE
   getByUserId(): Observable<Profile> {
     return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-user');
   }
@@ -124,5 +125,10 @@ export class AdministrationService {
 
   addFollow(follow: Follow): Observable<Follow> {
     return this.http.post<Follow>(environment.apiHost + 'administration/follow', follow);
+  }
+
+  // MESSAGE
+  addMessage(message: Message): Observable<Message> {
+    return this.http.post<Message>(environment.apiHost + 'administration/message', message);
   }
 }
