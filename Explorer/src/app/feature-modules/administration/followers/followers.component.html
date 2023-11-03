@@ -13,4 +13,4 @@
       <td><button (click)="sendMessageTo(individualFollower)">Send a message</button></td>
     </tr>
 </table>
-<xp-message-form [selectedFollower]="selectedFollower"></xp-message-form>
+<xp-message-form *ngIf="selectedFollower && showMessageForm" [selectedFollower]="selectedFollower"></xp-message-form>

@@ -13,6 +13,7 @@ export class FollowersComponent implements OnInit {
   followers: Profile[] = [];
   profiles: Profile[];
   selectedFollower: Profile | null = null; // Initialize as null
+  showMessageForm: boolean = false;
 
   constructor(private service: AdministrationService) {}
   
@@ -51,6 +52,7 @@ export class FollowersComponent implements OnInit {
 
   sendMessageTo(follower: Profile): void {
     this.selectedFollower = follower;
+    this.showMessageForm = true;
     console.log(this.selectedFollower);
   }
   
