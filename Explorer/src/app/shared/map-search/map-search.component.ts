@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Input } from '@angular/core';
+import { Component, AfterViewInit, Input, EventEmitter, Output } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { forkJoin, of, Observable} from 'rxjs'; // Import the necessary RxJS operators
@@ -17,6 +17,7 @@ const purpleMarker = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAo
 })
 export class MapSearchComponent {
   @Input() tours: Tour[];
+  @Output() searchResultsEvent = new EventEmitter<{ tours: Tour[], mapCleared: boolean }>();
   private map: any;
   private marker: any;
   private radius: any;
@@ -25,6 +26,7 @@ export class MapSearchComponent {
   private radiusValueElement: HTMLDivElement;
   private searchResults: Tour[] = [];
   private routeControls: L.Routing.Control[] = [];
+  private isSearchActive: boolean = false;
 
 
   constructor(
@@ -62,53 +64,56 @@ export class MapSearchComponent {
 
   registerOnClick(): void {
     this.map.on('click', (e: any) => {
-      if (this.isAddingElements) {
-        return;
-      }
-  
-      this.isAddingElements = true;
-  
-      const coord = e.latlng;
-  
-      if (coord && coord.lat !== undefined && coord.lng !== undefined) {
-        const lat = coord.lat;
-        const lng = coord.lng;
-  
+      if (this.isSearchActive) {
+        // If a search is already active, remove it
         if (this.marker) {
           this.map.removeLayer(this.marker);
+          this.clearRoutesAndCheckpoints();
         }
         if (this.radius) {
           this.map.removeLayer(this.radius);
         }
   
-        this.mapService.reverseSearch(lat, lng).subscribe((res) => {
-          this.marker = L.marker([lat, lng]).addTo(this.map);
-          const initialRadiusMeters = 100;
-          this.radius = L.circle([lat, lng], {
-            radius: initialRadiusMeters,
-            color: 'purple',
-            fillColor: 'rgba(128,0,128,0.4)',
-          }).addTo(this.map);
-  
-          // Create a radius slider element
-          this.radiusSlider = this.createRadiusSlider(initialRadiusMeters);
-          this.radiusSlider.addEventListener('input', () => {
-            this.updateRadius(parseFloat(this.radiusSlider.value));
-          });
-  
-          // Create a radius value element
-          this.radiusValueElement = this.createRadiusValueElement(initialRadiusMeters);
-  
-          // Bind a popup to the marker
-          this.createAndBindPopup(this.marker, initialRadiusMeters);
-  
-          this.isAddingElements = false;
-        });
+        this.isSearchActive = false;
       } else {
-        console.error('Invalid coordinate object:', coord);
+        this.isSearchActive = true;
+  
+        const coord = e.latlng;
+  
+        if (coord && coord.lat !== undefined && coord.lng !== undefined) {
+          const lat = coord.lat;
+          const lng = coord.lng;
+  
+          // Create the new search
+          this.mapService.reverseSearch(lat, lng).subscribe((res) => {
+            this.marker = L.marker([lat, lng]).addTo(this.map);
+            const initialRadiusMeters = 100;
+            this.radius = L.circle([lat, lng], {
+              radius: initialRadiusMeters,
+              color: 'purple',
+              fillColor: 'rgba(128,0,128,0.4)',
+            }).addTo(this.map);
+  
+            // Create a radius slider element
+            this.radiusSlider = this.createRadiusSlider(initialRadiusMeters);
+            this.radiusSlider.addEventListener('input', () => {
+              this.updateRadius(parseFloat(this.radiusSlider.value));
+            });
+  
+            // Create a radius value element
+            this.radiusValueElement = this.createRadiusValueElement(initialRadiusMeters);
+  
+            // Bind a popup to the marker
+            this.createAndBindPopup(this.marker, initialRadiusMeters);
+          });
+        } else {
+          console.error('Invalid coordinate object:', coord);
+        }
       }
     });
   }
+  
+  
   
 
   createAndBindPopup(marker: L.Marker, initialRadius: number): void {
@@ -228,8 +233,10 @@ export class MapSearchComponent {
         }
       });
       
-      this.setRoutes(this.searchResults)
+      this.setRoutes(this.searchResults);
+
     });
+
   }
   
   clearRoutesAndCheckpoints(): void {
@@ -281,6 +288,7 @@ export class MapSearchComponent {
           } else {
             resolve(undefined);
           }
+          
         });
       });
     });
@@ -290,7 +298,10 @@ export class MapSearchComponent {
       this.routeControls = routeControls.filter((control) => control !== undefined) as L.Routing.Control[];
       this.routeControls.forEach((routeControl) => {
         routeControl.addTo(this.map);
+        
       });
+          this.searchResultsEvent.emit({ tours: this.searchResults, mapCleared: this.isSearchActive });
+
     });
   }
   

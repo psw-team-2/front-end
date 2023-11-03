@@ -1,18 +1,18 @@
-<div>
+<div class="map-container">
   <xp-map-search [tours]="tours"></xp-map-search>
+</div>
+<div class="tour-list">
   <h1 class="header">Available Tours</h1>
-<div class="card-container">
+  <div class="card-container">
     <div *ngFor="let tour of tours" class="card">
-      <div class="remove-when-use">
-      </div>
+      <div class="remove-when-use"></div>
       <div class="details">
         <label>{{ tour.name }}</label>
         <p>{{ tour.description }}</p>
         <div class="button-container">
           <a class="view-button" [routerLink]="'/tour/' + tour.id">View more</a>
-      </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-  
