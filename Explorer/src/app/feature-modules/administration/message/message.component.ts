@@ -13,6 +13,7 @@ export class MessageComponent implements OnInit {
   loggedInProfile: Profile | null = null;
   messages: Message[] = [];
   profiles: Profile[];
+  senderProfiles: { [senderId: number]: Profile } = {}; //dodato
 
   constructor(private service: AdministrationService) {}
 
@@ -37,6 +38,18 @@ export class MessageComponent implements OnInit {
       this.service.getAllUnreadMessages(this.loggedInProfile).subscribe({
         next: (result: PagedResults<Message>) => {
           this.messages = result.results;
+
+          // Fetch profiles for each sender
+          for (const message of this.messages) {
+            this.service.getById(message).subscribe({
+              next: (profile: Profile) => {
+                this.senderProfiles[message.senderId] = profile;
+              },
+              error: (err: any) => {
+                console.error('Error while getting profile for sender:', err);
+              }
+            });
+          }
         },
         error: (err: any) => {
           console.error('Error while getting messages:', err);
@@ -47,5 +60,16 @@ export class MessageComponent implements OnInit {
         console.log(err);
       }
     });
+  }
+
+  updateMessage(message: Message) {
+    message.status = 1;
+
+
+    this.service.updateMessage(message).subscribe({
+      next: (_) => {
+        console.log('update successful');
+      }
+    })
   }
 }

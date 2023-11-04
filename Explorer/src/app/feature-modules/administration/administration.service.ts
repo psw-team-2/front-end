@@ -61,6 +61,10 @@ export class AdministrationService {
   }
 
   // PROFILE
+  getById(message: Message): Observable<Profile> {
+    return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-id/' + message.senderId);
+  }
+
   getByUserId(): Observable<Profile> {
     return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-user');
   }
@@ -134,5 +138,9 @@ export class AdministrationService {
 
   getAllUnreadMessages(profile: Profile): Observable<PagedResults<Message>> {
     return this.http.get<PagedResults<Message>>(environment.apiHost + 'administration/message/unread-messages/' + profile.id);
+  }
+
+  updateMessage(message: Message): Observable<Message> {
+    return this.http.put<Message>('https://localhost:44333/api/administration/message/' + message.id + '/' + message.senderId + '/' + message.receiverId, message);
   }
 }

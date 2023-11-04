@@ -1,12 +1,12 @@
 <h1>Unread messages:</h1>
 <table>
     <tr>
-      <th>Sender's id:</th>
+      <th>Sender:</th>
       <th>Message:</th>
     </tr>
     <tr *ngFor="let individualMessage of messages">
-      <td>{{ individualMessage.senderId }}</td>
+      <td>{{ senderProfiles[individualMessage.senderId]?.firstName }} {{ senderProfiles[individualMessage.senderId]?.lastName }}</td>
       <td>{{ individualMessage.messageContent }}</td>
-      <button>Mark as read</button>
+      <button mat-raised-button (click)="updateMessage(individualMessage)">Mark as read</button>
     </tr>
   </table>
