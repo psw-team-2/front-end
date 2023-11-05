@@ -1,0 +1,12 @@
+<div *ngFor="let comment of comments" class="comment-container">
+  <div class="comment">
+    <div class="comment-text">
+      <p>{{ comment.text }}</p>
+    </div>
+    <div class="comment-time">
+      <p>{{ comment.creationTime | date:'medium' }}</p>
+    </div>
+  </div>
+</div>
+
+  

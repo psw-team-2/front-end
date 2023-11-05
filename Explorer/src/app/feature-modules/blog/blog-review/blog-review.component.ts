@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BlogService } from '../blog.service';
 import { Blog } from '../model/blog.model';
+import { Router } from '@angular/router';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
@@ -16,7 +17,7 @@ export class BlogReviewComponent {
   totalPages: number; 
   totalPageArray: number[] = [];
 
-  constructor(private service: BlogService) {}
+  constructor(private service: BlogService, private router: Router) {}
 
   ngOnInit(): void {
     this.getBlogs();
@@ -56,6 +57,10 @@ export class BlogReviewComponent {
       result.push(array.slice(i, i + size));
     }
     return result;
+  }
+
+  onReadMoreClicked(id: number){
+    this.router.navigate(['blog-single-post', id]);
   }
 
 }

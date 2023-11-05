@@ -45,5 +45,10 @@
 
 .blog-info {
     font-style: italic;
-    margin: 50px;
+    margin: 70px;
+}
+
+xp-blog-comment-form {
+  margin: 20px 0;
+ 
 }

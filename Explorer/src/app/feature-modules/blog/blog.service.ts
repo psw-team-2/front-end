@@ -60,4 +60,8 @@ export class BlogService {
     return this.http.request(req);
   }
 
+  getCommentsByBlogId(id: number): Observable<PagedResults<BlogComment>> {
+    return this.http.get<PagedResults<BlogComment>>(environment.apiHost + 'tourist/comment/byBlog/' + id);
+  }
+
 }

@@ -9,6 +9,7 @@ import { SinglePostComponent } from './single-post/single-post.component';
 import { BlogManagemetComponent } from './blog-managemet/blog-managemet.component';
 import { BlogSinglePostComponent } from './blog-single-post/blog-single-post.component';
 import { BlogReviewComponent } from './blog-review/blog-review.component';
+import { CommentsReviewComponent } from './comments-review/comments-review.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { BlogReviewComponent } from './blog-review/blog-review.component';
     BlogCommentsComponent,
     BlogSinglePostComponent,
     BlogReviewComponent,
+    CommentsReviewComponent,
   ],
   imports: [
     CommonModule,

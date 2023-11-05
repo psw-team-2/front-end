@@ -11,7 +11,7 @@
                 <div class="blog-details">
                   <h3 class="blog-title">{{ blog.title }}</h3>
                 </div>
-                <button class="read-more-button">Read More</button>
+                <button class="read-more-button" (click)="onReadMoreClicked(blog.id || 0)" >Read More</button>
               </div>
             </div>
           </ng-container>
@@ -23,4 +23,4 @@
     <button *ngFor="let page of totalPageArray" (click)="changePage(page)">{{ page }}</button>
   </div>
   
-  
+ 
