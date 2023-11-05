@@ -52,6 +52,11 @@
     background-color: #ffffff;
 }
 
+#entity-title-paragraph {
+    text-align: center; /* Center text horizontally */
+    margin: 0; /* Remove default margins applied by the browser */
+}
+
 body { 
     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
@@ -162,7 +167,12 @@ button {
 
 }
 
+.center-content {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
 
+}
 
 
 @font-face {

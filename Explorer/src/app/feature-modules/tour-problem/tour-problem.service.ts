@@ -8,24 +8,24 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 @Injectable({
   providedIn: 'root'
 })
-export class TourModelService {
+export class TourProblemService {
 
   constructor(private http: HttpClient) { }
 
   getTourProblems(): Observable<PagedResults<TourProblem>> {
-    return this.http.get<PagedResults<TourProblem>>(environment.apiHost + 'tour-problem/tour-problems');
+    return this.http.get<PagedResults<TourProblem>>(environment.apiHost + 'tour-problem/tour-problem');
   }
 
   deleteTourProblem(id: number): Observable<TourProblem> {
-    return this.http.delete<TourProblem>(environment.apiHost + 'tour-problem/tour-problems/' + id);
+    return this.http.delete<TourProblem>(environment.apiHost + 'tour-problem/tour-problem/' + id);
   }
 
   addTourProblem(tourProblem: TourProblem): Observable<TourProblem> {
-    return this.http.post<TourProblem>(environment.apiHost + 'tour-problem/tour-problems', tourProblem);
+    return this.http.post<TourProblem>(environment.apiHost + 'tour-problem/tour-problem', tourProblem);
   }
 
   updateTourProblem(tourProblem: TourProblem): Observable<TourProblem> {
-    return this.http.put<TourProblem>(environment.apiHost + 'tour-problem/tour-problems/' + tourProblem.id, tourProblem);
+    return this.http.put<TourProblem>(environment.apiHost + 'tour-problem/tour-problem/' + tourProblem.id, tourProblem);
   }
 
 }

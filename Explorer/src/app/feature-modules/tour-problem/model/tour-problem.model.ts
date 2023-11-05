@@ -5,4 +5,7 @@ export interface TourProblem {
     description?: string;
     timeStamp: Date;
     tourId?: number;
+    isClosed: boolean;
+    isResolved: boolean;
+    deadlineTimeStamp?: Date;
 }

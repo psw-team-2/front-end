@@ -9,7 +9,7 @@ import { EquipmentComponent } from 'src/app/feature-modules/administration/equip
 import { AuthGuard } from '../auth/auth.guard';
 
 
-import { TourProblemsComponent } from 'src/app/feature-modules/tour-problem/tour-problems/tour-problem.component';
+import { TourProblemsComponent } from 'src/app/feature-modules/tour-problem/tour-problems/tour-problems.component';
 
 import { TourEquipmentComponent } from 'src/app/feature-modules/tour-authoring/tour-equipment/tour-equipment.component';
 import { ObjectComponent } from 'src/app/feature-modules/tour-authoring/object-form/object.component';
@@ -41,7 +41,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
-  {path: 'tour-problem', component: TourProblemsComponent, canActivate: [AuthGuard],},
+  {path: 'tour-problems', component: TourProblemsComponent, canActivate: [AuthGuard],},
   {path: 'checkpoint/:id', component: CheckpointComponent},
   {path: 'tour', component: TourComponent},
   {path: 'equipment/:id', component: TourEquipmentComponent},

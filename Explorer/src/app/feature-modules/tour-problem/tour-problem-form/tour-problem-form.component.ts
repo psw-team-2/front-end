@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourProblem } from '../model/tour-problem.model';
-import { TourModelService } from '../tour-problem-model.service';
+import { TourProblemService } from '../tour-problem.service';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Observable } from 'rxjs';
@@ -23,7 +23,7 @@ export class TourProblemFormComponent implements OnChanges {
   user: User | undefined;
 
 
-  constructor(private service: TourModelService, private tourAuthoringService :TourAuthoringService, private authService: AuthService) {
+  constructor(private service: TourProblemService, private tourAuthoringService :TourAuthoringService, private authService: AuthService) {
   }
 
   ngOnInit(): void{
@@ -59,7 +59,10 @@ export class TourProblemFormComponent implements OnChanges {
       problemPriority: this.tourProblemForm.value.problemPriority || "",
       description: this.tourProblemForm.value.description || "",
       timeStamp: new Date(), 
-      tourId: this.tourProblemForm.value.selectedTour
+      tourId: this.tourProblemForm.value.selectedTour,
+      isClosed: false,
+      isResolved: false,
+      deadlineTimeStamp: undefined,
     };
 
     this.service.addTourProblem(tourProblem).subscribe({
@@ -80,7 +83,9 @@ export class TourProblemFormComponent implements OnChanges {
       problemPriority: this.tourProblemForm.value.problemPriority || "",
       description: this.tourProblemForm.value.description || "",
       timeStamp: new Date(), 
-      tourId: this.tourProblemForm.value.selectedTour
+      tourId: this.tourProblemForm.value.selectedTour,
+      isClosed: false,
+      isResolved: false
     };
 
     if (this.tourProblem) {
