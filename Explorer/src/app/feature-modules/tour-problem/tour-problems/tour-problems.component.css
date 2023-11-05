@@ -23,7 +23,7 @@ table {
 }
 
 thead tr {
-    background-color: #3f51b5;
+    background-color: #2e003e;
     color: #ffffff;
     text-align: left;
 }
@@ -41,10 +41,12 @@ tbody tr:nth-of-type(even) {
 }
 
 tbody tr:last-of-type {
-    border-bottom: 2px solid #3f51b5;
+    border-bottom: 2px solid #2e003e;
 }
 
 tbody tr.active-row {
     font-weight: bold;
-    color: #3f51b5;
+    color: #2e003e;
 }
+
+

@@ -1,0 +1,84 @@
+<div id="entity" class="center-content">
+    <p id="entity-title-paragraph">Tour Problems</p>
+    <hr>
+    <div id="entity-details" class="two-column-layout">
+        <div>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Problem Category</th>
+                            <th>Problem Priority</th>
+                            <th>Description</th>
+                            <th>Timestamp</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let problem of tourProblems">
+                            <tr>
+                                <td>{{problem.problemCategory}}</td>
+                                <td>{{problem.problemPriority}}</td>
+                                <td>{{problem.description}}</td>
+                                <td>{{problem.timeStamp | date:'medium'}}</td>
+                                <td>
+                                    <button color="primary" (click)="onSeeMoreClicked" mat-raised-button id="entity-icon-button">
+                                        See More
+                                    </button>
+                                </td>
+                                <td>
+                                    <button color="accent" (click)="deleteTourProblem(problem.id || 0)" mat-raised-button id="entity-icon-button">
+                                        Close 
+                                    </button>
+                                </td>
+                                <td>    
+                                    <button color="primary" (click)="onEditClicked(problem)" mat-raised-button id="entity-icon-button">
+                                        Penalize
+                                    </button>
+                                </td>
+                                <td>    
+                                    <button color="primary" (click)="onAddDeadlineClicked(problem)" mat-raised-button id="entity-icon-button">
+                                        Add Deadline
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr *ngIf="shouldRenderShowDescription && selectedTourProblem === problem">
+                                <td colspan="4">
+                                    <p>{{problem.description}}</p>
+                                    <br>
+                                    <button color="primary" (click)="onSeeLessClicked()" mat-raised-button id="entity-icon-button">
+                                        See Less
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr *ngIf="shouldRenderAddDeadlineForm">
+                                <td colspan="4">
+                                  <form [formGroup]="addDeadlineForm">
+                                    <!-- Datepicker for date selection -->
+                                    <mat-form-field>
+                                      <input matInput [matDatepicker]="deadlinePicker" formControlName="deadlineDate" placeholder="Select a Date">
+                                      <mat-datepicker-toggle matSuffix [for]="deadlinePicker"></mat-datepicker-toggle>
+                                      <mat-datepicker #deadlinePicker></mat-datepicker>
+                                    </mat-form-field>
+                                    
+                                    <!-- Time input for time selection -->
+                                    <mat-form-field>
+                                      <input matInput type="time" formControlName="deadlineTime" placeholder="Select a Time">
+                                    </mat-form-field>
+                              
+                                    <button (click)="onSaveDeadline()" mat-raised-button color="primary">Save</button>
+                                    <button (click)="shouldRenderAddDeadlineForm = false" mat-raised-button color="warn">Cancel</button>
+                                  </form>
+                                  <div *ngIf="selectedTourProblem?.deadlineTimeStamp && selectedTourProblem === problem">Deadline successfully added!</div>
+                                </td>
+                            </tr>                          
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
