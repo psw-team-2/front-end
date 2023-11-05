@@ -16,6 +16,7 @@ export class BlogCommentFormComponent {
   @Output() blogCommentUpdated = new EventEmitter<null>();
   @Input() blogComment: BlogComment;
   @Input() shouldEdit: boolean = false;
+  @Input() blogId :  number = -1;
 
   blogCommentForm = new FormGroup({
     text: new FormControl('', [Validators.required]),
@@ -40,7 +41,7 @@ export class BlogCommentFormComponent {
       text: this.blogCommentForm.value.text || "",
       creationTime: new Date('2023-10-22T10:30:00'),
       userId: userId,
-      blogId:0,
+      blogId: this.blogId,
       lastModification: new Date('2023-10-22T10:30:00')
     };
 
@@ -58,7 +59,7 @@ export class BlogCommentFormComponent {
       text: this.blogCommentForm.value.text || "",
       creationTime: this.blogComment.creationTime,
       userId: userId,
-      blogId:0,
+      blogId: this.blogId,
       lastModification: new Date('2023-10-22T10:30:00')
 
     };

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { BlogService } from '../blog.service';
 import { Blog } from '../model/blog.model';
-import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Router } from '@angular/router';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
+
 
 @Component({
   selector: 'xp-blog-review',
@@ -59,5 +60,8 @@ export class BlogReviewComponent {
     return result;
   }
 
+  onReadMoreClicked(id: number){
+    this.router.navigate(['blog-single-post', id]);
+  }
 
 }

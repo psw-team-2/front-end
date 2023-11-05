@@ -1,0 +1,54 @@
+.blog-post {
+ 
+        font-family: 'Montserrat', sans-serif;
+        letter-spacing: 1px; 
+    
+}
+
+.blog-title {
+    background-color: #2a2133; 
+    color: white;
+    text-align: center;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    letter-spacing: 1.2px; 
+    font-size: 32px;
+    margin-bottom: 20px;
+    
+}
+
+
+
+  .image-container {
+    text-align: center;
+  }
+  
+  .image-container img {
+    max-width: 50%;
+    height: auto;
+    
+  }
+  
+  
+  
+
+.blog-text {
+    margin-right: 300px;
+    margin-left: 300px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    text-align: justify;
+    justify-content:space-around ;
+}
+
+.blog-info {
+    font-style: italic;
+    margin: 70px;
+}
+
+xp-blog-comment-form {
+  margin: 20px 0;
+ 
+}
