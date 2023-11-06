@@ -1,0 +1,6 @@
+.description-overflow {
+    max-height: 100px; /* Adjust this value to limit the description to the desired number of rows */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
