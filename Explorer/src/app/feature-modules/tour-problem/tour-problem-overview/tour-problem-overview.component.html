@@ -1,0 +1,57 @@
+<div>
+        <div id="entity" class="center-content">
+            <p id="entity-title-paragraph">Tour Problem</p>
+            <hr>
+            <div id="entity-details" class="two-column-layout">
+                <div class="card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problem Category</th>
+                                <th>Problem Priority</th>
+                                <th>Description</th>
+                                <th>Timestamp</th>
+                                <th>Resolved</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ tourProblem.problemCategory }}</td>
+                                <td>{{ tourProblem.problemPriority }}</td>
+                                <p>{{ tourProblem.description }}</p>
+                                <td>{{ tourProblem.timeStamp }}</td>
+                                <td>{{ tourProblem.isResolved ? 'Yes' : 'No' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <button color="primary" (click)="onSeeMoreClicked(tourProblem)" mat-raised-button id="entity-icon-button">See More Description</button>
+            <div *ngIf="shouldRenderSeeMoreDescription">
+                <p>{{ tourProblem.description }}</p>
+            </div>
+            <br>
+            <button color="primary" (click)="onAddDeadlineClicked(tourProblem)" mat-raised-button id="entity-icon-button">Add Deadline</button>
+            <div *ngIf="shouldRenderAddDeadlineForm">
+                  <form [formGroup]="addDeadlineForm">
+                    <!-- Datepicker for date selection -->
+                    <mat-form-field>
+                      <input matInput [matDatepicker]="deadlinePicker" formControlName="deadlineDate" placeholder="Select a Date">
+                      <mat-datepicker-toggle matSuffix [for]="deadlinePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #deadlinePicker></mat-datepicker>
+                    </mat-form-field>
+                    
+                    <!-- Time input for time selection -->
+                    <mat-form-field>
+                      <input matInput type="time" formControlName="deadlineTime" placeholder="Select a Time">
+                    </mat-form-field>
+              
+                    <button (click)="onSaveDeadline()" mat-raised-button color="primary">Save</button>
+                    <button (click)="shouldRenderAddDeadlineForm = false" mat-raised-button color="warn">Cancel</button>
+                  </form>
+                  <div *ngIf="tourProblem?.deadlineTimeStamp">Deadline successfully added!</div>
+            </div>                 
+        
+        </div>
+        
+</div>

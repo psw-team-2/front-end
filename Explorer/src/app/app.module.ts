@@ -28,6 +28,8 @@ import { ClubFormComponent } from './feature-modules/club/club-form/club-form.co
 import { TourPreferenceModule } from './feature-modules/tour-preference/tour-preference.module';
 import { AuthService } from './infrastructure/auth/auth.service';
 
+import { MatDatepickerModule } from '@angular/material/datepicker'
+
 @NgModule({
   declarations: [
     AppComponent

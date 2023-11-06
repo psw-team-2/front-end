@@ -3,6 +3,8 @@ import { TourProblem } from '../model/tour-problem.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { TourProblemService } from '../tour-problem.service';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
 
 
 @Component({
@@ -12,11 +14,11 @@ import { TourProblemService } from '../tour-problem.service';
 })
 export class TourProblemsComponent implements OnInit {
 
-
+  user: User | undefined;
 
   tourProblems: TourProblem[] = [];
   selectedTourProblem: TourProblem;
-  shouldRenderTourProblemForm: boolean = false;
+  shouldRenderTourProblemForm: boolean = false; 
   shouldEdit: boolean = false;
 
   //filter options
@@ -32,9 +34,9 @@ export class TourProblemsComponent implements OnInit {
   addDeadlineForm: FormGroup;
 
   //show description
-  shouldRenderShowDescription: boolean
+  shouldRenderShowDescription: boolean = false;
   
-  constructor(private tourProblemService: TourProblemService) { 
+  constructor(private tourProblemService: TourProblemService, private authService: AuthService) { 
 
     this.addDeadlineForm = new FormGroup({
       deadlineDate: new FormControl('', Validators.required),
@@ -44,6 +46,11 @@ export class TourProblemsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.authService.user$.subscribe(user =>{
+      this.user = user;
+    })
+
     this.getTourProblems();
   }
   
@@ -57,14 +64,31 @@ export class TourProblemsComponent implements OnInit {
   }
 
   getTourProblems(): void {
-    this.tourProblemService.getTourProblems().subscribe({
-      next: (result: PagedResults<TourProblem>) => {
-        this.tourProblems = result.results;
-      },
-      error: () => {
-        // Handle error if needed
+
+    if(this.user?.role == 'administrator'){
+      this.tourProblemService.getTourProblemsAdministrator().subscribe({
+        next: (result: PagedResults<TourProblem>) => {
+          this.tourProblems = result.results;
+        },
+        error: () => {
+          // Handle error if needed
+        }
+      });
+    }
+    else if(this.user?.role == 'tourist'){
+      this.tourProblemService.getTourProblems().subscribe({
+        next: (result: PagedResults<TourProblem>) => {
+          this.tourProblems = result.results;
+        },
+        error: () => {
+          // Handle error if needed
+        }
+      });
       }
-    });
+      else if(this.user?.role == 'author'){
+
+      }
+    
   }
 
   onEditClicked(tourProblem: TourProblem): void {
@@ -78,6 +102,10 @@ export class TourProblemsComponent implements OnInit {
     this.shouldRenderTourProblemForm = true;
   }
 
+  onPenalizeClicked(tourProblem: TourProblem): void{
+        
+  }
+
   //Close Tour Problem button clicked
   onCloseClicked(tourProblem: TourProblem): void{
     tourProblem.isClosed = true;
@@ -87,53 +115,12 @@ export class TourProblemsComponent implements OnInit {
     });
   }
 
-  onPenalizeClicked(tourProblem: TourProblem): void{
-        
-  }
-
-  //See More button clicked
-  onSeeMoreClicked(tourProblem: TourProblem): void{
-    this.selectedTourProblem = tourProblem;
-    this.shouldRenderShowDescription = true;
-  }
-
-  //See less button clicked
-  onSeeLessClicked(): void{
-    this.shouldRenderShowDescription = false;
-  }
 
 
-  //Add button Deadline button clicked
-  onAddDeadlineClicked(tourProblem: TourProblem): void {
-    this.shouldEdit = false;
-    this.shouldRenderTourProblemForm = true;
-    this.shouldRenderAddDeadlineForm = true;
-    this.selectedTourProblem = tourProblem;
-  }
-
-  //Close button in Add Deadline window clicked
-  onCloseDeadlineClicked(): void {
-    this.shouldRenderAddDeadlineForm = false;
-  }
 
 
-  //Save in Add Deadlline window clicked
-  onSaveDeadline(): void {
-    if (this.addDeadlineForm.valid && this.selectedTourProblem) {
-      // Combine the date and time values as needed
-      const selectedDate = this.addDeadlineForm.value.deadlineDate;
-      const selectedTime = this.addDeadlineForm.value.deadlineTime;
-  
-      // Now you have the selected date and time, and you can handle them as necessary
-      const deadlineCombinedDate = new Date(selectedDate + 'T' + selectedTime);
-  
-      // Update the selectedTourProblem's deadlineTimeStamp
-      this.selectedTourProblem.deadlineTimeStamp = deadlineCombinedDate;
-  
-      // You can proceed to use the updated selectedTourProblem as needed
-    }
-  }
-  
+
+
 
   filter(): void{
       this.tourProblemsFiltered = this.tourProblems.filter((tourProblem) => {

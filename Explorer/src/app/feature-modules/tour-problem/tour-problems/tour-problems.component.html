@@ -25,35 +25,22 @@
                                 <td>{{problem.description}}</td>
                                 <td>{{problem.timeStamp | date:'medium'}}</td>
                                 <td>
-                                    <button color="primary" (click)="onSeeMoreClicked" mat-raised-button id="entity-icon-button">
+                                    <button color="primary" [routerLink]="'/tour-problem/' + problem.id" mat-raised-button id="entity-icon-button">
                                         See More
                                     </button>
                                 </td>
                                 <td>
-                                    <button color="accent" (click)="deleteTourProblem(problem.id || 0)" mat-raised-button id="entity-icon-button">
+                                    <button color="accent"  mat-raised-button id="entity-icon-button">
                                         Close 
                                     </button>
                                 </td>
                                 <td>    
-                                    <button color="primary" (click)="onEditClicked(problem)" mat-raised-button id="entity-icon-button">
+                                    <button color="primary"  mat-raised-button id="entity-icon-button">
                                         Penalize
                                     </button>
                                 </td>
-                                <td>    
-                                    <button color="primary" (click)="onAddDeadlineClicked(problem)" mat-raised-button id="entity-icon-button">
-                                        Add Deadline
-                                    </button>
-                                </td>
                             </tr>
-                            <tr *ngIf="shouldRenderShowDescription && selectedTourProblem === problem">
-                                <td colspan="4">
-                                    <p>{{problem.description}}</p>
-                                    <br>
-                                    <button color="primary" (click)="onSeeLessClicked()" mat-raised-button id="entity-icon-button">
-                                        See Less
-                                    </button>
-                                </td>
-                            </tr>
+
                             <tr *ngIf="shouldRenderAddDeadlineForm">
                                 <td colspan="4">
                                   <form [formGroup]="addDeadlineForm">
@@ -69,7 +56,6 @@
                                       <input matInput type="time" formControlName="deadlineTime" placeholder="Select a Time">
                                     </mat-form-field>
                               
-                                    <button (click)="onSaveDeadline()" mat-raised-button color="primary">Save</button>
                                     <button (click)="shouldRenderAddDeadlineForm = false" mat-raised-button color="warn">Cancel</button>
                                   </form>
                                   <div *ngIf="selectedTourProblem?.deadlineTimeStamp && selectedTourProblem === problem">Deadline successfully added!</div>

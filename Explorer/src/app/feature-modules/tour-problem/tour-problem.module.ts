@@ -7,12 +7,14 @@ import { TourProblemsComponent } from './tour-problems/tour-problems.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-
+import { TourProblemOverviewComponent } from './tour-problem-overview/tour-problem-overview.component';
+import { AppRoutingModule } from 'src/app/infrastructure/routing/app-routing.module';
 
 @NgModule({
   declarations: [
     TourProblemFormComponent,
-    TourProblemsComponent
+    TourProblemsComponent,
+    TourProblemOverviewComponent
   ],
   imports: [
     CommonModule,
@@ -20,11 +22,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     ReactiveFormsModule,
     MatSelectModule,
     MatIconModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    AppRoutingModule,
   ],
   exports: [
     TourProblemsComponent,
     TourProblemFormComponent,
+    TourProblemOverviewComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
