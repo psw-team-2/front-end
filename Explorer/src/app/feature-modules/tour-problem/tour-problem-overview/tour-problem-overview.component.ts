@@ -6,7 +6,6 @@ import { TourProblemService } from '../tour-problem.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { ActivatedRoute } from '@angular/router';
-import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -31,7 +30,7 @@ import { DatePipe } from '@angular/common';
     shouldRenderSeeMoreDescription: boolean=false;
 
     constructor(private tourProblemService: TourProblemService, private authService: AuthService, private route: ActivatedRoute,
-      private datePipe: DatePipe) { 
+      ) { 
   
       this.addDeadlineForm = new FormGroup({
         deadlineDate: new FormControl('', Validators.required),
@@ -121,30 +120,27 @@ import { DatePipe } from '@angular/common';
     //Save in Add Deadlline window clicked
     onSaveDeadline(): void {
       if (this.addDeadlineForm.valid && this.tourProblem) {
-        // Combine the date and time values as needed
-        const selectedDate = this.addDeadlineForm.value.deadlineDate;
-        const selectedTime = this.addDeadlineForm.value.deadlineTime;
-    
-        // Now you have the selected date and time, and you can handle them as necessary
-        const formattedDate = this.datePipe.transform(selectedDate, 'yyyy-MM-dd');
-        const formattedTime = selectedTime;
-
-        const dateTimeString = `${formattedDate}T${formattedTime}`;
-
-        const deadlineCombinedDate = new Date(dateTimeString);
-    
-        // Update the selectedTourProblem's deadlineTimeStamp
-        this.tourProblem.deadlineTimeStamp = deadlineCombinedDate;
-        console.log(this.tourProblem.deadlineTimeStamp)
-    
-        // You can proceed to use the updated selectedTourProblem as needed
-
-        this.tourProblemService.updateTourProblem(this.tourProblem).subscribe({
-          // There is currently no TourProblemUpdated emitter implemented
-          // next: () => { this.tourProblemUpdated.emit()} 
-        });
+        if (this.addDeadlineForm.valid && this.tourProblem) {
+          // Combine the date and time values as needed
+          const selectedDate = this.addDeadlineForm.value.deadlineDate;
+          const selectedTime = this.addDeadlineForm.value.deadlineTime;
+      
+          // Now you have the selected date and time, and you can handle them as necessary
+          const deadlineCombinedDate = new Date(selectedDate + 'T' + selectedTime);
+      
+          // Update the selectedTourProblem's deadlineTimeStamp
+          this.tourProblem.deadlineTimeStamp = deadlineCombinedDate;
+          console.log(this.tourProblem.deadlineTimeStamp)
+      
+          // You can proceed to use the updated selectedTourProblem as needed
+  
+          this.tourProblemService.updateTourProblem(this.tourProblem).subscribe({
+            // There is currently no TourProblemUpdated emitter implemented
+            // next: () => { this.tourProblemUpdated.emit()} 
+          });
       }
     }
+  }
     
 
   
