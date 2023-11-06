@@ -65,6 +65,10 @@ export class AdministrationService {
     return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-id/' + message.senderId);
   }
 
+  getById2(message: Message): Observable<Profile> {
+    return this.http.get<Profile>('https://localhost:44333/api/administration/profile2/by-id/' + message.senderId);
+  }
+
   getByUserId(): Observable<Profile> {
     return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-user');
   }
@@ -117,18 +121,34 @@ export class AdministrationService {
     return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile/all-profiles');
   }
 
+  getProfiles2(): Observable<PagedResults<Profile>> {
+    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile2/all-profiles');
+  }
+
 
   // FOLLOW
   getFollows(): Observable<PagedResults<Follow>> {
     return this.http.get<PagedResults<Follow>>(environment.apiHost + 'administration/follow/all-follows');
   }
 
+  getFollows2(): Observable<PagedResults<Follow>> {
+    return this.http.get<PagedResults<Follow>>(environment.apiHost + 'administration/follow2/all-follows');
+  }
+
   getAllFollowers(profile: Profile): Observable<PagedResults<Profile>> {
     return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/follow/all-followers/' + profile.id);
   }
 
+  getAllFollowers2(profile: Profile): Observable<PagedResults<Profile>> {
+    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/follow2/all-followers/' + profile.id);
+  }
+
   addFollow(follow: Follow): Observable<Follow> {
     return this.http.post<Follow>(environment.apiHost + 'administration/follow', follow);
+  }
+
+  addFollow2(follow: Follow): Observable<Follow> {
+    return this.http.post<Follow>(environment.apiHost + 'administration/follow2', follow);
   }
 
   // MESSAGE
@@ -136,11 +156,23 @@ export class AdministrationService {
     return this.http.post<Message>(environment.apiHost + 'administration/message', message);
   }
 
+  addMessage2(message: Message): Observable<Message> {
+    return this.http.post<Message>(environment.apiHost + 'administration/message2', message);
+  }
+
   getAllUnreadMessages(profile: Profile): Observable<PagedResults<Message>> {
     return this.http.get<PagedResults<Message>>(environment.apiHost + 'administration/message/unread-messages/' + profile.id);
   }
 
+  getAllUnreadMessages2(profile: Profile): Observable<PagedResults<Message>> {
+    return this.http.get<PagedResults<Message>>(environment.apiHost + 'administration/message2/unread-messages/' + profile.id);
+  }
+
   updateMessage(message: Message): Observable<Message> {
     return this.http.put<Message>('https://localhost:44333/api/administration/message/' + message.id + '/' + message.senderId + '/' + message.receiverId, message);
+  }
+
+  updateMessage2(message: Message): Observable<Message> {
+    return this.http.put<Message>('https://localhost:44333/api/administration/message2/' + message.id + '/' + message.senderId + '/' + message.receiverId, message);
   }
 }

@@ -23,6 +23,10 @@ import { ProfilesComponent } from './profiles/profiles.component';
 import { FollowersComponent } from './followers/followers.component';
 import { MessageFormComponent } from './message-form/message-form.component';
 import { MessageComponent } from './message/message.component';
+import { Followers2Component } from './followers2/followers2.component';
+import { Message2Component } from './message2/message2.component';
+import { MessageForm2Component } from './message-form2/message-form2.component';
+import { Profiles2Component } from './profiles2/profiles2.component';
 
 
 
@@ -43,6 +47,10 @@ import { MessageComponent } from './message/message.component';
     FollowersComponent,
     MessageFormComponent,
     MessageComponent,
+    Followers2Component,
+    Message2Component,
+    MessageForm2Component,
+    Profiles2Component,
 
   ],
   imports: [
