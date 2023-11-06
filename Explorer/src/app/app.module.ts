@@ -29,6 +29,7 @@ import { TourPreferenceModule } from './feature-modules/tour-preference/tour-pre
 import { AuthService } from './infrastructure/auth/auth.service';
 
 import { MatDatepickerModule } from '@angular/material/datepicker'
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
     MatMenuModule,
     ClubModule,
     ReactiveFormsModule,
-    TourPreferenceModule
+    TourPreferenceModule,
+    DatePipe
   ],
   providers: [
     {
