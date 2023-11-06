@@ -118,10 +118,6 @@ export class TourProblemsComponent implements OnInit {
 
 
 
-
-
-
-
   filter(): void{
       this.tourProblemsFiltered = this.tourProblems.filter((tourProblem) => {
         // Apply filtering based on filter criteria

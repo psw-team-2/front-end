@@ -8,7 +8,6 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { ActivatedRoute } from '@angular/router';
 
 
-
 @Component({
     selector: 'xp-tour-problem-overview', 
     templateUrl: './tour-problem-overview.component.html',
@@ -30,7 +29,8 @@ import { ActivatedRoute } from '@angular/router';
     //show more description
     shouldRenderSeeMoreDescription: boolean=false;
 
-    constructor(private tourProblemService: TourProblemService, private authService: AuthService, private route: ActivatedRoute) { 
+    constructor(private tourProblemService: TourProblemService, private authService: AuthService, private route: ActivatedRoute,
+      ) { 
   
       this.addDeadlineForm = new FormGroup({
         deadlineDate: new FormControl('', Validators.required),
@@ -77,9 +77,9 @@ import { ActivatedRoute } from '@angular/router';
     }
   
     //Close Tour Problem button clicked
-    onCloseClicked(tourProblem: TourProblem): void{
-      tourProblem.isClosed = true;
-      this.tourProblemService.updateTourProblem(tourProblem).subscribe({
+    onCloseClicked(): void{
+      this.tourProblem.isClosed = true;
+      this.tourProblemService.updateTourProblem(this.tourProblem).subscribe({
         // There is currently no TourProblemUpdated emitter implemented
         // next: () => { this.tourProblemUpdated.emit()} 
       });
@@ -104,11 +104,11 @@ import { ActivatedRoute } from '@angular/router';
   
   
     //Add button Deadline button clicked
-    onAddDeadlineClicked(tourProblem: TourProblem): void {
+    onAddDeadlineClicked(): void {
       this.shouldEdit = false;
       this.shouldRenderTourProblemForm = true;
       this.shouldRenderAddDeadlineForm = true;
-      this.tourProblem = tourProblem;
+
     }
   
     //Close button in Add Deadline window clicked
@@ -120,29 +120,42 @@ import { ActivatedRoute } from '@angular/router';
     //Save in Add Deadlline window clicked
     onSaveDeadline(): void {
       if (this.addDeadlineForm.valid && this.tourProblem) {
-        // Combine the date and time values as needed
-        const selectedDate = this.addDeadlineForm.value.deadlineDate;
-        const selectedTime = this.addDeadlineForm.value.deadlineTime;
-    
-        // Now you have the selected date and time, and you can handle them as necessary
-        const deadlineCombinedDate = new Date(selectedDate + 'T' + selectedTime);
-    
-        // Update the selectedTourProblem's deadlineTimeStamp
-        this.tourProblem.deadlineTimeStamp = deadlineCombinedDate;
-    
-        // You can proceed to use the updated selectedTourProblem as needed
+        if (this.addDeadlineForm.valid && this.tourProblem) {
+          // Combine the date and time values as needed
+          const selectedDate = this.addDeadlineForm.value.deadlineDate;
+          const selectedTime = this.addDeadlineForm.value.deadlineTime;
+      
+          // Now you have the selected date and time, and you can handle them as necessary
+          const deadlineCombinedDate = new Date(selectedDate + 'T' + selectedTime);
+      
+          // Update the selectedTourProblem's deadlineTimeStamp
+          this.tourProblem.deadlineTimeStamp = deadlineCombinedDate;
+          console.log(this.tourProblem.deadlineTimeStamp)
+      
+          // You can proceed to use the updated selectedTourProblem as needed
+  
+          this.tourProblemService.updateTourProblem(this.tourProblem).subscribe({
+            // There is currently no TourProblemUpdated emitter implemented
+            // next: () => { this.tourProblemUpdated.emit()} 
+          });
       }
     }
+  }
     
 
   
-    isFiveDaysOld(tourProblem: TourProblem): boolean{
-      const currentTimeStamp = new Date()
-      const timeDifference = currentTimeStamp.getTime() - tourProblem.timeStamp.getTime()
-      
-      //return result of isResolved, and if timeDifference calculated in days greater than 5
-      return tourProblem.isResolved && ((timeDifference/(24 * 60 * 60 * 1000)) > 5);
-    }
+    isFiveDaysOld(): boolean{
+      if(this.tourProblem && this.tourProblem.timeStamp instanceof Date)
+      {
+        const currentTimeStamp = new Date()
+        const timeDifference = currentTimeStamp.getTime() - this.tourProblem.timeStamp.getTime()
+        
+        //return result of isResolved, and if timeDifference calculated in days greater than 5
+        return this.tourProblem.isResolved && ((timeDifference/(24 * 60 * 60 * 1000)) > 5);
+      }
+
+      return false;
+    } 
   
     
   }

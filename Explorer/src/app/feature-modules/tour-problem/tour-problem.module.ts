@@ -9,6 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { TourProblemOverviewComponent } from './tour-problem-overview/tour-problem-overview.component';
 import { AppRoutingModule } from 'src/app/infrastructure/routing/app-routing.module';
+import { MatNativeDateModule } from '@angular/material/core';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { AppRoutingModule } from 'src/app/infrastructure/routing/app-routing.mod
     MatIconModule,
     MatDatepickerModule,
     AppRoutingModule,
+    MatNativeDateModule,
+    DatePipe
   ],
   exports: [
     TourProblemsComponent,

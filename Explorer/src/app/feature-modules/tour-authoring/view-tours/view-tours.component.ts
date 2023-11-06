@@ -12,7 +12,7 @@ export class ViewToursComponent implements OnInit {
   tours: Tour[] = [];
 
   constructor(private service: TourAuthoringService) {}
-
+  
   async ngOnInit(): Promise<void> {
     await this.getTours();
   }
