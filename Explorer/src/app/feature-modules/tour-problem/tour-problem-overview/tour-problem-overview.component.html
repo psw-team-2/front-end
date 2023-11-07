@@ -7,32 +7,34 @@
         <div id="entity-details" class="two-column-layout">
             <div class="card">
                 <div class="flex-container">
-                    <div class="problem-info">
+                    <div class="tour-problem-info">
                         <strong>Problem Category:</strong> {{ tourProblem?.problemCategory }}
                     </div>
-                    <div class="problem-info">
+                    <div class="tour-problem-info">
                         <strong>Problem Priority:</strong> {{ tourProblem?.problemPriority }}
                     </div>
-                    <div class="problem-info">
-                        <strong>Description:</strong>
-                        <p *ngIf="!shouldRenderSeeMoreDescription" class="limited-description">{{ tourProblem?.description }}</p>
-                        <p *ngIf="shouldRenderSeeMoreDescription">{{ tourProblem?.description }}</p>
-                    </div>
-                    <div *ngIf="isFiveDaysOld()" class="problem-info-5d-old">
+                    <div *ngIf="isFiveDaysOld()" class="tour-problem-info-5d-old">
                         <strong>Timestamp:</strong> {{ tourProblem?.timeStamp | date: 'medium' }}
                         <strong>Tour Problem Report is more than 5 days old</strong>
                     </div>
-                    <div *ngIf="!isFiveDaysOld()" class="problem-info">
+                    <div *ngIf="!isFiveDaysOld()" class="tour-problem-info">
                         <strong>Timestamp:</strong> {{ tourProblem?.timeStamp | date: 'medium' }}
                     </div>
-                    <div  class="problem-info">
+                    <div  class="tour-problem-info">
                         <strong>Resolved:</strong> {{ tourProblem?.isResolved ? 'Yes' : 'No' }}
                     </div>
-                    <div *ngIf="tourProblem?.deadlineTimeStamp" class="problem-info">
-                        <strong>Deadline:</strong> {{ tourProblem?.deadlineTimeStamp | date: 'medium' }}
+                    <div *ngIf="tourProblem?.deadlineTimeStamp" class="tour-problem-info">
+                        <strong>Deadline:</strong> {{ tourProblem.deadlineTimeStamp | date: 'medium' }}
                     </div>
+                    <div class="problem-info">
+                        <strong>Description:</strong>
+                        <p *ngIf="!shouldRenderSeeMoreDescription" class="tour-problem-description">{{ truncateText(tourProblem?.description,120)}}</p>
+                        <p *ngIf="shouldRenderSeeMoreDescription" class="tour-problem-description">{{ tourProblem?.description }}</p>
+                    </div>
+
                 </div>
-                <button color="primary" (click)="onSeeMoreClicked(tourProblem)" mat-raised-button id="entity-icon-button">See More Description</button>
+                <button *ngIf="!shouldRenderSeeMoreDescription" color="primary" (click)="onSeeMoreClicked(tourProblem)" mat-raised-button id="entity-icon-button">See More Description</button>
+                <button *ngIf="shouldRenderSeeMoreDescription" color="primary" (click)="onSeeMoreClicked(tourProblem)" mat-raised-button id="entity-icon-button">See Less Description</button>
             </div>
         </div>
         <br>
@@ -50,11 +52,13 @@
                 <mat-form-field>
                     <input matInput type="time" formControlName="deadlineTime" placeholder="Select a Time">
                 </mat-form-field>
-
-                <button (click)="onSaveDeadline()" mat-raised-button id="entity-raised-button">Save</button>
-                <button (click)="shouldRenderAddDeadlineForm = false" mat-raised-button id="entity-raised-button">Cancel</button>
+                <div class="button-row">
+                    <button (click)="onSaveDeadline()" mat-raised-button id="entity-raised-button">Save</button>
+                    <button (click)="shouldRenderAddDeadlineForm = false" mat-raised-button id="entity-raised-button">Cancel</button>
+                </div>
             </form>
-            <div *ngIf="tourProblem?.deadlineTimeStamp" class="success-deadline-save-message">Deadline successfully added!</div>
+            <div *ngIf="tourProblem?.deadlineTimeStamp && isDeadlineAlreadyAdded" >Deadline is already added.</div>
+            <div *ngIf="tourProblem?.deadlineTimeStamp && !isDeadlineAlreadyAdded" class="success-deadline-save-message">Deadline successfully added!</div>
         </div>
     </div>
 </div>
