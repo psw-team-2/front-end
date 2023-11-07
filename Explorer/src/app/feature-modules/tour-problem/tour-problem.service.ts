@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TourProblem } from './model/tour-problem.model';
+import { TourProblemResponse } from './model/tour-problem-response.model';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
@@ -53,6 +54,11 @@ export class TourProblemService {
     return this.http.put<TourProblem>(environment.apiHost + 'tour-problem/tour-problem/' + tourProblem.id, tourProblem);
   }
 
+  // Tour Problem Response
+
+  getTourProblemResponses(): Observable<PagedResults<TourProblemResponse>> {
+    return this.http.get<PagedResults<TourProblemResponse>>(environment.apiHost + 'tour-problem/notifications');
+  }
 }
 
 
