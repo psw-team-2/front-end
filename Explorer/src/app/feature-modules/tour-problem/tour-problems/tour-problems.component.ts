@@ -111,7 +111,7 @@ export class TourProblemsComponent implements OnInit {
     this.shouldRenderClosure = !this.shouldRenderClosure
   }
 
-  onCloseConfirmedClicked(tourProblem: TourProblem): void{
+  onCloseConfirmClicked(tourProblem: TourProblem): void{
     tourProblem.isClosed = true;
     this.tourProblemService.updateTourProblemAdministrator(tourProblem).subscribe({
       // There is currently no TourProblemUpdated emitter implemented
