@@ -50,15 +50,24 @@ tbody tr.active-row {
 }
 
 .tr-tour-problem-5d-old {
-    background-color: #a17878;
+    background-color: #dfbab0;
     border: 1px solid #851e1e; /* Add a border for separation */
     border-radius: 3px; /* Add rounded edges */
 }
 
 .tr-tour-problem-5d-old-solved {
-    background-color: #a17878;
+    background-color: #bd5c5c;
     border: 1px solid #851e1e; /* Add a border for separation */
     border-radius: 3px; /* Add rounded edges */
 }
   
-  
+.tr-tour-problem-5d-old-expired {
+    background-color: #bd5c5c;
+    border: 1px solid #851e1e; /* Add a border for separation */
+    border-radius: 3px; /* Add rounded edges */
+} 
+
+.button-row {
+    display: flex; /* Use flexbox to align buttons horizontally */
+    justify-content: center; /* Center buttons horizontally within the row */
+}

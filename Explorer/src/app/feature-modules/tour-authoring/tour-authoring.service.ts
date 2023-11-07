@@ -117,6 +117,10 @@ export class TourAuthoringService {
     return this.http.put<Equipment>('https://localhost:44333/api/author/tour/remove/' + tour.id +  '/' + equipmentId,tour)
   }
 
+  deleteTourAdministrator(id: number): Observable<Tour>{
+    return this.http.delete<Tour>('https://localhost:44333/api/administrator/tour/' + id);
+  }
+
 }
 
 

@@ -20,7 +20,7 @@ export class TourProblemFormComponent implements OnChanges {
   @Input() tourProblem: TourProblem;
   @Input() shouldEdit: boolean = false;
   tours: Tour[] = [];
-  user: User | undefined;
+  user: User;
 
 
   constructor(private service: TourProblemService, private tourAuthoringService :TourAuthoringService, private authService: AuthService) {
@@ -62,6 +62,7 @@ export class TourProblemFormComponent implements OnChanges {
       tourId: this.tourProblemForm.value.selectedTour,
       isClosed: false,
       isResolved: false,
+      touristId: this.user.id,
       deadlineTimeStamp: undefined,
     };
 
@@ -85,7 +86,10 @@ export class TourProblemFormComponent implements OnChanges {
       timeStamp: new Date(), 
       tourId: this.tourProblemForm.value.selectedTour,
       isClosed: false,
-      isResolved: false
+      isResolved: false,
+      touristId: this.user.id,
+      //Deadline TimeStamp is temporariliy undefined, no real update Tour Problem needed in current stage
+      deadlineTimeStamp: undefined,
     };
 
     if (this.tourProblem) {

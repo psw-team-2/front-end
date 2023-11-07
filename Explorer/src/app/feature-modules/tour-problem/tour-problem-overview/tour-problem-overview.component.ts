@@ -23,8 +23,10 @@ import { ActivatedRoute } from '@angular/router';
     shouldRenderTourProblemForm: boolean;
 
     //adding deadline properties
-    shouldRenderAddDeadlineForm: boolean
+    shouldRenderAddDeadlineForm: boolean;
     addDeadlineForm: FormGroup;
+
+    isDeadlineAlreadyAdded: boolean=false;
   
     //show more description
     shouldRenderSeeMoreDescription: boolean=false;
@@ -53,12 +55,20 @@ import { ActivatedRoute } from '@angular/router';
             this.tourProblemService.getTourProblemAdministrator(this.tourProblemId).subscribe({
                 next: (result: TourProblem) => {
                     this.tourProblem = result;
+                    
                     //fetching for comments should be implemented, once the comments are added
+
+                    if (this.tourProblem.deadlineTimeStamp !== null && this.tourProblem.deadlineTimeStamp !== undefined) {
+                      this.isDeadlineAlreadyAdded = true;
+                    }
+
                 }
             })
         }
-
       })
+
+
+
 
 
     }
@@ -129,24 +139,15 @@ import { ActivatedRoute } from '@angular/router';
         const day = String(dateFormat.getDate()).padStart(2, '0')
         
         const [hours, minutes] = selectedTime.split(':');
-
-        console.log(selectedDate)
-        console.log(selectedTime)
     
         let deadlineCombinedDate = new Date(year + '-' + month + '-' + day + 'T' + hours + ':' + minutes + ':00');   
-        
-    
-        console.log(deadlineCombinedDate)
-
         // Check if the date is valid
         if (isNaN(deadlineCombinedDate.getTime())) {
           console.error('Invalid date or time input.');
           return; // Exit the function early
-        }
-    
+        }    
         // Update the selectedTourProblem's deadlineTimeStamp
         this.tourProblem.deadlineTimeStamp = deadlineCombinedDate;
-        console.log(this.tourProblem.deadlineTimeStamp);
     
         // You can proceed to use the updated selectedTourProblem as needed
         this.tourProblemService.updateTourProblemAdministrator(this.tourProblem).subscribe({
@@ -171,6 +172,19 @@ import { ActivatedRoute } from '@angular/router';
       return false;
     } 
   
+    truncateText(text: string | undefined, maxLength: number): string {
+      if (text === undefined) {
+        return ''; 
+      }
     
+      if (text.length <= maxLength) {
+        return text;
+      } else {
+        return text.substring(0, maxLength) + '...';
+      }
+    }
+  
+    
+
   }
   

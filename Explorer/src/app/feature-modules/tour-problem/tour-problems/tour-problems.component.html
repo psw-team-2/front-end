@@ -19,27 +19,49 @@
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let problem of tourProblems">
-                            <tr>
+                            <tr [ngClass]="{'tr-tour-problem-5d-old': isFiveDaysOld(problem)}" >
                                 <td>{{problem.problemCategory}}</td>
                                 <td>{{problem.problemPriority}}</td>
-                                <td>{{problem.description}}</td>
+                                <td>{{ truncateText(problem.description, 20) }}</td>
                                 <td>{{problem.timeStamp | date:'medium'}}</td>
                                 <td>
-                                    <button color="primary" [routerLink]="'/tour-problem/' + problem.id" mat-raised-button id="entity-icon-button">
+                                    <button color="primary" [routerLink]="'/tour-problem/' + problem.id" mat-raised-button id="entity-raised-button">
                                         See More
                                     </button>
                                 </td>
                                 <td>
-                                    <button color="accent"  mat-raised-button id="entity-icon-button">
+                                    <button *ngIf="isExpired" color="accent" (click)="onCloseClicked(problem)" mat-raised-button id="entity-raised-button">
                                         Close 
                                     </button>
                                 </td>
                                 <td>    
-                                    <button color="primary"  mat-raised-button id="entity-icon-button">
+                                    <button *ngIf="isExpired" color="primary" (click)="onPenalizeClicked(problem)" mat-raised-button id="entity-raised-button">
                                         Penalize
                                     </button>
                                 </td>
-                            </tr>             
+                                <td>
+                                    <img *ngIf="isExpired(problem)" src="../../../../assets/icons/expiration-icon.png" id="entity-details-icon">
+                                </td>
+                            </tr>
+                            <tr *ngIf="shouldRenderPenalization">
+                                <td colspan="8">
+                                    <p>Are you sure you want to penalize this author?</p>
+                                    <div class="button-row">
+                                        <button (click)="onPenalizeConfirmClicked(problem)" id="entity-raised-button">Yes</button>
+                                        <button (click)="shouldRenderPenalization = false" id="entity-raised-button">No</button>
+                                    </div>
+                                </td>
+                            </tr>         
+                            <tr *ngIf="shouldRenderClosure">
+                                <td colspan="8">
+                                    <p>Are you sure you want to close this problem?</p>
+                                    <div class="button-row">
+                                        <button (click)="onCloseConfirmedClicked(problem)" id="entity-raised-button">Yes</button>
+                                        <button (click)="shouldRenderClosure = false" id="entity-raised-button">No</button>
+                                    </div>
+                                </td>
+                            </tr>         
+
                         </ng-container>
                     </tbody>
                 </table>
