@@ -29,7 +29,7 @@
                         <strong>Resolved:</strong> {{ tourProblem?.isResolved ? 'Yes' : 'No' }}
                     </div>
                     <div *ngIf="tourProblem?.deadlineTimeStamp" class="problem-info">
-                        <strong>Deadline:</strong> {{ tourProblem?.deadlineTimeStamp | date: 'medium' }}
+                        <strong>Deadline:</strong> {{ tourProblem.deadlineTimeStamp | date: 'medium' }}
                     </div>
                 </div>
                 <button color="primary" (click)="onSeeMoreClicked(tourProblem)" mat-raised-button id="entity-icon-button">See More Description</button>

@@ -79,7 +79,7 @@ import { ActivatedRoute } from '@angular/router';
     //Close Tour Problem button clicked
     onCloseClicked(): void{
       this.tourProblem.isClosed = true;
-      this.tourProblemService.updateTourProblem(this.tourProblem).subscribe({
+      this.tourProblemService.updateTourProblemAdministrator(this.tourProblem).subscribe({
         // There is currently no TourProblemUpdated emitter implemented
         // next: () => { this.tourProblemUpdated.emit()} 
       });
@@ -120,26 +120,40 @@ import { ActivatedRoute } from '@angular/router';
     //Save in Add Deadlline window clicked
     onSaveDeadline(): void {
       if (this.addDeadlineForm.valid && this.tourProblem) {
-        if (this.addDeadlineForm.valid && this.tourProblem) {
-          // Combine the date and time values as needed
-          const selectedDate = this.addDeadlineForm.value.deadlineDate;
-          const selectedTime = this.addDeadlineForm.value.deadlineTime;
-      
-          // Now you have the selected date and time, and you can handle them as necessary
-          const deadlineCombinedDate = new Date(selectedDate + 'T' + selectedTime);
-      
-          // Update the selectedTourProblem's deadlineTimeStamp
-          this.tourProblem.deadlineTimeStamp = deadlineCombinedDate;
-          console.log(this.tourProblem.deadlineTimeStamp)
-      
-          // You can proceed to use the updated selectedTourProblem as needed
-  
-          this.tourProblemService.updateTourProblem(this.tourProblem).subscribe({
-            // There is currently no TourProblemUpdated emitter implemented
-            // next: () => { this.tourProblemUpdated.emit()} 
-          });
+        const selectedDate = this.addDeadlineForm.value.deadlineDate;
+        const selectedTime = this.addDeadlineForm.value.deadlineTime;
+
+        const dateFormat = new Date(selectedDate)
+        const year = dateFormat.getFullYear();
+        const month = String(dateFormat.getMonth() + 1).padStart(2, '0');
+        const day = String(dateFormat.getDate()).padStart(2, '0')
+        
+        const [hours, minutes] = selectedTime.split(':');
+
+        console.log(selectedDate)
+        console.log(selectedTime)
+    
+        let deadlineCombinedDate = new Date(year + '-' + month + '-' + day + 'T' + hours + ':' + minutes + ':00');   
+        
+    
+        console.log(deadlineCombinedDate)
+
+        // Check if the date is valid
+        if (isNaN(deadlineCombinedDate.getTime())) {
+          console.error('Invalid date or time input.');
+          return; // Exit the function early
+        }
+    
+        // Update the selectedTourProblem's deadlineTimeStamp
+        this.tourProblem.deadlineTimeStamp = deadlineCombinedDate;
+        console.log(this.tourProblem.deadlineTimeStamp);
+    
+        // You can proceed to use the updated selectedTourProblem as needed
+        this.tourProblemService.updateTourProblemAdministrator(this.tourProblem).subscribe({
+          // There is currently no TourProblemUpdated emitter implemented
+          // next: () => { this.tourProblemUpdated.emit()} 
+        });
       }
-    }
   }
     
 
