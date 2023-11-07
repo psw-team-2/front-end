@@ -55,7 +55,7 @@ export class TourProblemsComponent implements OnInit {
   }
   
   deleteTourProblem(id: number): void {
-    this.tourProblemService.deleteTourProblem(id).subscribe({
+    this.tourProblemService.deleteTourProblemTourist(id).subscribe({
       next: () => {
         this.getTourProblems();
         
@@ -71,22 +71,26 @@ export class TourProblemsComponent implements OnInit {
           this.tourProblems = result.results;
         },
         error: () => {
-          // Handle error if needed
         }
       });
     }
     else if(this.user?.role == 'tourist'){
-      this.tourProblemService.getTourProblems().subscribe({
+      this.tourProblemService.getTourProblemsTourist().subscribe({
         next: (result: PagedResults<TourProblem>) => {
           this.tourProblems = result.results;
         },
         error: () => {
-          // Handle error if needed
         }
       });
       }
       else if(this.user?.role == 'author'){
-
+        this.tourProblemService.getTourProblemsAuthor().subscribe({
+          next: (result: PagedResults<TourProblem>) => {
+            this.tourProblems = result.results;
+          },
+          error: () => {
+          }
+        })
       }
     
   }
@@ -109,7 +113,7 @@ export class TourProblemsComponent implements OnInit {
   //Close Tour Problem button clicked
   onCloseClicked(tourProblem: TourProblem): void{
     tourProblem.isClosed = true;
-    this.tourProblemService.updateTourProblem(tourProblem).subscribe({
+    this.tourProblemService.updateTourProblemAdministrator(tourProblem).subscribe({
       // There is currently no TourProblemUpdated emitter implemented
       // next: () => { this.tourProblemUpdated.emit()} 
     });

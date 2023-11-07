@@ -79,7 +79,7 @@ import { ActivatedRoute } from '@angular/router';
     //Close Tour Problem button clicked
     onCloseClicked(): void{
       this.tourProblem.isClosed = true;
-      this.tourProblemService.updateTourProblem(this.tourProblem).subscribe({
+      this.tourProblemService.updateTourProblemAdministrator(this.tourProblem).subscribe({
         // There is currently no TourProblemUpdated emitter implemented
         // next: () => { this.tourProblemUpdated.emit()} 
       });
@@ -134,7 +134,7 @@ import { ActivatedRoute } from '@angular/router';
       
           // You can proceed to use the updated selectedTourProblem as needed
   
-          this.tourProblemService.updateTourProblem(this.tourProblem).subscribe({
+          this.tourProblemService.updateTourProblemAdministrator(this.tourProblem).subscribe({
             // There is currently no TourProblemUpdated emitter implemented
             // next: () => { this.tourProblemUpdated.emit()} 
           });
