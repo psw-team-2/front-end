@@ -39,28 +39,7 @@
                                         Penalize
                                     </button>
                                 </td>
-                            </tr>
-
-                            <tr *ngIf="shouldRenderAddDeadlineForm">
-                                <td colspan="4">
-                                  <form [formGroup]="addDeadlineForm">
-                                    <!-- Datepicker for date selection -->
-                                    <mat-form-field>
-                                      <input matInput [matDatepicker]="deadlinePicker" formControlName="deadlineDate" placeholder="Select a Date">
-                                      <mat-datepicker-toggle matSuffix [for]="deadlinePicker"></mat-datepicker-toggle>
-                                      <mat-datepicker #deadlinePicker></mat-datepicker>
-                                    </mat-form-field>
-                                    
-                                    <!-- Time input for time selection -->
-                                    <mat-form-field>
-                                      <input matInput type="time" formControlName="deadlineTime" placeholder="Select a Time">
-                                    </mat-form-field>
-                              
-                                    <button (click)="shouldRenderAddDeadlineForm = false" mat-raised-button color="warn">Cancel</button>
-                                  </form>
-                                  <div *ngIf="selectedTourProblem?.deadlineTimeStamp && selectedTourProblem === problem">Deadline successfully added!</div>
-                                </td>
-                            </tr>                          
+                            </tr>             
                         </ng-container>
                     </tbody>
                 </table>

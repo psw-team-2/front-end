@@ -57,6 +57,13 @@
     margin: 0; /* Remove default margins applied by the browser */
 }
 
+#entity-tr-container {
+        background-color: #ffffff;
+        border: 1px solid #d9d9d9; /* Add a border for separation */
+        border-radius: 3px; /* Add rounded edges */
+
+} 
+
 body { 
     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
 }

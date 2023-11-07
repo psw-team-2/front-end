@@ -4,3 +4,44 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.tour-problem-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+  }
+  
+.flex-container {
+    display: flex;
+    flex-direction: column; /* Arrange items vertically */
+}
+
+.limited-description {
+    max-height: 80px; /* Adjust the max-height as needed for the limited text */
+    overflow: hidden;
+}
+
+.problem-info {
+    margin: 10px 0; /* Add margin to separate information blocks */
+}
+
+.problem-info-5d-old {
+    color: red;
+    margin: 10px 0; /* Add margin to separate information blocks */
+}
+
+
+.limited-description {
+    max-height: 100px; /* Set a maximum height to limit the description's height */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+.success-deadline-save-message {
+    background-color: #c5d6b2;
+    padding: 10px; /* Add padding for spacing */
+    margin-bottom: 10px;
+   /* border: 1px solid green; /* Add a border for separation */
+  }
+  

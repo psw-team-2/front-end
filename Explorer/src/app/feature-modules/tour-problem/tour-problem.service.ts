@@ -35,8 +35,39 @@ export class TourProblemService {
     return this.http.get<TourProblem>('https://localhost:44333/api/administrator/tour-problem/' + id);
   } 
 
+  //Author HTTP request methods
+  getTourProblemsAuthor(): Observable<PagedResults<TourProblem>> {
+    return this.http.get<PagedResults<TourProblem>>(environment.apiHost + 'author/tour-problem');
+  }
 
-  //Default HTTP Requests, not function, should be replaced by other roles
+  deleteTourProblemAuthor(id: number): Observable<TourProblem> {
+    return this.http.delete<TourProblem>(environment.apiHost + 'author/tour-problem' + id);
+  }
+
+  addTourProblemAuthor(tourProblem: TourProblem): Observable<TourProblem> {
+    return this.http.post<TourProblem>(environment.apiHost + 'author/tour-problem', tourProblem);
+  }
+
+  updateTourProblemAuthor(tourProblem: TourProblem): Observable<TourProblem> {
+   return this.http.put<TourProblem>(environment.apiHost + 'author/tour-problem' + tourProblem.id, tourProblem);
+  }
+
+  //Tourist HTTP request methods
+  getTourProblemsTourist(): Observable<PagedResults<TourProblem>> {
+    return this.http.get<PagedResults<TourProblem>>(environment.apiHost + 'tourist/tour-problems');
+  }
+
+  deleteTourProblemTourist(id: number): Observable<TourProblem> {
+    return this.http.delete<TourProblem>(environment.apiHost + 'tourist/tour-problems' + id);
+  }
+
+  addTourProblemTourist(tourProblem: TourProblem): Observable<TourProblem> {
+    return this.http.post<TourProblem>(environment.apiHost + 'tourist/tour-problems', tourProblem);
+  }
+
+  updateTourProblemTourist(tourProblem: TourProblem): Observable<TourProblem> {
+   return this.http.put<TourProblem>(environment.apiHost + 'tourist/tour-problems' + tourProblem.id, tourProblem);
+  }
   
   getTourProblems(): Observable<PagedResults<TourProblem>> {
     return this.http.get<PagedResults<TourProblem>>(environment.apiHost + 'tour-problem/tour-problem');
