@@ -103,3 +103,22 @@
   z-index: 2;
 }
 
+.selected-card {
+  background-color: #B855D4; /* Change to the light purple color you desire */
+  border: 3px solid #B855D4; /* Border color matches background color */
+  color: #2E003D; /* Text color matches the original text color */
+}
+
+.selected-details {
+  color: white;
+  box-shadow: 0 3px 10px #B855D4;
+  width: 100%;
+  background-color: #B855D4;
+  position: absolute;
+  bottom: 0;
+  height: 2.6em;
+  transition: height 0.5s ease-in-out;
+  padding: 0.6em;
+  overflow: hidden;
+  box-sizing: border-box; /* Include padding and border in the element's width and height */
+}
