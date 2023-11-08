@@ -51,6 +51,10 @@ export class TourProblemService {
    return this.http.put<TourProblem>(environment.apiHost + 'author/tour-problem' + tourProblem.id, tourProblem);
   }
 
+  getTourProblemAuthor(id:number) : Observable<TourProblem>{
+    return this.http.get<TourProblem>(environment.apiHost + 'author/tour-problem/' + id);
+  } 
+
   //Tourist HTTP request methods
   getTourProblemsTourist(): Observable<PagedResults<TourProblem>> {
     return this.http.get<PagedResults<TourProblem>>(environment.apiHost + 'tourist/tour-problems');
@@ -68,4 +72,7 @@ export class TourProblemService {
    return this.http.put<TourProblem>(environment.apiHost + 'tourist/tour-problems' + tourProblem.id, tourProblem);
   }
   
+  getTourProblemTourist(id:number) : Observable<TourProblem>{
+    return this.http.get<TourProblem>(environment.apiHost + 'tourist/tour-problems/' + id);
+  } 
 }

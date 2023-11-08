@@ -1,9 +1,27 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { environment } from 'src/env/environment';
+import { TourProblemResponse } from './model/tour-problem-response.model';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class TourProblemResponseService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  authorRespond(id: number, tourProblemResponse:TourProblemResponse): Observable<TourProblemResponse> {
+    return this.http.post<TourProblemResponse>(environment.apiHost + 'author/tour-problem/' + id + '/respond', tourProblemResponse);
+  }
+
+  touristRespond(id: number, tourProblemResponse:TourProblemResponse): Observable<TourProblemResponse> {
+    return this.http.post<TourProblemResponse>(environment.apiHost + 'tourist/tour-problems/' + id + '/respond', tourProblemResponse);
+  }
+
+  administratorRespond(id: number, tourProblemResponse:TourProblemResponse): Observable<TourProblemResponse> {
+    return this.http.post<TourProblemResponse>(environment.apiHost + 'administrator/tour-problem/' + id + '/respond', tourProblemResponse);
+  }
 }

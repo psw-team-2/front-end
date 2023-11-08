@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { TourProblem } from '../model/tour-problem.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl, FormBuilder, NgForm } from '@angular/forms';
 import { TourProblemService } from '../tour-problem.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { ActivatedRoute } from '@angular/router';
+import { TourProblemResponse } from '../model/tour-problem-response.model';
+import { TourProblemResponseService } from '../tour-problem-response.service';
 
 
 @Component({
@@ -29,14 +31,19 @@ import { ActivatedRoute } from '@angular/router';
     //show more description
     shouldRenderSeeMoreDescription: boolean=false;
 
-    constructor(private tourProblemService: TourProblemService, private authService: AuthService, private route: ActivatedRoute,
-      ) { 
+    shouldRenderAddResponseForm = false;
+    addResponseForm: FormGroup;
+    response: string;
+
+    constructor(private tourProblemService: TourProblemService, private authService: AuthService, private route: ActivatedRoute,private formBuilder: FormBuilder, private problemResponseService: TourProblemResponseService) { 
   
       this.addDeadlineForm = new FormGroup({
         deadlineDate: new FormControl('', Validators.required),
         deadlineTime: new FormControl('', Validators.required)
       })
-  
+      this.addResponseForm = this.formBuilder.group({
+        response: ['', Validators.required] 
+      });
     }
   
     ngOnInit(): void {
@@ -55,7 +62,17 @@ import { ActivatedRoute } from '@angular/router';
                     this.tourProblem = result;
                     //fetching for comments should be implemented, once the comments are added
                 }
-            })
+            });
+            this.tourProblemService.getTourProblemAuthor(this.tourProblemId).subscribe({
+              next: (result: TourProblem) => {
+                  this.tourProblem = result;
+              }
+            });
+          this.tourProblemService.getTourProblemTourist(this.tourProblemId).subscribe({
+            next: (result: TourProblem) => {
+                this.tourProblem = result;
+            }
+          })
         }
 
       })
@@ -157,6 +174,71 @@ import { ActivatedRoute } from '@angular/router';
       return false;
     } 
   
+    onAddResponseClicked() {
+      this.shouldRenderAddResponseForm = true;
+      this.response = '';
+    }
+  
+    onSendResponse() {
+      if (this.user && this.user.role === 'author' && this.tourProblem) {
+        if (this.tourProblem.id !== undefined) {
+          const problemResponse: TourProblemResponse = {
+            id: undefined,
+            response: this.response,
+            timeStamp: new Date(),
+            tourProblemId: this.tourProblem.id,
+            commenterId: this.user.id
+          };
+          this.problemResponseService.authorRespond(this.tourProblem.id, problemResponse).subscribe({
+            next: () => {
+              console.log("The response has been successfully sent!")
+            },
+            error: () => {}
+          });
+        }
+      }
+      else if (this.user && this.user.role === 'tourist' && this.user.id == this.tourProblem.touristId && this.tourProblem) {
+        if (this.tourProblem.id !== undefined) {
+          const problemResponse: TourProblemResponse = {
+            id: undefined,
+            response: this.response,
+            timeStamp: new Date(),
+            tourProblemId: this.tourProblem.id,
+            commenterId: this.user.id
+          };
+          this.problemResponseService.touristRespond(this.tourProblem.id, problemResponse).subscribe({
+            next: () => {
+              console.log("The response has been successfully sent!")
+            },
+            error: () => {}
+          });
+        }
+      }
+      else if (this.user && this.user.role === 'administrator' && this.tourProblem) {
+        if (this.tourProblem.id !== undefined) {
+          const problemResponse: TourProblemResponse = {
+            id: undefined,
+            response: this.response,
+            timeStamp: new Date(),
+            tourProblemId: this.tourProblem.id,
+            commenterId: this.user.id
+          };
+          this.problemResponseService.administratorRespond(this.tourProblem.id, problemResponse).subscribe({
+            next: () => {
+              console.log("The response has been successfully sent!")
+            },
+            error: () => {}
+          });
+        }
+      }
+    }
+    
+    
+  
+    onCancelResponse() {
+      this.shouldRenderAddResponseForm = false;
+      this.response = '';
+    }
     
   }
   

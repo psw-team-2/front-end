@@ -56,5 +56,16 @@
             </form>
             <div *ngIf="tourProblem?.deadlineTimeStamp" class="success-deadline-save-message">Deadline successfully added!</div>
         </div>
+
+        <button color="primary" (click)="onAddResponseClicked()" mat-raised-button id="entity-icon-button">Add Response</button>
+        <div *ngIf="shouldRenderAddResponseForm" class="bottom-margin">
+            <form [formGroup]="addResponseForm" (submit)="onSendResponse()">
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Enter your response" formControlName="response" [(ngModel)]="response">
+                </mat-form-field>                  
+                <button type="submit" mat-raised-button id="entity-raised-button">Send</button>
+                <button (click)="onCancelResponse()" mat-raised-button id="entity-raised-button">Cancel</button>
+            </form>     
+        </div>
     </div>
 </div>
