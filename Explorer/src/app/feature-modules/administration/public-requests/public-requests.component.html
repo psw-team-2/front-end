@@ -1,0 +1,26 @@
+<div id="userAccounts">
+    <div class="user-title-section">
+        <h1 class="user-title">Public Requests</h1>
+    </div>
+
+    <div class="table-container">
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>entityid</th>
+                    <th>authorid</th>
+                    <th>ischeckpoint</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pr of publicRequests">
+                    <td>{{ pr.id }}</td>
+                    <td>{{ pr.entityId }}</td>
+                    <td>{{ pr.authorId }}</td>
+                    <td>{{ pr.isCheckpoint ? 'Checkpoint' : 'Object' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
