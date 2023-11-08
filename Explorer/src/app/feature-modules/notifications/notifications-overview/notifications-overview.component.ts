@@ -19,26 +19,27 @@ export class NotificationsOverviewComponent implements OnInit {
   constructor(private service: TourProblemService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    
-    this.getNotifications();
-
     this.authService.user$.subscribe((user) => {
       this.currentUser = user;
     });
+    this.getNotifications();
   }
 
   getNotifications(): void{
-    if (this.currentUser.role == 'author')
+    if (this.currentUser.role === 'author')
     {
       this.service.getTourProblemResponsesForAuthor(this.currentUser.id).subscribe({
         next: (result: PagedResults<TourProblemResponse>) => {
           this.notifications = result.results;
+          console.log(result);
+          console.log(result.results);
+          console.log(this.notifications)
         },
         error: () => {
         }
       })
     }
-    else if (this.currentUser.role == 'tourist')
+    else if (this.currentUser.role === 'tourist')
     {
       this.service.getTourProblemResponsesForTourist(this.currentUser.id).subscribe({
         next: (result: PagedResults<TourProblemResponse>) => {

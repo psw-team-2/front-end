@@ -3,4 +3,9 @@
     <div class="notification-dropdown" *ngIf="showNotifications"></div>
   </div> -->
 
-  <p> notifications work </p>
+  <div>
+    <h1>Notifications</h1>
+    <ng-container *ngFor="let notification of notifications">
+      <li>{{ notification.id }}</li>
+    </ng-container>
+  </div>

@@ -98,7 +98,7 @@ export class TourProblemService {
 
   // returns all responses targeted towards the author the id belongs to
   getTourProblemResponsesForAuthor(id: number): Observable<PagedResults<TourProblemResponse>>{
-    return this.http.get<PagedResults<TourProblemResponse>>(environment.apiHost + 'author/' + id + '/responses');
+    return this.http.get<PagedResults<TourProblemResponse>>('https://localhost:44333/api/author/tour-problem/author/' + id + '/responses');
   }
 
   // // returns all responses targeted towards the user the id belongs to
