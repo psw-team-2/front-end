@@ -1,1 +1,31 @@
-<p>tour-problem-response works!</p>
+<div id="entity" class="center-content">
+    <p id="entity-title-paragraph">Tour Problem Responses</p>
+    <hr>
+    <div id="entity-details" class="two-column-layout">
+        <div *ngIf="currentUser && currentProblemId">
+            <div class="card">
+                <table>
+                    <thead>
+                      <tr>
+                        <th>Response</th>
+                        <th>Timestamp</th>
+                        <th>Tour</th>
+                        <th>Tourist</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngFor="let response of problemResponses">
+                        <tr>
+                          <td>{{ response.response }}</td>
+                          <td>{{ response.timeStamp | date:'medium' }}</td>
+                          <td>{{ response.tourProblemId }}</td>
+                          <td>{{ response.commenterId }}</td>
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                  
+            </div>
+        </div>
+    </div>
+</div>
