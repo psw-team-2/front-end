@@ -5,6 +5,7 @@ import { Blog } from './model/blog.model';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Rating } from './model/blog-rating.model';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,15 @@ export class BlogService {
   updateBlog(blog: Blog): Observable<Blog> {
     return this.http.put<Blog>(environment.apiHost + 'tourist/blog/' + blog.id, blog);
   }
+
+  addRating(rating: Rating): Observable<any> {
+    return this.http.put(environment.apiHost + 'tourist/blog/AddRating', rating);
+  }
+
+  getRatingCount(id: number): Observable<any> {
+    return this.http.get<any>(`${environment.apiHost}tourist/blog/RatingCount?blogId=${id}`);
+  }  
+  
 
   upload(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();

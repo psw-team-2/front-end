@@ -19,6 +19,23 @@
     
 }
 
+.votes{
+  width: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.vote-button {
+  font-size: 24px; /* Prilagodite veličinu strelica po potrebi */
+  color: gray; /* Početna boja strelica */
+  cursor: pointer; /* Postavljanje kursora na pokazivač kako biste signalizirali da su strelice klikabilne */
+}
+
+.vote-button:hover, .voted {
+  color: #2a2133; /* Promenite boju strelica na hover */
+}
+
 
 
   .image-container {

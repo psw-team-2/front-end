@@ -123,6 +123,7 @@ export class BlogFormComponent {
         username: username,
         status: BlogStatus.Published,
         userId: userId,
+        username: username,
         image: "",	
       };
       this.service.addBlog(blog).subscribe({
@@ -139,6 +140,7 @@ export class BlogFormComponent {
         status:  BlogStatus.Published,
         image: 'https://localhost:44333/Images/' + this.currentFile.name,
         userId: userId,
+        username: username,
       };
       await this.service.upload(this.currentFile).subscribe({
         next: (value) => {
@@ -215,6 +217,7 @@ async updateBlog(): Promise<void> {
     } else {
       const blog: Blog = {
         userId : userId,
+        username: username,
         title: this.blogForm.value.title || "",
         description: this.blogForm.value.description || "",
         username: username,
