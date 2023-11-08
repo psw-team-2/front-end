@@ -18,7 +18,7 @@ export class TourProblemResponseService {
   }
 
   touristRespond(id: number, tourProblemResponse:TourProblemResponse): Observable<TourProblemResponse> {
-    return this.http.post<TourProblemResponse>(environment.apiHost + 'tourist/tour-problems/' + id + '/respond', tourProblemResponse);
+    return this.http.post<TourProblemResponse>(environment.apiHost + 'tourist/tour-problem/' + id + '/respond', tourProblemResponse);
   }
 
   administratorRespond(id: number, tourProblemResponse:TourProblemResponse): Observable<TourProblemResponse> {
@@ -30,7 +30,7 @@ export class TourProblemResponseService {
   }
 
   getResponsesTourist(problemId: number): Observable<PagedResults<TourProblemResponse>> {
-    return this.http.get<PagedResults<TourProblemResponse>>(environment.apiHost + 'tourist/tour-problems/' + problemId + '/responses');
+    return this.http.get<PagedResults<TourProblemResponse>>(environment.apiHost + 'tourist/tour-problem/' + problemId + '/responses');
   }
 
   getResponsesAdministrator(problemId: number): Observable<PagedResults<TourProblemResponse>> {

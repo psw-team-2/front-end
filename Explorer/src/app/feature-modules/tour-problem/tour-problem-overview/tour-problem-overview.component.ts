@@ -57,22 +57,26 @@ import { TourProblemResponseService } from '../tour-problem-response.service';
         const id = params.get('id');
         this.tourProblemId = id ? parseInt(id, 10) : null;
         if (this.tourProblemId !== null){
+          if(this.user?.role == 'administrator'){
             this.tourProblemService.getTourProblemAdministrator(this.tourProblemId).subscribe({
-                next: (result: TourProblem) => {
-                    this.tourProblem = result;
-                    //fetching for comments should be implemented, once the comments are added
-                }
+              next: (result: TourProblem) => {
+                  this.tourProblem = result;
+                  //fetching for comments should be implemented, once the comments are added
+              }
             });
+          } else if(this.user?.role == 'author') {
             this.tourProblemService.getTourProblemAuthor(this.tourProblemId).subscribe({
               next: (result: TourProblem) => {
                   this.tourProblem = result;
               }
             });
-          this.tourProblemService.getTourProblemTourist(this.tourProblemId).subscribe({
-            next: (result: TourProblem) => {
-                this.tourProblem = result;
-            }
-          })
+          } else if(this.user?.role == 'tourist'){
+            this.tourProblemService.getTourProblemTourist(this.tourProblemId).subscribe({
+              next: (result: TourProblem) => {
+                  this.tourProblem = result;
+              }
+            })
+          }
         }
 
       })

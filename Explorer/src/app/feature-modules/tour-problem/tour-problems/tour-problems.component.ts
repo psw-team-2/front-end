@@ -163,5 +163,20 @@ export class TourProblemsComponent implements OnInit {
     return tourProblem.isResolved && ((timeDifference/(24 * 60 * 60 * 1000)) > 5);
   }
 
-  
+  onProblemSolved(tourProblem: TourProblem): void {
+    this.selectedTourProblem = tourProblem;
+    if(this.user && this.user.id === tourProblem.touristId) {
+      this.selectedTourProblem.isResolved = true;
+
+      this.tourProblemService.problemSolved(tourProblem).subscribe({
+        next: () => {
+          console.log("Tour problem has been solved")
+          this.getTourProblems();
+        },
+        error: () => {}
+      })
+    }
+  }
+
+
 }

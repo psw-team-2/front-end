@@ -57,22 +57,26 @@ export class TourProblemService {
 
   //Tourist HTTP request methods
   getTourProblemsTourist(): Observable<PagedResults<TourProblem>> {
-    return this.http.get<PagedResults<TourProblem>>(environment.apiHost + 'tourist/tour-problems');
+    return this.http.get<PagedResults<TourProblem>>(environment.apiHost + 'tourist/tour-problem');
   }
 
   deleteTourProblemTourist(id: number): Observable<TourProblem> {
-    return this.http.delete<TourProblem>(environment.apiHost + 'tourist/tour-problems' + id);
+    return this.http.delete<TourProblem>(environment.apiHost + 'tourist/tour-problem' + id);
   }
 
   addTourProblemTourist(tourProblem: TourProblem): Observable<TourProblem> {
-    return this.http.post<TourProblem>(environment.apiHost + 'tourist/tour-problems', tourProblem);
+    return this.http.post<TourProblem>(environment.apiHost + 'tourist/tour-problem', tourProblem);
   }
 
   updateTourProblemTourist(tourProblem: TourProblem): Observable<TourProblem> {
-   return this.http.put<TourProblem>(environment.apiHost + 'tourist/tour-problems' + tourProblem.id, tourProblem);
+   return this.http.put<TourProblem>(environment.apiHost + 'tourist/tour-problem' + tourProblem.id, tourProblem);
   }
   
   getTourProblemTourist(id:number) : Observable<TourProblem>{
-    return this.http.get<TourProblem>(environment.apiHost + 'tourist/tour-problems/' + id);
+    return this.http.get<TourProblem>(environment.apiHost + 'tourist/tour-problem/' + id);
   } 
+
+  problemSolved(tourProblem: TourProblem): Observable<TourProblem> {
+    return this.http.post<TourProblem>(environment.apiHost + 'tourist/tour-problem/problemSolved', tourProblem);
+  }
 }
