@@ -4,5 +4,6 @@ export interface Checkpoint {
     description: string,
     longitude: number,
     latitude: number,
-    image: string
+    image: string,
+    isPublic: boolean
 }

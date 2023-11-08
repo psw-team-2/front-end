@@ -34,7 +34,8 @@ export class ObjectComponent {
       image: 'https://localhost:44333/Images/' + this.currentFile.name || "",
       category: parseInt(this.objectForm.value.category as string) || 0,
       longitude: 0,
-      latitude: 0
+      latitude: 0,
+      isPublic: false
     };
 
     await this.service.upload(this.currentFile).subscribe({

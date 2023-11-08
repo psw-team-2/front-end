@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { Checkpoint } from '../model/checkpoint.model';
+import { PublicRequest } from '../model/public-request.model';
 import { MapService } from 'src/app/shared/map/map.service';
 import { Tour } from '../model/tour.model';
 
@@ -51,6 +52,7 @@ export class CheckpointFormComponent {
     description: new FormControl('', [Validators.required]),
     longitude: new FormControl('', [Validators.required]),
     latitude: new FormControl('', [Validators.required]),
+    isPublic: new FormControl(false),
     image: new FormControl('', [Validators.required])
   })
 
@@ -64,7 +66,8 @@ export class CheckpointFormComponent {
       description: this.checkpointForm.value.description || "",
       longitude: this.selectedCoordinates[1] || this.checkpointToPresent.longitude,
       latitude: this.selectedCoordinates[0] || this.checkpointToPresent.latitude,
-      image: 'https://localhost:44333/Images/' + this.currentFile.name
+      image: 'https://localhost:44333/Images/' + this.currentFile.name,
+      isPublic: false
     }
     await this.service.upload(this.currentFile).subscribe({
       next: (value) => {
@@ -105,7 +108,8 @@ export class CheckpointFormComponent {
       description: this.checkpointForm.value.description || "",
       longitude: this.selectedCoordinates[1] || this.checkpointToPresent.longitude,
       latitude: this.selectedCoordinates[0] || this.checkpointToPresent.latitude,
-      image: this.checkpointForm.value.image || ""
+      image: this.checkpointForm.value.image || "",
+      isPublic: false
     }
     checkpoint.id = this.checkpoint.id;
     this.service.updateCheckpoint(checkpoint).subscribe({
