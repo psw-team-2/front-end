@@ -7,7 +7,7 @@
         <button mat-menu-item  *ngIf="user && user.role === 'tourist'" color="primary" [routerLink]="['tour-review']">TourReview</button>
         <button mat-menu-item *ngIf="user && user.role === 'author'"color="primary" [routerLink]="['tour']" routerLinkActive="active">Manage tour</button>
         <button mat-menu-item *ngIf="user && user.role === 'author'" color="primary" [routerLink]="['object']">Add Object</button>
-        <button mat-menu-item *ngIf="user && (user.role === 'administrator' || user.role === 'tourist')"color="primary" [routerLink]="['tour-problem']">Manage tour problem</button>
+        <button mat-menu-item *ngIf="user && (user.role === 'administrator' || user.role === 'tourist')"color="primary" [routerLink]="['tour-problems']">Manage tour problem</button>
         <button mat-menu-item color="primary" [routerLink]="['clubs']" *ngIf="user && user.username !== ''">Clubs</button>
         <button mat-menu-item color="primary" [routerLink]="['clubRequest']" *ngIf="user && user.role === 'tourist'">Manage club request</button>
         <button mat-menu-item color="primary" [routerLink]="['userAccounts']" *ngIf="user && user.role === 'administrator'">User accounts</button>
@@ -23,7 +23,7 @@
   
     <p class="explorer">Explorer</p>
   
-    <button class="notificationsButton" mat-button>Notifications</button>
+    <button class="notificationsButton" *ngIf="user && user.role === 'tourist' || user && user.role === 'author'" mat-button [routerLink]="['notifications']">Notifications</button>
 
     <div class="navbar-right">
       <button class="logButton" *ngIf="user && user.username === ''" mat-button [routerLink]="['login']">Log In</button>

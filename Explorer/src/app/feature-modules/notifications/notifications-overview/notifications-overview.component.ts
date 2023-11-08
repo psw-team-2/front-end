@@ -28,19 +28,31 @@ export class NotificationsOverviewComponent implements OnInit {
   }
 
   getNotifications(): void{
-    this.service.getTourProblemResponses().subscribe({
-      next: (result: PagedResults<TourProblemResponse>) => {
-        this.notifications = result.results;
-      },
-      error: () => {
-      }
-    })
+    if (this.currentUser.role == 'author')
+    {
+      this.service.getTourProblemResponsesForAuthor(this.currentUser.id).subscribe({
+        next: (result: PagedResults<TourProblemResponse>) => {
+          this.notifications = result.results;
+        },
+        error: () => {
+        }
+      })
+    }
+    else if (this.currentUser.role == 'tourist')
+    {
+      this.service.getTourProblemResponsesForTourist(this.currentUser.id).subscribe({
+        next: (result: PagedResults<TourProblemResponse>) => {
+          this.notifications = result.results;
+        },
+        error: () => {
+        }
+      })
+    }
+    
   }
 
   toggleNotifications() {
     this.showNotifications = !this.showNotifications;
   }
-
-  
 
 }

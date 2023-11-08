@@ -87,9 +87,24 @@ export class TourProblemService {
 
   // Tour Problem Response
 
-  getTourProblemResponses(): Observable<PagedResults<TourProblemResponse>> {
-    return this.http.get<PagedResults<TourProblemResponse>>(environment.apiHost + 'tour-problem/notifications');
+  getTourProblemResponses(id: number): Observable<PagedResults<TourProblemResponse>> {
+    return this.http.get<PagedResults<TourProblemResponse>>(environment.apiHost + 'tourist/tour-problems/' + id + '/responses');
   }
+
+  // returns all responses targeted towards the tourist the id belongs to
+  getTourProblemResponsesForTourist(id: number): Observable<PagedResults<TourProblemResponse>>{
+    return this.http.get<PagedResults<TourProblemResponse>>(environment.apiHost + 'tourist/' + id + '/responses');
+  }
+
+  // returns all responses targeted towards the author the id belongs to
+  getTourProblemResponsesForAuthor(id: number): Observable<PagedResults<TourProblemResponse>>{
+    return this.http.get<PagedResults<TourProblemResponse>>(environment.apiHost + 'author/' + id + '/responses');
+  }
+
+  // // returns all responses targeted towards the user the id belongs to
+  // getTourProblemResponsesForUser(id: number): Observable<PagedResults<TourProblemResponse>>{
+  //   return this.http.get<PagedResults<TourProblemResponse>>(environment.apiHost + 'user/' + id + '/responses');
+  // }
 }
 
 
