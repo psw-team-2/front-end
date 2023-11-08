@@ -7,6 +7,7 @@ export enum BlogStatus {
 export interface Blog {
     id? : number;
     userId : number;
+    username: string;
     title : string;
     description : string;
     creationTime: Date;

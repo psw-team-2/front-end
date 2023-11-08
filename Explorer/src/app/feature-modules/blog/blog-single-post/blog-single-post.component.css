@@ -46,6 +46,9 @@
 .blog-info {
     font-style: italic;
     margin: 70px;
+    margin-right: 150px;
+    text-align: right;
+    
 }
 
 xp-blog-comment-form {

@@ -17,6 +17,7 @@ export class BlogCommentFormComponent {
   @Input() blogComment: BlogComment;
   @Input() shouldEdit: boolean = false;
   @Input() blogId :  number = -1;
+  @Output() blogCommentAdded = new EventEmitter<BlogComment>();
 
   blogCommentForm = new FormGroup({
     text: new FormControl('', [Validators.required]),
@@ -35,12 +36,15 @@ export class BlogCommentFormComponent {
     addBlogComment(): void {
       
     const userId = this.authService.user$.value.id;
+    const username = this.authService.user$.value.username;
+   
     const blogComment: BlogComment = {
 
       
       text: this.blogCommentForm.value.text || "",
       creationTime: new Date('2023-10-22T10:30:00'),
       userId: userId,
+      username: username,
       blogId: this.blogId,
       lastModification: new Date('2023-10-22T10:30:00')
     };
@@ -48,17 +52,19 @@ export class BlogCommentFormComponent {
     
     
     this.service.addBlogComment(blogComment).subscribe({
-      next: () => { this.blogCommentUpdated.emit() }
+      next: () => { this.blogCommentForm.reset(); this.blogCommentUpdated.emit() }
     });
   }
 
   updateBlogComment(): void {
     const userId = this.authService.user$.value.id;
+    const username = this.authService.user$.value.username;
     const blogComment: BlogComment = {
       
       text: this.blogCommentForm.value.text || "",
       creationTime: this.blogComment.creationTime,
       userId: userId,
+      username: username,
       blogId: this.blogId,
       lastModification: new Date('2023-10-22T10:30:00')
 

@@ -63,7 +63,19 @@ ngOnInit(): void {
       console.error('An error occurred:', error);
     }
   }
+
   
+  
+  getBlogComment(): void {
+    this.blogService.getBlogComment().subscribe({
+      next: (result: PagedResults<BlogComment>) => {
+        this.comments = result.results;
+      },
+      error: () => {
+      }
+    })
+  }
+
   /*getCommentsByBlogId(blogId: number): void {
     if (blogId) {
       this.blogService.getCommentsByBlogId(blogId).subscribe({

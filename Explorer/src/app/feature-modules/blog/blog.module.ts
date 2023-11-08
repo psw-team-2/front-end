@@ -10,6 +10,7 @@ import { BlogManagemetComponent } from './blog-managemet/blog-managemet.componen
 import { BlogSinglePostComponent } from './blog-single-post/blog-single-post.component';
 import { BlogReviewComponent } from './blog-review/blog-review.component';
 import { CommentsReviewComponent } from './comments-review/comments-review.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CommentsReviewComponent } from './comments-review/comments-review.compo
   imports: [
     CommonModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
   ],
   exports: [
     BlogCommentFormComponent,
