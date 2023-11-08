@@ -18,7 +18,7 @@
             <button icon-button (click)="deleteFile()">X</button>
         </div>
 
-        <input type="checkbox" formControlName="isPublic">Make the checkpoint public
+        <input type="checkbox" formControlName="isPublic">Public
 
         <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary"
             (click)="addCheckpoint()">Done</button>
