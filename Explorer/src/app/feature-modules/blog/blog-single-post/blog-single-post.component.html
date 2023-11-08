@@ -1,3 +1,7 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+</head>
+
 <div class="blog-post">
   <div class="blog-title">
     {{ blogPost?.title }}
@@ -11,6 +15,17 @@
   <div class="blog-info">
     <p>Author: {{ blogPost?.userId }}</p>
     <p>Created: {{ blogPost?.creationTime | date:'medium' }}</p>
+    <div class="votes">
+    <div id="upvote" class="vote-button" [ngClass]="{'voted': upvoted}">
+      <i class="fas fa-arrow-up" (click)="upvoteClick()"></i>
+    </div>
+    <div class="rating-count">
+      {{ ratingCount }} 
+    </div>
+    <div id="downvote" class="vote-button" [ngClass]="{'voted': downvoted}">
+      <i class="fas fa-arrow-down" (click)="downvoteClick()"></i>
+    </div>
+    </div>
   </div>
   <div>
     <xp-blog-comment-form  [blogId]="blogId!"></xp-blog-comment-form>

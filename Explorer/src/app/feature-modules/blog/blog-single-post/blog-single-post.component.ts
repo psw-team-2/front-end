@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { BlogService } from '../blog.service';
 import { Router } from '@angular/router';
 import { Blog } from '../model/blog.model';
 import { ActivatedRoute } from '@angular/router';
 import { BlogComment } from '../model/blog-comment.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Rating } from '../model/blog-rating.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-blog-single-post',
@@ -19,10 +21,13 @@ export class BlogSinglePostComponent implements OnInit {
   blogSinglePost: BlogSinglePostComponent;
   blogId: number;
   comments: BlogComment[] = [];
+  rating: Rating;
+  upvoted: boolean = false;
+  downvoted: boolean = false;
+  ratingCount: number = 0;
+  ratingCountUpdated = new EventEmitter<number>();
 
-
-
-constructor(private blogService: BlogService, private route: ActivatedRoute) { }
+constructor(private blogService: BlogService, private route: ActivatedRoute, private authService: AuthService) { }
 
 
 ngOnInit(): void {
@@ -36,6 +41,9 @@ ngOnInit(): void {
        // this.getCommentsByBlogId(this.blogId);
        if (blogId) {
         this.getCommentsByBlogId(this.blogId);
+        this.blogService.getRatingCount(this.blogId).subscribe((ratingCount) => {
+          this.ratingCount = ratingCount.count;
+        });
       } else {
         // Handle the case when there is no valid tour ID in the URL.
       }
@@ -63,6 +71,67 @@ ngOnInit(): void {
       console.error('An error occurred:', error);
     }
   }
+
+  updateRatingCount() {
+    this.blogService.getRatingCount(this.blogId).subscribe((ratingCount) => {
+      this.ratingCount = ratingCount.count;
+      this.ratingCountUpdated.emit(ratingCount);
+    });
+  }
+
+  
+
+  upvoteClick() {
+    const userId = this.authService.user$.value.id;
+    this.upvoted = true;
+    this.downvoted = false;
+    const rating: Rating = {
+      isUpvote: true,
+      userId: userId,
+      blogId: this.blogId
+    };
+
+    this.blogService.addRating(rating).subscribe({
+      next: () => {
+        this.updateRatingCount();
+      },
+      error: (error) => {
+        // Obrada greške
+      }
+    });
+    
+  }
+
+  downvoteClick() {
+    const userId = this.authService.user$.value.id;
+    this.upvoted = false;
+    this.downvoted = true;
+    const rating: Rating = {
+      isUpvote: false,
+      userId: userId,
+      blogId: this.blogId
+    };
+
+    this.blogService.addRating(rating).subscribe({
+      next: () => {
+        this.updateRatingCount();
+      },
+      error: (error) => {
+        // Obrada greške
+      }
+    });
+    
+  }
+
+  sendRating() {
+    this.blogService.addRating(this.rating).subscribe(
+      response => {
+      },
+      error => {
+      }
+    );
+  }
+
   
   /*getCommentsByBlogId(blogId: number): void {
     if (blogId) {
@@ -78,8 +147,7 @@ ngOnInit(): void {
       // Obrada slučaja kada blogId nije postavljen
     }
   }*/
+
 }
-
-
 
     

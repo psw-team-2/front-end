@@ -114,6 +114,7 @@ export class BlogFormComponent {
 
   async addBlog(): Promise<void> {
     const userId = this.authService.user$.value.id;
+    const username = this.authService.user$.value.username;
     if (!this.currentFile) {
       const blog: Blog = {
         title: this.blogForm.value.title || "",
@@ -121,6 +122,7 @@ export class BlogFormComponent {
         creationTime: new Date('2023-10-22T10:30:00'),
         status: BlogStatus.Published,
         userId: userId,
+        username: username,
         image: "",	
       };
       this.service.addBlog(blog).subscribe({
@@ -136,6 +138,7 @@ export class BlogFormComponent {
         status:  BlogStatus.Published,
         image: 'https://localhost:44333/Images/' + this.currentFile.name,
         userId: userId,
+        username: username,
       };
       await this.service.upload(this.currentFile).subscribe({
         next: (value) => {
@@ -191,10 +194,12 @@ export class BlogFormComponent {
 }*/
 async updateBlog(): Promise<void> {
   const userId = this.authService.user$.value.id;
+  const username = this.authService.user$.value.username;
   if (this.blogId !== null) {
     if (!this.currentFile) {
       const blog: Blog = {
         userId : userId,
+        username: username,
         title: this.blogForm.value.title || "",
         description: this.blogForm.value.description || "",
         creationTime: new Date('2023-10-22T10:30:00'),
@@ -210,6 +215,7 @@ async updateBlog(): Promise<void> {
     } else {
       const blog: Blog = {
         userId : userId,
+        username: username,
         title: this.blogForm.value.title || "",
         description: this.blogForm.value.description || "",
         creationTime: new Date('2023-10-22T10:30:00'),
