@@ -55,9 +55,9 @@ export class MarketplaceService {
     return this.http.post<ApplicationReview>(environment.apiHost + 'tourist/applicationReview', applicationReview); 
   }
 
-  getOrderItemsByShoppingCartId(id: Number): Observable<OrderItem> {
-    return this.http.get<OrderItem>('https://localhost:44333/api/tourist/orderItem/' + id);
-  }
+  getOrderItemsByShoppingCartId(id: Number): Observable<OrderItem[]> {
+    return this.http.get<OrderItem[]>(`https://localhost:44333/api/tourist/orderItems/${id}`) 
+  } 
 
   getShoppingCartByUserId(userId: number): Observable<ShoppingCart> {
     return this.http.get<ShoppingCart>(`https://localhost:44333/api/tourist/shoppingCart/user/${userId}`);

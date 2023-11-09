@@ -11,22 +11,26 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.css']
 })
-export class ShoppingCartComponent implements OnInit {
-      orderItem: OrderItem[] = [];
+export class ShoppingCartComponent{
+      orderItems: OrderItem[] = [];
       shoppingCartId: number;
       shoppingCart: ShoppingCart;
 
       constructor(private service: MarketplaceService, private route: ActivatedRoute, private authService: AuthService) { }
-
-      /*ngOnInit(): void {
-        this.service.getOrderItemsByShoppingCartId(this.shoppingCartId).subscribe((items) => {
-          this.items = items;
-        });
-      }*/
-
+/*
+      ngOnInit() {
+        //this.loadShoppingCart();
+        this.service.getOrderItemsByShoppingCartId(1).subscribe({
+          next: (result: OrderItem[]) => {
+            this.orderItems = result;
+          },
+          error: () => {
+          }
+        })       
+      }
+/*
       loadShoppingCart(): void {
-        const userId = this.authService.user$.value.id;
-    
+        const userId = this.authService.user$.value.id;   
         // Fetch the shopping cart for the current user
         this.service.getShoppingCartByUserId(userId).subscribe({
           next: (result: ShoppingCart) => {
@@ -37,34 +41,6 @@ export class ShoppingCartComponent implements OnInit {
           }
         });
       }
-      
-
-      ngOnInit(): void {
-        this.loadShoppingCart();
-        this.getOrderItem();
-        this.route.params.subscribe(params => {
-          const id = +params['id']; 
-          if (!isNaN(id)) {
-            this.shoppingCartId = id; 
-            this.getOrderItem();
-          } else {
-          }
-        });
-      }
-         
-
-      getOrderItem(): void {
-        /*this.service.getOrderItemsByShoppingCartId(this.shoppingCartId).subscribe({
-          next: (result: OrderItem[]) => {  // Change the type of the parameter to OrderItem[]
-            this.orderItem = result;
-          },
-          error: () => {
-            // Handle errors if needed
-          }
-        });*/
-      }
-      
-      
-    
-
+      */
+     
 }

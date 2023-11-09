@@ -1,39 +1,35 @@
 <body>
-    <div class=”Cart-Container”></div>
-    <div class=”Header”>
-        <h3 class=”Heading”>Shopping Cart</h3>
-        <h5 class=”Action”>Remove all</h5>
+    <div class="Header">
+        <h3 class="Heading">Shopping Cart</h3>
+        <h5 class="Action">Remove all</h5>
     </div>
-    <!-- product-list.component.html -->
-    <div class="Cart-Items" *ngFor="let oi of orderItem">
+    <div class="Cart-Items" *ngFor="let oi of orderItems">
         <div class="image-box">
-        <!--<img [src]="product.imageSrc" style="height: 120px" />-->
         </div>
         <div class="about">
         <h1 class="title">{{ oi.tourName }}</h1>
-        <!--<img [src]="product.iconSrc" style="height: 30px" />-->
         </div>
         <div class="counter"></div>
         <div class="prices"></div>
     </div>
-    <div class=”counter”>
-        <div class=”btn”>+</div>
-        <div class=”count”>2</div>
-        <div class=”btn”>-</div>
+    <div class="counter">
+        <div class="btn">+</div>
+        <div class="count">2</div>
+        <div class="btn">-</div>
     </div>
-    <div class=”prices” *ngFor="let oi of orderItem">
-        <div class=”amount”> {{ oi.price }}</div>
-        <div class=”remove”><u>Remove</u></div>
+    <div class="prices" *ngFor="let oi of orderItems">
+        <div class="amount"> {{ oi.price }}</div>
+        <div class="remove"><u>Remove</u></div>
     </div>
     <hr> 
-        <div class=”checkout”>
-        <div class=”total”>
+        <div class="checkout">
+        <div class="total">
         <div>
-        <div class=”Subtotal”>Sub-Total</div>
+        <div class="Subtotal">Sub-Total</div>
         <!--<div class=”items”>2 items</div>-->
         </div>
-        <div class=”total-amount”>{{ shoppingCart?.totalPrice }}</div>
+        <div class="total-amount">{{ shoppingCart?.totalPrice }}</div>
         </div>
-        <button class=”button”>Checkout</button>
+        <button class="button">Checkout</button>
         </div>
 </body>

@@ -17,12 +17,23 @@ export class ViewToursComponent implements OnInit {
   shoppingCart: ShoppingCart;
 
   constructor(private service: TourAuthoringService, private authService: AuthService) {
-    
+    //this.shoppingCartId = 2;
   }
 
   async ngOnInit(): Promise<void> {
     await this.getTours();
-    this.loadShoppingCart();
+        
+      // Check if user details are available before loading the shopping cart
+    if (this.authService.user$.value) {
+      // Get the user ID
+      const userId = this.authService.user$.value.id;
+
+      // Set the shoppingCartId directly
+      this.shoppingCartId = userId;
+
+      // Load the shopping cart
+      this.loadShoppingCart(userId);
+    }
   }
 
 
@@ -42,12 +53,11 @@ export class ViewToursComponent implements OnInit {
   }
 
 
-  loadShoppingCart(): void {
-    const userId = this.authService.user$.value.id;
-
-    // Fetch the shopping cart for the current user
+  loadShoppingCart(userId: number): void {
+    //const userId = this.authService.user$.value.id;   
     this.service.getShoppingCartByUserId(userId).subscribe({
       next: (result: ShoppingCart) => {
+        console.log(result)
         this.shoppingCart = result;
       },
       error: () => {
@@ -56,21 +66,21 @@ export class ViewToursComponent implements OnInit {
     });
   }
 
-    onAddClicked(tour: Tour): void {
-      this.service.getShoppingCartById(this.shoppingCartId).subscribe({
-        next: (result: ShoppingCart) => {
-          this.shoppingCart = result;
-          this.service.addToCart(this.shoppingCart, tour).subscribe({
-            next: () => {
-  
-            },
-            error: () => {
-            }
-            
-          })
-        }
-      })
-    }
+  onAddClicked(tour: Tour): void {
+    this.service.getShoppingCartById(this.shoppingCartId).subscribe({
+      next: (result: ShoppingCart) => {
+        this.shoppingCart = result;
+        this.service.addToCart(this.shoppingCart, tour).subscribe({
+          next: () => {
+
+          },
+          error: () => {
+          }
+          
+        })
+      }
+    })
+  }
   
 
   

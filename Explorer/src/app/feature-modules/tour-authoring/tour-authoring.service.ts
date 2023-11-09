@@ -120,7 +120,7 @@ export class TourAuthoringService {
 
 
   getShoppingCartByUserId(userId: number): Observable<ShoppingCart> {
-    return this.http.get<ShoppingCart>(`https://localhost:44333/api/tourist/shoppingCart/user/${userId}`);
+    return this.http.get<ShoppingCart>(`https://localhost:44333/api/tourist/shoppingCart/user/2`);
   }
 
   getShoppingCartById(id: Number): Observable<ShoppingCart> {
