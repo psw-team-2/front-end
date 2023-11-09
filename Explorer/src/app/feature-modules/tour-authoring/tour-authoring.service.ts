@@ -117,6 +117,9 @@ export class TourAuthoringService {
     return this.http.put<Equipment>('https://localhost:44333/api/author/tour/remove/' + tour.id +  '/' + equipmentId,tour)
   }
 
+  getAverageGrade(tourId: number):Observable<any>{
+    return this.http.get<number>(environment.apiHost + 'author/tour/average-grade/'+tourId)
+  }
 }
 
 

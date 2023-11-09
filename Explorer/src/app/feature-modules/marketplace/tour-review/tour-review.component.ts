@@ -14,6 +14,7 @@ import { forkJoin } from 'rxjs/internal/observable/forkJoin';
   styleUrls: ['./tour-review.component.css']
 })
 export class TourReviewComponent implements OnInit {
+
   tourReview: TourReview[] = [];
   shouldRenderTourReviewForm: boolean = false;
   shouldEdit: boolean = false;
@@ -22,6 +23,7 @@ export class TourReviewComponent implements OnInit {
   showTable: boolean = false; // Initialize to hide the table
   currentUserId = this.authService.user$.value.id;
   tourId : number;
+
   constructor(private authService: AuthService, private service: MarketplaceService, private route: ActivatedRoute) { 
 
   }
@@ -45,6 +47,7 @@ export class TourReviewComponent implements OnInit {
     this.route.params.subscribe(params => {
       const tourId = +params['id']; // Ovo 'tourId' mora da se poklapa sa imenom parametra iz URL-a
       if (tourId) {
+        this.tourId = tourId;
         this.getTourReviewByTourId(tourId);
       } else {
         // Handle the case when there is no valid tour ID in the URL.
@@ -96,7 +99,7 @@ export class TourReviewComponent implements OnInit {
   }
   
 
-  getTourReview(): void {
+  async getTourReview(): Promise<void> {
     this.service.getTourReview().subscribe({
       next: (result: PagedResults<TourReview>) => {
         this.tourReview = result.results;
@@ -111,15 +114,20 @@ export class TourReviewComponent implements OnInit {
   
 
   deleteTourReview(id: number): void {
-    this.service.deleteTourReview(id).subscribe({
-      next: () => {
-        this.getTourReview();
-      },
-      error: () => {
-        // Handle error if needed
-      }
-    });
+    if (this.tourId) {
+      this.service.deleteTourReview(id).subscribe({
+        next: () => {
+          this.getTourReviewByTourId(this.tourId);
+        },
+        error: () => {
+          // Handle error if needed
+        }
+      });
+    } else {
+      // Handle the case when this.tourId is not available
+    }
   }
+  
 
   getUserName(userId: number): string {
     if (this.userNames[userId]) {

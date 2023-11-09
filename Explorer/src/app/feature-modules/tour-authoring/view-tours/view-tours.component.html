@@ -7,7 +7,7 @@
       <div class="details">
         <label>{{ tour.name }}</label>
         <p>{{ tour.description }}</p>
-        <p>{{ tour.description }}</p>
+        <p *ngIf="tour.id !== undefined">Average grade: {{ tourAverageGrades[tour.id] }}/5</p>
         <p>{{ tour.description }}</p>
         <p>{{ tour.description }}</p>
         <div class="button-container">

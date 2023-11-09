@@ -16,7 +16,7 @@ export class TourReviewFormComponent implements OnChanges {
   
   constructor(private authService: AuthService, private service: MarketplaceService, private tourAuthoringService: TourAuthoringService, private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
-      this.tourId = +params['tourId']; // Read the tourId from the URL
+      this.tourId = +params['id']; // Read the tourId from the URL
     });
   }
 
@@ -28,6 +28,8 @@ export class TourReviewFormComponent implements OnChanges {
   currentFile: File;
   currentFileURL: string | null = null;
   tourId: number;
+  userId = this.authService.user$.value.id;
+  
   tourReviewForm = new FormGroup({
     grade: new FormControl('', [Validators.required]),
     comment: new FormControl('', [Validators.required]),
@@ -37,25 +39,25 @@ export class TourReviewFormComponent implements OnChanges {
   });
   
   ngOnChanges(changes: SimpleChanges): void {
-  if (this.shouldEdit) {
-    this.tourReviewForm.patchValue({
-      grade: String(this.tourReview.grade) || null,
-      comment: this.tourReview.comment || null,
-      images: this.tourReview.images || null,
-      reviewDate: this.tourReview.reviewDate ? this.tourReview.reviewDate.toISOString() : null,
-      tourId : String(this.tourReview.grade) || null,
-    });
+    if (this.shouldEdit && this.tourReview) {
+      this.tourReviewForm.patchValue({
+        grade: this.tourReview.grade.toString(),
+        comment: this.tourReview.comment || null,
+        images: this.tourReview.images || null,
+        reviewDate: this.tourReview.reviewDate instanceof Date ? this.tourReview.reviewDate.toISOString() : null,
+        tourId : this.tourReview.grade.toString() || null,
+      });
   }
 }
 
 
   async addTourReview():  Promise<void> {
-    const userId = this.authService.user$.value.id;
+    
     const tourReview: TourReview = {
       grade: Number(this.tourReviewForm.value.grade) || 0,
       comment: this.tourReviewForm.value.comment || "",
       images: 'https://localhost:44333/Images/' + this.currentFile.name,
-      userId: userId,
+      userId: this.userId,
       reviewDate: this.value,
       tourId: this.tourId
  
@@ -69,9 +71,9 @@ export class TourReviewFormComponent implements OnChanges {
       }, complete: () => {
       },
     });
-    this.service.addTourReview(tourReview).subscribe({
+    this.service.addTourReview(tourReview,this.userId).subscribe({
       next: (_) => {
-        this.tourReviewUpdated.emit()
+        this.tourReviewUpdated.emit();
       }});
   }
 

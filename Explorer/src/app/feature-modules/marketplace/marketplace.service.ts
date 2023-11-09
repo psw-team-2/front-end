@@ -20,17 +20,20 @@ export class MarketplaceService {
   getTourReview(): Observable<PagedResults<TourReview>> {
     return this.http.get<PagedResults<TourReview>>(environment.apiHost + 'tourist/tourReview')
   }
+  getAverageGrade(tourId: number):Observable<any>{
+    return this.http.get<any>(environment.apiHost + 'author/tour/average-grade/'+tourId)
+  }
+
   getTourReviewByTourId(id: number): Observable<PagedResults<TourReview>> {
     return this.http.get<PagedResults<TourReview>>(environment.apiHost + 'tourist/tourReview/byTour/' + id);
   }
   
-
   deleteTourReview(id: number): Observable<TourReview> {
     return this.http.delete<TourReview>(environment.apiHost + 'tourist/tourReview/' + id);
   }
 
-  addTourReview(tourReview: TourReview): Observable<TourReview> {
-    return this.http.post<TourReview>(environment.apiHost + 'tourist/tourReview', tourReview);
+  addTourReview(tourReview: TourReview, userId: number): Observable<TourReview> {
+    return this.http.post<TourReview>(environment.apiHost + 'tourist/tourReview/'+ userId, tourReview);
   }
 
   addImage(tourReview: TourReview): Observable<TourReview>{
