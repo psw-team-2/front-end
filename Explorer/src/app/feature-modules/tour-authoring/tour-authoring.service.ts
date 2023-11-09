@@ -7,6 +7,7 @@ import { Observable, throwError, of } from 'rxjs';
 import { Tour } from './model/tour.model';
 import { environment } from 'src/env/environment';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { ShoppingCart } from '../marketplace/model/shopping-cart.model';
 
 @Injectable({
   providedIn: 'root'
@@ -115,6 +116,19 @@ export class TourAuthoringService {
 
   removeEquipmentFromTour(equipmentId: number, tour: Tour) : Observable<Equipment>{
     return this.http.put<Equipment>('https://localhost:44333/api/author/tour/remove/' + tour.id +  '/' + equipmentId,tour)
+  }
+
+
+  getShoppingCartByUserId(userId: number): Observable<ShoppingCart> {
+    return this.http.get<ShoppingCart>(`https://localhost:44333/api/tourist/shoppingCart/user/${userId}`);
+  }
+
+  getShoppingCartById(id: Number): Observable<ShoppingCart> {
+    return this.http.get<ShoppingCart>('https://localhost:44333/api/tourist/shoppingCart/' + id);
+  }
+
+  addToCart(shoppingCart: ShoppingCart, tour: Tour) {
+    return this.http.post<ShoppingCart>('https://localhost:44333/api/tourist/shoppingCart/shoppingItem/' + shoppingCart.id + '/' + tour.id,shoppingCart);
   }
 
 }

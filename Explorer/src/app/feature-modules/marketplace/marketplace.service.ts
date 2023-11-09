@@ -7,6 +7,8 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/env/environment';
 import { Equipment } from '../administration/model/equipment.model';
+import { OrderItem } from './model/order-item.model';
+import { ShoppingCart } from './model/shopping-cart.model';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +53,14 @@ export class MarketplaceService {
 
   addApplicationReview(applicationReview: ApplicationReview): Observable<ApplicationReview> { 
     return this.http.post<ApplicationReview>(environment.apiHost + 'tourist/applicationReview', applicationReview); 
+  }
+
+  getOrderItemsByShoppingCartId(id: Number): Observable<OrderItem> {
+    return this.http.get<OrderItem>('https://localhost:44333/api/tourist/orderItem/' + id);
+  }
+
+  getShoppingCartByUserId(userId: number): Observable<ShoppingCart> {
+    return this.http.get<ShoppingCart>(`https://localhost:44333/api/tourist/shoppingCart/user/${userId}`);
   }
 
   /*getApplicationReview(): Observable<PagedResults<ApplicationReview>> { 

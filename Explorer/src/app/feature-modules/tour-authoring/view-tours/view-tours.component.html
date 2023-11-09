@@ -1,7 +1,14 @@
 <div>
   <xp-map-search [tours]="tours"></xp-map-search>
   <h1 class="header">Available Tours</h1>
-<div class="card-container">
+</div>
+<div class="header-container">   
+  <a class="cart-button" [routerLink]="'/shopping-cart/'">
+    <i class="fas fa-shopping-cart"></i> Shopping cart
+  </a>
+</div>
+  
+<div class="card-container">    
     <div *ngFor="let tour of tours" class="card">
       <div class="remove-when-use">
       </div>
@@ -10,9 +17,9 @@
         <p>{{ tour.description }}</p>
         <div class="button-container">
           <a class="view-button" [routerLink]="'/tour/' + tour.id">View more</a>
+          <button class="view-button" (click)="onAddClicked(tour)">Add to cart</button>
       </div>
       </div>
     </div>
   </div>
-</div>
-  
+
