@@ -1,0 +1,48 @@
+<div id="clubRequest">
+    <p>Club Requests</p>
+    <hr>
+    <div id="clubRequest-details">
+        <table>
+            <thead>
+                <tr>
+                    <th>Club name</th>
+                    <th>User Id</th>
+                    <th>Request status</th>
+                    <th>Request type</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cr of clubRequest">
+                    <td>
+                        {{getMappedClubName(cr.clubId)}}
+                    </td>
+                    <td>
+                        {{cr.accountId}}
+                    </td>
+                    <td>
+                        {{getMappedRequestStatus(cr.requestStatus)}}
+                    </td>
+                    <td>
+                        {{getMappedRequestType(cr.requestType)}}
+                    </td>
+                    <td>
+                        <button color="accent" (click)="onWithdrawRequestClicked(cr.id || 0)">withdraw request</button>
+                    </td>
+                    <td>
+                        <button color="accent" (click)="onAcceptRequestClicked(cr)">accept request</button>
+
+                        <button color="accent" (click)="onRejectRequestClicked(cr)">reject request</button>
+                    </td>
+                    <td>
+                        <button color="accent" (click)="onAcceptInvitationClicked(cr)">accept invitation</button>
+
+                        <button color="accent" (click)="onRejectInvitationClicked(cr)">reject invitation</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

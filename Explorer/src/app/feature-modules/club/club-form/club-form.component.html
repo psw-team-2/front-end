@@ -1,0 +1,28 @@
+<form [formGroup]="clubForm">
+    <div>
+        <div>
+            <label>Name: </label>
+            <input formControlName="name" type="text"/>
+        </div>
+
+        <div>
+            <label>Description: </label>
+                <textarea
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="1"
+                formControlName="description"
+                cdkAutosizeMaxRows="4"></textarea>
+        </div>
+
+        <mat-label>Image:</mat-label>
+        <button mat-raised-button color="primary" width="200" (click)="fileInput.click()">Upload File</button>
+        <input hidden #fileInput type="file" (change)="onFileSelected($event)">
+        <div *ngIf="currentFile">
+          <span>{{ currentFile.name }}</span>
+          <button icon-button (click)="deleteFile()">X</button>
+        </div>
+    </div>
+    <br>
+    <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addClub()" mat-raised-button>Done</button>
+    <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateClub()" mat-raised-button>Done</button>
+</form>

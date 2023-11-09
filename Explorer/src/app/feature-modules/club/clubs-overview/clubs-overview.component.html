@@ -1,0 +1,37 @@
+<div id="equipment">
+    <p>Clubs</p>
+    <hr>
+    <div id="equipment-details">
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cl of clubs">
+                        <td>{{cl.name}}</td>
+                        <td>{{cl.description}}</td>
+                        <td>
+                            <button color="primary" (click)="onEditClicked(cl)" mat-icon-button><mat-icon>edit</mat-icon></button>
+                            <button color="primary" [routerLink]="['/clubs', cl.id]">Go to Club</button>
+                        </td>
+                        <td>
+                            <button (click)="onSendRequestClicked(cl)" color="primary">send request</button>
+                        </td>
+                    </tr>
+                    <tr><button color="primary" (click)="onAddClicked()" mat-icon-button>
+                        <mat-icon>add</mat-icon>
+                    </button></tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <xp-club-form *ngIf="shouldRenderClubForm" [shouldEdit]="shouldEdit" [club]="selectedClub" (clubUpdated)="getClubs()" (clubAdded)="getClubs()"></xp-club-form>
+        </div>
+    </div>
+</div>

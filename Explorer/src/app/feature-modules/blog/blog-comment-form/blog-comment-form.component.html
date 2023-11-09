@@ -1,0 +1,15 @@
+<form [formGroup]="blogCommentForm">
+    <div>
+      <mat-form-field>
+        <mat-label>Text</mat-label>
+        <textarea matInput
+                  cdkTextareaAutosize
+                  cdkAutosizeMinRows="1"
+                  formControlName="text"
+                  cdkAutosizeMaxRows="5"></textarea>
+      </mat-form-field>
+      <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addBlogComment()" mat-raised-button>Done</button>
+      <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateBlogComment()" mat-raised-button>Done</button>
+    </div>
+  </form>
+  

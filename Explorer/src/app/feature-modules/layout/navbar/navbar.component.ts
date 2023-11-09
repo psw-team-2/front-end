@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-navbar',
@@ -11,7 +12,11 @@ export class NavbarComponent implements OnInit {
 
   user: User | undefined;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
+
+  isProfilePage(): boolean {
+    return this.router.url === '/profile';
+  }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {

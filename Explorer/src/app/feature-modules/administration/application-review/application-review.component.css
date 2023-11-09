@@ -1,0 +1,50 @@
+#applicationReview {
+    margin: 20px;
+}
+
+#applicationReview-details {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+p {
+    font-size: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 1em;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    color: #333;
+    border-radius: 8px;
+}
+
+thead {
+    background-color: #3f51b5;
+    color: #fff;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr {
+    transition: background-color 0.3s;
+}
+
+tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+tbody tr.active-row {
+    background-color: #e3f2fd;
+    font-weight: bold;
+    color: #3f51b5;
+}
