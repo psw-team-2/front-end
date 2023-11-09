@@ -47,6 +47,7 @@ export class TourFormComponent {
       tags: this.tourForm.value.tags || "",
       checkPoints : [],
       equipments: [],
+      status: 0
     }
   
 
@@ -69,6 +70,7 @@ export class TourFormComponent {
       tags: String(this.tourForm.value.tags) || "",
       checkPoints: [],
       equipments: [],
+      status: 0
     }
     tour.id = this.tour.id;
     this.service.updateTour(tour).subscribe({
