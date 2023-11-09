@@ -8,6 +8,7 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AppRoutingModule } from 'src/app/infrastructure/routing/app-routing.module';
+import { ViewToursAuthorComponent } from './view-tours-author/view-tours-author.component';
 
 
 
@@ -16,7 +17,8 @@ import { AppRoutingModule } from 'src/app/infrastructure/routing/app-routing.mod
     CheckpointComponent,
     CheckpointFormComponent,
     TourComponent,
-    TourFormComponent
+    TourFormComponent,
+    ViewToursAuthorComponent
   ],
   imports: [
     CommonModule,
