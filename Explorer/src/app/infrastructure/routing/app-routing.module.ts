@@ -33,6 +33,7 @@ import { BlogManagemetComponent } from 'src/app/feature-modules/blog/blog-manage
 import { BlogCommentsComponent } from 'src/app/feature-modules/blog/blog-comments/blog-comments.component';
 import { ViewToursComponent } from 'src/app/feature-modules/tour-authoring/view-tours/view-tours.component';
 import { TourOverviewComponent } from 'src/app/feature-modules/tour-authoring/tour-overview/tour-overview.component';
+import { NotificationsOverviewComponent } from 'src/app/feature-modules/notifications/notifications-overview/notifications-overview.component';
 
 import {TourProblemOverviewComponent } from 'src/app/feature-modules/tour-problem/tour-problem-overview/tour-problem-overview.component'
 
@@ -66,8 +67,8 @@ const routes: Routes = [
   {path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
   {path: 'view-tours', component: ViewToursComponent},
   {path: 'tour/:id', component: TourOverviewComponent},
-  {path: 'tour-problem/:id', component: TourProblemOverviewComponent}
-
+  {path: 'tour-problem/:id', component: TourProblemOverviewComponent},
+  {path: 'notifications', component: NotificationsOverviewComponent}
 ];
 
 @NgModule({

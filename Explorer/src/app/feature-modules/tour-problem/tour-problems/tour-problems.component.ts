@@ -49,7 +49,7 @@ export class TourProblemsComponent implements OnInit {
   }
   
   deleteTourProblem(id: number): void {
-    this.tourProblemService.deleteTourProblem(id).subscribe({
+    this.tourProblemService.deleteTourProblemTourist(id).subscribe({
       next: () => {
         this.getTourProblems();
         
@@ -65,20 +65,17 @@ export class TourProblemsComponent implements OnInit {
           this.tourProblems = result.results;
         },
         error: () => {
-          // Handle error if needed
         }
       });
     }
-
     else if(this.user?.role === 'tourist'){
-      this.tourProblemService.getTourProblemsTourist(this.user.id).subscribe({
-        next: (result: PagedResults<TourProblem>) => {
-          this.tourProblems = result.results;
-        },
-        error: () => {
-          // Handle error if needed
-        }
-      });
+        this.tourProblemService.getTourProblemsTourist(this.user.id).subscribe({
+            next: (result: PagedResults<TourProblem>) => {
+            this.tourProblems = result.results;
+          },
+          error: () => {
+          }
+        });
       }
     else if(this.user?.role === 'author'){
         this.tourProblemService.getTourProblemAuthor(this.user.id).subscribe({
