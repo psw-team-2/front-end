@@ -11,12 +11,14 @@ import { TourProblemOverviewComponent } from './tour-problem-overview/tour-probl
 import { AppRoutingModule } from 'src/app/infrastructure/routing/app-routing.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
+import { TourProblemResponseComponent } from './tour-problem-response/tour-problem-response.component';
 
 @NgModule({
   declarations: [
     TourProblemFormComponent,
     TourProblemsComponent,
-    TourProblemOverviewComponent
+    TourProblemOverviewComponent,
+    TourProblemResponseComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,8 @@ import { DatePipe } from '@angular/common';
   exports: [
     TourProblemsComponent,
     TourProblemFormComponent,
-    TourProblemOverviewComponent
+    TourProblemOverviewComponent,
+    TourProblemResponseComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

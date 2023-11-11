@@ -66,7 +66,7 @@ export class TourProblemFormComponent implements OnChanges {
       deadlineTimeStamp: undefined,
     };
 
-    this.service.addTourProblem(tourProblem).subscribe({
+    this.service.addTourProblemTourist(tourProblem).subscribe({
       next: () => {
         this.tourProblemUpdated.emit();
       }
@@ -94,7 +94,7 @@ export class TourProblemFormComponent implements OnChanges {
 
     if (this.tourProblem) {
       tourProblem.id = this.tourProblem.id;
-      this.service.updateTourProblem(tourProblem).subscribe({
+      this.service.updateTourProblemTourist(tourProblem).subscribe({
         next: () => {
           this.tourProblemUpdated.emit();
         }
@@ -121,7 +121,5 @@ export class TourProblemFormComponent implements OnChanges {
   getTourInTours(id: number|null|undefined): Tour | undefined{
     return this.tours.find((tour) => tour.id === id);
   }
-
-
 
 }
