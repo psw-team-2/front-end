@@ -35,14 +35,15 @@ export class Profiles2Component {
         });
 
         // Get follows after getting the logged-in user's profile
-      this.service.getFollows2().subscribe({
+      
+      /*  this.service.getFollows2().subscribe({
         next: (result: PagedResults<Follow>) => {
           this.follows = result.results;
         },
         error: (err: any) => {
           console.error('Error while getting follows:', err);
         }
-      });
+      });*/
       },
       error: (err: any) => {
         console.log(err);

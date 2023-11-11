@@ -127,12 +127,12 @@ export class AdministrationService {
 
 
   // FOLLOW
-  getFollows(): Observable<PagedResults<Follow>> {
-    return this.http.get<PagedResults<Follow>>(environment.apiHost + 'administration/follow/all-follows');
+  getFollows(profile: Profile): Observable<PagedResults<Profile>> {
+    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile/all-following/' + profile.id);
   }
 
-  getFollows2(): Observable<PagedResults<Follow>> {
-    return this.http.get<PagedResults<Follow>>(environment.apiHost + 'administration/follow2/all-follows');
+  getFollows2(profile: Profile): Observable<PagedResults<Profile>> {
+    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile2/all-following/' + profile.id);
   }
 
   getAllFollowers(profile: Profile): Observable<PagedResults<Profile>> {
@@ -148,7 +148,7 @@ export class AdministrationService {
   }
 
   addFollow2(follow: Follow): Observable<Follow> {
-    return this.http.post<Follow>(environment.apiHost + 'administration/follow2', follow);
+    return this.http.post<Follow>(environment.apiHost + 'administration/profile2/AddFollow', follow);
   }
 
   // MESSAGE
