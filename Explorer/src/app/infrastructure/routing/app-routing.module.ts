@@ -34,7 +34,7 @@ import { BlogCommentsComponent } from 'src/app/feature-modules/blog/blog-comment
 import { ViewToursComponent } from 'src/app/feature-modules/tour-authoring/view-tours/view-tours.component';
 import { TourOverviewComponent } from 'src/app/feature-modules/tour-authoring/tour-overview/tour-overview.component';
 
-import {TourProblemOverviewComponent } from 'src/app/feature-modules/tour-problem/tour-problem-overview/tour-problem-overview.component'
+import {TourProblemOverviewComponent } from 'src/app/feature-modules/tour-problem/tour-problem-overview/tour-problem-overview.component';
 import { TourProblemResponseComponent } from 'src/app/feature-modules/tour-problem/tour-problem-response/tour-problem-response.component';
 
 const routes: Routes = [

@@ -1,62 +1,39 @@
-#problem-responses {
-    margin-top: 20px;
-    margin-left: 20px;
+.message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 520px;
 }
 
-#problem-response-details {
-    display: flex;
-    flex-direction: row;
-    gap: 50px;
-    align-items: flex-start;
+.tour-problem-response-title {
+  font-weight: bold;
+  font-size: 25px;
+  margin-bottom: 5px;
 }
 
-p {
-    font-size: 20px;
+.message {
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 10px;
+  margin-bottom: 10px;
+  max-width: 80%;
+  align-self: center;
 }
 
-table {
-    border-collapse: collapse;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 300px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+.message-content {
+  margin-bottom: 5px;
+  word-wrap: break-word;
 }
 
-thead tr {
-    background-color: #2e003e;
-    color: #ffffff;
-    text-align: left;
+.message-metadata {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
 }
 
-th, td {
-    padding: 12px 15px;
-}
-
-tbody tr {
-    border-bottom: 1px solid #dddddd;
-}
-
-tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-tbody tr:last-of-type {
-    border-bottom: 2px solid #2e003e;
-}
-
-tbody tr.active-row {
-    font-weight: bold;
-    color: #2e003e;
-}
-
-.tr-problem-response-5d-old {
-    background-color: #a17878;
-    border: 1px solid #851e1e;
-    border-radius: 3px;
-}
-
-.tr-problem-response-5d-old-solved {
-    background-color: #a17878;
-    border: 1px solid #851e1e; 
-    border-radius: 3px;
+.timestamp,
+.tourist {
+  margin-right: 10px;
+  color: #888;
 }

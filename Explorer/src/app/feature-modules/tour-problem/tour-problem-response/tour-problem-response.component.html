@@ -1,31 +1,20 @@
-<div id="entity" class="center-content">
-    <p id="entity-title-paragraph">Tour Problem Responses</p>
-    <hr>
-    <div id="entity-details" class="two-column-layout">
-        <div *ngIf="currentUser && currentProblemId">
-            <div class="card">
-                <table>
-                    <thead>
-                      <tr>
-                        <th>Response</th>
-                        <th>Timestamp</th>
-                        <th>Tour</th>
-                        <th>Tourist</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <ng-container *ngFor="let response of problemResponses">
-                        <tr>
-                          <td>{{ response.response }}</td>
-                          <td>{{ response.timeStamp | date:'medium' }}</td>
-                          <td>{{ response.tourProblemId }}</td>
-                          <td>{{ response.commenterId }}</td>
-                        </tr>
-                      </ng-container>
-                    </tbody>
-                  </table>
-                  
+<div id="entity">
+  <p id="entity-title-paragraph" class="tour-problem-response-title">Tour Problem Responses</p>
+  <div id="entity-details">
+    <div *ngIf="currentUser && currentProblemId">
+      <div class="card">
+        <div class="message-container">
+          <div *ngFor="let response of problemResponses" class="message">
+            <div class="message-content">
+              <p>{{ response.response }}</p>
             </div>
+            <div class="message-metadata">
+              <span class="timestamp">{{ response.timeStamp | date:'medium' }}</span>
+              <span class="tourist"> {{ mappedUsername[response.commenterId] }}</span>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

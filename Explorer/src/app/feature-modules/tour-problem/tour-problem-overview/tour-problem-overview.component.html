@@ -67,5 +67,6 @@
                 <button (click)="onCancelResponse()" mat-raised-button id="entity-raised-button">Cancel</button>
             </form>     
         </div>
+        <button [routerLink]="['/tour-problem', tourProblem?.id, 'responses']" color="primary" mat-raised-button id="entity-icon-button">View responses</button>
     </div>
 </div>
