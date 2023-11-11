@@ -6,6 +6,7 @@ import { TourProblemService } from '../tour-problem.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { ActivatedRoute } from '@angular/router';
+import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 
 
 @Component({
@@ -26,13 +27,17 @@ import { ActivatedRoute } from '@angular/router';
     shouldRenderAddDeadlineForm: boolean;
     addDeadlineForm: FormGroup;
 
+
+    shouldRenderPenalization: boolean=false;
+    shouldRenderClosure: boolean=false;
+  
     isDeadlineAlreadyAdded: boolean=false;
   
     //show more description
     shouldRenderSeeMoreDescription: boolean=false;
 
     constructor(private tourProblemService: TourProblemService, private authService: AuthService, private route: ActivatedRoute,
-      ) { 
+      private tourAuthService: TourAuthoringService) { 
   
       this.addDeadlineForm = new FormGroup({
         deadlineDate: new FormControl('', Validators.required),
@@ -66,14 +71,8 @@ import { ActivatedRoute } from '@angular/router';
             })
         }
       })
-
-
-
-
-
     }
-    
-  
+      
 
     onEditClicked(tourProblem: TourProblem): void {
       this.tourProblem = tourProblem;
@@ -87,7 +86,7 @@ import { ActivatedRoute } from '@angular/router';
     }
   
     //Close Tour Problem button clicked
-    onCloseClicked(): void{
+    onCloseConfirmClicked(): void{
       this.tourProblem.isClosed = true;
       this.tourProblemService.updateTourProblemAdministrator(this.tourProblem).subscribe({
         // There is currently no TourProblemUpdated emitter implemented
@@ -95,11 +94,6 @@ import { ActivatedRoute } from '@angular/router';
       });
     }
   
-    onPenalizeClicked(tourProblem: TourProblem): void{
-
-
-
-    }
   
     //See More button clicked
     onSeeMoreClicked(tourProblem: TourProblem): void{
@@ -115,15 +109,30 @@ import { ActivatedRoute } from '@angular/router';
   
     //Add button Deadline button clicked
     onAddDeadlineClicked(): void {
-      this.shouldEdit = false;
-      this.shouldRenderTourProblemForm = true;
-      this.shouldRenderAddDeadlineForm = true;
+      // this.shouldEdit = false;
+      // this.shouldRenderTourProblemForm = true;
+      this.shouldRenderAddDeadlineForm = !this.shouldRenderAddDeadlineForm;
 
     }
   
     //Close button in Add Deadline window clicked
     onCloseDeadlineClicked(): void {
       this.shouldRenderAddDeadlineForm = false;
+    }
+  
+    onPenalizeClicked(): void{
+      this.shouldRenderPenalization = !this.shouldRenderPenalization;
+    }
+  
+    onPenalizeConfirmClicked(): void{
+      
+      this.tourAuthService.deleteTourAdministrator(this.tourProblem.tourId).subscribe({
+  
+      })
+    }
+    //Close Tour Problem button clicked
+    onCloseClicked(): void{
+      this.shouldRenderClosure = !this.shouldRenderClosure
     }
   
   
@@ -184,7 +193,16 @@ import { ActivatedRoute } from '@angular/router';
       }
     }
   
-    
+    isExpired(): boolean{
+
+      if(this.tourProblem.deadlineTimeStamp){
+        const currentTimeStamp = new Date();
+        const tourProblemDeadlineTimeStamp = new Date(this.tourProblem.deadlineTimeStamp);
+        return currentTimeStamp.getTime() - tourProblemDeadlineTimeStamp.getTime() > 0;
+      }
+      return false;
+  
+    }
 
   }
   

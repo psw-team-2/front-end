@@ -59,7 +59,7 @@ export class TourProblemsComponent implements OnInit {
 
   getTourProblems(): void {
 
-    if(this.user?.role == 'administrator'){
+    if(this.user?.role === 'administrator'){
       this.tourProblemService.getTourProblemsAdministrator().subscribe({
         next: (result: PagedResults<TourProblem>) => {
           this.tourProblems = result.results;
@@ -68,25 +68,25 @@ export class TourProblemsComponent implements OnInit {
         }
       });
     }
-    else if(this.user?.role == 'tourist'){
-      this.tourProblemService.getTourProblemsTourist().subscribe({
-        next: (result: PagedResults<TourProblem>) => {
-          this.tourProblems = result.results;
-        },
-        error: () => {
-        }
-      });
-      }
-      else if(this.user?.role == 'author'){
-        this.tourProblemService.getTourProblemsAuthor().subscribe({
-          next: (result: PagedResults<TourProblem>) => {
+    else if(this.user?.role === 'tourist'){
+        this.tourProblemService.getTourProblemsTourist(this.user.id).subscribe({
+            next: (result: PagedResults<TourProblem>) => {
             this.tourProblems = result.results;
           },
           error: () => {
           }
-        })
+        });
       }
-    
+    else if(this.user?.role === 'author'){
+        this.tourProblemService.getTourProblemAuthor(this.user.id).subscribe({
+          next: (result: PagedResults<TourProblem>) => {
+            this.tourProblems = result.results;
+          },
+          error: () => {
+            // Handle error if needed
+          }
+        });
+    }   
   }
 
   onEditClicked(tourProblem: TourProblem): void {
@@ -115,7 +115,7 @@ export class TourProblemsComponent implements OnInit {
     this.shouldRenderClosure = !this.shouldRenderClosure
   }
 
-  onCloseConfirmedClicked(tourProblem: TourProblem): void{
+  onCloseConfirmClicked(tourProblem: TourProblem): void{
     tourProblem.isClosed = true;
     this.tourProblemService.updateTourProblemAdministrator(tourProblem).subscribe({
       // There is currently no TourProblemUpdated emitter implemented
