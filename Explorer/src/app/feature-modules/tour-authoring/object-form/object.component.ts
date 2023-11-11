@@ -76,7 +76,7 @@ export class ObjectComponent implements OnInit {
       entityId: this.objectId,
       authorId: this.user.id,
       comment: "",
-      isCheckpoint: false,
+      isCheckPoint: false,
       isNotified: true
     }
 

@@ -3,6 +3,6 @@ export interface PublicRequest {
     entityId: number,
     authorId: number,
     comment: string,
-    isCheckpoint: boolean,
+    isCheckPoint: boolean,
     isNotified: boolean
 }

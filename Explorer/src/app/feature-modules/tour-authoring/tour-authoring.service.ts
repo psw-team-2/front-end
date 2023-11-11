@@ -8,6 +8,7 @@ import { Tour } from './model/tour.model';
 import { environment } from 'src/env/environment';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { PublicRequest } from './model/public-request.model';
+import { Object } from './model/object.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,14 @@ export class TourAuthoringService {
 
   deleteCheckpoint(id: number): Observable<Checkpoint> {
     return this.http.delete<Checkpoint>('https://localhost:44333/api/addcheckpoint/checkpoint/' + id);
+  }
+
+  getObjectById(objectId: Number): Observable<Object> {
+    return this.http.get<Object>('https://localhost:44333/api/administration/object/' + objectId);
+  }
+
+  updateObject(object: Object): Observable<Object>{
+    return this.http.put<Object>('https://localhost:44333/api/administration/object/' + object.id, object)
   }
 
   upload(file: File): Observable<HttpEvent<any>> {

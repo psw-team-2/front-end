@@ -1,50 +1,64 @@
-#equipment {
-    margin-top: 20px;
-    margin-left: 20px;
+.div {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px; 
 }
 
-#equipment-details {
+.user-title-section {
+    background-color: #4A0063; 
+    color: white;
+    text-align: center;
+    height: 150px;
     display: flex;
-    flex-direction: row;
-    gap: 50px;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
 }
 
-p {
-    font-size: 20px;
+.user-title {
+    letter-spacing: 1.2px; 
+    font-size: 32px;
+    margin-bottom: 20px;
 }
 
-table {
+.table-container {
+    margin-top: 100px;     
+    padding-bottom: 40px;
+    margin: 0 auto;
+    width: 80%;
+}
+
+.user-table {
+    margin-top: 100px; 
+    margin-bottom: 140px;
+    width: 100%;
     border-collapse: collapse;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 300px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid black; 
 }
 
-thead tr {
-    background-color: #3f51b5;
-    color: #ffffff;
-    text-align: left;
+.user-table th, .user-table td {
+    padding: 10px;
+    text-align: center; 
+    border: 1px solid black; 
 }
 
-th, td {
-    padding: 12px 15px;
+.user-table th {
+    font-size: 18px;
+    font-weight: normal; 
 }
 
-tbody tr {
-    border-bottom: 1px solid #dddddd;
+.user-table button {
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif; 
+    background-color: #4A0063; 
+    color: white; 
+    display: block;
+    margin: 0 auto;
+    padding: 8px 16px; 
+    border: none; 
+    cursor: pointer;
+    border-radius: 5px;
 }
 
-tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-tbody tr:last-of-type {
-    border-bottom: 2px solid #3f51b5;
-}
-
-tbody tr.active-row {
-    font-weight: bold;
-    color: #3f51b5;
+.info-text {
+    font-style: italic;
+    color: rgb(125, 125, 125);
 }

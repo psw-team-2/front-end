@@ -113,4 +113,7 @@ export class AdministrationService {
     return this.http.get<PagedResults<PublicRequest>>('https://localhost:44333/api/administrator/publicRequest');
   }
 
+  updatePublicRequest(pr: PublicRequest): Observable<PublicRequest> {
+    return this.http.put<PublicRequest>('https://localhost:44333/api/administrator/publicRequest/update/' + pr.id, pr);
+  }
 }

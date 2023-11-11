@@ -7,10 +7,12 @@
         <table class="user-table">
             <thead>
                 <tr>
-                    <th>id</th>
-                    <th>entityid</th>
-                    <th>authorid</th>
-                    <th>ischeckpoint</th>
+                    <th>Id</th>
+                    <th>Entity Id</th>
+                    <th>Author Id</th>
+                    <th>Type</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -18,7 +20,9 @@
                     <td>{{ pr.id }}</td>
                     <td>{{ pr.entityId }}</td>
                     <td>{{ pr.authorId }}</td>
-                    <td>{{ pr.isCheckpoint ? 'Checkpoint' : 'Object' }}</td>
+                    <td>{{ pr.isCheckPoint ? 'Checkpoint' : 'Object' }}</td>
+                    <td><button (click)="openModal(pr, 'Accept')">Accept</button></td>
+                    <td><button (click)="openModal(pr, 'Decline')">Decline</button></td>
                 </tr>
             </tbody>
         </table>

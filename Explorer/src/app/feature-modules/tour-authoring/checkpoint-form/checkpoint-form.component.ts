@@ -113,7 +113,7 @@ export class CheckpointFormComponent implements OnInit {
       entityId: this.checkpointId,
       authorId: this.user.id,
       comment: "",
-      isCheckpoint: true,
+      isCheckPoint: true,
       isNotified: true
     }
 

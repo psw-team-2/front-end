@@ -20,6 +20,10 @@ import { PictureForm2Component } from './picture-form2/picture-form2.component';
 import { TourPreferenceModule } from '../tour-preference/tour-preference.module';
 import { UserAccountAdministrationComponent } from './user-account-administration/user-account-administration.component';
 import { PublicRequestsComponent } from './public-requests/public-requests.component';
+import { ModalComponent } from './public-requests/modal/modal.component';
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -37,18 +41,19 @@ import { PublicRequestsComponent } from './public-requests/public-requests.compo
     PictureForm2Component,
     UserAccountAdministrationComponent,
     PublicRequestsComponent,
+    ModalComponent,
 
   ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-
     MatSelectModule,
     MatIconModule,
-
-    TourPreferenceModule
-
+    TourPreferenceModule,
+    FormsModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
   exports: [
     EquipmentComponent,
