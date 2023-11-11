@@ -1,11 +1,12 @@
-<!-- <div class="notifications-overview">
-    <button (click)="toggleNotifications()">Notifications</button>
-    <div class="notification-dropdown" *ngIf="showNotifications"></div>
-  </div> -->
-
-  <div>
+<div>
     <h1>Notifications</h1>
     <ng-container *ngFor="let notification of notifications">
-      <li>{{ notification.id }}</li>
+      <li>
+        <p>
+          New message from {{ notification.commenterId}}: {{ notification.response}}
+        </p>
+        <button [routerLink]="'/tour-problem/' + notification.tourProblemId">Show chat</button>
+      </li>
+
     </ng-container>
   </div>

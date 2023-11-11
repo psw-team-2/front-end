@@ -32,9 +32,6 @@ export class NotificationsOverviewComponent implements OnInit {
         next: (result: PagedResults<TourProblemResponse>) => {
           //@ts-ignore
           this.notifications = result;
-          console.log(result);
-          console.log(result.results);
-          console.log(this.notifications)
         },
         error: () => {
         }
@@ -44,7 +41,8 @@ export class NotificationsOverviewComponent implements OnInit {
     {
       this.service.getTourProblemResponsesForTourist(this.currentUser.id).subscribe({
         next: (result: PagedResults<TourProblemResponse>) => {
-          this.notifications = result.results;
+          //@ts-ignore
+          this.notifications = result;
         },
         error: () => {
         }
