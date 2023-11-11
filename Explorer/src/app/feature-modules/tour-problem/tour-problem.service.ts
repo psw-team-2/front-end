@@ -79,4 +79,8 @@ export class TourProblemService {
   problemSolved(tourProblem: TourProblem): Observable<TourProblem> {
     return this.http.post<TourProblem>(environment.apiHost + 'tourist/tour-problem/problemSolved', tourProblem);
   }
+
+  problemUnsolved(tourProblem: TourProblem): Observable<TourProblem> {
+    return this.http.post<TourProblem>(environment.apiHost + 'tourist/tour-problem/problemUnsolved', tourProblem);
+  }
 }

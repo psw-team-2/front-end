@@ -81,11 +81,8 @@ import { TourProblemResponseService } from '../tour-problem-response.service';
 
       })
 
-
     }
-    
   
-
     onEditClicked(tourProblem: TourProblem): void {
       this.tourProblem = tourProblem;
       this.shouldRenderTourProblemForm = true;
@@ -236,8 +233,6 @@ import { TourProblemResponseService } from '../tour-problem-response.service';
         }
       }
     }
-    
-    
   
     onCancelResponse() {
       this.shouldRenderAddResponseForm = false;

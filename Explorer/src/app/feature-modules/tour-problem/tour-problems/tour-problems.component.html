@@ -45,6 +45,18 @@
                                         Problem solved
                                     </button>
                                 </td>
+                               <td>
+                                 <button color="primary" (click)="onAddCommentClicked(problem)" mat-raised-button id="entity-icon-button">Problem Unsolved</button>
+                                 <div *ngIf="shouldRenderAddCommentForm && selectedProblemForComment === problem" class="bottom-margin">
+                                    <form [formGroup]="addCommentForm" (submit)="onProblemUnsolved(problem)">
+                                        <mat-form-field>
+                                            <input matInput type="text" placeholder="Enter your comment" formControlName="comment" [(ngModel)]="comment">
+                                        </mat-form-field>                  
+                                        <button type="submit" mat-raised-button id="entity-raised-button">Add</button>
+                                        <button (click)="onCancelComment()" mat-raised-button id="entity-raised-button">Cancel</button>
+                                    </form>     
+                                 </div>
+                                </td>
                             </tr>             
                         </ng-container>
                     </tbody>

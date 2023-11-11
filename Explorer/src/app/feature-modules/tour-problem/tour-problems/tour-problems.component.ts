@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { TourProblem } from '../model/tour-problem.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { TourProblemService } from '../tour-problem.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { TourProblemResponse } from '../model/tour-problem-response.model';
+import { TourProblemResponseService } from '../tour-problem-response.service';
 
 
 @Component({
@@ -35,14 +37,21 @@ export class TourProblemsComponent implements OnInit {
 
   //show description
   shouldRenderShowDescription: boolean = false;
+
+  shouldRenderAddCommentForm = false;
+  addCommentForm: FormGroup;
+  comment: string;
+  selectedProblemForComment: TourProblem | undefined;
   
-  constructor(private tourProblemService: TourProblemService, private authService: AuthService) { 
+  constructor(private tourProblemService: TourProblemService, private authService: AuthService, private formBuilder: FormBuilder,private problemResponseService: TourProblemResponseService) { 
 
     this.addDeadlineForm = new FormGroup({
       deadlineDate: new FormControl('', Validators.required),
       deadlineTime: new FormControl('', Validators.required)
     })
-
+    this.addCommentForm = this.formBuilder.group({
+      comment: ['', Validators.required] 
+    });
   }
 
   ngOnInit(): void {
@@ -64,7 +73,6 @@ export class TourProblemsComponent implements OnInit {
   }
 
   getTourProblems(): void {
-
     if(this.user?.role == 'administrator'){
       this.tourProblemService.getTourProblemsAdministrator().subscribe({
         next: (result: PagedResults<TourProblem>) => {
@@ -74,25 +82,24 @@ export class TourProblemsComponent implements OnInit {
         }
       });
     }
-    else if(this.user?.role == 'tourist'){
+    else if(this.user?.role == 'tourist' && this.user?.id){
       this.tourProblemService.getTourProblemsTourist().subscribe({
+        next: (result: PagedResults<TourProblem>) => {
+          this.tourProblems = result.results.filter(problem => problem.touristId === this.user?.id);
+        },
+        error: () => {
+        }
+      });
+    }
+    else if(this.user?.role == 'author'){
+      this.tourProblemService.getTourProblemsAuthor().subscribe({
         next: (result: PagedResults<TourProblem>) => {
           this.tourProblems = result.results;
         },
         error: () => {
         }
-      });
-      }
-      else if(this.user?.role == 'author'){
-        this.tourProblemService.getTourProblemsAuthor().subscribe({
-          next: (result: PagedResults<TourProblem>) => {
-            this.tourProblems = result.results;
-          },
-          error: () => {
-          }
-        })
-      }
-    
+      })
+    }
   }
 
   onEditClicked(tourProblem: TourProblem): void {
@@ -178,5 +185,47 @@ export class TourProblemsComponent implements OnInit {
     }
   }
 
+  onAddCommentClicked(selectedProblem: TourProblem): void {
+    this.selectedProblemForComment = selectedProblem;
+    this.shouldRenderAddCommentForm = true;
+    this.comment = '';
+  }
 
+  onProblemUnsolved(tourProblem: TourProblem): void {
+    this.selectedTourProblem = tourProblem;
+    if(this.user && this.user.id === tourProblem.touristId) {
+      this.selectedTourProblem.isResolved = false;
+
+      this.tourProblemService.problemUnsolved(tourProblem).subscribe({
+        next: () => {
+          console.log("Tour problem has been unsolved")
+          this.getTourProblems();
+        },
+        error: () => {}
+      })
+
+      if (this.selectedTourProblem.id !== undefined) {
+        const newComment: TourProblemResponse = {
+          id: undefined,
+          response: this.comment,
+          timeStamp: new Date(),
+          tourProblemId: this.selectedTourProblem.id,
+          commenterId: this.user.id
+        };
+        this.problemResponseService.touristRespond(this.selectedTourProblem.id, newComment).subscribe({
+          next: () => {
+            console.log("The comment has been successfully added!")
+          },
+          error: () => {}
+        });
+      }
+    }
+  }
+
+  onCancelComment() {
+    this.shouldRenderAddCommentForm = false;
+    this.comment = '';
+    this.selectedProblemForComment = undefined;
+  }
+  
 }

@@ -53,7 +53,8 @@ export class TourProblemResponseComponent implements OnInit {
     else if (this.currentUser && this.currentUser?.role === 'tourist') {
       this.problemResponseService.getResponsesTourist(this.currentProblemId).subscribe({
         next: (result: PagedResults<TourProblemResponse>) => {
-          this.problemResponses = result.results;
+          //@ts-ignore
+          this.problemResponses = result;
           console.log('Responses for tourist:', this.problemResponses);
           this.mapUsernames();
         },
@@ -63,7 +64,8 @@ export class TourProblemResponseComponent implements OnInit {
     else if (this.currentUser && this.currentUser?.role === 'administrator') {
       this.problemResponseService.getResponsesAdministrator(this.currentProblemId).subscribe({
         next: (result: PagedResults<TourProblemResponse>) => {
-          this.problemResponses = result.results;
+          //@ts-ignore
+          this.problemResponses = result;
           console.log('Responses for administrator:', this.problemResponses);
           this.mapUsernames();
         },
