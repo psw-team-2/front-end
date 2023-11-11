@@ -71,14 +71,8 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
             })
         }
       })
-
-
-
-
-
     }
-    
-  
+      
 
     onEditClicked(tourProblem: TourProblem): void {
       this.tourProblem = tourProblem;

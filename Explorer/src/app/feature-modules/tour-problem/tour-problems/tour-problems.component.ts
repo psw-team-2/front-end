@@ -59,7 +59,7 @@ export class TourProblemsComponent implements OnInit {
 
   getTourProblems(): void {
 
-    if(this.user?.role == 'administrator'){
+    if(this.user?.role === 'administrator'){
       this.tourProblemService.getTourProblemsAdministrator().subscribe({
         next: (result: PagedResults<TourProblem>) => {
           this.tourProblems = result.results;
@@ -69,19 +69,22 @@ export class TourProblemsComponent implements OnInit {
         }
       });
     }
-    else if(this.user?.role == 'tourist'){
-      this.tourProblemService.getTourProblems().subscribe({
-        next: (result: PagedResults<TourProblem>) => {
-          this.tourProblems = result.results;
-        },
-        error: () => {
-          // Handle error if needed
-        }
-      });
-      }
-      else if(this.user?.role == 'author'){
+
+    else if(this.user?.role === 'tourist'){
+
+
 
       }
+    else if(this.user?.role === 'author'){
+        this.tourProblemService.getTourProblemAuthor(this.user.id).subscribe({
+          next: (result: PagedResults<TourProblem>) => {
+            this.tourProblems = result.results;
+          },
+          error: () => {
+            // Handle error if needed
+          }
+        });
+    }
     
   }
 
