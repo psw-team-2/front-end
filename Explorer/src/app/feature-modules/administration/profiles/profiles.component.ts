@@ -35,14 +35,15 @@ export class ProfilesComponent implements OnInit {
         });
 
         // Get follows after getting the logged-in user's profile
-      this.service.getFollows().subscribe({
+        
+      /*this.service.getFollows().subscribe({
         next: (result: PagedResults<Follow>) => {
           this.follows = result.results;
         },
         error: (err: any) => {
           console.error('Error while getting follows:', err);
         }
-      });
+      }); */
       },
       error: (err: any) => {
         console.log(err);
@@ -65,7 +66,6 @@ onFollowClicked(profile: Profile) {
       alert(`You already follow ${profile.firstName} ${profile.lastName}`);
     } else {
       const follow: Follow = {
-        id: 0, // The id can be 0 or null if your server generates it
         profileId: profile.id, // Id of the profile to be followed
         followerId: this.loggedInProfile!.id // Id of the logged-in user
       };

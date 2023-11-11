@@ -65,7 +65,6 @@ onFollowClicked(profile: Profile) {
       alert(`You already follow ${profile.firstName} ${profile.lastName}`);
     } else {
       const follow: Follow = {
-        id: 0, // The id can be 0 or null if your server generates it
         profileId: profile.id, // Id of the profile to be followed
         followerId: this.loggedInProfile!.id // Id of the logged-in user
       };

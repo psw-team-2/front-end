@@ -78,11 +78,11 @@ export class AdministrationService {
   }
   
   updateProfile(profile: Profile): Observable<Profile> {
-    return this.http.put<Profile>('https://localhost:44333/api/administration/profile/' + profile.id + '/' + profile.userId, profile);
+    return this.http.patch<Profile>('https://localhost:44333/api/administration/profile/' + profile.id + '/' + profile.userId, profile);
   }
 
   updateProfile2(profile: Profile): Observable<Profile> {
-    return this.http.put<Profile>('https://localhost:44333/api/administration/profile2/' + profile.id + '/' + profile.userId, profile)
+    return this.http.patch<Profile>('https://localhost:44333/api/administration/profile2/' + profile.id + '/' + profile.userId, profile)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           console.error('Request failed:', error);
@@ -136,15 +136,15 @@ export class AdministrationService {
   }
 
   getAllFollowers(profile: Profile): Observable<PagedResults<Profile>> {
-    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/follow/all-followers/' + profile.id);
+    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile/all-followers/' + profile.id);
   }
 
   getAllFollowers2(profile: Profile): Observable<PagedResults<Profile>> {
-    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/follow2/all-followers/' + profile.id);
+    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile2/all-followers/' + profile.id);
   }
 
   addFollow(follow: Follow): Observable<Follow> {
-    return this.http.post<Follow>(environment.apiHost + 'administration/follow', follow);
+    return this.http.put<Follow>(environment.apiHost + 'administration/profile/AddFollow', follow);
   }
 
   addFollow2(follow: Follow): Observable<Follow> {

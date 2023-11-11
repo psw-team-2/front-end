@@ -41,7 +41,8 @@ export class PictureForm2Component {
       profilePicture: 'https://localhost:44333/Images/' + this.currentFile.name || "",
       biography: this.profile.biography || "",
       motto: this.profile.motto || "",
-      isActive: true
+      isActive: true,
+      follows: this.profile.follows
     }
     profile.id = this.profile.id;
     profile.userId = this.profile.userId;
