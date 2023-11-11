@@ -60,6 +60,13 @@ export class AdministrationService {
     return this.http.put<User>(environment.apiHost + 'administration/userAccounts/' + user.id, user);
   }
 
+  getUserAccountById(id: number): Observable<User> {
+    return this.http.get<User>(environment.apiHost + 'administration/userAccounts/' + id);
+  }
+  updateUserAccount(user: User): Observable<User> {
+    const url = `${environment.apiHost}administration/userAccounts/${user.id}`;
+    return this.http.put<User>(url, user);
+  }
   // PROFILE
   getById(message: Message): Observable<Profile> {
     return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-id/' + message.senderId);
