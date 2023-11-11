@@ -59,8 +59,8 @@ export class TourProblemService {
 
     //Tourist HTTP Request Methods
 
-  getTourProblemsTourist(): Observable<PagedResults<TourProblem>> {
-    return this.http.get<PagedResults<TourProblem>>(environment.apiHost + 'tourist/tour-problem');
+  getTourProblemsTourist(id:number): Observable<PagedResults<TourProblem>> {
+    return this.http.get<PagedResults<TourProblem>>(environment.apiHost + 'tourist/tour-problem/by-tourist/' + id);
   }
 
   deleteTourProblemTourist(id: number): Observable<TourProblem> {

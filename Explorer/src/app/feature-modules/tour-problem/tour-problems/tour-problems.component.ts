@@ -71,9 +71,14 @@ export class TourProblemsComponent implements OnInit {
     }
 
     else if(this.user?.role === 'tourist'){
-
-
-
+      this.tourProblemService.getTourProblemsTourist(this.user.id).subscribe({
+        next: (result: PagedResults<TourProblem>) => {
+          this.tourProblems = result.results;
+        },
+        error: () => {
+          // Handle error if needed
+        }
+      });
       }
     else if(this.user?.role === 'author'){
         this.tourProblemService.getTourProblemAuthor(this.user.id).subscribe({
@@ -84,8 +89,7 @@ export class TourProblemsComponent implements OnInit {
             // Handle error if needed
           }
         });
-    }
-    
+    }   
   }
 
   onEditClicked(tourProblem: TourProblem): void {
