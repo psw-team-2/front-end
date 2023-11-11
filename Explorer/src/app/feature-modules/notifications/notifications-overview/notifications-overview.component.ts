@@ -30,7 +30,8 @@ export class NotificationsOverviewComponent implements OnInit {
     {
       this.service.getTourProblemResponsesForAuthor(this.currentUser.id).subscribe({
         next: (result: PagedResults<TourProblemResponse>) => {
-          this.notifications = result.results;
+          //@ts-ignore
+          this.notifications = result;
           console.log(result);
           console.log(result.results);
           console.log(this.notifications)
