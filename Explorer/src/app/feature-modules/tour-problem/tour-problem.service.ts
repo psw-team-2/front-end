@@ -44,7 +44,7 @@ export class TourProblemService {
 
   deleteTourProblemAuthor(id: number): Observable<TourProblem> {
     return this.http.delete<TourProblem>(environment.apiHost + 'author/tour-problem/' + id);
-
+  }
 
   addTourProblemAuthor(tourProblem: TourProblem): Observable<TourProblem> {
     return this.http.post<TourProblem>(environment.apiHost + 'author/tour-problem', tourProblem);
@@ -70,13 +70,6 @@ export class TourProblemService {
     return this.http.delete<TourProblem>(environment.apiHost + 'tourist/tour-problem/' + id);
   }
 
-  addTourProblemTourist(tourProblem: TourProblem): Observable<TourProblem> {
-    return this.http.post<TourProblem>(environment.apiHost + 'tourist/tour-problem', tourProblem);
-  }
-
-  updateTourProblemTourist(tourProblem: TourProblem): Observable<TourProblem> {
-    return this.http.put<TourProblem>(environment.apiHost + 'tourist/tour-problem/' + tourProblem.id, tourProblem);
-  }
 
   getTourProblemTourist(id:number) : Observable<TourProblem>{
     return this.http.get<TourProblem>('https://localhost:44333/api/tourist/tour-problem/' + id);
