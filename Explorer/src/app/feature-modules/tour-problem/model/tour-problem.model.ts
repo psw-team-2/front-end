@@ -4,9 +4,10 @@ export interface TourProblem {
     problemPriority: string;
     description?: string;
     timeStamp: Date;
-    tourId?: number;
+    tourId: number;
     isClosed: boolean;
     isResolved: boolean;
+    touristId: number;
     deadlineTimeStamp?: Date;
     touristId?: number;
 }

@@ -13,6 +13,7 @@ import { BlogModule } from './feature-modules/blog/blog.module';
 import { MarketplaceModule } from './feature-modules/marketplace/marketplace.module';
 import { TourAuthoringModule } from './feature-modules/tour-authoring/tour-authoring.module';
 import { TourExecutionModule } from './feature-modules/tour-execution/tour-execution.module';
+import { NotificationsModule } from './feature-modules/notifications/notifications.module';
 import { AuthModule } from './infrastructure/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
@@ -56,7 +57,8 @@ import { DatePipe } from '@angular/common';
     ReactiveFormsModule,
     TourPreferenceModule,
     DatePipe,
-    FormsModule
+    FormsModule,
+    NotificationsModule,
   ],
   providers: [
     {

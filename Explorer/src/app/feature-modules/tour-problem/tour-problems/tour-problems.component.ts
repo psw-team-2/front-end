@@ -5,8 +5,13 @@ import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms'
 import { TourProblemService } from '../tour-problem.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+
 import { TourProblemResponse } from '../model/tour-problem-response.model';
 import { TourProblemResponseService } from '../tour-problem-response.service';
+
+import { TourProblemOverviewComponent } from '../tour-problem-overview/tour-problem-overview.component';
+import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+
 
 
 @Component({
@@ -31,6 +36,7 @@ export class TourProblemsComponent implements OnInit {
 
   tourProblemsFiltered: TourProblem[] = [];
 
+
   //adding deadline properties
   shouldRenderAddDeadlineForm: boolean
   addDeadlineForm: FormGroup;
@@ -52,6 +58,11 @@ export class TourProblemsComponent implements OnInit {
     this.addCommentForm = this.formBuilder.group({
       comment: ['', Validators.required] 
     });
+  shouldRenderPenalization: boolean=false;
+  shouldRenderClosure: boolean=false;
+  
+  constructor(private tourProblemService: TourProblemService, private authService: AuthService, private tourAuthService: TourAuthoringService) { 
+
   }
 
   ngOnInit(): void {
@@ -73,7 +84,7 @@ export class TourProblemsComponent implements OnInit {
   }
 
   getTourProblems(): void {
-    if(this.user?.role == 'administrator'){
+    if(this.user?.role === 'administrator'){
       this.tourProblemService.getTourProblemsAdministrator().subscribe({
         next: (result: PagedResults<TourProblem>) => {
           this.tourProblems = result.results;
@@ -82,6 +93,7 @@ export class TourProblemsComponent implements OnInit {
         }
       });
     }
+
     else if(this.user?.role == 'tourist' && this.user?.id){
       this.tourProblemService.getTourProblemsTourist().subscribe({
         next: (result: PagedResults<TourProblem>) => {
@@ -100,6 +112,7 @@ export class TourProblemsComponent implements OnInit {
         }
       })
     }
+
   }
 
   onEditClicked(tourProblem: TourProblem): void {
@@ -114,18 +127,27 @@ export class TourProblemsComponent implements OnInit {
   }
 
   onPenalizeClicked(tourProblem: TourProblem): void{
-        
+    this.shouldRenderPenalization = !this.shouldRenderPenalization;
   }
 
+  onPenalizeConfirmClicked(tourProblem: TourProblem): void{
+    
+    this.tourAuthService.deleteTourAdministrator(tourProblem.tourId).subscribe({
+
+    })
+  }
   //Close Tour Problem button clicked
   onCloseClicked(tourProblem: TourProblem): void{
+    this.shouldRenderClosure = !this.shouldRenderClosure
+  }
+
+  onCloseConfirmClicked(tourProblem: TourProblem): void{
     tourProblem.isClosed = true;
     this.tourProblemService.updateTourProblemAdministrator(tourProblem).subscribe({
       // There is currently no TourProblemUpdated emitter implemented
       // next: () => { this.tourProblemUpdated.emit()} 
     });
   }
-
 
 
 
@@ -164,11 +186,14 @@ export class TourProblemsComponent implements OnInit {
 
   isFiveDaysOld(tourProblem: TourProblem): boolean{
     const currentTimeStamp = new Date()
-    const timeDifference = currentTimeStamp.getTime() - tourProblem.timeStamp.getTime()
+    const tourProblemTimeStamp = new Date(tourProblem.timeStamp)
+    const timeDifference = currentTimeStamp.getTime() - tourProblemTimeStamp.getTime()
+
     
     //return result of isResolved, and if timeDifference calculated in days greater than 5
-    return tourProblem.isResolved && ((timeDifference/(24 * 60 * 60 * 1000)) > 5);
+    return !tourProblem.isResolved && ((timeDifference/(24 * 60 * 60 * 1000)) > 5);
   }
+
 
   onProblemSolved(tourProblem: TourProblem): void {
     this.selectedTourProblem = tourProblem;
@@ -227,5 +252,28 @@ export class TourProblemsComponent implements OnInit {
     this.comment = '';
     this.selectedProblemForComment = undefined;
   }
+
+  isExpired(tourProblem: TourProblem): boolean{
+
+    if(tourProblem.deadlineTimeStamp){
+      const currentTimeStamp = new Date();
+      const tourProblemDeadlineTimeStamp = new Date(tourProblem.deadlineTimeStamp);
+      return currentTimeStamp.getTime() - tourProblemDeadlineTimeStamp.getTime() > 0;
+    }
+    return false;
+
+  }
   
+  truncateText(text: string | undefined, maxLength: number): string {
+    if (text === undefined) {
+      return ''; 
+    }
+    if (text.length <= maxLength) {
+      return text;
+    } else {
+      return text.substring(0, maxLength) + '...';
+    }
+  }
+  
+
 }

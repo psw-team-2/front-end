@@ -6,8 +6,12 @@ import { TourProblemService } from '../tour-problem.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { ActivatedRoute } from '@angular/router';
+
 import { TourProblemResponse } from '../model/tour-problem-response.model';
 import { TourProblemResponseService } from '../tour-problem-response.service';
+
+import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+
 
 
 @Component({
@@ -25,17 +29,26 @@ import { TourProblemResponseService } from '../tour-problem-response.service';
     shouldRenderTourProblemForm: boolean;
 
     //adding deadline properties
-    shouldRenderAddDeadlineForm: boolean
+    shouldRenderAddDeadlineForm: boolean;
     addDeadlineForm: FormGroup;
+
+
+    shouldRenderPenalization: boolean=false;
+    shouldRenderClosure: boolean=false;
+  
+    isDeadlineAlreadyAdded: boolean=false;
   
     //show more description
     shouldRenderSeeMoreDescription: boolean=false;
+
 
     shouldRenderAddResponseForm = false;
     addResponseForm: FormGroup;
     response: string;
 
-    constructor(private tourProblemService: TourProblemService, private authService: AuthService, private route: ActivatedRoute,private formBuilder: FormBuilder, private problemResponseService: TourProblemResponseService) { 
+    constructor(private tourProblemService: TourProblemService, private authService: AuthService, private route: ActivatedRoute,private formBuilder: FormBuilder, private problemResponseService: TourProblemResponseService) 
+    { 
+
   
       this.addDeadlineForm = new FormGroup({
         deadlineDate: new FormControl('', Validators.required),
@@ -78,11 +91,11 @@ import { TourProblemResponseService } from '../tour-problem-response.service';
             })
           }
         }
-
       })
-
     }
-  
+      
+
+
     onEditClicked(tourProblem: TourProblem): void {
       this.tourProblem = tourProblem;
       this.shouldRenderTourProblemForm = true;
@@ -95,7 +108,7 @@ import { TourProblemResponseService } from '../tour-problem-response.service';
     }
   
     //Close Tour Problem button clicked
-    onCloseClicked(): void{
+    onCloseConfirmClicked(): void{
       this.tourProblem.isClosed = true;
       this.tourProblemService.updateTourProblemAdministrator(this.tourProblem).subscribe({
         // There is currently no TourProblemUpdated emitter implemented
@@ -103,11 +116,6 @@ import { TourProblemResponseService } from '../tour-problem-response.service';
       });
     }
   
-    onPenalizeClicked(tourProblem: TourProblem): void{
-
-
-
-    }
   
     //See More button clicked
     onSeeMoreClicked(tourProblem: TourProblem): void{
@@ -123,9 +131,9 @@ import { TourProblemResponseService } from '../tour-problem-response.service';
   
     //Add button Deadline button clicked
     onAddDeadlineClicked(): void {
-      this.shouldEdit = false;
-      this.shouldRenderTourProblemForm = true;
-      this.shouldRenderAddDeadlineForm = true;
+      // this.shouldEdit = false;
+      // this.shouldRenderTourProblemForm = true;
+      this.shouldRenderAddDeadlineForm = !this.shouldRenderAddDeadlineForm;
 
     }
   
@@ -134,30 +142,50 @@ import { TourProblemResponseService } from '../tour-problem-response.service';
       this.shouldRenderAddDeadlineForm = false;
     }
   
+    onPenalizeClicked(): void{
+      this.shouldRenderPenalization = !this.shouldRenderPenalization;
+    }
+  
+    onPenalizeConfirmClicked(): void{
+      
+      this.tourAuthService.deleteTourAdministrator(this.tourProblem.tourId).subscribe({
+  
+      })
+    }
+    //Close Tour Problem button clicked
+    onCloseClicked(): void{
+      this.shouldRenderClosure = !this.shouldRenderClosure
+    }
+  
   
     //Save in Add Deadlline window clicked
     onSaveDeadline(): void {
       if (this.addDeadlineForm.valid && this.tourProblem) {
-        if (this.addDeadlineForm.valid && this.tourProblem) {
-          // Combine the date and time values as needed
-          const selectedDate = this.addDeadlineForm.value.deadlineDate;
-          const selectedTime = this.addDeadlineForm.value.deadlineTime;
-      
-          // Now you have the selected date and time, and you can handle them as necessary
-          const deadlineCombinedDate = new Date(selectedDate + 'T' + selectedTime);
-      
-          // Update the selectedTourProblem's deadlineTimeStamp
-          this.tourProblem.deadlineTimeStamp = deadlineCombinedDate;
-          console.log(this.tourProblem.deadlineTimeStamp)
-      
-          // You can proceed to use the updated selectedTourProblem as needed
-  
-          this.tourProblemService.updateTourProblemAdministrator(this.tourProblem).subscribe({
-            // There is currently no TourProblemUpdated emitter implemented
-            // next: () => { this.tourProblemUpdated.emit()} 
-          });
+        const selectedDate = this.addDeadlineForm.value.deadlineDate;
+        const selectedTime = this.addDeadlineForm.value.deadlineTime;
+
+        const dateFormat = new Date(selectedDate)
+        const year = dateFormat.getFullYear();
+        const month = String(dateFormat.getMonth() + 1).padStart(2, '0');
+        const day = String(dateFormat.getDate()).padStart(2, '0')
+        
+        const [hours, minutes] = selectedTime.split(':');
+    
+        let deadlineCombinedDate = new Date(year + '-' + month + '-' + day + 'T' + hours + ':' + minutes + ':00');   
+        // Check if the date is valid
+        if (isNaN(deadlineCombinedDate.getTime())) {
+          console.error('Invalid date or time input.');
+          return; // Exit the function early
+        }    
+        // Update the selectedTourProblem's deadlineTimeStamp
+        this.tourProblem.deadlineTimeStamp = deadlineCombinedDate;
+    
+        // You can proceed to use the updated selectedTourProblem as needed
+        this.tourProblemService.updateTourProblemAdministrator(this.tourProblem).subscribe({
+          // There is currently no TourProblemUpdated emitter implemented
+          // next: () => { this.tourProblemUpdated.emit()} 
+        });
       }
-    }
   }
     
 
@@ -175,6 +203,7 @@ import { TourProblemResponseService } from '../tour-problem-response.service';
       return false;
     } 
   
+
     onAddResponseClicked() {
       this.shouldRenderAddResponseForm = true;
       this.response = '';
@@ -238,6 +267,30 @@ import { TourProblemResponseService } from '../tour-problem-response.service';
       this.shouldRenderAddResponseForm = false;
       this.response = '';
     }
+
+    truncateText(text: string | undefined, maxLength: number): string {
+      if (text === undefined) {
+        return ''; 
+      }
+
     
+      if (text.length <= maxLength) {
+        return text;
+      } else {
+        return text.substring(0, maxLength) + '...';
+      }
+    }
+  
+    isExpired(): boolean{
+
+      if(this.tourProblem.deadlineTimeStamp){
+        const currentTimeStamp = new Date();
+        const tourProblemDeadlineTimeStamp = new Date(this.tourProblem.deadlineTimeStamp);
+        return currentTimeStamp.getTime() - tourProblemDeadlineTimeStamp.getTime() > 0;
+      }
+      return false;
+  
+    }
+
   }
   

@@ -21,11 +21,11 @@
     overflow: hidden;
 }
 
-.problem-info {
+.tour-problem-info {
     margin: 10px 0; /* Add margin to separate information blocks */
 }
 
-.problem-info-5d-old {
+.tour-problem-info-warning {
     color: red;
     margin: 10px 0; /* Add margin to separate information blocks */
 }
@@ -45,3 +45,16 @@
    /* border: 1px solid green; /* Add a border for separation */
   }
   
+  .tour-problem-description {
+    margin: 0 20px; /* Adjust the margin as needed */
+    max-width: 40vw; /* Adjust the max width as needed */
+    white-space: pre-wrap; /* Allow line breaks */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add ellipsis for overflow */
+    display: block;
+}
+
+.button-row {
+    display: flex; /* Use flexbox to align buttons horizontally */
+    justify-content: center; /* Center buttons horizontally within the row */
+}
