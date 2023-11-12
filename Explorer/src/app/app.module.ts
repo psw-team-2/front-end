@@ -56,8 +56,9 @@ import { DatePipe } from '@angular/common';
     ClubModule,
     ReactiveFormsModule,
     TourPreferenceModule,
+    DatePipe,
+    FormsModule,
     NotificationsModule,
-    DatePipe
   ],
   providers: [
     {

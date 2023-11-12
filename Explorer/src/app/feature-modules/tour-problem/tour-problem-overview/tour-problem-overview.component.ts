@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { TourProblem } from '../model/tour-problem.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl, FormBuilder, NgForm } from '@angular/forms';
 import { TourProblemService } from '../tour-problem.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { ActivatedRoute } from '@angular/router';
+
+import { TourProblemResponse } from '../model/tour-problem-response.model';
+import { TourProblemResponseService } from '../tour-problem-response.service';
+
+import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+
 
 
 @Component({
@@ -26,19 +32,31 @@ import { ActivatedRoute } from '@angular/router';
     shouldRenderAddDeadlineForm: boolean;
     addDeadlineForm: FormGroup;
 
+
+    shouldRenderPenalization: boolean=false;
+    shouldRenderClosure: boolean=false;
+  
     isDeadlineAlreadyAdded: boolean=false;
   
     //show more description
     shouldRenderSeeMoreDescription: boolean=false;
 
-    constructor(private tourProblemService: TourProblemService, private authService: AuthService, private route: ActivatedRoute,
-      ) { 
+
+    shouldRenderAddResponseForm = false;
+    addResponseForm: FormGroup;
+    response: string;
+
+    constructor(private tourProblemService: TourProblemService, private authService: AuthService, private route: ActivatedRoute,private formBuilder: FormBuilder, private problemResponseService: TourProblemResponseService) 
+    { 
+
   
       this.addDeadlineForm = new FormGroup({
         deadlineDate: new FormControl('', Validators.required),
         deadlineTime: new FormControl('', Validators.required)
       })
-  
+      this.addResponseForm = this.formBuilder.group({
+        response: ['', Validators.required] 
+      });
     }
   
     ngOnInit(): void {
@@ -52,28 +70,31 @@ import { ActivatedRoute } from '@angular/router';
         const id = params.get('id');
         this.tourProblemId = id ? parseInt(id, 10) : null;
         if (this.tourProblemId !== null){
+          if(this.user?.role == 'administrator'){
             this.tourProblemService.getTourProblemAdministrator(this.tourProblemId).subscribe({
-                next: (result: TourProblem) => {
-                    this.tourProblem = result;
-                    
-                    //fetching for comments should be implemented, once the comments are added
-
-                    if (this.tourProblem.deadlineTimeStamp !== null && this.tourProblem.deadlineTimeStamp !== undefined) {
-                      this.isDeadlineAlreadyAdded = true;
-                    }
-
-                }
+              next: (result: TourProblem) => {
+                  this.tourProblem = result;
+                  //fetching for comments should be implemented, once the comments are added
+              }
+            });
+          } else if(this.user?.role == 'author') {
+            this.tourProblemService.getTourProblemAuthor(this.tourProblemId).subscribe({
+              next: (result: TourProblem) => {
+                  this.tourProblem = result;
+              }
+            });
+          } else if(this.user?.role == 'tourist'){
+            this.tourProblemService.getTourProblemTourist(this.tourProblemId).subscribe({
+              next: (result: TourProblem) => {
+                  this.tourProblem = result;
+              }
             })
+          }
         }
       })
-
-
-
-
-
     }
-    
-  
+      
+
 
     onEditClicked(tourProblem: TourProblem): void {
       this.tourProblem = tourProblem;
@@ -87,7 +108,7 @@ import { ActivatedRoute } from '@angular/router';
     }
   
     //Close Tour Problem button clicked
-    onCloseClicked(): void{
+    onCloseConfirmClicked(): void{
       this.tourProblem.isClosed = true;
       this.tourProblemService.updateTourProblemAdministrator(this.tourProblem).subscribe({
         // There is currently no TourProblemUpdated emitter implemented
@@ -95,11 +116,6 @@ import { ActivatedRoute } from '@angular/router';
       });
     }
   
-    onPenalizeClicked(tourProblem: TourProblem): void{
-
-
-
-    }
   
     //See More button clicked
     onSeeMoreClicked(tourProblem: TourProblem): void{
@@ -115,15 +131,30 @@ import { ActivatedRoute } from '@angular/router';
   
     //Add button Deadline button clicked
     onAddDeadlineClicked(): void {
-      this.shouldEdit = false;
-      this.shouldRenderTourProblemForm = true;
-      this.shouldRenderAddDeadlineForm = true;
+      // this.shouldEdit = false;
+      // this.shouldRenderTourProblemForm = true;
+      this.shouldRenderAddDeadlineForm = !this.shouldRenderAddDeadlineForm;
 
     }
   
     //Close button in Add Deadline window clicked
     onCloseDeadlineClicked(): void {
       this.shouldRenderAddDeadlineForm = false;
+    }
+  
+    onPenalizeClicked(): void{
+      this.shouldRenderPenalization = !this.shouldRenderPenalization;
+    }
+  
+    onPenalizeConfirmClicked(): void{
+      
+      this.tourAuthService.deleteTourAdministrator(this.tourProblem.tourId).subscribe({
+  
+      })
+    }
+    //Close Tour Problem button clicked
+    onCloseClicked(): void{
+      this.shouldRenderClosure = !this.shouldRenderClosure
     }
   
   
@@ -172,10 +203,76 @@ import { ActivatedRoute } from '@angular/router';
       return false;
     } 
   
+
+    onAddResponseClicked() {
+      this.shouldRenderAddResponseForm = true;
+      this.response = '';
+    }
+  
+    onSendResponse() {
+      if (this.user && this.user.role === 'author' && this.tourProblem) {
+        if (this.tourProblem.id !== undefined) {
+          const problemResponse: TourProblemResponse = {
+            id: undefined,
+            response: this.response,
+            timeStamp: new Date(),
+            tourProblemId: this.tourProblem.id,
+            commenterId: this.user.id
+          };
+          this.problemResponseService.authorRespond(this.tourProblem.id, problemResponse).subscribe({
+            next: () => {
+              console.log("The response has been successfully sent!")
+            },
+            error: () => {}
+          });
+        }
+      }
+      else if (this.user && this.user.role === 'tourist' && this.user.id == this.tourProblem.touristId && this.tourProblem) {
+        if (this.tourProblem.id !== undefined) {
+          const problemResponse: TourProblemResponse = {
+            id: undefined,
+            response: this.response,
+            timeStamp: new Date(),
+            tourProblemId: this.tourProblem.id,
+            commenterId: this.user.id
+          };
+          this.problemResponseService.touristRespond(this.tourProblem.id, problemResponse).subscribe({
+            next: () => {
+              console.log("The response has been successfully sent!")
+            },
+            error: () => {}
+          });
+        }
+      }
+      else if (this.user && this.user.role === 'administrator' && this.tourProblem) {
+        if (this.tourProblem.id !== undefined) {
+          const problemResponse: TourProblemResponse = {
+            id: undefined,
+            response: this.response,
+            timeStamp: new Date(),
+            tourProblemId: this.tourProblem.id,
+            commenterId: this.user.id
+          };
+          this.problemResponseService.administratorRespond(this.tourProblem.id, problemResponse).subscribe({
+            next: () => {
+              console.log("The response has been successfully sent!")
+            },
+            error: () => {}
+          });
+        }
+      }
+    }
+  
+    onCancelResponse() {
+      this.shouldRenderAddResponseForm = false;
+      this.response = '';
+    }
+
     truncateText(text: string | undefined, maxLength: number): string {
       if (text === undefined) {
         return ''; 
       }
+
     
       if (text.length <= maxLength) {
         return text;
@@ -184,7 +281,16 @@ import { ActivatedRoute } from '@angular/router';
       }
     }
   
-    
+    isExpired(): boolean{
+
+      if(this.tourProblem.deadlineTimeStamp){
+        const currentTimeStamp = new Date();
+        const tourProblemDeadlineTimeStamp = new Date(this.tourProblem.deadlineTimeStamp);
+        return currentTimeStamp.getTime() - tourProblemDeadlineTimeStamp.getTime() > 0;
+      }
+      return false;
+  
+    }
 
   }
   

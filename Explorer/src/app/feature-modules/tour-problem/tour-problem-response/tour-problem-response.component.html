@@ -1,1 +1,20 @@
-<p>tour-problem-response works!</p>
+<div id="entity">
+  <p id="entity-title-paragraph" class="tour-problem-response-title">Tour Problem Responses</p>
+  <div id="entity-details">
+    <div *ngIf="currentUser && currentProblemId">
+      <div class="card">
+        <div class="message-container">
+          <div *ngFor="let response of problemResponses" class="message">
+            <div class="message-content">
+              <p>{{ response.response }}</p>
+            </div>
+            <div class="message-metadata">
+              <span class="timestamp">{{ response.timeStamp | date:'medium' }}</span>
+              <span class="tourist"> {{ mappedUsername[response.commenterId] }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

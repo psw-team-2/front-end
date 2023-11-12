@@ -21,11 +21,11 @@
     overflow: hidden;
 }
 
-.problem-info {
+.tour-problem-info {
     margin: 10px 0; /* Add margin to separate information blocks */
 }
 
-.tour-problem-info-5d-old {
+.tour-problem-info-warning {
     color: red;
     margin: 10px 0; /* Add margin to separate information blocks */
 }

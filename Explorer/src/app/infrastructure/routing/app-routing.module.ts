@@ -35,7 +35,8 @@ import { ViewToursComponent } from 'src/app/feature-modules/tour-authoring/view-
 import { TourOverviewComponent } from 'src/app/feature-modules/tour-authoring/tour-overview/tour-overview.component';
 import { NotificationsOverviewComponent } from 'src/app/feature-modules/notifications/notifications-overview/notifications-overview.component';
 
-import {TourProblemOverviewComponent } from 'src/app/feature-modules/tour-problem/tour-problem-overview/tour-problem-overview.component'
+import {TourProblemOverviewComponent } from 'src/app/feature-modules/tour-problem/tour-problem-overview/tour-problem-overview.component';
+import { TourProblemResponseComponent } from 'src/app/feature-modules/tour-problem/tour-problem-response/tour-problem-response.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -68,7 +69,10 @@ const routes: Routes = [
   {path: 'view-tours', component: ViewToursComponent},
   {path: 'tour/:id', component: TourOverviewComponent},
   {path: 'tour-problem/:id', component: TourProblemOverviewComponent},
+  {path: 'tour-problem/:problemId/responses', component: TourProblemResponseComponent },
+
   {path: 'notifications', component: NotificationsOverviewComponent}
+
 ];
 
 @NgModule({
