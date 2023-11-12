@@ -9,4 +9,5 @@ export interface TourProblem {
     isResolved: boolean;
     touristId: number;
     deadlineTimeStamp?: Date;
+    touristId?: number;
 }
