@@ -24,7 +24,7 @@ export class TourProblemService {
   }
 
   addTourProblemAdministrator(tourProblem: TourProblem): Observable<TourProblem> {
-    return this.http.post<TourProblem>(environment.apiHost + 'administrator/tour-problem', tourProblem);
+    return this.http.post<TourProblem>(environment.apiHost + 'administrator/tour-problem/', tourProblem);
   }
 
   updateTourProblemAdministrator(tourProblem: TourProblem): Observable<TourProblem> {
@@ -39,7 +39,7 @@ export class TourProblemService {
   //Author HTTP Request Methods
 
   getTourProblemsAuthor(id:number): Observable<PagedResults<TourProblem>> {
-    return this.http.get<PagedResults<TourProblem>>(environment.apiHost + 'author/by-author/tour-problem' + id);
+    return this.http.get<PagedResults<TourProblem>>(environment.apiHost + 'author/tour-problem/by-author/' + id);
   }
 
   deleteTourProblemAuthor(id: number): Observable<TourProblem> {
@@ -47,7 +47,7 @@ export class TourProblemService {
   }
 
   addTourProblemAuthor(tourProblem: TourProblem): Observable<TourProblem> {
-    return this.http.post<TourProblem>(environment.apiHost + 'author/tour-problem', tourProblem);
+    return this.http.post<TourProblem>(environment.apiHost + 'author/tour-problem/', tourProblem);
   }
 
   updateTourProblemAuthor(tourProblem: TourProblem): Observable<TourProblem> {
@@ -55,19 +55,16 @@ export class TourProblemService {
     return this.http.put<TourProblem>(environment.apiHost + 'author/tour-problem/' + tourProblem.id, tourProblem);
   }
 
-  getTourProblemAuthor(id:number) : Observable<TourProblem>{
-    return this.http.get<TourProblem>(environment.apiHost + 'author/tour-problem/' + id);
-  } 
-
 
   deleteTourProblemTourist(id: number): Observable<TourProblem> {
-    return this.http.delete<TourProblem>(environment.apiHost + 'tourist/tour-problem' + id);
+    return this.http.delete<TourProblem>(environment.apiHost + 'tourist/tour-problem/' + id);
   }
   
-  getTourProblemAuthor(id:number) : Observable<PagedResults<TourProblem>>{
-    return this.http.get<PagedResults<TourProblem>>(environment.apiHost + 'author/tour-problem/by-author/' + id);
+  getTourProblemAuthor(id:number) : Observable<TourProblem>{
+    return this.http.get<TourProblem>(environment.apiHost + 'author/tour-problem/by-author/' + id);
   } 
 
+  
     //Tourist HTTP Request Methods
 
   getTourProblemsTourist(id:number): Observable<PagedResults<TourProblem>> {
@@ -76,24 +73,21 @@ export class TourProblemService {
 
 
 
-
-  getTourProblemTourist(id:number) : Observable<TourProblem>{
-    return this.http.get<TourProblem>('https://localhost:44333/api/tourist/tour-problem/' + id);
-  } 
-
-
   addTourProblemTourist(tourProblem: TourProblem): Observable<TourProblem> {
-    return this.http.post<TourProblem>(environment.apiHost + 'tourist/tour-problem', tourProblem);
+    return this.http.post<TourProblem>(environment.apiHost + 'tourist/tour-problem/', tourProblem);
   }
 
   updateTourProblemTourist(tourProblem: TourProblem): Observable<TourProblem> {
-   return this.http.put<TourProblem>(environment.apiHost + 'tourist/tour-problem' + tourProblem.id, tourProblem);
+   return this.http.put<TourProblem>(environment.apiHost + 'tourist/tour-problem/' + tourProblem.id, tourProblem);
   }
   
 
   getTourProblemTourist(id:number) : Observable<TourProblem>{
     return this.http.get<TourProblem>(environment.apiHost + 'tourist/tour-problem/' + id);
   } 
+
+
+  //Tour Problem Solving
 
   problemSolved(tourProblem: TourProblem): Observable<TourProblem> {
     return this.http.post<TourProblem>(environment.apiHost + 'tourist/tour-problem/problemSolved', tourProblem);
@@ -104,21 +98,6 @@ export class TourProblemService {
   }
 
 
-  getTourProblems(): Observable<PagedResults<TourProblem>> {
-    return this.http.get<PagedResults<TourProblem>>(environment.apiHost + 'tour-problem/tour-problem');
-  }
-
-  deleteTourProblem(id: number): Observable<TourProblem> {
-    return this.http.delete<TourProblem>(environment.apiHost + 'tour-problem/tour-problem/' + id);
-  }
-
-  addTourProblem(tourProblem: TourProblem): Observable<TourProblem> {
-    return this.http.post<TourProblem>(environment.apiHost + 'tour-problem/tour-problem', tourProblem);
-  }
-
-  updateTourProblem(tourProblem: TourProblem): Observable<TourProblem> {
-    return this.http.put<TourProblem>(environment.apiHost + 'tour-problem/tour-problem/' + tourProblem.id, tourProblem);
-  }
 
   // Tour Problem Response
 
