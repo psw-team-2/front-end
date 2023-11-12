@@ -24,6 +24,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-end; /* Poravnanje sadržaja na desnu stranu */
+  margin-right: 20px; /* Dodajte margine po potrebi */
 }
 
 .vote-button {
@@ -63,8 +65,8 @@
 .blog-info {
     font-style: italic;
     margin: 70px;
-    margin-right: 150px;
-    text-align: right;
+    margin-left: 150px;
+    text-align: left;
     
 }
 

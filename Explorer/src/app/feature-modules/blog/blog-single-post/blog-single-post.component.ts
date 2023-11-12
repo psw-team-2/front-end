@@ -1,12 +1,13 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { BlogService } from '../blog.service';
 import { Router } from '@angular/router';
-import { Blog } from '../model/blog.model';
+import { Blog, BlogStatus } from '../model/blog.model';
 import { ActivatedRoute } from '@angular/router';
 import { BlogComment } from '../model/blog-comment.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Rating } from '../model/blog-rating.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'xp-blog-single-post',
@@ -82,44 +83,66 @@ ngOnInit(): void {
   
 
   upvoteClick() {
-    const userId = this.authService.user$.value.id;
-    this.upvoted = true;
-    this.downvoted = false;
-    const rating: Rating = {
-      isUpvote: true,
-      userId: userId,
-      blogId: this.blogId
-    };
+    let blog$: Observable<Blog> = this.blogService.getBlog(this.blogId); // Prilagodite ovaj poziv prema vašem servisu
 
-    this.blogService.addRating(rating).subscribe({
-      next: () => {
-        this.updateRatingCount();
-      },
-      error: (error) => {
-        // Obrada greške
-      }
-    });
+      blog$.subscribe((blog: Blog) => {
+        if (blog.status == BlogStatus.Closed) {
+          // Blog je zatvoren, ne dozvoljavajte dodavanje komentara
+          return;
+        }
+        else{
+          const userId = this.authService.user$.value.id;
+          this.upvoted = true;
+          this.downvoted = false;
+          const rating: Rating = {
+            isUpvote: true,
+            userId: userId,
+            blogId: this.blogId
+          };
+      
+          this.blogService.addRating(rating).subscribe({
+            next: () => {
+              this.updateRatingCount();
+            },
+            error: (error) => {
+              // Obrada greške
+            }
+          });
+        }
+      })
     
+      
   }
 
   downvoteClick() {
-    const userId = this.authService.user$.value.id;
-    this.upvoted = false;
-    this.downvoted = true;
-    const rating: Rating = {
-      isUpvote: false,
-      userId: userId,
-      blogId: this.blogId
-    };
 
-    this.blogService.addRating(rating).subscribe({
-      next: () => {
-        this.updateRatingCount();
-      },
-      error: (error) => {
-        // Obrada greške
-      }
-    });
+    let blog$: Observable<Blog> = this.blogService.getBlog(this.blogId); // Prilagodite ovaj poziv prema vašem servisu
+
+      blog$.subscribe((blog: Blog) => {
+        if (blog.status == BlogStatus.Closed) {
+          // Blog je zatvoren, ne dozvoljavajte dodavanje komentara
+          return;
+        }
+        else{
+          const userId = this.authService.user$.value.id;
+          this.upvoted = false;
+          this.downvoted = true;
+          const rating: Rating = {
+            isUpvote: false,
+            userId: userId,
+            blogId: this.blogId
+          };
+      
+          this.blogService.addRating(rating).subscribe({
+            next: () => {
+              this.updateRatingCount();
+            },
+            error: (error) => {
+              // Obrada greške
+            }
+          });
+        }
+      })
     
   }
 

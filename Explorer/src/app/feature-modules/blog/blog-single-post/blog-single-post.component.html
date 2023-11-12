@@ -13,7 +13,7 @@
     {{ blogPost?.description }}
   </div>
   <div class="blog-info">
-    <p>Author: {{ blogPost?.userId }}</p>
+    <p>Author: {{ blogPost?.username }}</p>
     <p>Created: {{ blogPost?.creationTime | date:'medium' }}</p>
     <div class="votes">
     <div id="upvote" class="vote-button" [ngClass]="{'voted': upvoted}">
