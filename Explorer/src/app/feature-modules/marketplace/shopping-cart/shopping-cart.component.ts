@@ -28,7 +28,7 @@ export class ShoppingCartComponent implements OnInit{
           this.shoppingCartId = this.userId;
 
         this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
-          next: (result: OrderItem[]) => {
+          next: (result) => {console.log(result)
             this.orderItems = result;
              // Extract and store orderItemIds
             //this.orderItemIds = this.orderItems.map(item => item.id);
@@ -53,6 +53,8 @@ export class ShoppingCartComponent implements OnInit{
     }
     
     onCheckoutClicked() : void{
+      this.updateOrderItems();
+
       this.service.createTokens(this.orderItems, this.userId).subscribe({
         next: () => {
 
@@ -60,5 +62,17 @@ export class ShoppingCartComponent implements OnInit{
         error: () => {
         }
       });
+    }
+
+    updateOrderItems(): void {
+      for (let orderItem of this.orderItems) {
+        let newOrderItem = orderItem;
+        newOrderItem.isBought = true;
+        this.service.updateOrderItem(newOrderItem).subscribe({
+          next: (result) => {
+            console.log(result)
+          }
+        });
+      }
     }
 }

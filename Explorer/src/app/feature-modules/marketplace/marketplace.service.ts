@@ -76,4 +76,7 @@ export class MarketplaceService {
     return this.http.post<OrderItem[]>(`https://localhost:44333/api/tourist/tourPurchaseToken/createTokens/${userId}`, orderItems);
   }
 
+  updateOrderItem(orderItem: OrderItem): Observable<OrderItem> {
+    return this.http.put<OrderItem>(environment.apiHost + 'tourist/orderItem/update/' + orderItem.id, orderItem);
+  }
 }
