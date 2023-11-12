@@ -64,7 +64,6 @@ export class TourProblemFormComponent implements OnChanges {
       isResolved: false,
       touristId: this.user.id,
       deadlineTimeStamp: undefined,
-      touristId: this.user?.id
     };
 
     this.service.addTourProblemTourist(tourProblem).subscribe({
