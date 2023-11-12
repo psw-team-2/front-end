@@ -79,7 +79,7 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
               }
             });
           } else if(this.user?.role == 'author') {
-            this.tourProblemService.getTourProblemAuthor(this.tourProblemId).subscribe({
+            this.tourProblemService.getTourProblemForAuthor(this.tourProblemId).subscribe({
               next: (result: TourProblem) => {
                   this.tourProblem = result;
               }
