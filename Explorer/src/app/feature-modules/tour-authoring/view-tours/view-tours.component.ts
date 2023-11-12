@@ -30,9 +30,6 @@ export class ViewToursComponent implements OnInit {
 
       // Set the shoppingCartId directly
       this.shoppingCartId = userId;
-
-      // Load the shopping cart
-      this.loadShoppingCart(userId);
     }
   }
 
@@ -50,20 +47,6 @@ export class ViewToursComponent implements OnInit {
     } catch (error) {
       // Handle errors if needed
     }
-  }
-
-
-  loadShoppingCart(userId: number): void {
-    //const userId = this.authService.user$.value.id;   
-    this.service.getShoppingCartByUserId(userId).subscribe({
-      next: (result: ShoppingCart) => {
-        console.log(result)
-        this.shoppingCart = result;
-      },
-      error: () => {
-        // Handle errors if needed
-      }
-    });
   }
 
   onAddClicked(tour: Tour): void {

@@ -10,6 +10,7 @@ import { Equipment } from '../administration/model/equipment.model';
 import { OrderItem } from './model/order-item.model';
 import { ShoppingCart } from './model/shopping-cart.model';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -55,24 +56,24 @@ export class MarketplaceService {
     return this.http.post<ApplicationReview>(environment.apiHost + 'tourist/applicationReview', applicationReview); 
   }
 
-  getOrderItemsByShoppingCartId(id: Number): Observable<OrderItem[]> {
-    return this.http.get<OrderItem[]>(`https://localhost:44333/api/tourist/orderItems/${id}`) 
-  } 
+  getOrderItemsByShoppingCart(userId: number): Observable<OrderItem[]> {
+    const encodedUserId = encodeURIComponent(userId.toString());
+    console.log(`Encoded User ID: ${encodedUserId}`);
+    return this.http.get<OrderItem[]>(`https://localhost:44333/api/tourist/orderItem/orderItems/${encodedUserId}`);
+  }  
+
 
   getShoppingCartByUserId(userId: number): Observable<ShoppingCart> {
     return this.http.get<ShoppingCart>(`https://localhost:44333/api/tourist/shoppingCart/user/${userId}`);
   }
 
-  /*getApplicationReview(): Observable<PagedResults<ApplicationReview>> { 
-    return this.http.get<PagedResults<ApplicationReview>>(environment.apiHost + 'tourist/applicationReview'); 
+  removeFromCart(shoppingCart: ShoppingCart, orderItemId: number): Observable<void> {
+    return this.http.put<void>('https://localhost:44333/api/tourist/remove/'+ shoppingCart.id + '/' + orderItemId, shoppingCart);
+
   }
 
-  deleteApplicationReview(id: number): Observable<ApplicationReview> { 
-    return this.http.delete<ApplicationReview>(environment.apiHost + 'tourist/applicationReview/' + id); 
+  createTokens(orderItems: OrderItem[], userId: number): Observable<OrderItem[]> {
+    return this.http.post<OrderItem[]>(`https://localhost:44333/api/tourist/tourPurchaseToken/createTokens/${userId}`, orderItems);
   }
-
-  updateApplicationReview(applicationReview: ApplicationReview): Observable<ApplicationReview> { 
-    return this.http.put<ApplicationReview>(environment.apiHost + 'tourist/applicationReview/' + applicationReview.id, applicationReview); // Updated endpoint
-  }*/
 
 }

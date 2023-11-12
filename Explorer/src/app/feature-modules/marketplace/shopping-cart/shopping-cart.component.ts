@@ -11,36 +11,54 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.css']
 })
-export class ShoppingCartComponent{
+export class ShoppingCartComponent implements OnInit{
       orderItems: OrderItem[] = [];
       shoppingCartId: number;
       shoppingCart: ShoppingCart;
+      orderItemIds: number[] = [];
+      userId: number;
 
       constructor(private service: MarketplaceService, private route: ActivatedRoute, private authService: AuthService) { }
-/*
+
       ngOnInit() {
-        //this.loadShoppingCart();
-        this.service.getOrderItemsByShoppingCartId(1).subscribe({
+        if (this.authService.user$.value) {
+          // Get the user ID
+          this.userId = this.authService.user$.value.id;
+          // Set the shoppingCartId directly
+          this.shoppingCartId = this.userId;
+
+        this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
           next: (result: OrderItem[]) => {
             this.orderItems = result;
+             // Extract and store orderItemIds
+            //this.orderItemIds = this.orderItems.map(item => item.id);
           },
           error: () => {
           }
-        })       
+        })
+        
       }
-/*
-      loadShoppingCart(): void {
-        const userId = this.authService.user$.value.id;   
-        // Fetch the shopping cart for the current user
-        this.service.getShoppingCartByUserId(userId).subscribe({
-          next: (result: ShoppingCart) => {
-            this.shoppingCart = result;
-          },
-          error: () => {
-            // Handle errors if needed
-          }
-        });
-      }
-      */
-     
+    }
+
+    onRemoveClicked(orderItemId: number) {
+      this.service.removeFromCart(this.shoppingCart, orderItemId).subscribe({
+        next: () => {
+          // If removal is successful, update the orderItems array
+          this.orderItems = this.orderItems.filter(item => item.id !== orderItemId);
+        },
+        error: () => {
+
+        }
+      });
+    }
+    
+    onCheckoutClicked() : void{
+      this.service.createTokens(this.orderItems, this.userId).subscribe({
+        next: () => {
+
+        },
+        error: () => {
+        }
+      });
+    }
 }

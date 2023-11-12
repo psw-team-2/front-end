@@ -7,14 +7,41 @@ body{
     justify-content: center;
     align-items: center;
    }
-   .Cart-Container{
+.Cart-Container{
     width: 70%;
     height: 85%;
     background-color: #ffffff;
     border-radius: 20px;
     box-shadow: 0px 25px 40px #1687d933;
+    flex-direction: column; 
+    justify-content: space-between;
+    overflow-y: auto; /* vertikalni scroll */
    }
+
+
+.Cart-Container::-webkit-scrollbar {
+  width: 12px; 
+  transition: width 0.3s; 
+}
+
+.Cart-Container::-webkit-scrollbar-thumb {
+  background-color: #2E003D; 
+  border-radius: 10px; 
+  transition: background-color 0.3s; 
+}
+
+.Cart-Container::-webkit-scrollbar-track {
+  background-color: #e0e0e0; 
+  border-radius: 10px; 
+  transition: background-color 0.3s; 
+}
+
+.Cart-Container:hover::-webkit-scrollbar {
+  width: 16px; 
+}
+
    .Header{
+    margin-bottom: 15px;
     margin: auto;
     width: 90%;
     height: 15%;
@@ -23,22 +50,20 @@ body{
     align-items: center;
    }
    .Heading{
-    font-size: 20px;
-    font-family: ‘Open Sans’;
+    font-size: 25px;
     font-weight: 700;
     color: #2F3841;
    }
    .Action{
     font-size: 14px;
-    font-family: ‘Open Sans’;
     font-weight: 600;
     color: #E44C4C;
     cursor: pointer;
     border-bottom: 1px solid #E44C4C;
    }
    .Cart-Items{
-    margin: auto;
-    width: 80%;
+    margin-left: -70px;
+    width: 100%;
     height: 20%;
     display: flex;
     justify-content: space-between;
@@ -49,20 +74,21 @@ body{
     text-align: center;
    }
    .about{
+    margin-right: 100px;
     height: 100%;
+    font-size: 10px;    
    }
    .title{
     padding-top: 5px;
     line-height: 10px;
-    font-size: 32px;
-    font-family: ‘Open Sans’;
+    font-size: 20px;
     font-weight: 800;
     color: #202020;
    }
+
    .subtitle{
     line-height: 10px;
     font-size: 18px;
-    font-family: ‘Open Sans’;
     font-weight: 600;
     color: #909090;
    }
@@ -88,25 +114,23 @@ body{
    }
    .count{
     font-size: 20px;
-    font-family: ‘Open Sans’;
     font-weight: 900;
     color: #202020;
    }
    .prices{
+    margin-left: auto; 
     height: 100%;
-    text-align: right;
+    text-align: right;    
    }
    .amount{
     padding-top: 20px;
     font-size: 26px;
-    font-family: ‘Open Sans’;
     font-weight: 800;
     color: #202020;
    }
    .save{
     padding-top: 5px;
     font-size: 14px;
-    font-family: ‘Open Sans’;
     font-weight: 600;
     color: #1687d9;
     cursor: pointer;
@@ -114,45 +138,50 @@ body{
    .remove{
     padding-top: 5px;
     font-size: 14px;
-    font-family: ‘Open Sans’;
-    font-weight: 600;
+    font-weight: 500;
     color: #E44C4C;
     cursor: pointer;
    }
    hr{
-    width: 66%;
+    width: 90%;
     float: right;
     margin-right: 5%;
    }
-   /*.checkout{
-    float: right;
-    margin-right: 5%;
-    width: 28%;
-   }*/
-   .total{
+   .total {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-   }
-   .Subtotal{
+    align-items: flex-end;
+}
+
+.Subtotal {
     font-size: 22px;
-    font-family: ‘Open Sans’;
     font-weight: 700;
     color: #202020;
-   }
+    margin-right: 200px;
+    margin-bottom: 15px;
+}
+
+.total-amount {
+    font-size: 36px;
+    font-weight: 900;
+    color: #202020;
+}
+
+.checkout {
+    width: 100%;
+    text-align: right;
+    margin-left: -40px;
+    margin-bottom: 20px;
+}
    .items{
     font-size: 16px;
-    font-family: ‘Open Sans’;
     font-weight: 500;
     color: #909090;
     line-height: 10px;
    }
-   .total-amount{
-    font-size: 36px;
-    font-family: ‘Open Sans’;
-    font-weight: 900;
-    color: #202020;
-   }
+   
    .button {
     display: inline-block;
     padding: 10px;
