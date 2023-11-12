@@ -48,8 +48,12 @@ export class TourProblemsComponent implements OnInit {
   addCommentForm: FormGroup;
   comment: string;
   selectedProblemForComment: TourProblem | undefined;
+
+  shouldRenderPenalization: boolean=false;
+  shouldRenderClosure: boolean=false;
   
-  constructor(private tourProblemService: TourProblemService, private authService: AuthService, private formBuilder: FormBuilder,private problemResponseService: TourProblemResponseService) { 
+  constructor(private tourProblemService: TourProblemService, private authService: AuthService, 
+    private formBuilder: FormBuilder,private problemResponseService: TourProblemResponseService, private tourAuthService: TourAuthoringService) { 
 
     this.addDeadlineForm = new FormGroup({
       deadlineDate: new FormControl('', Validators.required),
@@ -57,12 +61,7 @@ export class TourProblemsComponent implements OnInit {
     })
     this.addCommentForm = this.formBuilder.group({
       comment: ['', Validators.required] 
-    });
-  shouldRenderPenalization: boolean=false;
-  shouldRenderClosure: boolean=false;
-  
-  constructor(private tourProblemService: TourProblemService, private authService: AuthService, private tourAuthService: TourAuthoringService) { 
-
+    });  
   }
 
   ngOnInit(): void {
@@ -95,7 +94,7 @@ export class TourProblemsComponent implements OnInit {
     }
 
     else if(this.user?.role == 'tourist' && this.user?.id){
-      this.tourProblemService.getTourProblemsTourist().subscribe({
+      this.tourProblemService.getTourProblemsTourist(this.user.id).subscribe({
         next: (result: PagedResults<TourProblem>) => {
           this.tourProblems = result.results.filter(problem => problem.touristId === this.user?.id);
         },
@@ -104,7 +103,7 @@ export class TourProblemsComponent implements OnInit {
       });
     }
     else if(this.user?.role == 'author'){
-      this.tourProblemService.getTourProblemsAuthor().subscribe({
+      this.tourProblemService.getTourProblemsAuthor(this.user.id).subscribe({
         next: (result: PagedResults<TourProblem>) => {
           this.tourProblems = result.results;
         },

@@ -55,31 +55,22 @@ export class TourProblemService {
     return this.http.put<TourProblem>(environment.apiHost + 'author/tour-problem/' + tourProblem.id, tourProblem);
   }
 
-  getTourProblemAuthor(id:number) : Observable<TourProblem>{
-    return this.http.get<TourProblem>(environment.apiHost + 'author/tour-problem/' + id);
-  } 
-
 
   deleteTourProblemTourist(id: number): Observable<TourProblem> {
     return this.http.delete<TourProblem>(environment.apiHost + 'tourist/tour-problem' + id);
   }
   
-  getTourProblemAuthor(id:number) : Observable<PagedResults<TourProblem>>{
-    return this.http.get<PagedResults<TourProblem>>(environment.apiHost + 'author/tour-problem/by-author/' + id);
+  getTourProblemAuthor(id:number) : Observable<TourProblem>{
+    return this.http.get<TourProblem>(environment.apiHost + 'author/tour-problem/by-author/' + id);
   } 
 
+  
     //Tourist HTTP Request Methods
 
   getTourProblemsTourist(id:number): Observable<PagedResults<TourProblem>> {
     return this.http.get<PagedResults<TourProblem>>(environment.apiHost + 'tourist/tour-problem/by-tourist/' + id);
   }
 
-
-
-
-  getTourProblemTourist(id:number) : Observable<TourProblem>{
-    return this.http.get<TourProblem>('https://localhost:44333/api/tourist/tour-problem/' + id);
-  } 
 
 
   addTourProblemTourist(tourProblem: TourProblem): Observable<TourProblem> {
@@ -104,21 +95,6 @@ export class TourProblemService {
   }
 
 
-  getTourProblems(): Observable<PagedResults<TourProblem>> {
-    return this.http.get<PagedResults<TourProblem>>(environment.apiHost + 'tour-problem/tour-problem');
-  }
-
-  deleteTourProblem(id: number): Observable<TourProblem> {
-    return this.http.delete<TourProblem>(environment.apiHost + 'tour-problem/tour-problem/' + id);
-  }
-
-  addTourProblem(tourProblem: TourProblem): Observable<TourProblem> {
-    return this.http.post<TourProblem>(environment.apiHost + 'tour-problem/tour-problem', tourProblem);
-  }
-
-  updateTourProblem(tourProblem: TourProblem): Observable<TourProblem> {
-    return this.http.put<TourProblem>(environment.apiHost + 'tour-problem/tour-problem/' + tourProblem.id, tourProblem);
-  }
 
   // Tour Problem Response
 

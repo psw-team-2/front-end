@@ -46,7 +46,8 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
     addResponseForm: FormGroup;
     response: string;
 
-    constructor(private tourProblemService: TourProblemService, private authService: AuthService, private route: ActivatedRoute,private formBuilder: FormBuilder, private problemResponseService: TourProblemResponseService) 
+    constructor(private tourProblemService: TourProblemService, private authService: AuthService, private route: ActivatedRoute,
+      private formBuilder: FormBuilder, private problemResponseService: TourProblemResponseService, private tourAuthService: TourAuthoringService) 
     { 
 
   
