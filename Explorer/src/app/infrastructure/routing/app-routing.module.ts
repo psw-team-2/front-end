@@ -64,7 +64,8 @@ const routes: Routes = [
   {path: 'blog-management', component: BlogManagemetComponent, canActivate: [AuthGuard],},
   {path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
   {path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
-  {path: 'view-tours', component: ViewToursAuthorComponent},
+  {path: 'view-tours-author', component: ViewToursAuthorComponent},
+  {path: 'view-tours-tourist', component: ViewToursComponent},
   {path: 'tour/:id', component: TourOverviewComponent}
 
 ];
