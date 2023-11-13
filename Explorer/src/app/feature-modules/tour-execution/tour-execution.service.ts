@@ -22,4 +22,7 @@ export class TourExecutionService {
   abandonTour(id? : Number) : Observable<TourExecution> {
     return this.http.post<TourExecution>('https://localhost:44333/api/tourexecution/abandon/' + id,{});
   } 
+  updateTourExecution(tourExecution: TourExecution) : Observable<TourExecution>{
+      return this.http.put<TourExecution>('https://localhost:44333/api/tourexecution/' + tourExecution.id, tourExecution)
+  }
 }

@@ -2,6 +2,9 @@ import { Component, AfterViewInit, Input, Output, EventEmitter, SimpleChanges, O
 import * as L from 'leaflet';
 import { Marker } from 'leaflet';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
+import { TourExecutionService } from '../tour-execution.service';
+import { TourExecution } from '../model/tourexecution.model';
 @Component({
   selector: 'execution-map',
   templateUrl: './execution-map.component.html',
@@ -10,11 +13,13 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 export class ExecutionMapComponent implements OnInit {
   @Input() map: L.Map;
   @Input() markerList:Marker[];
+  @Input() checkpoints: Checkpoint[] = [];
+  @Input() tourExecution: TourExecution;
   
   marker: L.Marker;
 
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private service : TourExecutionService) { }
 
   public userIcon = L.icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/3710/3710297.png',
@@ -68,7 +73,9 @@ export class ExecutionMapComponent implements OnInit {
         this.markerList.push(userMarker)
         userMarker.addTo(this.map)
       } 
-  
+      this.tourExecution.CurrentLatitude = touristPosition.latitude;
+      this.tourExecution.CurrentLongitude = touristPosition.longitude;
+      this.service.updateTourExecution(this.tourExecution).subscribe()
     },10000)
   }
 
