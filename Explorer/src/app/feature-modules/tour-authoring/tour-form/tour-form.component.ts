@@ -26,6 +26,7 @@ export class TourFormComponent {
         description: this.tour.description || null,
         difficulty: String(this.tour.difficulty) || null,
         tags: this.tour.tags || null,
+        
        
       });
     }
@@ -35,7 +36,9 @@ export class TourFormComponent {
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     difficulty: new FormControl('', [Validators.required]),
-    tags: new FormControl('', [Validators.required])
+    tags: new FormControl('', [Validators.required]),
+    
+   
   })
 
   async addTour():  Promise<void> {

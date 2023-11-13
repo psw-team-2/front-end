@@ -7,10 +7,16 @@
         <div class="details">
           <label>{{ tour.name }}</label>
           <p>{{ tour.description }}</p>
-        
+          <p>Status: <i>{{ getStatusWord(tour.status) }}</i></p>
           <div class="button-container">
             <a class="view-button" [routerLink]="'/tour/' + tour.id">View more</a>
         </div>
+        <div class="button-container" *ngIf="tour.status == 0 || tour.status == 2">
+          <a class="view-button"  (click)="onPublishClicked(tour)">Publish</a>
+        </div>    
+        <div class="button-container" *ngIf="tour.status == 1">
+          <a class="view-button"  (click)="onArchiveClicked(tour)">Archive</a>
+        </div>     
         </div>
       </div>
     </div>
