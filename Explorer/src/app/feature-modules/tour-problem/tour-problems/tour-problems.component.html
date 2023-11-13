@@ -16,6 +16,7 @@
                             <th></th>
                             <th></th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,22 +32,22 @@
                                     </button>
                                 </td>
                                 <td>
-                                    <button *ngIf="isExpired" color="accent" (click)="onCloseClicked(problem)" mat-raised-button id="entity-raised-button">
-                                        Close 
+                                    <button *ngIf="isExpired(problem) && user?.role === 'administrator'" color="accent" (click)="onCloseClicked(problem)" mat-raised-button id="entity-raised-button">
+                                        Close Problem
                                     </button>
                                 </td>
                                 <td>    
-                                    <button *ngIf="isExpired" color="primary" (click)="onPenalizeClicked(problem)" mat-raised-button id="entity-raised-button">
+                                    <button *ngIf="isExpired(problem) && user.role === 'administrator'" color="primary" (click)="onPenalizeClicked(problem)" mat-raised-button id="entity-raised-button">
                                         Penalize
                                     </button>
                                 </td>
                                 <td>    
-                                    <button color="primary" (click)="onProblemSolved(problem)" mat-raised-button id="entity-icon-button">
+                                    <button color="primary" *ngif="user.role === 'tourist'" (click)="onProblemSolved(problem)" mat-raised-button id="entity-icon-button">
                                         Problem solved
                                     </button>
                                 </td>
                                <td>
-                                 <button color="primary" (click)="onAddCommentClicked(problem)" mat-raised-button id="entity-icon-button">Problem Unsolved</button>
+                                 <button color="primary" *ngif="user.role === 'tourist'" (click)="onAddCommentClicked(problem)" mat-raised-button id="entity-icon-button">Problem Unsolved</button>
                                  <div *ngIf="shouldRenderAddCommentForm && selectedProblemForComment === problem" class="bottom-margin">
                                     <form [formGroup]="addCommentForm" (submit)="onProblemUnsolved(problem)">
                                         <mat-form-field>
@@ -56,14 +57,13 @@
                                         <button (click)="onCancelComment()" mat-raised-button id="entity-raised-button">Cancel</button>
                                     </form>     
                                  </div>
-                                </td>
-                            </tr>   
-                            <tr>          
+                                </td>  
                                 <td>
                                     <img *ngIf="isExpired(problem)" src="../../../../assets/icons/expiration-icon.png" id="entity-details-icon">
                                 </td>
-                            </tr>
-                            <tr *ngIf="shouldRenderPenalization">
+
+                            </tr>   
+                            <tr *ngIf="shouldRenderPenalization && user.role === 'administrator'">
                                 <td colspan="8">
                                     <p>Are you sure you want to penalize this author?</p>
                                     <div class="button-row">
@@ -72,7 +72,7 @@
                                     </div>
                                 </td>
                             </tr>         
-                            <tr *ngIf="shouldRenderClosure">
+                            <tr *ngIf="shouldRenderClosure && user.role === 'administrator'">
                                 <td colspan="8">
                                     <p>Are you sure you want to close this problem?</p>
                                     <div class="button-row">

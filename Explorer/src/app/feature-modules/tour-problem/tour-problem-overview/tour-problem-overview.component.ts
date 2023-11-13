@@ -21,7 +21,7 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
   })
   export class TourProblemOverviewComponent implements OnInit {
 
-    user: User | undefined;
+    user: User;
     tourProblemId: number | null;
 
     tourProblem: TourProblem;
@@ -45,6 +45,8 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
     shouldRenderAddResponseForm = false;
     addResponseForm: FormGroup;
     response: string;
+
+    shouldRenderResponses: boolean=false;
 
     constructor(private tourProblemService: TourProblemService, private authService: AuthService, private route: ActivatedRoute,
       private formBuilder: FormBuilder, private problemResponseService: TourProblemResponseService, private tourAuthService: TourAuthoringService) 
@@ -204,6 +206,9 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
       return false;
     } 
   
+    onViewResponsesClicked(){
+      this.shouldRenderResponses = !this.shouldRenderResponses;
+    }
 
     onAddResponseClicked() {
       this.shouldRenderAddResponseForm = true;
