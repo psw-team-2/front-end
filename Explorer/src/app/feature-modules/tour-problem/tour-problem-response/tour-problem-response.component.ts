@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TourProblemResponse } from '../model/tour-problem-response.model';
 import { TourProblemResponseService } from '../tour-problem-response.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
@@ -15,7 +15,8 @@ import { Observable, catchError, map, of } from 'rxjs';
 export class TourProblemResponseComponent implements OnInit {
   problemResponses: TourProblemResponse[] = [];
   currentUser: User;
-  currentProblemId: number;
+  @Input() currentProblemId: number | null; //added | null
+  @Output() responsesUpdated = new EventEmitter<null>();
   mappedUsername: { [key: number]: string } = {};
 
   constructor(private problemResponseService: TourProblemResponseService, private authService: AuthService, private route: ActivatedRoute) {  
@@ -27,50 +28,59 @@ export class TourProblemResponseComponent implements OnInit {
       this.currentUser = user;
     });
 
-    this.route.paramMap.subscribe(params => {
-      const problemIdParam = params.get('problemId');
-      if (problemIdParam !== null) {
-        this.currentProblemId = +problemIdParam;
-        this.getTourProblemResponses();
-      } 
-    });
+    // this.route.paramMap.subscribe(params => {
+    //   const problemIdParam = params.get('problemId');
+    //   if (problemIdParam !== null) {
+    //     this.currentProblemId = +problemIdParam;
+    //     this.getTourProblemResponses();
+    //   } 
+    // });
+
+    this.getTourProblemResponses();
     
   }
 
   getTourProblemResponses(): void {
-    if (this.currentUser && this.currentUser?.role === 'author') {
-      this.problemResponseService.getResponsesAuthor(this.currentProblemId).subscribe({
-        next: (result: PagedResults<TourProblemResponse>) => {
-          //@ts-ignore
-          this.problemResponses = result;
-          console.log('Responses for author:', this.problemResponses);
-          this.mapUsernames();
-        },
-        error: () => {}
-      });
-      
+    //ADDED != NULL CASE
+    if(this.currentProblemId != null){
+      if (this.currentUser && this.currentUser?.role === 'author') {
+        this.problemResponseService.getResponsesAuthor(this.currentProblemId).subscribe({
+          next: (result: PagedResults<TourProblemResponse>) => {
+            //@ts-ignore
+            this.problemResponses = result;
+            console.log('Responses for author:', this.problemResponses);
+            this.mapUsernames();
+          },
+          error: () => {}
+        });
+        
+      }
+      else if (this.currentUser && this.currentUser?.role === 'tourist') {
+        this.problemResponseService.getResponsesTourist(this.currentProblemId).subscribe({
+          next: (result: PagedResults<TourProblemResponse>) => {
+            //@ts-ignore
+            this.problemResponses = result;
+            console.log('Responses for tourist:', this.problemResponses);
+            this.mapUsernames();
+          },
+          error: () => {}
+        });
+      }
+      else if (this.currentUser && this.currentUser?.role === 'administrator') {
+        this.problemResponseService.getResponsesAdministrator(this.currentProblemId).subscribe({
+          next: (result: PagedResults<TourProblemResponse>) => {
+            //@ts-ignore
+            this.problemResponses = result;
+            console.log('Responses for administrator:', this.problemResponses);
+            this.mapUsernames();
+          },
+          error: () => {}
+        });
+      }
     }
-    else if (this.currentUser && this.currentUser?.role === 'tourist') {
-      this.problemResponseService.getResponsesTourist(this.currentProblemId).subscribe({
-        next: (result: PagedResults<TourProblemResponse>) => {
-          //@ts-ignore
-          this.problemResponses = result;
-          console.log('Responses for tourist:', this.problemResponses);
-          this.mapUsernames();
-        },
-        error: () => {}
-      });
-    }
-    else if (this.currentUser && this.currentUser?.role === 'administrator') {
-      this.problemResponseService.getResponsesAdministrator(this.currentProblemId).subscribe({
-        next: (result: PagedResults<TourProblemResponse>) => {
-          //@ts-ignore
-          this.problemResponses = result;
-          console.log('Responses for administrator:', this.problemResponses);
-          this.mapUsernames();
-        },
-        error: () => {}
-      });
+    //ADDED ELSE FOR CURRENTPROBLEMID == NULL CASE
+    else{
+      error:() => {}
     }
   }
 

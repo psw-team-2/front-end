@@ -21,7 +21,7 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
 })
 export class TourProblemsComponent implements OnInit {
 
-  user: User | undefined;
+  user: User;
 
   tourProblems: TourProblem[] = [];
   selectedTourProblem: TourProblem;
