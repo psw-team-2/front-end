@@ -33,9 +33,11 @@
 }
 
 .blog-image {
-    width: 100%;
-    max-height: 200px; /* Maksimalna visina slike */
+    width: 350px;
+    max-height: 250px; /* Maksimalna visina slike */
     object-fit: cover; /* Održava proporcije slike */
+    
+    
 }
 
 .blog-title {
