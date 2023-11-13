@@ -33,6 +33,8 @@ import { BlogManagemetComponent } from 'src/app/feature-modules/blog/blog-manage
 import { BlogCommentsComponent } from 'src/app/feature-modules/blog/blog-comments/blog-comments.component';
 import { ViewToursComponent } from 'src/app/feature-modules/tour-authoring/view-tours/view-tours.component';
 import { TourOverviewComponent } from 'src/app/feature-modules/tour-authoring/tour-overview/tour-overview.component';
+import { TouristPositionComponent } from 'src/app/feature-modules/tour-execution/tourist-position/tourist-position.component';
+import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
 
 
 const routes: Routes = [
@@ -64,7 +66,9 @@ const routes: Routes = [
   {path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
   {path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
   {path: 'view-tours', component: ViewToursComponent},
-  {path: 'tour/:id', component: TourOverviewComponent}
+  {path: 'tour/:id', component: TourOverviewComponent},
+  {path: 'touristposition', component: TouristPositionComponent},
+  {path: 'activeTour', component: ActiveTourComponent}
 
 ];
 
