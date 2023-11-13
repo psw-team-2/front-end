@@ -70,6 +70,8 @@
   background-color: #2E003D;
   color: #ffffff;
 }
+
+
 .header {
   font-size: 30px;
   color: #2E003D; /* Text color */
@@ -122,3 +124,31 @@
   overflow: hidden;
   box-sizing: border-box; /* Include padding and border in the element's width and height */
 }
+.cart-button {
+  display: inline-block;
+  padding: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 16;
+  color: #2E003D;
+  background-color: #ffffff;
+  border: 0.2vw solid #2E003D;
+  border-radius: 0.375vw;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+
+  position: absolute; /* Postavlja apsolutni položaj */
+  top: 485px; /* Postavlja na vrh stranice */
+  right: 10px; /* Postavlja na desnu stranu stranice */
+}
+
+.cart-button i.fas.fa-shopping-cart::before {
+  margin-right: 5px; /* Margina sa desne strane ikone */
+  font-size: 20px; /* Veličina ikone korpe */
+}
+
+.cart-button:hover {
+  background-color: #2E003D;
+  color: #ffffff;
+}
+

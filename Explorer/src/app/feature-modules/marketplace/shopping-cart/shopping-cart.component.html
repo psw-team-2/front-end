@@ -1,0 +1,38 @@
+<body>
+    <div class="Cart-Container">
+        <div class="Header">
+            <h3 class="Heading">Shopping Cart</h3>
+            <h5 class="Action">Remove all</h5>
+        </div>
+        <div class="Cart-Items" *ngFor="let oi of orderItems">
+            <div class="image-box">
+                <!-- Add content for image box if needed -->
+            </div>
+            
+            <div class="about">
+                <h1 class="title">{{ oi.tourName }}</h1>
+            </div>
+            <!--<div class="counter">
+                <div class="btn">+</div>
+                <div class="count">2</div>
+                <div class="btn">-</div>
+            </div>-->
+            <div class="prices">
+                <div class="amount"> {{ oi.price.amount }}</div>
+                <button class="remove" *ngIf="oi.id" (click)="onRemoveClicked(oi.id)"><u>Remove</u></button>
+            </div>
+                        
+        </div>
+        <hr>
+        <div class="total">
+            <div>
+                <div class="Subtotal">Sub-Total</div>
+                <!--<div class=”items”>2 items</div>-->
+            </div>
+            <div class="total-amount">{{ shoppingCart?.totalPrice }}</div>
+        </div>
+        <div class="checkout">
+            <button class="button" (click)="onCheckoutClicked()">Checkout</button>
+        </div>
+    </div>
+</body>

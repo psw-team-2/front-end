@@ -7,6 +7,9 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/env/environment';
 import { Equipment } from '../administration/model/equipment.model';
+import { OrderItem } from './model/order-item.model';
+import { ShoppingCart } from './model/shopping-cart.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -53,16 +56,27 @@ export class MarketplaceService {
     return this.http.post<ApplicationReview>(environment.apiHost + 'tourist/applicationReview', applicationReview); 
   }
 
-  /*getApplicationReview(): Observable<PagedResults<ApplicationReview>> { 
-    return this.http.get<PagedResults<ApplicationReview>>(environment.apiHost + 'tourist/applicationReview'); 
+  getOrderItemsByShoppingCart(userId: number): Observable<OrderItem[]> {
+    const encodedUserId = encodeURIComponent(userId.toString());
+    console.log(`Encoded User ID: ${encodedUserId}`);
+    return this.http.get<OrderItem[]>(`https://localhost:44333/api/tourist/orderItem/orderItems/${encodedUserId}`);
+  }  
+
+
+  getShoppingCartByUserId(userId: number): Observable<ShoppingCart> {
+    return this.http.get<ShoppingCart>(`https://localhost:44333/api/tourist/shoppingCart/user/${userId}`);
   }
 
-  deleteApplicationReview(id: number): Observable<ApplicationReview> { 
-    return this.http.delete<ApplicationReview>(environment.apiHost + 'tourist/applicationReview/' + id); 
+  removeFromCart(shoppingCart: ShoppingCart, orderItemId: number): Observable<void> {
+    return this.http.put<void>('https://localhost:44333/api/tourist/remove/'+ shoppingCart.id + '/' + orderItemId, shoppingCart);
+
   }
 
-  updateApplicationReview(applicationReview: ApplicationReview): Observable<ApplicationReview> { 
-    return this.http.put<ApplicationReview>(environment.apiHost + 'tourist/applicationReview/' + applicationReview.id, applicationReview); // Updated endpoint
-  }*/
+  createTokens(orderItems: OrderItem[], userId: number): Observable<OrderItem[]> {
+    return this.http.post<OrderItem[]>(`https://localhost:44333/api/tourist/tourPurchaseToken/createTokens/${userId}`, orderItems);
+  }
 
+  updateOrderItem(orderItem: OrderItem): Observable<OrderItem> {
+    return this.http.put<OrderItem>(environment.apiHost + 'tourist/orderItem/update/' + orderItem.id, orderItem);
+  }
 }
