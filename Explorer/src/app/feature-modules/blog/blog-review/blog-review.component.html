@@ -5,22 +5,34 @@
       <a href="blog-form" class="create-blog-link" >Create new blog</a>
       <a href="blog-management"class="manage-blogs-link" >Manage your blogs</a>
     </div>
+    <div class="blog-filtration">
+      <button (click)="filterByStatus(null)">All</button>
+      <button (click)="filterByStatus(blogStatus.Active)">Active</button>
+      <button (click)="filterByStatus(blogStatus.Famous)">Famous</button>
+    </div>
   </div>
-      <ng-container *ngFor="let row of blogRows">
-        <div class="row">
-          <ng-container *ngFor="let blog of row">
-            <div class="col-md-4">
-              <div class="blog-card">
-                <img [src]="blog.image" alt="Blog Image" class="blog-image">
-                <div class="blog-details">
-                  <h3 class="blog-title">{{ blog.title }}</h3>
-                </div>
-                <button class="read-more-button" (click)="onReadMoreClicked(blog.id || 0)" >Read More</button>
+  <div>
+  <div *ngIf="blogs.length === 0; else showBlogs">
+    <p>Nema blogova sa odabranim statusom.</p>
+  </div>
+  <ng-template #showBlogs>
+    <ng-container *ngFor="let row of blogRows">
+      <div class="row">
+        <ng-container *ngFor="let blog of row">
+          <div class="col-md-4">
+            <div class="blog-card">
+              <img [src]="blog.image" alt="Blog Image" class="blog-image">
+              <div class="blog-details">
+                <h3 class="blog-title">{{ blog.title }}</h3>
               </div>
+              <button class="read-more-button" (click)="onReadMoreClicked(blog.id || 0)" >Read More</button>
             </div>
-          </ng-container>
-        </div>
-      </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </ng-template>
+  </div>
   </div>
   
   <div class="pagination">

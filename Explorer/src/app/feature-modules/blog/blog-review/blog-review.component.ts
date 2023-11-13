@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BlogService } from '../blog.service';
-import { Blog } from '../model/blog.model';
+import { Blog, BlogStatus } from '../model/blog.model';
 import { Router } from '@angular/router';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
@@ -45,7 +45,55 @@ export class BlogReviewComponent {
       this.blogRows.push(this.blogs.slice(i, i + 3));
     }
   }
+
+  get blogStatus() {
+    return BlogStatus; 
+  }
+
+  filterByStatus(status: BlogStatus | null): void {
+    console.log('Filtering blogs by status:', status);
   
+    if (status === null) {
+      this.getBlogs();
+    } else {
+      this.service.getBlogsByStatus(status).subscribe({
+        next: (result: PagedResults<Blog>) => {
+          console.log('Filtered blogs result:', result);
+  
+          if (result.results && result.results.length > 0) {
+            this.blogs = result.results;
+            this.totalPages = Math.ceil(this.blogs.length / this.itemsPerPage);
+            this.totalPageArray = Array.from({ length: this.totalPages }, (_, index) => index + 1);
+            this.updateBlogRows();
+          } else {
+            this.handleNoResults();
+          }
+        },
+        error: (error) => {
+          this.handleHttpError(error);
+        }
+      });
+    }
+  }
+  
+  handleNoResults(): void {
+    this.blogs = []; 
+    this.totalPages = 0; 
+    this.totalPageArray = [];
+    this.currentPage = 1;
+    this.updateBlogRows();
+
+    console.log('Nema rezultata za traženi status.');
+  }
+
+  handleHttpError(error: any): void {
+
+    if (error.status === 404) {
+      this.handleNoResults();
+    } else {
+      console.error('HTTP Error:', error);
+    }
+  }
 
   changePage(page: number) {
     this.currentPage = page;
@@ -63,5 +111,6 @@ export class BlogReviewComponent {
   onReadMoreClicked(id: number){
     this.router.navigate(['blog-single-post', id]);
   }
+
 
 }

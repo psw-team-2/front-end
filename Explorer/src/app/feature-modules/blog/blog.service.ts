@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BlogComment } from './model/blog-comment.model';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
-import { Blog } from './model/blog.model';
+import { Blog, BlogStatus } from './model/blog.model';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
@@ -32,6 +32,10 @@ export class BlogService {
 
   getBlogs(): Observable<PagedResults<Blog>> {
     return this.http.get<PagedResults<Blog>>(environment.apiHost + 'tourist/blog')
+  }
+
+  getBlogsByStatus(status: BlogStatus): Observable<PagedResults<Blog>> {
+    return this.http.get<PagedResults<Blog>>(environment.apiHost + 'tourist/blog/byStatus/' + status)
   }
 
   deleteBlog(id: number): Observable<Blog> {
@@ -76,5 +80,7 @@ export class BlogService {
   getCommentsByBlogId(id: number): Observable<PagedResults<BlogComment>> {
     return this.http.get<PagedResults<BlogComment>>(environment.apiHost + 'tourist/comment/byBlog/' + id);
   }
+
+  
 
 }
