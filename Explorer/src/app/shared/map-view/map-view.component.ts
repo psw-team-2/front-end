@@ -205,48 +205,51 @@ private async setRoute(checkpoints: Checkpoint[], profile: 'walking' | 'driving'
     const markerGroup = L.layerGroup();
 
     routeControl.on('routesfound', (e) => {
-      if (profile === 'walking') {
-        const routes = e.routes;
+      const routes = e.routes;
 
-        checkpoints.forEach((checkpoint, index) => {
-          this.mapService.reverseSearch(checkpoint.latitude, checkpoint.longitude).subscribe((res) => {
-            if (res.address) {
-              const street = res.address.road || res.address.street;
-              const number = res.address.house_number;
-              const city = res.address.city_district || res.address.city || res.address.town || res.address.village || res.address.suburb;
-              const location = `${street} ${number}, ${city}`;
+      checkpoints.forEach((checkpoint, index) => {
+        this.mapService.reverseSearch(checkpoint.latitude, checkpoint.longitude).subscribe((res) => {
+          if (res.address) {
+            const street = res.address.road || res.address.street;
+            const number = res.address.house_number;
+            const city = res.address.city_district || res.address.city || res.address.town || res.address.village || res.address.suburb;
+            const location = `${street} ${number}, ${city}`;
 
-              const marker = L.marker([checkpoint.latitude, checkpoint.longitude], {
-                draggable: false,
+            const marker = L.marker([checkpoint.latitude, checkpoint.longitude], {
+              draggable: false,
+            })
+              .addTo(markerGroup)
+              .bindPopup(this.addLabelToPopupContent("CHECKPOINT " + ++index, checkpoint.image, checkpoint.name, location))
+              .on('mouseover', (event) => {
+                marker.openPopup();
               })
-                .addTo(markerGroup)
-                .bindPopup(this.addLabelToPopupContent("CHECKPOINT " + ++index, checkpoint.image, checkpoint.name, location))
-                .on('mouseover', (event) => {
-                  marker.openPopup();
-                })
-                .on('mouseout', (event) => {
-                  marker.closePopup();
-                });
+              .on('mouseout', (event) => {
+                marker.closePopup();
+              });
 
-              markerGroup.addTo(this.map);
-            }
-          });
-
-          markerGroup.addTo(this.map);
-          var summary = routes[0].summary;
-          const totalSeconds = summary.totalTime;
-          const totalDistance = summary.totalDistance
-
-          this.loadedTour.totalLength = totalDistance;
-          this.loadedTour.footTime = totalSeconds;
-
-          // Resolve the promise to indicate that the asynchronous operation is complete
-          resolve();
+            markerGroup.addTo(this.map);
+          }
         });
-      } else {
-        // If the profile is not 'walking', simply resolve the promise without displaying the route
-        resolve();
+      });
+
+      markerGroup.addTo(this.map);
+      var summary = routes[0].summary;
+      const totalSeconds = summary.totalTime; // Assuming totalTime is in seconds
+      const totalDistance = summary.totalDistance
+      this.loadedTour.totalLength = totalDistance;
+
+      if (profile == "cycling") {
+        this.loadedTour.bicycleTime = totalSeconds;
       }
+      if (profile == "walking") {
+        this.loadedTour.footTime = totalSeconds;
+      }
+      if (profile == "driving") {
+        this.loadedTour.carTime = totalSeconds;
+      }
+
+      // Resolve the promise to indicate that the asynchronous operation is complete
+      resolve();
     });
   });
 }
