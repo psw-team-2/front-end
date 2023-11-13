@@ -6,5 +6,9 @@ export interface Tour {
     tags: string,
     checkPoints: Number[],
     equipments: Number[],
-    status: Number
+    status: Number,
+    totalLength: Number,
+    footTime: Number,
+    bicycleTime: Number,
+    carTime: Number
 }
