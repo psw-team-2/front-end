@@ -51,4 +51,6 @@ export class ViewToursComponent implements OnInit {
   
     // You can use this.tours in your component's template to display the updated results.
   }
+
+
 }

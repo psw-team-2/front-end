@@ -117,6 +117,7 @@ export class TourAuthoringService {
     return this.http.put<Equipment>('https://localhost:44333/api/author/tour/remove/' + tour.id +  '/' + equipmentId,tour)
   }
 
+
 }
 
 
