@@ -64,6 +64,9 @@ export class TourProblemService {
     return this.http.get<TourProblem>(environment.apiHost + 'author/tour-problem/by-author/' + id);
   } 
 
+  getTourProblemForAuthor(id:number) : Observable<TourProblem>{
+    return this.http.get<TourProblem>('https://localhost:44333/api/author/tour-problem/' + id);
+  } 
   
     //Tourist HTTP Request Methods
 
@@ -107,7 +110,7 @@ export class TourProblemService {
 
   // returns all responses targeted towards the tourist the id belongs to
   getTourProblemResponsesForTourist(id: number): Observable<PagedResults<TourProblemResponse>>{
-    return this.http.get<PagedResults<TourProblemResponse>>(environment.apiHost + 'tourist/' + id + '/responses');
+    return this.http.get<PagedResults<TourProblemResponse>>('https://localhost:44333/api/tourist/tour-problem/tourist/' + id + '/responses');
   }
 
   // returns all responses targeted towards the author the id belongs to
