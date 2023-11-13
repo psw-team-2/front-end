@@ -1,10 +1,12 @@
-<div>
+<div class="map-container">
+  <xp-map-search [tours]="allTours" [selectedTour]="selectedTour" (searchResultsEvent)="handleSearchResults($event)"></xp-map-search>
+</div>
+<div class="tour-list">
   <h1 class="header">Available Tours</h1>
-<div class="card-container">
-    <div *ngFor="let tour of tours" class="card">
-      <div class="remove-when-use">
-      </div>
-      <div class="details">
+  <div class="card-container">
+    <div *ngFor="let tour of tours" class="card" (click)="selectTour(tour)" [ngClass]="{'selected-card': tour === selectedTour}">
+      <div class="remove-when-use"></div>
+      <div class="details" [ngClass]="{'selected-details': tour === selectedTour}">
         <label>{{ tour.name }}</label>
         <p>{{ tour.description }}</p>
         <p *ngIf="tour.id !== undefined">Average grade: {{ tourAverageGrades[tour.id] }}/5</p>
@@ -20,4 +22,3 @@
     </div>
   </div>
 </div>
-  

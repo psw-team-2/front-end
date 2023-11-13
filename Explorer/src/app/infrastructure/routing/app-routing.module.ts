@@ -35,6 +35,7 @@ import { ViewToursComponent } from 'src/app/feature-modules/tour-authoring/view-
 import { TourOverviewComponent } from 'src/app/feature-modules/tour-authoring/tour-overview/tour-overview.component';
 import { TouristPositionComponent } from 'src/app/feature-modules/tour-execution/tourist-position/tourist-position.component';
 import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
+import { ViewToursAuthorComponent } from 'src/app/feature-modules/tour-authoring/view-tours-author/view-tours-author.component';
 
 
 const routes: Routes = [

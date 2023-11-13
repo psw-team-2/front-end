@@ -12,6 +12,7 @@ import { TourFormComponent } from './tour-form/tour-form.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AppRoutingModule } from 'src/app/infrastructure/routing/app-routing.module';
+import { ViewToursAuthorComponent } from './view-tours-author/view-tours-author.component';
 import { AddedEquipmentComponent } from './added-equipment/added-equipment.component';
 import { TourEquipmentComponent } from './tour-equipment/tour-equipment.component';
 import { ViewToursComponent } from './view-tours/view-tours.component';
@@ -26,6 +27,7 @@ import { MarketplaceModule } from '../marketplace/marketplace.module';
     CheckpointFormComponent,
     TourComponent,
     TourFormComponent,
+    ViewToursAuthorComponent,
     TourEquipmentComponent,
     AddedEquipmentComponent,
     ObjectComponent,
