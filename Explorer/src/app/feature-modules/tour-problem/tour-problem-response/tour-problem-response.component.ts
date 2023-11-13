@@ -50,6 +50,7 @@ export class TourProblemResponseComponent implements OnInit {
             this.problemResponses = result;
             console.log('Responses for author:', this.problemResponses);
             this.mapUsernames();
+            this.responsesUpdated.emit();
           },
           error: () => {}
         });
@@ -62,6 +63,7 @@ export class TourProblemResponseComponent implements OnInit {
             this.problemResponses = result;
             console.log('Responses for tourist:', this.problemResponses);
             this.mapUsernames();
+            this.responsesUpdated.emit();
           },
           error: () => {}
         });
@@ -73,6 +75,7 @@ export class TourProblemResponseComponent implements OnInit {
             this.problemResponses = result;
             console.log('Responses for administrator:', this.problemResponses);
             this.mapUsernames();
+            this.responsesUpdated.emit();
           },
           error: () => {}
         });
