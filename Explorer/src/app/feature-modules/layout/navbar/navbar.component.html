@@ -16,7 +16,9 @@
         </button>
         <button mat-menu-item color="primary" [routerLink]="['profile']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">Profile</button>
         <button mat-menu-item color="primary" [routerLink]="['profile2']" *ngIf="user && user.role === 'author'" routerLinkActive="active-link">Profile</button>
-        
+        <button mat-menu-item color="primary" [routerLink]="['view-tours-author']" *ngIf="user && user.role === 'author'" routerLinkActive="active-link">View Tours</button>
+        <button mat-menu-item color="primary" [routerLink]="['view-tours-tourist']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">View Tours</button>
+
         
     </mat-menu>
     </div>
