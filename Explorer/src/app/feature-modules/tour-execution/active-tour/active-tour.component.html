@@ -1,0 +1,7 @@
+<div *ngIf="markersReady | async">
+    <execution-map  [markerList]="markerList"></execution-map>
+    <div class="panel">
+        <button mat-raised-button class="complete" (click)="updateTourExec('complete')" type="submit" >Complete Tour</button>
+        <button mat-raised-button class="primary" (click)="updateTourExec('abandon')" type="submit">Abandon Tour</button>
+    </div>
+</div>

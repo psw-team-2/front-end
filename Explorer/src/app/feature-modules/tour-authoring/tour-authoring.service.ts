@@ -7,6 +7,7 @@ import { Observable, throwError, of } from 'rxjs';
 import { Tour } from './model/tour.model';
 import { environment } from 'src/env/environment';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { TourExecution } from '../tour-execution/model/tourexecution.model';
 
 @Injectable({
   providedIn: 'root'
@@ -117,6 +118,9 @@ export class TourAuthoringService {
     return this.http.put<Equipment>('https://localhost:44333/api/author/tour/remove/' + tour.id +  '/' + equipmentId,tour)
   }
 
+  startTour(tourExecution: TourExecution) : Observable<TourExecution> {
+    return this.http.post<TourExecution>('https://localhost:44333/api/tourexecution/start', tourExecution);
+  } 
 }
 
 
