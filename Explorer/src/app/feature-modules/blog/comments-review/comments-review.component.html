@@ -2,6 +2,7 @@
   <div class="comment">
     <div>
       <p>{{ comment?.username }}</p>
+      <ng-container *ngIf="comment.userId === currentUserId">
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="More Options" class="menu-button">
         <mat-icon>more_vert</mat-icon>
       </button>
@@ -15,6 +16,7 @@
           <span>Delete</span>
         </button>
       </mat-menu>
+    </ng-container>
     </div>  
     <div class="comment-text">
       <!-- Prikaz komentara ili forme za uređivanje -->

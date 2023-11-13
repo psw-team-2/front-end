@@ -19,6 +19,7 @@ export class CommentsReviewComponent implements OnInit {
   shouldRenderBlogCommentForm: boolean = false;
   shouldEdit: boolean = false;
   userNames: { [key: number]: string } = {};
+  currentUserId:number;
   
 
   constructor(private blogService: BlogService, private route: ActivatedRoute, private authService: AuthService) { 
@@ -66,6 +67,7 @@ export class CommentsReviewComponent implements OnInit {
    
     this.route.params.subscribe(params => {
       const blogId = +params['id']; // Ovo 'blogId' mora da se poklapa sa imenom parametra iz URL-a
+      this.currentUserId = this.authService.user$.value.id;
       if (blogId) {
         this.getCommentsByBlogId(blogId);
       } else {

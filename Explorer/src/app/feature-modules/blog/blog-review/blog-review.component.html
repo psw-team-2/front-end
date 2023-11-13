@@ -1,19 +1,19 @@
 <div id="blog-review">
   <div class="blog-title-section">
-    <h1 class="page-title">See latest blog posts</h1>
+    <div class="blog-filtration">
+      <button mat-raised-button (click)="filterByStatus(null)">All</button>
+      <button mat-raised-button (click)="filterByStatus(blogStatus.Active)">Active</button>
+      <button mat-raised-button (click)="filterByStatus(blogStatus.Famous)">Famous</button>
+    </div>
+    <h1 class="page-title">See blog posts</h1>
     <div class="blog-options">
       <a href="blog-form" class="create-blog-link" >Create new blog</a>
       <a href="blog-management"class="manage-blogs-link" >Manage your blogs</a>
     </div>
-    <div class="blog-filtration">
-      <button (click)="filterByStatus(null)">All</button>
-      <button (click)="filterByStatus(blogStatus.Active)">Active</button>
-      <button (click)="filterByStatus(blogStatus.Famous)">Famous</button>
-    </div>
   </div>
   <div>
-  <div *ngIf="blogs.length === 0; else showBlogs">
-    <p>Nema blogova sa odabranim statusom.</p>
+  <div  *ngIf="blogs.length === 0; else showBlogs">
+    <p class="paragraf">No content to show right now.</p>
   </div>
   <ng-template #showBlogs>
     <ng-container *ngFor="let row of blogRows">

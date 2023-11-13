@@ -67,12 +67,13 @@
     flex-direction: column;
     gap: 5px;
     position:absolute;
-    bottom: 10%;
+    bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 2px;
     z-index: 2;
+    
 }
   
 .blog-title-section:hover .blog-options {
@@ -141,5 +142,34 @@
     background-color: #660089;
   }
 
+  #blog-review .blog-filtration button{
+    margin: 0px; 
+    background-color: #2a2133; 
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 15px;
+    border: 1px solid #e1e1e1;
+    border-radius: 0%;
+}
+
+#blog-review .blog-filtration button:hover {
+    background-color: #4e415a;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+ 
+#blog-review .paragraf {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 600px; /* Prilagodite vrednost prema potrebi */
+    font-size: medium; /* Prilagodite vrednost prema potrebi */
+    line-height: 20;
+    font-family: 'Montserrat', sans-serif;
+  }
   
+  
+  
+  
+  
+   
   
