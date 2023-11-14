@@ -1,0 +1,13 @@
+<div class="notification-container">
+  <h1>Notifications</h1>
+  <ul>
+    <ng-container *ngFor="let notification of notifications">
+      <li class="notification">
+        <p>
+          New message from {{ mappedUsername[notification.commenterId] }}: {{ notification.response }}
+        </p>
+        <button [routerLink]="'/tour-problem/' + notification.tourProblemId">Show chat</button>
+      </li>
+    </ng-container>
+  </ul>
+</div>

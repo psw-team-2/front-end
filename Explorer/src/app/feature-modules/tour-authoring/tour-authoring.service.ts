@@ -130,6 +130,10 @@ export class TourAuthoringService {
   sendPublicRequest(publicRequest: PublicRequest): Observable<PublicRequest> {
     return this.http.post<PublicRequest>('https://localhost:44333/api/author/tour/publicRequest', publicRequest)
   }
+  deleteTourAdministrator(id: number): Observable<Tour>{
+    return this.http.delete<Tour>('https://localhost:44333/api/administrator/tour/' + id);
+  }
+
 }
 
 

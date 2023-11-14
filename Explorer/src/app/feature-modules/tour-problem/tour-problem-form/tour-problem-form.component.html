@@ -36,7 +36,7 @@
           
 
 
-        <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addTourProblem()" mat-raised-button>Done</button>
-        <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateTourProblem()" mat-raised-button>Done</button>
+        <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addTourProblem()" mat-raised-button id="entity-raised-button">Done</button>
+        <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateTourProblem()" mat-raised-button id="entity-raised-button">Done</button>
     </div>
 </form>
