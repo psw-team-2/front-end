@@ -9,10 +9,10 @@ import { Follow } from '../model/follow.model';
   templateUrl: './profiles2.component.html',
   styleUrls: ['./profiles2.component.css']
 })
-export class Profiles2Component {
+export class Profiles2Component implements OnInit {
   profiles: Profile[] = [];
   loggedInProfile: Profile | null = null; // Store the logged-in user's profile
-  follows: Follow[] = [];
+  follows: Profile[] = [];
   followedProfiles: { [key: number]: boolean } = {};
 
   constructor(private service: AdministrationService) {}
@@ -36,14 +36,15 @@ export class Profiles2Component {
 
         // Get follows after getting the logged-in user's profile
       
-      /*  this.service.getFollows2().subscribe({
-        next: (result: PagedResults<Follow>) => {
-          this.follows = result.results;
-        },
-        error: (err: any) => {
-          console.error('Error while getting follows:', err);
-        }
-      });*/
+        this.service.getFollows2(this.loggedInProfile).subscribe({
+          next: (result: PagedResults<Profile>) => {
+            this.follows = result.results;
+            console.log(this.follows);
+          },
+          error: (err: any) => {
+            console.error('Error while getting follows:', err);
+          }
+        }); 
       },
       error: (err: any) => {
         console.log(err);
@@ -58,7 +59,7 @@ onFollowClicked(profile: Profile) {
   if (this.loggedInProfile) {
     // Check if the combination of person's id and logged-in user's id exists in the follows array
     const alreadyFollows = this.follows.some(follow => 
-      follow.profileId === profile.id && follow.followerId === this.loggedInProfile!.id
+      follow.id === profile.id
     );
 
     if (alreadyFollows) {
