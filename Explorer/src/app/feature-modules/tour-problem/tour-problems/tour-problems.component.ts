@@ -87,6 +87,7 @@ export class TourProblemsComponent implements OnInit {
       this.tourProblemService.getTourProblemsAdministrator().subscribe({
         next: (result: PagedResults<TourProblem>) => {
           this.tourProblems = result.results;
+          this.tourProblems = this.tourProblems.filter((tourProblem) => !tourProblem.isClosed);
         },
         error: () => {
         }
@@ -97,6 +98,7 @@ export class TourProblemsComponent implements OnInit {
       this.tourProblemService.getTourProblemsTourist(this.user.id).subscribe({
         next: (result: PagedResults<TourProblem>) => {
           this.tourProblems = result.results.filter(problem => problem.touristId === this.user?.id);
+          this.tourProblems = this.tourProblems.filter((tourProblem) => !tourProblem.isClosed);
         },
         error: () => {
         }
@@ -106,6 +108,7 @@ export class TourProblemsComponent implements OnInit {
       this.tourProblemService.getTourProblemsAuthor(this.user.id).subscribe({
         next: (result: PagedResults<TourProblem>) => {
           this.tourProblems = result.results;
+          this.tourProblems = this.tourProblems.filter((tourProblem) => !tourProblem.isClosed);
         },
         error: () => {
         }
@@ -261,6 +264,13 @@ export class TourProblemsComponent implements OnInit {
     }
     return false;
 
+  }
+
+  isProblemResolved(tourProblem: TourProblem): boolean{
+    if(tourProblem.isResolved){
+      return true;
+    }
+    return false;
   }
   
   truncateText(text: string | undefined, maxLength: number): string {
