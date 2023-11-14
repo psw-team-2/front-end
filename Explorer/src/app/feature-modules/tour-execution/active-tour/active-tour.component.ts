@@ -7,7 +7,7 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
 import { Tour } from '../../tour-authoring/model/tour.model';
 import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
 import * as L from 'leaflet';
-import { Marker } from 'leaflet';
+import { Marker,Icon } from 'leaflet';
 import { Observable } from 'rxjs';
 import { zip } from "rxjs";
 import { Router } from '@angular/router';
@@ -26,7 +26,7 @@ export class ActiveTourComponent implements OnInit  {
   public checkpointList:Checkpoint[] = [];
   public markerList:Marker[]=[];
   public markersReady:Promise<boolean>;
-  public secretList:Secret[];
+  public secretList:Secret[] = [];
   public userIcon = L.icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/3710/3710297.png',
     shadowUrl: '',
@@ -49,17 +49,16 @@ export class ActiveTourComponent implements OnInit  {
     })
   }
 
-  /* getSecrets(){
+  async getSecrets(){
+
     for (let i = 0; i < this.tourExecution.visitedCheckpoints.length; i++) {
       let cp:number = this.tourExecution.visitedCheckpoints[i];
       this.tourExecutionService.getSecrets(cp).subscribe((value)=>{
         this.secretList.push(value);
-        this.markerList[i].addEventListener('click',()=>{
-          alert(value)
-        })
+        this.markerList[i].bindPopup("<strong>Tajna je otkljucana</strong><br />"+value.text, {maxWidth: 500});
       })
     }
-  } */
+  }
 
   getCheckpoints(){
     let allPromises:Observable<any>[] = [];
@@ -71,12 +70,12 @@ export class ActiveTourComponent implements OnInit  {
     let list = zip([...allPromises]);
     list.subscribe({next:(value)=>{
       this.checkpointList = value;
-    },complete:()=>{
-      this.getMarkerList()
+    },complete:async ()=>{
+      await this.getMarkerList()
     }})
   }
 
-  getMarkerList(){
+  async getMarkerList(){
     for (let i = 0; i < this.checkpointList.length; i++) {
       const cp = this.checkpointList[i];
       let newMarker = new L.Marker([cp.latitude,cp.longitude])
@@ -84,8 +83,8 @@ export class ActiveTourComponent implements OnInit  {
     }
     let userMarker = new L.Marker([this.touristPosition.latitude,this.touristPosition.longitude],{icon:this.userIcon})
     this.markerList.push(userMarker)
+    await this.getSecrets();
     this.markersReady = Promise.resolve(true);
-    //this.getSecrets();
   }
 
   updateTourExec(value:string){

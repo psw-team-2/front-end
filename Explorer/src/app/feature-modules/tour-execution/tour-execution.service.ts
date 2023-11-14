@@ -30,7 +30,7 @@ export class TourExecutionService {
   completeCheckpoint(id: number, checkpoints: Checkpoint[]): Observable<TourExecution> {
     return this.http.put<TourExecution>('https://localhost:44333/api/tourexecution/checkpointComplete/' + id, checkpoints);
   }
-  /* getSecrets(cpId:number){
+  getSecrets(cpId:number){
     return this.http.get<Secret>('https://localhost:44333/api/tourexecution/getSecret/' + cpId);
-  } */
+  }
 }
