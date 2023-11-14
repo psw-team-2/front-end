@@ -4,5 +4,6 @@ export interface PublicRequest {
     authorId: number,
     comment: string,
     isCheckPoint: boolean,
-    isNotified: boolean
+    isNotified: boolean,
+    isApproved: boolean
 }

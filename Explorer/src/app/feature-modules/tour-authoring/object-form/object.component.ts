@@ -77,7 +77,8 @@ export class ObjectComponent implements OnInit {
       authorId: this.user.id,
       comment: "",
       isCheckPoint: false,
-      isNotified: true
+      isNotified: true,
+      isApproved: false
     }
 
     await this.service.sendPublicRequest(publicRequest).subscribe({

@@ -24,9 +24,10 @@
   
     <p class="explorer">Explorer</p>
   
-    <button class="notificationsButton" *ngIf="user && user.role === 'tourist' || user && user.role === 'author'" mat-button [routerLink]="['notifications']">Notifications</button>
+    
 
     <div class="navbar-right">
+      <button class="notificationsButton" *ngIf="user && user.role === 'tourist' || user && user.role === 'author'" mat-icon-button [routerLink]="['notifications']"><mat-icon>notifications</mat-icon></button>
       <button class="logButton" *ngIf="user && user.username === ''" mat-button [routerLink]="['login']">Log In</button>
       <button class="logButton" *ngIf="user && user.username !== ''" mat-button (click)="onLogout()">Logout</button>
     </div>

@@ -114,7 +114,8 @@ export class CheckpointFormComponent implements OnInit {
       authorId: this.user.id,
       comment: "",
       isCheckPoint: true,
-      isNotified: true
+      isNotified: true,
+      isApproved: false
     }
 
     await this.service.sendPublicRequest(publicRequest).subscribe({

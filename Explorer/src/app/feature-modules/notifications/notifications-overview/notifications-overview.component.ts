@@ -5,6 +5,8 @@ import { TourProblemService } from '../../tour-problem/tour-problem.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Observable, catchError, map, of } from 'rxjs';
+import { PublicRequest } from '../../tour-authoring/model/public-request.model';
+import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 
 @Component({
   selector: 'xp-notifications-overview',
@@ -17,14 +19,25 @@ export class NotificationsOverviewComponent implements OnInit {
   currentUser: User;
   showNotifications: boolean = false;
   mappedUsername: { [key: number]: string } = {};
+  publicRequests: PublicRequest[] =[];
 
-  constructor(private service: TourProblemService, private authService: AuthService) {}
+  constructor(private service: TourProblemService, private authService: AuthService, private tourAuthoringService: TourAuthoringService) {}
 
   ngOnInit(): void {
     this.authService.user$.subscribe((user) => {
       this.currentUser = user;
     });
+    this.getPublicRequests();
     this.getNotifications();
+  }
+
+  getPublicRequests(): void {
+    this.tourAuthoringService.getPublicRequestsByUserId(this.currentUser.id).subscribe({
+      next: (result) => {
+        //@ts-ignore
+        this.publicRequests = result;
+      }
+    });
   }
 
   getNotifications(): void{

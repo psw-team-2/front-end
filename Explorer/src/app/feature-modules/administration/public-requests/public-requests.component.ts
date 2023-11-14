@@ -55,7 +55,8 @@ export class PublicRequestsComponent implements OnInit {
       authorId: pr.authorId,
       comment: result,
       isCheckPoint: pr.isCheckPoint,
-      isNotified: false
+      isNotified: false,
+      isApproved: true
     }
     publicRequest.id = pr.id;
     this.service.updatePublicRequest(publicRequest).subscribe({
@@ -76,7 +77,8 @@ export class PublicRequestsComponent implements OnInit {
       authorId: pr.authorId,
       comment: result,
       isCheckPoint: pr.isCheckPoint,
-      isNotified: false
+      isNotified: false,
+      isApproved: false
     }
     publicRequest.id = pr.id;
     this.service.updatePublicRequest(publicRequest).subscribe({

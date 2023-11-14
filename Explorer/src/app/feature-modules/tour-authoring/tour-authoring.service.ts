@@ -134,6 +134,9 @@ export class TourAuthoringService {
     return this.http.delete<Tour>('https://localhost:44333/api/administrator/tour/' + id);
   }
 
+  getPublicRequestsByUserId(userId: number): Observable<PagedResults<PublicRequest>> {
+    return this.http.get<PagedResults<PublicRequest>>('https://localhost:44333/api/administrator/publicRequest/get/' + userId);
+  }
 }
 
 
