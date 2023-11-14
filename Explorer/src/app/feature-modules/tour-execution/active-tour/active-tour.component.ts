@@ -96,4 +96,9 @@ export class ActiveTourComponent implements OnInit  {
         })
     }
   }
+
+  leaveReview() {
+    // Assuming you have a route named '/leave-review', navigate to that route
+    this.router.navigate(['/tour/'+ this.tour.id]);
+  }
 }
