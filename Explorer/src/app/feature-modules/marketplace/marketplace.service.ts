@@ -84,4 +84,7 @@ export class MarketplaceService {
   }
   
 
+  updateOrderItem(orderItem: OrderItem): Observable<OrderItem> {
+    return this.http.put<OrderItem>(environment.apiHost + 'tourist/orderItem/update/' + orderItem.id, orderItem);
+  }
 }

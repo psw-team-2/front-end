@@ -1,7 +1,10 @@
-<div>
-  <xp-map-search [tours]="tours"></xp-map-search>
-  <h1 class="header">Available Tours</h1>
+<div class="map-container">
+  <xp-map-search [tours]="allTours" [selectedTour]="selectedTour" (searchResultsEvent)="handleSearchResults($event)"></xp-map-search>
 </div>
+<div class="tour-list">
+  <h1 class="header">Available Tours</h1>
+  <div class="card-container">
+    
 <div class="header-container">   
   <a class="cart-button" [routerLink]="'/shopping-cart/'">
     <i class="fas fa-shopping-cart"></i> Shopping cart

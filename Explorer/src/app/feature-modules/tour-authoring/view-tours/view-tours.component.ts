@@ -13,6 +13,7 @@ import { OrderItem } from '../../marketplace/model/order-item.model';
 })
 export class ViewToursComponent implements OnInit {
   tours: Tour[] = [];
+  allTours: Tour[] = [];
   selectedTour: Tour;
   shoppingCartId: Number;
   shoppingCart: ShoppingCart;
@@ -49,8 +50,8 @@ export class ViewToursComponent implements OnInit {
       const result: PagedResults<Tour> | undefined = await this.service.getTours().toPromise();
 
       if (result) {
+        this.allTours = result.results;
         this.tours = result.results;
-        console.log(this.tours);
       } else {
         // Handle the case where result is undefined
       }
@@ -59,6 +60,23 @@ export class ViewToursComponent implements OnInit {
     }
   }
 
+  selectTour(tour: Tour): void {
+    this.selectedTour = tour;
+  }
+
+  handleSearchResults(data: { tours: Tour[], searchActive: boolean }) {
+    const searchActive = data.searchActive;
+    
+    if (searchActive) {
+      // Display search results when search is active
+      this.tours = data.tours;
+    } else {
+      // Display all tours when search is not active
+      this.getTours(); // Refresh the tours to display all of them
+    }
+  
+    // You can use this.tours in your component's template to display the updated results.
+  }
   onAddClicked(tour: Tour): void {
     this.service.getShoppingCartById(this.shoppingCartId).subscribe({
       next: (result: ShoppingCart) => {

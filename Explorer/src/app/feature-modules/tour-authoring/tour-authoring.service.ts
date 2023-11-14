@@ -138,6 +138,9 @@ export class TourAuthoringService {
     return this.http.get<OrderItem[]>(`https://localhost:44333/api/tourist/orderItem/orderItems/${encodedUserId}`);
   } 
 
+  getOrderItemsByUser(userId: number): Observable<PagedResults<OrderItem>> {
+    return this.http.get<PagedResults<OrderItem>>('https://localhost:44333/api/tourist/orderItem/orderItems/' + userId);
+  }
 }
 
 
