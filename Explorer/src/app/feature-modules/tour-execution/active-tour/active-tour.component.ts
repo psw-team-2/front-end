@@ -11,6 +11,7 @@ import { Marker } from 'leaflet';
 import { Observable } from 'rxjs';
 import { zip } from "rxjs";
 import { Router } from '@angular/router';
+import { Secret } from '../model/secret.model';
 
 @Component({
   selector: 'xp-active-tour',
@@ -25,12 +26,12 @@ export class ActiveTourComponent implements OnInit  {
   public checkpointList:Checkpoint[] = [];
   public markerList:Marker[]=[];
   public markersReady:Promise<boolean>;
+  public secretList:Secret[];
   public userIcon = L.icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/3710/3710297.png',
     shadowUrl: '',
-
-    iconSize:     [40, 45], // size of the icon
-    iconAnchor:   [40, 45], // point of the icon which will correspond to marker's location
+    iconSize:     [40, 45], 
+    iconAnchor:   [15, 35],
 });
 
   constructor(private router:Router,private tourExecutionService:TourExecutionService,private tourAuthoringService:TourAuthoringService, private authService: AuthService){}
@@ -47,6 +48,18 @@ export class ActiveTourComponent implements OnInit  {
       })
     })
   }
+
+  /* getSecrets(){
+    for (let i = 0; i < this.tourExecution.visitedCheckpoints.length; i++) {
+      let cp:number = this.tourExecution.visitedCheckpoints[i];
+      this.tourExecutionService.getSecrets(cp).subscribe((value)=>{
+        this.secretList.push(value);
+        this.markerList[i].addEventListener('click',()=>{
+          alert(value)
+        })
+      })
+    }
+  } */
 
   getCheckpoints(){
     let allPromises:Observable<any>[] = [];
@@ -72,6 +85,7 @@ export class ActiveTourComponent implements OnInit  {
     let userMarker = new L.Marker([this.touristPosition.latitude,this.touristPosition.longitude],{icon:this.userIcon})
     this.markerList.push(userMarker)
     this.markersReady = Promise.resolve(true);
+    //this.getSecrets();
   }
 
   updateTourExec(value:string){

@@ -66,14 +66,11 @@ const routes: Routes = [
   {path: 'blog-management', component: BlogManagemetComponent, canActivate: [AuthGuard],},
   {path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
   {path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
-  {path: 'view-tours', component: ViewToursComponent},
   {path: 'tour/:id', component: TourOverviewComponent},
   {path: 'touristposition', component: TouristPositionComponent},
   {path: 'activeTour', component: ActiveTourComponent},
   {path: 'view-tours-author', component: ViewToursAuthorComponent},
   {path: 'view-tours-tourist', component: ViewToursComponent},
-
-
 ];
 
 @NgModule({

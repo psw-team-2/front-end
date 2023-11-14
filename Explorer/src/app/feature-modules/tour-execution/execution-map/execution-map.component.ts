@@ -27,8 +27,8 @@ export class ExecutionMapComponent implements OnInit {
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/3710/3710297.png',
     shadowUrl: '',
 
-    iconSize:     [40, 45], // size of the icon
-    iconAnchor:   [40, 45], // point of the icon which will correspond to marker's location
+    iconSize:     [40, 45], 
+    iconAnchor:   [15, 35],
 });
   private initMap(): void {
     this.map = L.map('map', {
@@ -49,14 +49,14 @@ export class ExecutionMapComponent implements OnInit {
 
   }
 
-/*   ngOnChanges(changes:SimpleChanges) {
-    this.markerList = changes['markerList'].currentValue
-  } */
 
 
   ngOnInit(): void {
     let DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
+      iconSize:    [20, 36],
+      iconAnchor:  [5, 36],
+      popupAnchor: [0, -25],
     });
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
@@ -81,7 +81,17 @@ export class ExecutionMapComponent implements OnInit {
       } 
       this.tourExecution.CurrentLatitude = touristPosition.latitude;
       this.tourExecution.CurrentLongitude = touristPosition.longitude;
-      this.service.updateTourExecution(this.tourExecution).subscribe()
+      this.service.updateTourExecution(this.tourExecution).subscribe({
+        next: (value) => {
+          this.service.completeCheckpoint(id, this.checkpoints).subscribe((value)=>{
+            console.log(value)
+          });
+        },
+        error: () => {
+          
+        },
+      });
+
     },10000)
   }
 

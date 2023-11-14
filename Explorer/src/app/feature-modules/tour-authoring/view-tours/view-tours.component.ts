@@ -81,7 +81,8 @@ export class ViewToursComponent implements OnInit {
       Abandoned: false,
       CurrentLatitude: 0,
       CurrentLongitude: 0,
-      LastActivity: new Date()
+      LastActivity: new Date(),
+      visitedCheckpoints : [tour.checkPoints[0]],
     };
     await this.service.getCheckpointById(tour.checkPoints[0]).subscribe((checkpoint:Checkpoint)=>{
       tourExecution.CurrentLatitude = checkpoint.latitude;

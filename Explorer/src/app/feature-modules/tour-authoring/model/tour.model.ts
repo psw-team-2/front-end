@@ -4,7 +4,7 @@ export interface Tour {
     description: string,
     difficulty: number,
     tags: string,
-    checkPoints: Number[],
+    checkPoints: number[],
     equipments: Number[],
     status: Number,
     totalLength: Number,

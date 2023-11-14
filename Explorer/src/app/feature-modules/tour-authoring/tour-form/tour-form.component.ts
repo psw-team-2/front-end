@@ -56,6 +56,7 @@ export class TourFormComponent {
       carTime: 0,
       bicycleTime: 0,
      // publishTime: ""
+
     }
   
 
