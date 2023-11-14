@@ -155,7 +155,7 @@ export class AdministrationService {
   }
 
   addFollow2(follow: Follow): Observable<Follow> {
-    return this.http.post<Follow>(environment.apiHost + 'administration/profile2/AddFollow', follow);
+    return this.http.put<Follow>(environment.apiHost + 'administration/profile2/AddFollow', follow);
   }
 
   // MESSAGE
