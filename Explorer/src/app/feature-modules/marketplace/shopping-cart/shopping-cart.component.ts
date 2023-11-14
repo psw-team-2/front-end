@@ -14,37 +14,65 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 export class ShoppingCartComponent implements OnInit{
       orderItems: OrderItem[] = [];
       shoppingCartId: number;
-      shoppingCart: ShoppingCart;
+      totalPrice: number;
       orderItemIds: number[] = [];
       userId: number;
+      numberOfItems: number;
 
-      constructor(private service: MarketplaceService, private route: ActivatedRoute, private authService: AuthService) { }
+      constructor(
+        private service: MarketplaceService, 
+        private route: ActivatedRoute, 
+        private authService: AuthService) { }
 
       ngOnInit() {
         if (this.authService.user$.value) {
-          // Get the user ID
+
           this.userId = this.authService.user$.value.id;
-          // Set the shoppingCartId directly
           this.shoppingCartId = this.userId;
 
         this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
           next: (result: OrderItem[]) => {
             this.orderItems = result;
-             // Extract and store orderItemIds
-            //this.orderItemIds = this.orderItems.map(item => item.id);
+            this.numberOfItems = this.orderItems.length;
           },
           error: () => {
+          }
+        })
+
+        this.service.getTotalPriceByUserId(this.userId).subscribe({
+          next: (result: number) => {
+            this.totalPrice = result;
           }
         })
         
       }
     }
 
-    onRemoveClicked(orderItemId: number) {
-      this.service.removeFromCart(this.shoppingCart, orderItemId).subscribe({
+    onRemoveClicked(orderItemId: number): void {
+          this.service.removeFromCart(this.shoppingCartId, orderItemId).subscribe({
+            next: () => {
+              this.orderItems = this.orderItems.filter(item => item.id !== orderItemId);
+              this.numberOfItems -= 1;
+              this.service.getTotalPriceByUserId(this.userId).subscribe({
+                next: (result: number) => {
+                  this.totalPrice = result;
+                }
+              })
+              
+            },
+            error: () => {
+            }
+            
+          })
+           
+    }
+
+    onRemoveAllClicked() {
+      this.service.removeAllItems(this.shoppingCartId).subscribe({
         next: () => {
-          // If removal is successful, update the orderItems array
-          this.orderItems = this.orderItems.filter(item => item.id !== orderItemId);
+          this.orderItems = [];
+          this.numberOfItems = 0;
+          this.totalPrice = 0;
         },
         error: () => {
 
@@ -55,10 +83,14 @@ export class ShoppingCartComponent implements OnInit{
     onCheckoutClicked() : void{
       this.service.createTokens(this.orderItems, this.userId).subscribe({
         next: () => {
-
+          alert('Checkout successful!');
+          this.numberOfItems = 0;
+          this.totalPrice = 0;
+          this.orderItems = [];
         },
         error: () => {
         }
       });
     }
+    
 }

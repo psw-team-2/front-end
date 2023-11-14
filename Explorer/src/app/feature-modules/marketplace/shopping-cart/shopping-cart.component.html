@@ -1,8 +1,12 @@
 <body>
     <div class="Cart-Container">
         <div class="Header">
-            <h3 class="Heading">Shopping Cart</h3>
-            <h5 class="Action">Remove all</h5>
+            <h3 class="Heading">Shopping Cart</h3>            
+            <h5><button class="Action" (click)="onRemoveAllClicked()">
+                <i class="fas fa-trash-alt"></i>&nbsp;
+                Remove all
+            </button></h5>          
+            
         </div>
         <div class="Cart-Items" *ngFor="let oi of orderItems">
             <div class="image-box">
@@ -18,8 +22,11 @@
                 <div class="btn">-</div>
             </div>-->
             <div class="prices">
-                <div class="amount"> {{ oi.price.amount }}</div>
-                <button class="remove" *ngIf="oi.id" (click)="onRemoveClicked(oi.id)"><u>Remove</u></button>
+                <div class="amount"> {{ oi.price }}&nbsp;€</div>
+                <button class="remove" *ngIf="oi.id" (click)="onRemoveClicked(oi.id)">
+                    <i class="fas fa-trash-alt"></i>&nbsp;
+                    Remove
+                </button>
             </div>
                         
         </div>
@@ -27,9 +34,9 @@
         <div class="total">
             <div>
                 <div class="Subtotal">Sub-Total</div>
-                <!--<div class=”items”>2 items</div>-->
+                <div class="items">{{ numberOfItems }} items</div>
             </div>
-            <div class="total-amount">{{ shoppingCart?.totalPrice }}</div>
+            <div class="total-amount">{{ totalPrice }}&nbsp;€</div>
         </div>
         <div class="checkout">
             <button class="button" (click)="onCheckoutClicked()">Checkout</button>

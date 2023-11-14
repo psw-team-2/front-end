@@ -55,11 +55,12 @@ body{
     color: #2F3841;
    }
    .Action{
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 5px;
     color: #E44C4C;
     cursor: pointer;
-    border-bottom: 1px solid #E44C4C;
+    border: none;
    }
    .Cart-Items{
     margin-left: -70px;
@@ -74,14 +75,14 @@ body{
     text-align: center;
    }
    .about{
-    margin-right: 100px;
+    margin-left: 55px;
     height: 100%;
     font-size: 10px;    
    }
    .title{
     padding-top: 5px;
     line-height: 10px;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 800;
     color: #202020;
    }
@@ -124,7 +125,7 @@ body{
    }
    .amount{
     padding-top: 20px;
-    font-size: 26px;
+    font-size: 19px;
     font-weight: 800;
     color: #202020;
    }
@@ -137,10 +138,11 @@ body{
    }
    .remove{
     padding-top: 5px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     color: #E44C4C;
     cursor: pointer;
+    border: none;
    }
    hr{
     width: 90%;
@@ -153,18 +155,22 @@ body{
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
+    display: flex;
+    justify-content: space-between;
 }
 
 .Subtotal {
     font-size: 22px;
-    font-weight: 700;
+    font-weight: 500;
     color: #202020;
     margin-right: 200px;
-    margin-bottom: 15px;
 }
 
 .total-amount {
-    font-size: 36px;
+    margin-top: -55px;
+    margin-right: 40px;
+    margin-bottom: 15px;
+    font-size: 22px;
     font-weight: 900;
     color: #202020;
 }
@@ -176,10 +182,10 @@ body{
     margin-bottom: 20px;
 }
    .items{
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 500;
     color: #909090;
-    line-height: 10px;
+    margin-bottom: 15px;
    }
    
    .button {
@@ -200,3 +206,5 @@ body{
     background-color: #2E003D;
     color: #ffffff;
   }
+
+  

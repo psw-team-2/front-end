@@ -8,6 +8,7 @@ import { Tour } from './model/tour.model';
 import { environment } from 'src/env/environment';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { ShoppingCart } from '../marketplace/model/shopping-cart.model';
+import { OrderItem } from '../marketplace/model/order-item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -130,6 +131,12 @@ export class TourAuthoringService {
   addToCart(shoppingCart: ShoppingCart, tour: Tour) {
     return this.http.post<ShoppingCart>('https://localhost:44333/api/tourist/shoppingCart/shoppingItem/' + shoppingCart.id + '/' + tour.id,shoppingCart);
   }
+
+  getOrderItemsByShoppingCart(userId: number): Observable<OrderItem[]> {
+    const encodedUserId = encodeURIComponent(userId.toString());
+    console.log(`Encoded User ID: ${encodedUserId}`);
+    return this.http.get<OrderItem[]>(`https://localhost:44333/api/tourist/orderItem/orderItems/${encodedUserId}`);
+  } 
 
 }
 

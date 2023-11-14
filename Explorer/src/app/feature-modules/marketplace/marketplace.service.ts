@@ -67,13 +67,21 @@ export class MarketplaceService {
     return this.http.get<ShoppingCart>(`https://localhost:44333/api/tourist/shoppingCart/user/${userId}`);
   }
 
-  removeFromCart(shoppingCart: ShoppingCart, orderItemId: number): Observable<void> {
-    return this.http.put<void>('https://localhost:44333/api/tourist/remove/'+ shoppingCart.id + '/' + orderItemId, shoppingCart);
-
+  removeFromCart(shoppingCartId: number, orderItemId: number): Observable<void> {
+    return this.http.put<void>('https://localhost:44333/api/tourist/shoppingCart/removeItem/'+ shoppingCartId + '/' + orderItemId, null);
   }
 
   createTokens(orderItems: OrderItem[], userId: number): Observable<OrderItem[]> {
     return this.http.post<OrderItem[]>(`https://localhost:44333/api/tourist/tourPurchaseToken/createTokens/${userId}`, orderItems);
   }
+
+  removeAllItems(shoppingCartId: number): Observable<ShoppingCart> {
+    return this.http.put<ShoppingCart>(`https://localhost:44333/api/tourist/shoppingCart/removeAllItems/${shoppingCartId}`,shoppingCartId);
+  }
+
+  getTotalPriceByUserId(userId: number): Observable<number> {
+    return this.http.get<number>(`https://localhost:44333/api/tourist/shoppingCart/totalPrice/${userId}`)
+  }
+  
 
 }

@@ -1,10 +1,45 @@
 div {
     width: 400px;
-    display:flex;
-    gap: 20px;
+    display: flex;
     flex-direction: column;
+    gap: 20px;
+    margin: 20px auto; /* Center the div horizontally with auto margin */
+    justify-content: center; /* Center the content vertically */
 }
 
+/* Add styles for form alignment */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Style for the mat-icon class */
 .mat-icon {
     vertical-align: middle;
 }
+
+/* Style for the mat-form-field within the container */
+mat-form-field {
+    width: 100%;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 16;
+    color: #2E003D;
+    background-color: #ffffff;
+    border: 0.2vw solid #2E003D;
+    border-radius: 0.375vw;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .button:hover {
+    background-color: #2E003D;
+    color: #ffffff;
+  }
+

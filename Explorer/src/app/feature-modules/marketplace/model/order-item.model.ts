@@ -4,5 +4,5 @@ export interface OrderItem {
     id: number;
     tourId: number;
     tourName: string;
-    price: Price;
+    price: number;
 }

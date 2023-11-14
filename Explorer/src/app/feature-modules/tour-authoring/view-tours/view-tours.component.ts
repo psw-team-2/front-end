@@ -4,6 +4,7 @@ import { Tour } from '../model/tour.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { ShoppingCart } from '../../marketplace/model/shopping-cart.model';
 import { AuthService } from '../../../infrastructure/auth/auth.service'; 
+import { OrderItem } from '../../marketplace/model/order-item.model';
 
 @Component({
   selector: 'xp-view-tours',
@@ -15,21 +16,30 @@ export class ViewToursComponent implements OnInit {
   selectedTour: Tour;
   shoppingCartId: Number;
   shoppingCart: ShoppingCart;
+  numberOfItems: number;
+  orderItems: OrderItem[];
+  userId: number;
 
   constructor(private service: TourAuthoringService, private authService: AuthService) {
-    //this.shoppingCartId = 2;
   }
 
   async ngOnInit(): Promise<void> {
     await this.getTours();
         
-      // Check if user details are available before loading the shopping cart
     if (this.authService.user$.value) {
-      // Get the user ID
-      const userId = this.authService.user$.value.id;
 
-      // Set the shoppingCartId directly
-      this.shoppingCartId = userId;
+      this.userId = this.authService.user$.value.id;
+      this.shoppingCartId = this.userId;
+      this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
+        next: (result: OrderItem[]) => {
+          this.orderItems = result;
+          this.numberOfItems = this.orderItems.length;
+        },
+        error: () => {
+        }
+      })
+
+
     }
   }
 
@@ -55,7 +65,7 @@ export class ViewToursComponent implements OnInit {
         this.shoppingCart = result;
         this.service.addToCart(this.shoppingCart, tour).subscribe({
           next: () => {
-
+            this.numberOfItems += 1;
           },
           error: () => {
           }
