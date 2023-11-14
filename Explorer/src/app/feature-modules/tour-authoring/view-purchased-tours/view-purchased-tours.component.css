@@ -136,8 +136,6 @@
   border-radius: 0.375vw;
   text-decoration: none;
   transition: background-color 0.3s, color 0.3s;
-  margin-top: -380px;
-  margin-right: 70px;
 
   position: absolute; /* Postavlja apsolutni položaj */
   top: 485px; /* Postavlja na vrh stranice */
@@ -154,50 +152,3 @@
   color: #ffffff;
 }
 
-.cart-button:hover .numberOfItems {
-  position: absolute;
-  bottom: 7px;
-  left: 25px;
-  background: #2E003D;
-  color: 2E003D;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  font-size: 10px;
-  text-align: center;
-  line-height: 12px;
-  font-weight: 500;
-  border: 1px solid white; 
-}
-
-.numberOfItems {
-  position: absolute;
-  bottom: 7px;
-  left: 25px;
-  background: white;
-  color: 2E003D;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  font-size: 10px;
-  text-align: center;
-  line-height: 12px;
-  font-weight: 500;
-  border: 1px solid #2E003D;
-}
-
-.numberOfItems:hover {
-  position: absolute;
-  bottom: 7px;
-  left: 25px;
-  background: #2E003D;
-  color: 2E003D;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  font-size: 10px;
-  text-align: center;
-  line-height: 12px;
-  font-weight: 500;
-  border: 1px solid white;
-}

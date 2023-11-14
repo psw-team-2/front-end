@@ -38,6 +38,8 @@ import { CommentsReviewComponent } from 'src/app/feature-modules/blog/comments-r
 
 import { ViewToursComponent } from 'src/app/feature-modules/tour-authoring/view-tours/view-tours.component';
 import { TourOverviewComponent } from 'src/app/feature-modules/tour-authoring/tour-overview/tour-overview.component';
+import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopping-cart/shopping-cart.component';
+import { ViewPurchasedToursComponent } from 'src/app/feature-modules/tour-authoring/view-purchased-tours/view-purchased-tours.component';
 
 
 
@@ -78,8 +80,9 @@ const routes: Routes = [
   {path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
   {path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
   {path: 'view-tours', component: ViewToursComponent},
-  {path: 'tour/:id', component: TourOverviewComponent}
-
+  {path: 'tour/:id', component: TourOverviewComponent},
+  {path: 'shopping-cart', component: ShoppingCartComponent},
+  {path: 'view-purchased-tours', component: ViewPurchasedToursComponent}
 
 ];
 

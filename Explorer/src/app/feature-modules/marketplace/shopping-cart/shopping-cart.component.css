@@ -1,0 +1,210 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #E3F0FF, #FAFCFF);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   }
+.Cart-Container{
+    width: 70%;
+    height: 85%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0px 25px 40px #1687d933;
+    flex-direction: column; 
+    justify-content: space-between;
+    overflow-y: auto; /* vertikalni scroll */
+   }
+
+
+.Cart-Container::-webkit-scrollbar {
+  width: 12px; 
+  transition: width 0.3s; 
+}
+
+.Cart-Container::-webkit-scrollbar-thumb {
+  background-color: #2E003D; 
+  border-radius: 10px; 
+  transition: background-color 0.3s; 
+}
+
+.Cart-Container::-webkit-scrollbar-track {
+  background-color: #e0e0e0; 
+  border-radius: 10px; 
+  transition: background-color 0.3s; 
+}
+
+.Cart-Container:hover::-webkit-scrollbar {
+  width: 16px; 
+}
+
+   .Header{
+    margin-bottom: 15px;
+    margin: auto;
+    width: 90%;
+    height: 15%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   }
+   .Heading{
+    font-size: 25px;
+    font-weight: 700;
+    color: #2F3841;
+   }
+   .Action{
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 5px;
+    color: #E44C4C;
+    cursor: pointer;
+    border: none;
+   }
+   .Cart-Items{
+    margin-left: -70px;
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   }
+   .image-box{
+    width: 15%;
+    text-align: center;
+   }
+   .about{
+    margin-left: 55px;
+    height: 100%;
+    font-size: 10px;    
+   }
+   .title{
+    padding-top: 5px;
+    line-height: 10px;
+    font-size: 19px;
+    font-weight: 800;
+    color: #202020;
+   }
+
+   .subtitle{
+    line-height: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #909090;
+   }
+   .counter{
+    width: 15%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   }
+   .btn{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-family: ‘Open Sans’;
+    font-weight: 900;
+    color: #202020;
+    cursor: pointer;
+   }
+   .count{
+    font-size: 20px;
+    font-weight: 900;
+    color: #202020;
+   }
+   .prices{
+    margin-left: auto; 
+    height: 100%;
+    text-align: right;    
+   }
+   .amount{
+    padding-top: 20px;
+    font-size: 19px;
+    font-weight: 800;
+    color: #202020;
+   }
+   .save{
+    padding-top: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1687d9;
+    cursor: pointer;
+   }
+   .remove{
+    padding-top: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #E44C4C;
+    cursor: pointer;
+    border: none;
+   }
+   hr{
+    width: 90%;
+    float: right;
+    margin-right: 5%;
+   }
+   .total {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Subtotal {
+    font-size: 22px;
+    font-weight: 500;
+    color: #202020;
+    margin-right: 200px;
+}
+
+.total-amount {
+    margin-top: -55px;
+    margin-right: 40px;
+    margin-bottom: 15px;
+    font-size: 22px;
+    font-weight: 900;
+    color: #202020;
+}
+
+.checkout {
+    width: 100%;
+    text-align: right;
+    margin-left: -40px;
+    margin-bottom: 20px;
+}
+   .items{
+    font-size: 12px;
+    font-weight: 500;
+    color: #909090;
+    margin-bottom: 15px;
+   }
+   
+   .button {
+    display: inline-block;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 16;
+    color: #2E003D;
+    background-color: #ffffff;
+    border: 0.2vw solid #2E003D;
+    border-radius: 0.375vw;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .button:hover {
+    background-color: #2E003D;
+    color: #ffffff;
+  }
+
+  
