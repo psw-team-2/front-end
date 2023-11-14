@@ -11,6 +11,8 @@ export class ExecutionMapComponent implements OnInit {
   @Input() map: L.Map;
   @Input() markerList:Marker[];
   
+  inputList: { lat: number; lng: number }[] = [];
+
   marker: L.Marker;
 
 
@@ -56,7 +58,11 @@ export class ExecutionMapComponent implements OnInit {
     for (let i = 0; i < this.markerList.length; i++) {
       const marker = this.markerList[i];
       marker.addTo(this.map);
-    }
+      const lat = marker.getLatLng().lat;
+      const lng = marker.getLatLng().lng;
+      this.inputList.push({lat,lng})
+          }
+    this.setRoute(this.inputList)
     window.setInterval(()=>{
       let id = this.authService.user$.value.id;
       let touristPositionRaw = localStorage.getItem(id.toString()) || '';
@@ -82,7 +88,25 @@ export class ExecutionMapComponent implements OnInit {
     }
     markerGroup.addTo(this.map)
   }
-
+  setRoute(markers: { lat: number; lng: number }[]): void {
+    // Extract waypoints from the list of markers
+    const waypoints = markers.map(marker => L.latLng(marker.lat, marker.lng));
+  
+    const routeControl = L.Routing.control({
+      waypoints: waypoints,
+      router: L.routing.mapbox('pk.eyJ1IjoiZGpucGxtcyIsImEiOiJjbG56Mzh3a2gwNWwzMnZxdDljdHIzNDIyIn0.iZjiPJJV-SgTiIOeF8UWvA', {profile: 'mapbox/walking'})
+    }).addTo(this.map);
+  
+    routeControl.on('routesfound', function(e) {
+      var routes = e.routes;
+      var summary = routes[0].summary;
+    });
+  }
+  
 
 }
+
+
+
+
 

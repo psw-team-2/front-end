@@ -55,7 +55,7 @@ export class TourFormComponent {
       footTime: 0,
       carTime: 0,
       bicycleTime: 0,
-      publishTime: "0"
+     // publishTime: ""
     }
   
 
@@ -83,7 +83,7 @@ export class TourFormComponent {
       footTime: 1,
       carTime: 0,
       bicycleTime: 0,
-      publishTime: "0"
+      //publishTime: "0"
     }
     tour.id = this.tour.id;
     this.service.updateTour(tour).subscribe({
