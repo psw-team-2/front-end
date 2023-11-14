@@ -9,5 +9,6 @@ export interface TourExecution {
     CurrentLatitude: Number,
     CurrentLongitude: Number,
     LastActivity: Date,
-    visitedCheckpoints : number[] 
+    visitedCheckpoints : number[] ,
+    touristDistance: Number,
 }

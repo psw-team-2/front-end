@@ -7,7 +7,7 @@ export interface Tour {
     checkPoints: number[],
     equipments: Number[],
     status: Number,
-    totalLength: Number,
+    totalLength: number,
     footTime: Number,
     bicycleTime: Number,
     carTime: Number,

@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
 import { TourExecutionService } from '../tour-execution.service';
 import { TourExecution } from '../model/tourexecution.model';
+import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+import { Tour } from '../../tour-authoring/model/tour.model';
 @Component({
   selector: 'execution-map',
   templateUrl: './execution-map.component.html',
@@ -15,13 +17,16 @@ export class ExecutionMapComponent implements OnInit {
   @Input() markerList:Marker[];
   @Input() checkpoints: Checkpoint[] = [];
   @Input() tourExecution: TourExecution;
+  @Input() activeTour: Tour;
   
   inputList: { lat: number; lng: number }[] = [];
-
+  finishedCheckpoints: { lat: number; lng: number }[] = [];
   marker: L.Marker;
+  private routeControlInitial: any;
+  distance:any;
+  completedCheckpointsDistance: number;
 
-
-  constructor(private authService: AuthService, private service : TourExecutionService) { }
+  constructor(private authService: AuthService, private service : TourExecutionService, private tourService: TourAuthoringService) { }
 
   public userIcon = L.icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/3710/3710297.png',
@@ -66,9 +71,30 @@ export class ExecutionMapComponent implements OnInit {
       const lat = marker.getLatLng().lat;
       const lng = marker.getLatLng().lng;
       this.inputList.push({lat,lng})
-          }
-    this.setRoute(this.inputList)
+    }
+    this.setRouteInitial(this.inputList)
     window.setInterval(()=>{
+
+      this.finishedCheckpoints = [];
+ 
+      for (let i = 0; i < this.checkpoints.length; i++) {
+        
+        const checkpoint = this.checkpoints[i];
+        if(this.tourExecution.visitedCheckpoints.includes(checkpoint.id || -1))
+        {
+          const lat = checkpoint.latitude;
+          const lng = checkpoint.longitude;
+          this.finishedCheckpoints.push({lat,lng})
+        }
+
+        if(i === this.checkpoints.length -1)
+        {
+          this.completedCheckpointsDistance = this.calculateCompletedCheckpointsDistance();
+          console.log("Current completed distance is " + this.completedCheckpointsDistance + "/ " + this.distance + ", which is " + 110 * this.completedCheckpointsDistance/this.distance + "%");
+
+        }
+      }
+
       let id = this.authService.user$.value.id;
       let touristPositionRaw = localStorage.getItem(id.toString()) || '';
       let touristPosition = JSON.parse(touristPositionRaw);
@@ -87,6 +113,7 @@ export class ExecutionMapComponent implements OnInit {
             next: {
               this.tourExecution.visitedCheckpoints = value.visitedCheckpoints;
               this.tourExecution.LastActivity = value.LastActivity;
+              this.tourExecution.touristDistance = this.completedCheckpointsDistance;
               this.service.updateTourExecution(value).subscribe();
             }
           });
@@ -109,18 +136,43 @@ export class ExecutionMapComponent implements OnInit {
     }
     markerGroup.addTo(this.map)
   }
-  setRoute(markers: { lat: number; lng: number }[]): void {
+  calculateCompletedCheckpointsDistance(): number {
+    const completedCheckpointsCoordinates = this.finishedCheckpoints;
+  
+    if (completedCheckpointsCoordinates.length < 2) {
+      // At least two completed checkpoints are needed to calculate distance
+      return 0;
+    }
+  
+    let totalDistance = 0;
+  
+    for (let i = 0; i < completedCheckpointsCoordinates.length - 1; i++) {
+      const waypoint1 = L.latLng(completedCheckpointsCoordinates[i].lat, completedCheckpointsCoordinates[i].lng);
+      const waypoint2 = L.latLng(completedCheckpointsCoordinates[i + 1].lat, completedCheckpointsCoordinates[i + 1].lng);
+  
+      // Calculate distance between consecutive checkpoints and accumulate
+      totalDistance += waypoint1.distanceTo(waypoint2);
+    }
+  
+    return totalDistance;
+  }
+  setRouteInitial(markers: { lat: number; lng: number }[]): void {
     // Extract waypoints from the list of markers
     const waypoints = markers.map(marker => L.latLng(marker.lat, marker.lng));
   
-    const routeControl = L.Routing.control({
+    // Store the route control in the class variable
+    this.routeControlInitial = L.Routing.control({
       waypoints: waypoints,
-      router: L.routing.mapbox('pk.eyJ1IjoiZGpucGxtcyIsImEiOiJjbG56Mzh3a2gwNWwzMnZxdDljdHIzNDIyIn0.iZjiPJJV-SgTiIOeF8UWvA', {profile: 'mapbox/walking'})
+      router: L.routing.mapbox('pk.eyJ1IjoiZGpucGxtcyIsImEiOiJjbG56Mzh3a2gwNWwzMnZxdDljdHIzNDIyIn0.iZjiPJJV-SgTiIOeF8UWvA', { profile: 'mapbox/walking' })
     }).addTo(this.map);
   
-    routeControl.on('routesfound', function(e) {
-      var routes = e.routes;
-      var summary = routes[0].summary;
+    // Listen for the routesfound event
+    this.routeControlInitial.on('routesfound', (e:  any) => {
+      const routes = e.routes;
+      const summary = routes[0].summary;
+  
+      // Access the total distance and store it in a variable for later use
+      this.distance = this.activeTour.totalLength
     });
   }
   
