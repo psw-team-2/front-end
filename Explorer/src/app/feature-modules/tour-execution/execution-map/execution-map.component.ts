@@ -84,7 +84,11 @@ export class ExecutionMapComponent implements OnInit {
       this.service.updateTourExecution(this.tourExecution).subscribe({
         next: (value) => {
           this.service.completeCheckpoint(id, this.checkpoints).subscribe((value)=>{
-            console.log(value)
+            next: {
+              this.tourExecution.visitedCheckpoints = value.visitedCheckpoints;
+              this.tourExecution.LastActivity = value.LastActivity;
+              this.service.updateTourExecution(value).subscribe();
+            }
           });
         },
         error: () => {
