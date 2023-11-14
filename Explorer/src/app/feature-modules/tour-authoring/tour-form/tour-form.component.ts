@@ -45,7 +45,7 @@ export class TourFormComponent {
       description: this.tourForm.value.description || "",
       difficulty: Number(this.tourForm.value.difficulty) || 0,
       tags: this.tourForm.value.tags || "",
-      checkpoints : [],
+      checkPoints : [],
       equipments: [],
     }
   
@@ -67,7 +67,7 @@ export class TourFormComponent {
       description: this.tourForm.value.description || "",
       difficulty: Number(this.tourForm.value.difficulty) || 0,
       tags: String(this.tourForm.value.tags) || "",
-      checkpoints: [],
+      checkPoints: [],
       equipments: [],
     }
     tour.id = this.tour.id;

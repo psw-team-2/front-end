@@ -4,5 +4,5 @@ export interface TourProblem {
     problemPriority: string;
     description?: string;
     timeStamp: Date;
-    mockTourId: number;
+    tourId?: number;
 }
