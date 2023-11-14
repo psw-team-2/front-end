@@ -39,7 +39,8 @@ export class ProfileFormComponent implements OnChanges {
       profilePicture: this.profile.profilePicture,
       biography: this.profileForm.value.biography || "",
       motto: this.profileForm.value.motto || "",
-      isActive: true
+      isActive: true,
+      follows: this.profile.follows
     }
     profile.id = this.profile.id;
     profile.userId = this.profile.userId;
