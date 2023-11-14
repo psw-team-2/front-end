@@ -20,6 +20,7 @@ export class ViewToursComponent implements OnInit {
   numberOfItems: number;
   orderItems: OrderItem[];
   userId: number;
+  isLogged: boolean;
 
   constructor(private service: TourAuthoringService, private authService: AuthService) {
   }
@@ -28,7 +29,7 @@ export class ViewToursComponent implements OnInit {
     await this.getTours();
         
     if (this.authService.user$.value) {
-
+      this.isLogged = true;
       this.userId = this.authService.user$.value.id;
       this.shoppingCartId = this.userId;
       this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
@@ -39,8 +40,9 @@ export class ViewToursComponent implements OnInit {
         error: () => {
         }
       })
-
-
+    }
+    else{
+      this.isLogged = false;
     }
   }
 
@@ -78,6 +80,10 @@ export class ViewToursComponent implements OnInit {
     // You can use this.tours in your component's template to display the updated results.
   }
   onAddClicked(tour: Tour): void {
+    if (!this.authService.user$.value) {
+      console.error('User is not logged in. Please log in before adding to the cart.');
+      return;
+    }
     this.service.getShoppingCartById(this.shoppingCartId).subscribe({
       next: (result: ShoppingCart) => {
         this.shoppingCart = result;
@@ -93,6 +99,5 @@ export class ViewToursComponent implements OnInit {
     })
   }
   
-
   
 }
