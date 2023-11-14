@@ -40,7 +40,13 @@ table {
 th, td {
     padding: 10px; 
     font-family: Montserrat;
-  }
+}
+
+thead tr {
+    background-color: #2e003e;
+    color: #ffffff;
+    text-align: center;
+}
 
 .thumbnail {
     width: 60px; 

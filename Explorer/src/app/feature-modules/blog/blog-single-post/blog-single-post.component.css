@@ -1,0 +1,76 @@
+.blog-post {
+ 
+        font-family: 'Montserrat', sans-serif;
+        letter-spacing: 1px; 
+    
+}
+
+.blog-title {
+    background-color: #2a2133; 
+    color: white;
+    text-align: center;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    letter-spacing: 1.2px; 
+    font-size: 32px;
+    margin-bottom: 20px;
+    
+}
+
+.votes{
+  width: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end; /* Poravnanje sadržaja na desnu stranu */
+  margin-right: 20px; /* Dodajte margine po potrebi */
+}
+
+.vote-button {
+  font-size: 24px; /* Prilagodite veličinu strelica po potrebi */
+  color: gray; /* Početna boja strelica */
+  cursor: pointer; /* Postavljanje kursora na pokazivač kako biste signalizirali da su strelice klikabilne */
+}
+
+.vote-button:hover, .voted {
+  color: #2a2133; /* Promenite boju strelica na hover */
+}
+
+
+
+  .image-container {
+    text-align: center;
+  }
+  
+  .image-container img {
+    max-width: 50%;
+    height: auto;
+    
+  }
+  
+  
+  
+
+.blog-text {
+    margin-right: 300px;
+    margin-left: 300px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    text-align: justify;
+    justify-content:space-around ;
+}
+
+.blog-info {
+    font-style: italic;
+    margin: 70px;
+    margin-left: 150px;
+    text-align: left;
+    
+}
+
+xp-blog-comment-form {
+  margin: 20px 0;
+ 
+}
