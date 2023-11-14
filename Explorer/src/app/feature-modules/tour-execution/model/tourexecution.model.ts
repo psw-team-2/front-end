@@ -1,6 +1,6 @@
 export interface TourExecution {
     id?:Number,
-    TouristId: Number,
+    TouristId: number,
     tourId: Number,
     StartTime: Date,
     EndTime?: Date,

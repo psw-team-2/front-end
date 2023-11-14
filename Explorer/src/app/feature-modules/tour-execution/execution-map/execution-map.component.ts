@@ -7,6 +7,8 @@ import { TourExecutionService } from '../tour-execution.service';
 import { TourExecution } from '../model/tourexecution.model';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 import { Tour } from '../../tour-authoring/model/tour.model';
+import { Router } from '@angular/router';
+import { Secret } from '../model/secret.model';
 @Component({
   selector: 'execution-map',
   templateUrl: './execution-map.component.html',
@@ -18,7 +20,7 @@ export class ExecutionMapComponent implements OnInit {
   @Input() checkpoints: Checkpoint[] = [];
   @Input() tourExecution: TourExecution;
   @Input() activeTour: Tour;
-  
+  @Input() secretList:Secret[];
   inputList: { lat: number; lng: number }[] = [];
   finishedCheckpoints: { lat: number; lng: number }[] = [];
   marker: L.Marker;
@@ -26,7 +28,7 @@ export class ExecutionMapComponent implements OnInit {
   distance:any;
   completedCheckpointsDistance: number;
 
-  constructor(private authService: AuthService, private service : TourExecutionService, private tourService: TourAuthoringService) { }
+  constructor(private authService: AuthService, private service : TourExecutionService, private tourService: TourAuthoringService,private router:Router) { }
 
   public userIcon = L.icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/3710/3710297.png',
@@ -54,36 +56,43 @@ export class ExecutionMapComponent implements OnInit {
 
   }
 
-
-
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     let DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
       iconSize: [20, 36],
       iconAnchor: [5, 36],
       popupAnchor: [0, -25],
-/*       className:'zIndex' */
     });
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
     for (let i = 0; i < this.markerList.length; i++) {
       let marker:L.Marker = this.markerList[i];
-      let newIcon = L.icon({
-        iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
-        iconSize: [20, 36],
-        iconAnchor: [5, 36],
-        popupAnchor: [0, -25],
-        className:'zIndex'
-      });
-      marker.setIcon(newIcon)
-      marker.addTo(this.map)
+
       const lat = marker.getLatLng().lat;
       const lng = marker.getLatLng().lng;
       this.inputList.push({lat,lng})
     }
     this.setRouteInitial(this.inputList)
+    console.log(this.secretList)
+    for (let i = 0; i < this.tourExecution.visitedCheckpoints.length; i++) {
+      let cp:number = this.tourExecution.visitedCheckpoints[i];
+      await this.service.getSecrets(cp).subscribe((value)=>{
+        let newIcon = L.icon({
+          iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
+          iconSize: [20, 36],
+          iconAnchor: [5, 36],
+          popupAnchor: [0, -25],
+        });
+        this.markerList[i].setIcon(newIcon)
+        console.log(value.text)
+        this.markerList[i].addTo(this.map)
+        this.markerList[i].bindPopup("<strong>Tajna je otkljucana</strong><br />"+value.text, {maxWidth: 500});
+      })
+    }
     window.setInterval(()=>{
-
+      if (this.router.url !== '/activeTour') {
+        return;
+      }
       this.finishedCheckpoints = [];
  
       for (let i = 0; i < this.checkpoints.length; i++) {
@@ -119,12 +128,13 @@ export class ExecutionMapComponent implements OnInit {
       this.service.updateTourExecution(this.tourExecution).subscribe({
         next: (value) => {
           this.service.completeCheckpoint(id, this.checkpoints).subscribe((value) => {
-            next: {
+              if (value == null) {
+                return;
+              }
               this.tourExecution.visitedCheckpoints = value.visitedCheckpoints;
               this.tourExecution.LastActivity = value.LastActivity;
               this.tourExecution.touristDistance = this.completedCheckpointsDistance;
               this.service.updateTourExecution(value).subscribe();
-            }
           });
         },
         error: () => {
@@ -135,7 +145,7 @@ export class ExecutionMapComponent implements OnInit {
     }, 10000)
   }
 
-  addMarkers(list: any) {
+/*   addMarkers(list: any) {
     const markerGroup = L.layerGroup();
     for (let i = 0; i < list.length; i++) {
       const checkpoint = list[i];
@@ -144,7 +154,7 @@ export class ExecutionMapComponent implements OnInit {
       markerGroup.addTo(this.map);
     }
     markerGroup.addTo(this.map)
-  }
+  } */
   calculateCompletedCheckpointsDistance(): number {
     const completedCheckpointsCoordinates = this.finishedCheckpoints;
   

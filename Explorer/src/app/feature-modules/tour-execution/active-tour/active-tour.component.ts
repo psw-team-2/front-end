@@ -26,7 +26,6 @@ export class ActiveTourComponent implements OnInit  {
   public checkpointList:Checkpoint[] = [];
   public markerList:Marker[]=[];
   public markersReady:Promise<boolean>;
-  public secretList:Secret[] = [];
   public userIcon = L.icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/3710/3710297.png',
     shadowUrl: '',
@@ -42,6 +41,7 @@ export class ActiveTourComponent implements OnInit  {
     this.touristPosition = JSON.parse(touristPositionRaw);
     this.tourExecutionService.getTourExecution(id).subscribe((tourExecution:TourExecution)=>{
       this.tourExecution = tourExecution
+      console.log(this.tourExecution)
       this.tourAuthoringService.getTour(tourExecution.tourId).subscribe((tour:Tour)=>{
         this.tour = tour;
         this.getCheckpoints();
@@ -49,16 +49,6 @@ export class ActiveTourComponent implements OnInit  {
     })
   }
 
-  async getSecrets(){
-
-    for (let i = 0; i < this.tourExecution.visitedCheckpoints.length; i++) {
-      let cp:number = this.tourExecution.visitedCheckpoints[i];
-      this.tourExecutionService.getSecrets(cp).subscribe((value)=>{
-        this.secretList.push(value);
-        this.markerList[i].bindPopup("<strong>Tajna je otkljucana</strong><br />"+value.text, {maxWidth: 500});
-      })
-    }
-  }
 
   getCheckpoints(){
     let allPromises:Observable<any>[] = [];
@@ -83,20 +73,27 @@ export class ActiveTourComponent implements OnInit  {
     }
     let userMarker = new L.Marker([this.touristPosition.latitude,this.touristPosition.longitude],{icon:this.userIcon})
     this.markerList.push(userMarker)
-    await this.getSecrets();
     this.markersReady = Promise.resolve(true);
   }
 
   updateTourExec(value:string){
     if (value == 'complete') {
-      this.tourExecutionService.completeTour(this.tourExecution.id).subscribe({next:(value)=>{
-        this.router.navigate(['view-tours'])
-      }})
+      this.tourExecution.Completed = true;
+      this.tourExecution.EndTime = new Date();
+        this.tourExecutionService.updateTourExecution(this.tourExecution).subscribe((value)=>{
+          const userId = this.authService.user$.value.id;
+          localStorage.removeItem(userId.toString())
+          this.router.navigate([''])
+        })
     }
     else {
-      this.tourExecutionService.abandonTour(this.tourExecution.id).subscribe({next:(value)=>{
-        this.router.navigate(['view-tours'])
-      }})
+      this.tourExecution.Abandoned = true;
+      this.tourExecution.EndTime = new Date();
+        this.tourExecutionService.updateTourExecution(this.tourExecution).subscribe((value)=>{
+          const userId = this.authService.user$.value.id;
+          localStorage.removeItem(userId.toString())
+          this.router.navigate([''])
+        })
     }
   }
 }
