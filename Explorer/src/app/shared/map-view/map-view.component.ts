@@ -4,6 +4,8 @@ import { Checkpoint } from 'src/app/feature-modules/tour-authoring/model/checkpo
 import { MapViewService } from './map-view.service';
 import 'leaflet-routing-machine';
 import { Object } from 'src/app/feature-modules/tour-authoring/model/object.model';
+import { TourAuthoringService } from '../../feature-modules/tour-authoring/tour-authoring.service';
+import { Tour } from '../../feature-modules/tour-authoring/model/tour.model';
 
 @Component({
   selector: 'xp-map-view',
@@ -12,6 +14,7 @@ import { Object } from 'src/app/feature-modules/tour-authoring/model/object.mode
 })
 export class MapViewComponent implements AfterViewInit {
   @Input() loadedCheckpoints: Checkpoint[];
+  @Input() loadedTour: Tour;
   private map: any;
   private objects: Object[] = [
     {
@@ -52,9 +55,9 @@ export class MapViewComponent implements AfterViewInit {
     },
     // Add more objects with different categories
   ];
-  constructor(private mapService:  MapViewService) {}
+  constructor(private mapService:  MapViewService, private service: TourAuthoringService) {}
 
-  private initMap(): void {
+  private async initMap(): Promise<void> {
     console.log(new Date())
     this.map = L.map('map', {
       center: [45.2396, 19.8227],
@@ -75,7 +78,18 @@ export class MapViewComponent implements AfterViewInit {
 
     //this.registerOnClick();
     //this.search();
-    this.setRoute(this.loadedCheckpoints)
+    // For walking
+
+    await this.setRoute(this.loadedCheckpoints, 'driving');
+    await this.setRoute(this.loadedCheckpoints, 'cycling');
+    await this.setRoute(this.loadedCheckpoints, 'walking');
+
+    this.service.updateTour(this.loadedTour).subscribe({
+      next: (_) => {
+        console.log(this.loadedTour)
+      }
+    })
+
     this.addMarkersForCategory(1); // Restrooms
     this.addMarkersForCategory(2); // Restaurants
     this.addMarkersForCategory(3); // Parking
@@ -180,85 +194,113 @@ private addLabelToPopupContent(categoryLabel: string, imageSrc: string, name: st
 
 
 // Updated setRoute method
-setRoute(checkpoints: Checkpoint[]): void {
-  const waypointCoordinates = checkpoints.map(checkpoint => {
-    return L.latLng(checkpoint.latitude, checkpoint.longitude);
-  });
-
-  const routeControl = L.Routing.control({
-    waypoints: waypointCoordinates,
-    router: L.Routing.mapbox('pk.eyJ1IjoiZGpucGxtcyIsImEiOiJjbG56Mzh3a2gwNWwzMnZxdDljdHIzNDIyIn0.iZjiPJJV-SgTiIOeF8UWvA', { profile: 'mapbox/walking' }),
-    routeWhileDragging: false, // Set routeWhileDragging to false to disable route movement during dragging
-  }).addTo(this.map);
-
-  const markerGroup = L.layerGroup(); // Create a layer group for markers
-
-  routeControl.on('routesfound', (e) => {
-    const routes = e.routes;
-
-    checkpoints.forEach((checkpoint, index) => {
-      this.mapService.reverseSearch(checkpoint.latitude, checkpoint.longitude).subscribe((res) => {
-        if (res.address) {
-          const street = res.address.road || res.address.street;
-          const number = res.address.house_number;
-          const city = res.address.city_district || res.address.city || res.address.town || res.address.village || res.address.suburb;
-          const location = `${street} ${number}, ${city}`;
-
-          const marker = L.marker([checkpoint.latitude, checkpoint.longitude], {
-            draggable: false,
-          })
-            .addTo(markerGroup)
-            .bindPopup(this.addLabelToPopupContent("CHECKPOINT " + ++index, checkpoint.image, checkpoint.name, location))
-            .on('mouseover', (event) => {
-              marker.openPopup();
-            })
-            .on('mouseout', (event) => {
-              marker.closePopup();
-            });
-
-            markerGroup.addTo(this.map);
-
-        }
-      });
+private async setRoute(checkpoints: Checkpoint[], profile: 'walking' | 'driving' | 'cycling'): Promise<void> {
+  return new Promise<void>((resolve) => {
+    const waypointCoordinates = checkpoints.map(checkpoint => {
+      return L.latLng(checkpoint.latitude, checkpoint.longitude);
     });
 
-    markerGroup.addTo(this.map); // Add the marker group to the map
+    const routeControl = L.Routing.control({
+      waypoints: waypointCoordinates,
+      router: L.Routing.mapbox('pk.eyJ1IjoiZGpucGxtcyIsImEiOiJjbG56Mzh3a2gwNWwzMnZxdDljdHIzNDIyIn0.iZjiPJJV-SgTiIOeF8UWvA', { profile: `mapbox/${profile}` }),
+      routeWhileDragging: false,
+    }).addTo(this.map);
+
+    const markerGroup = L.layerGroup();
+
+    routeControl.on('routesfound', (e) => {
+      const routes = e.routes;
+
+      checkpoints.forEach((checkpoint, index) => {
+        this.mapService.reverseSearch(checkpoint.latitude, checkpoint.longitude).subscribe((res) => {
+          if (res.address) {
+            const street = res.address.road || res.address.street;
+            const number = res.address.house_number;
+            const city = res.address.city_district || res.address.city || res.address.town || res.address.village || res.address.suburb;
+            const location = `${street} ${number}, ${city}`;
+
+            const marker = L.marker([checkpoint.latitude, checkpoint.longitude], {
+              draggable: false,
+            })
+              .addTo(markerGroup)
+              .bindPopup(this.addLabelToPopupContent("CHECKPOINT " + ++index, checkpoint.image, checkpoint.name, location))
+              .on('mouseover', (event) => {
+                marker.openPopup();
+              })
+              .on('mouseout', (event) => {
+                marker.closePopup();
+              });
+
+            markerGroup.addTo(this.map);
+          }
+        });
+      });
+
+      markerGroup.addTo(this.map);
+      var summary = routes[0].summary;
+      const totalSeconds = summary.totalTime; // Assuming totalTime is in seconds
+      const totalDistance = summary.totalDistance
+      this.loadedTour.totalLength = totalDistance;
+
+      if (profile == "cycling") {
+        this.loadedTour.bicycleTime = totalSeconds;
+      }
+      if (profile == "walking") {
+        this.loadedTour.footTime = totalSeconds;
+      }
+      if (profile == "driving") {
+        this.loadedTour.carTime = totalSeconds;
+      }
+
+      // Resolve the promise to indicate that the asynchronous operation is complete
+      resolve();
+    });
   });
 }
 
-
 // Updated addMarkersForCategory method
-private addMarkersForCategory(category: number): void {
-  const filteredObjects = this.objects.filter((obj) => obj.category === category);
+private async addMarkersForCategory(category: number): Promise<void> {
+  return new Promise<void>((resolve) => {
+    const filteredObjects = this.objects.filter((obj) => obj.category === category);
+    const promises: Promise<void>[] = [];
 
-  filteredObjects.forEach((object) => {
-    this.mapService.reverseSearch(object.latitude, object.longitude).subscribe((res) => {
-      if (res.address) {
-        const street = res.address.road || res.address.street;
-        const number = res.address.house_number;
-        const city = res.address.city_district || res.address.city || res.address.town || res.address.village || res.address.suburb;
-    
-        const location = `${street} ${number}, ${city}`;
-        
-        // Create a custom popup content with the location
-        const popupContent = this.addLabelToPopupContent(this.getCategoryLabel(category), object.image, object.name,  location);
-        
-        const iconUrl = this.getCategoryIcon(category); // Get the icon URL based on the category
-        const marker = L.marker([object.latitude, object.longitude], {
-          icon: L.icon({
-            iconUrl: iconUrl,
-            iconSize: [32, 32], // Adjust icon size as needed
-          }),
-        })
-          .addTo(this.map)
-          .bindPopup(popupContent) // Use the custom popup content
-          .on('mouseover', (event) => {
-            marker.openPopup();
-          })
-          .on('mouseout', (event) => {
-            marker.closePopup();
-          });
-      }
+    filteredObjects.forEach((object) => {
+      const promise = new Promise<void>((resolveObject) => {
+        this.mapService.reverseSearch(object.latitude, object.longitude).subscribe((res) => {
+          if (res.address) {
+            const street = res.address.road || res.address.street;
+            const number = res.address.house_number;
+            const city = res.address.city_district || res.address.city || res.address.town || res.address.village || res.address.suburb;
+            const location = `${street} ${number}, ${city}`;
+
+            const popupContent = this.addLabelToPopupContent(this.getCategoryLabel(category), object.image, object.name, location);
+
+            const iconUrl = this.getCategoryIcon(category);
+            const marker = L.marker([object.latitude, object.longitude], {
+              icon: L.icon({
+                iconUrl: iconUrl,
+                iconSize: [32, 32],
+              }),
+            })
+              .addTo(this.map)
+              .bindPopup(popupContent)
+              .on('mouseover', (event) => {
+                marker.openPopup();
+              })
+              .on('mouseout', (event) => {
+                marker.closePopup();
+              });
+
+            resolveObject();
+          }
+        });
+      });
+
+      promises.push(promise);
+    });
+
+    Promise.all(promises).then(() => {
+      resolve();
     });
   });
 }

@@ -23,13 +23,20 @@ export class MarketplaceService {
   getTourReview(): Observable<PagedResults<TourReview>> {
     return this.http.get<PagedResults<TourReview>>(environment.apiHost + 'tourist/tourReview')
   }
+  getAverageGrade(tourId: number):Observable<any>{
+    return this.http.get<any>(environment.apiHost + 'author/tour/average-grade/'+tourId)
+  }
 
+  getTourReviewByTourId(id: number): Observable<PagedResults<TourReview>> {
+    return this.http.get<PagedResults<TourReview>>(environment.apiHost + 'tourist/tourReview/byTour/' + id);
+  }
+  
   deleteTourReview(id: number): Observable<TourReview> {
     return this.http.delete<TourReview>(environment.apiHost + 'tourist/tourReview/' + id);
   }
 
-  addTourReview(tourReview: TourReview): Observable<TourReview> {
-    return this.http.post<TourReview>(environment.apiHost + 'tourist/tourReview', tourReview);
+  addTourReview(tourReview: TourReview, userId: number): Observable<TourReview> {
+    return this.http.post<TourReview>(environment.apiHost + 'tourist/tourReview/'+ userId, tourReview);
   }
 
   addImage(tourReview: TourReview): Observable<TourReview>{
@@ -71,6 +78,11 @@ export class MarketplaceService {
     return this.http.put<void>('https://localhost:44333/api/tourist/shoppingCart/removeItem/'+ shoppingCartId + '/' + orderItemId, null);
   }
 
+  updateApplicationReview(applicationReview: ApplicationReview): Observable<ApplicationReview> { 
+    return this.http.put<ApplicationReview>(environment.apiHost + 'tourist/applicationReview/' + applicationReview.id, applicationReview); // Updated endpoint
+  }
+ 
+  
   createTokens(orderItems: OrderItem[], userId: number): Observable<OrderItem[]> {
     return this.http.post<OrderItem[]>(`https://localhost:44333/api/tourist/tourPurchaseToken/createTokens/${userId}`, orderItems);
   }

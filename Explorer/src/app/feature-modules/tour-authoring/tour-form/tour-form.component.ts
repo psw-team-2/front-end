@@ -26,6 +26,7 @@ export class TourFormComponent {
         description: this.tour.description || null,
         difficulty: String(this.tour.difficulty) || null,
         tags: this.tour.tags || null,
+        
        
       });
     }
@@ -35,7 +36,9 @@ export class TourFormComponent {
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     difficulty: new FormControl('', [Validators.required]),
-    tags: new FormControl('', [Validators.required])
+    tags: new FormControl('', [Validators.required]),
+    
+   
   })
 
   async addTour():  Promise<void> {
@@ -47,6 +50,13 @@ export class TourFormComponent {
       tags: this.tourForm.value.tags || "",
       checkPoints : [],
       equipments: [],
+      status: 0,
+      totalLength: 0,
+      footTime: 0,
+      carTime: 0,
+      bicycleTime: 0,
+     // publishTime: ""
+
     }
   
 
@@ -69,6 +79,12 @@ export class TourFormComponent {
       tags: String(this.tourForm.value.tags) || "",
       checkPoints: [],
       equipments: [],
+      status: 1,
+      totalLength: 1,
+      footTime: 1,
+      carTime: 0,
+      bicycleTime: 0,
+      //publishTime: "0"
     }
     tour.id = this.tour.id;
     this.service.updateTour(tour).subscribe({

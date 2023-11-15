@@ -1,0 +1,15 @@
+div {
+    width: 500px;
+    display:flex;
+    gap: 50px;
+    flex-direction: column;
+}
+h1{
+    margin-left: 50px;
+}
+
+button{
+    width: 150px;
+    margin-left: 50px;
+    margin-top: -50px;
+}

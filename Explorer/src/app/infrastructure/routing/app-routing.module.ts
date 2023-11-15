@@ -31,6 +31,9 @@ import { BlogReviewComponent } from 'src/app/feature-modules/blog/blog-review/bl
 import { CommentsReviewComponent } from 'src/app/feature-modules/blog/comments-review/comments-review.component';
 import { ViewToursComponent } from 'src/app/feature-modules/tour-authoring/view-tours/view-tours.component';
 import { TourOverviewComponent } from 'src/app/feature-modules/tour-authoring/tour-overview/tour-overview.component';
+import { TouristPositionComponent } from 'src/app/feature-modules/tour-execution/tourist-position/tourist-position.component';
+import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
+import { ViewToursAuthorComponent } from 'src/app/feature-modules/tour-authoring/view-tours-author/view-tours-author.component';
 import { PublicRequestsComponent } from 'src/app/feature-modules/administration/public-requests/public-requests.component';
 import { NotificationsOverviewComponent } from 'src/app/feature-modules/notifications/notifications-overview/notifications-overview.component';
 import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopping-cart/shopping-cart.component';
@@ -71,12 +74,18 @@ const routes: Routes = [
   {path: 'comments-review', component: CommentsReviewComponent},
   {path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
   {path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
-  {path: 'view-tours', component: ViewToursComponent},
   {path: 'tour/:id', component: TourOverviewComponent},
+
+  {path: 'touristposition', component: TouristPositionComponent},
+  {path: 'activeTour', component: ActiveTourComponent},
+  {path: 'view-tours-author', component: ViewToursAuthorComponent},
+  {path: 'view-tours-tourist', component: ViewToursComponent},
+
   {path: 'publicRequests', component: PublicRequestsComponent},
   {path: 'tour-problem/:id', component: TourProblemOverviewComponent},
   {path: 'tour-problem/:problemId/responses', component: TourProblemResponseComponent },
   {path: 'notifications', component: NotificationsOverviewComponent},
+
   {path: 'shopping-cart', component: ShoppingCartComponent},
   {path: 'view-purchased-tours', component: ViewPurchasedToursComponent}
 ];

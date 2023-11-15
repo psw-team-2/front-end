@@ -30,6 +30,7 @@ import { ClubModule } from './feature-modules/club/club.module';
 import { ClubFormComponent } from './feature-modules/club/club-form/club-form.component';
 import { TourPreferenceModule } from './feature-modules/tour-preference/tour-preference.module';
 import { AuthService } from './infrastructure/auth/auth.service';
+import { MatButtonModule } from '@angular/material/button';
 
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { DatePipe } from '@angular/common';
@@ -58,6 +59,7 @@ import { DatePipe } from '@angular/common';
     ClubModule,
     ReactiveFormsModule,
     TourPreferenceModule,
+    MatButtonModule,
     MatDialogModule,
     DatePipe,
     FormsModule,

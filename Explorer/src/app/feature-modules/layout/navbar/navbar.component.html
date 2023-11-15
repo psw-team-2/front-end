@@ -14,6 +14,9 @@
         <button mat-menu-item color="primary" [routerLink]="['publicRequests']" *ngIf="user && user.role === 'administrator'">Public Requests</button>
         <button mat-menu-item color="primary" [routerLink]="['profile']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">Profile</button>
         <button mat-menu-item color="primary" [routerLink]="['profile2']" *ngIf="user && user.role === 'author'" routerLinkActive="active-link">Profile</button>
+        <button mat-menu-item color="primary" [routerLink]="['view-tours-author']" *ngIf="user && user.role === 'author'" routerLinkActive="active-link">View Tours</button>
+        <button mat-menu-item color="primary" [routerLink]="['view-tours-tourist']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">View Tours</button>
+
         <button mat-menu-item color="primary" [routerLink]="['blog-review']" >Blog</button>
         <button mat-menu-item color="primary" *ngIf="user && user.role === 'administrator'">
           <a class="register-button" href="https://docs.google.com/spreadsheets/d/1KkbXt9BpE99bzZ7EKKnOr1XYZpgu0sKh58FXY_Eplhg/edit?usp=sharing">App Data Tracking Sheet</a>
