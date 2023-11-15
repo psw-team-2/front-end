@@ -19,3 +19,6 @@
 </table>
 <xp-profile-form2 *ngIf="selectedProfile && showProfileForm" (profileUpdated) = "getByUserId()" [profile] = "selectedProfile"></xp-profile-form2>
 <xp-picture-form2 *ngIf="selectedProfile && showPictureForm" (profileUpdated) = "getByUserId()" [profile] = "selectedProfile"></xp-picture-form2>
+<xp-profiles2></xp-profiles2>
+<xp-followers2></xp-followers2>
+<xp-message2 *ngIf="showMessage" class="notification"></xp-message2>

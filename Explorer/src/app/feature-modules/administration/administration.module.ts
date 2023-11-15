@@ -19,6 +19,14 @@ import { ProfileForm2Component } from './profile-form2/profile-form2.component';
 import { PictureForm2Component } from './picture-form2/picture-form2.component';
 import { TourPreferenceModule } from '../tour-preference/tour-preference.module';
 import { UserAccountAdministrationComponent } from './user-account-administration/user-account-administration.component';
+import { ProfilesComponent } from './profiles/profiles.component';
+import { FollowersComponent } from './followers/followers.component';
+import { MessageFormComponent } from './message-form/message-form.component';
+import { MessageComponent } from './message/message.component';
+import { Followers2Component } from './followers2/followers2.component';
+import { Message2Component } from './message2/message2.component';
+import { MessageForm2Component } from './message-form2/message-form2.component';
+import { Profiles2Component } from './profiles2/profiles2.component';
 
 
 
@@ -35,6 +43,14 @@ import { UserAccountAdministrationComponent } from './user-account-administratio
     ProfileForm2Component,
     PictureForm2Component,
     UserAccountAdministrationComponent,
+    ProfilesComponent,
+    FollowersComponent,
+    MessageFormComponent,
+    MessageComponent,
+    Followers2Component,
+    Message2Component,
+    MessageForm2Component,
+    Profiles2Component,
 
   ],
   imports: [
