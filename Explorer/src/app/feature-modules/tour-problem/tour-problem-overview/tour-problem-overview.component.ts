@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TourProblem } from '../model/tour-problem.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { FormGroup, Validators, FormControl, FormBuilder, NgForm } from '@angular/forms';
@@ -12,7 +12,7 @@ import { TourProblemResponseService } from '../tour-problem-response.service';
 
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 
-
+import { TourProblemResponseComponent } from '../tour-problem-response/tour-problem-response.component';
 
 @Component({
     selector: 'xp-tour-problem-overview', 
@@ -21,7 +21,7 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
   })
   export class TourProblemOverviewComponent implements OnInit {
 
-    user: User | undefined;
+    user: User;
     tourProblemId: number | null;
 
     tourProblem: TourProblem;
@@ -37,6 +37,7 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
     shouldRenderClosure: boolean=false;
   
     isDeadlineAlreadyAdded: boolean=false;
+    isDeadlinePreviouslyAdded: boolean=false;
   
     //show more description
     shouldRenderSeeMoreDescription: boolean=false;
@@ -45,6 +46,12 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
     shouldRenderAddResponseForm = false;
     addResponseForm: FormGroup;
     response: string;
+
+    shouldRenderResponses: boolean=false;
+
+    @ViewChild(TourProblemResponseComponent, { static: false }) tourProblemResponseComponent: TourProblemResponseComponent;
+
+
 
     constructor(private tourProblemService: TourProblemService, private authService: AuthService, private route: ActivatedRoute,
       private formBuilder: FormBuilder, private problemResponseService: TourProblemResponseService, private tourAuthService: TourAuthoringService) 
@@ -76,18 +83,32 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
               next: (result: TourProblem) => {
                   this.tourProblem = result;
                   //fetching for comments should be implemented, once the comments are added
+                  if(this.tourProblem.deadlineTimeStamp != null){
+                    this.isDeadlineAlreadyAdded = true;
+                    this.isDeadlinePreviouslyAdded = true;
+                  }
               }
             });
           } else if(this.user?.role == 'author') {
             this.tourProblemService.getTourProblemForAuthor(this.tourProblemId).subscribe({
               next: (result: TourProblem) => {
                   this.tourProblem = result;
+
+                  if(this.tourProblem.deadlineTimeStamp != null){
+                    this.isDeadlineAlreadyAdded = true;
+                    this.isDeadlinePreviouslyAdded = true;
+                  }
               }
             });
           } else if(this.user?.role == 'tourist'){
             this.tourProblemService.getTourProblemTourist(this.tourProblemId).subscribe({
               next: (result: TourProblem) => {
                   this.tourProblem = result;
+
+                  if(this.tourProblem.deadlineTimeStamp != null){
+                    this.isDeadlineAlreadyAdded = true;
+                    this.isDeadlinePreviouslyAdded = true;
+                  }
               }
             })
           }
@@ -150,6 +171,7 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
     onPenalizeConfirmClicked(): void{
       
       this.tourAuthService.deleteTourAdministrator(this.tourProblem.tourId).subscribe({
+      
   
       })
     }
@@ -186,6 +208,7 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
           // There is currently no TourProblemUpdated emitter implemented
           // next: () => { this.tourProblemUpdated.emit()} 
         });
+        this.isDeadlineAlreadyAdded = true;
       }
   }
     
@@ -204,9 +227,12 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
       return false;
     } 
   
+    onViewResponsesClicked(){
+      this.shouldRenderResponses = !this.shouldRenderResponses;
+    }
 
     onAddResponseClicked() {
-      this.shouldRenderAddResponseForm = true;
+      this.shouldRenderAddResponseForm = !this.shouldRenderAddDeadlineForm;
       this.response = '';
     }
   
@@ -223,6 +249,7 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
           this.problemResponseService.authorRespond(this.tourProblem.id, problemResponse).subscribe({
             next: () => {
               console.log("The response has been successfully sent!")
+              this.tourProblemResponseComponent.getTourProblemResponses();
             },
             error: () => {}
           });
@@ -240,6 +267,7 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
           this.problemResponseService.touristRespond(this.tourProblem.id, problemResponse).subscribe({
             next: () => {
               console.log("The response has been successfully sent!")
+              this.tourProblemResponseComponent.getTourProblemResponses();
             },
             error: () => {}
           });
@@ -257,6 +285,7 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
           this.problemResponseService.administratorRespond(this.tourProblem.id, problemResponse).subscribe({
             next: () => {
               console.log("The response has been successfully sent!")
+              this.tourProblemResponseComponent.getTourProblemResponses();
             },
             error: () => {}
           });

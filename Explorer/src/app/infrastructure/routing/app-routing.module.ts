@@ -7,17 +7,12 @@ import { CheckpointComponent } from 'src/app/feature-modules/tour-authoring/chec
 import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.component';
 import { EquipmentComponent } from 'src/app/feature-modules/administration/equipment/equipment.component';
 import { AuthGuard } from '../auth/auth.guard';
-
-
 import { TourProblemsComponent } from 'src/app/feature-modules/tour-problem/tour-problems/tour-problems.component';
-
 import { TourEquipmentComponent } from 'src/app/feature-modules/tour-authoring/tour-equipment/tour-equipment.component';
 import { ObjectComponent } from 'src/app/feature-modules/tour-authoring/object-form/object.component';
 import { TouristSelectedEquipmentComponent } from 'src/app/feature-modules/tourist/tourist-selected-equipment/tourist-selected-equipment.component';
 import { TourReviewFormComponent } from 'src/app/feature-modules/marketplace/tour-review-form/tour-review-form.component';
 import { TourReviewComponent } from 'src/app/feature-modules/marketplace/tour-review/tour-review.component';
-
-
 import { ClubsOverviewComponent } from 'src/app/feature-modules/club/clubs-overview/clubs-overview.component';
 import { ClubOverviewComponent } from 'src/app/feature-modules/club/club-overview/club-overview.component';
 import { ClubRequestComponent } from 'src/app/feature-modules/club/club-request/club-request.component';
@@ -31,11 +26,15 @@ import { BlogFormComponent } from 'src/app/feature-modules/blog/blog-form/blog-f
 import { SinglePostComponent } from 'src/app/feature-modules/blog/single-post/single-post.component';
 import { BlogManagemetComponent } from 'src/app/feature-modules/blog/blog-managemet/blog-managemet.component';
 import { BlogCommentsComponent } from 'src/app/feature-modules/blog/blog-comments/blog-comments.component';
+import { BlogSinglePostComponent } from 'src/app/feature-modules/blog/blog-single-post/blog-single-post.component';
+import { BlogReviewComponent } from 'src/app/feature-modules/blog/blog-review/blog-review.component';
+import { CommentsReviewComponent } from 'src/app/feature-modules/blog/comments-review/comments-review.component';
 import { ViewToursComponent } from 'src/app/feature-modules/tour-authoring/view-tours/view-tours.component';
 import { TourOverviewComponent } from 'src/app/feature-modules/tour-authoring/tour-overview/tour-overview.component';
 import { PublicRequestsComponent } from 'src/app/feature-modules/administration/public-requests/public-requests.component';
 import { NotificationsOverviewComponent } from 'src/app/feature-modules/notifications/notifications-overview/notifications-overview.component';
-
+import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopping-cart/shopping-cart.component';
+import { ViewPurchasedToursComponent } from 'src/app/feature-modules/tour-authoring/view-purchased-tours/view-purchased-tours.component';
 import {TourProblemOverviewComponent } from 'src/app/feature-modules/tour-problem/tour-problem-overview/tour-problem-overview.component';
 import { TourProblemResponseComponent } from 'src/app/feature-modules/tour-problem/tour-problem-response/tour-problem-response.component';
 
@@ -65,6 +64,11 @@ const routes: Routes = [
   {path: 'blog-comments', component: BlogCommentsComponent, canActivate: [AuthGuard],},
   {path: 'post', component: SinglePostComponent},
   {path: 'blog-management', component: BlogManagemetComponent, canActivate: [AuthGuard],},
+  { path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
+  { path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
+  { path: 'blog-single-post/:id', component: BlogSinglePostComponent, },
+  {path: 'blog-review', component: BlogReviewComponent},
+  {path: 'comments-review', component: CommentsReviewComponent},
   {path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
   {path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
   {path: 'view-tours', component: ViewToursComponent},
@@ -72,9 +76,9 @@ const routes: Routes = [
   {path: 'publicRequests', component: PublicRequestsComponent},
   {path: 'tour-problem/:id', component: TourProblemOverviewComponent},
   {path: 'tour-problem/:problemId/responses', component: TourProblemResponseComponent },
-
-  {path: 'notifications', component: NotificationsOverviewComponent}
-
+  {path: 'notifications', component: NotificationsOverviewComponent},
+  {path: 'shopping-cart', component: ShoppingCartComponent},
+  {path: 'view-purchased-tours', component: ViewPurchasedToursComponent}
 ];
 
 @NgModule({

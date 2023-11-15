@@ -19,19 +19,16 @@
           <tbody>
               <tr *ngFor="let bl of blogs">
                   <td>{{bl.title}}</td>
-                  <td>{{bl.creationTime}}</td>
+                  <td>{{ bl.creationTime | date: 'medium' }}</td>
                   <td>
                     <ng-container *ngIf="bl.status === 1; then publishedBlog else closedBlog"></ng-container>
                     <ng-template #publishedBlog>
                         <button color="accent" (click)="closeBlog(bl)" mat-raised-button> Close</button>
                     </ng-template>
                     <ng-template #closedBlog>
-                        <ng-container *ngIf="bl.status === 2; then closedBlog else draftBlog"></ng-container>
+                        <ng-container *ngIf="bl.status === 2; then closedBlog"></ng-container>
                         <ng-template #closedBlog>
                             <button class="custom-button" (click)="publishBlog(bl)" mat-raised-button>Publish</button>
-                        </ng-template>
-                        <ng-template #draftBlog>
-                            <span>Draft</span>
                         </ng-template>
                     </ng-template>
                 </td>
@@ -45,6 +42,7 @@
                       <button color="primary" (click)="onEditClicked(bl)" mat-icon-button>
                           <mat-icon>edit</mat-icon>
                       </button>
+                      
                   </td>
               </tr>
           </tbody>

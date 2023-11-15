@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BlogComment } from './model/blog-comment.model';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
-import { Blog } from './model/blog.model';
+import { Blog, BlogStatus } from './model/blog.model';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Rating } from './model/blog-rating.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,10 @@ export class BlogService {
     return this.http.get<PagedResults<Blog>>(environment.apiHost + 'tourist/blog')
   }
 
+  getBlogsByStatus(status: BlogStatus): Observable<PagedResults<Blog>> {
+    return this.http.get<PagedResults<Blog>>(environment.apiHost + 'tourist/blog/byStatus/' + status)
+  }
+
   deleteBlog(id: number): Observable<Blog> {
     return this.http.delete<Blog>(environment.apiHost + 'tourist/blog/' + id);
   }
@@ -49,6 +54,15 @@ export class BlogService {
     return this.http.put<Blog>(environment.apiHost + 'tourist/blog/' + blog.id, blog);
   }
 
+  addRating(rating: Rating): Observable<any> {
+    return this.http.put(environment.apiHost + 'tourist/blog/AddRating', rating);
+  }
+
+  getRatingCount(id: number): Observable<any> {
+    return this.http.get<any>(`${environment.apiHost}tourist/blog/RatingCount?blogId=${id}`);
+  }  
+  
+
   upload(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
@@ -59,5 +73,14 @@ export class BlogService {
 
     return this.http.request(req);
   }
+
+  getBlogsByUserId(id: number): Observable<PagedResults<Blog>> {
+    return this.http.get<PagedResults<Blog>>(environment.apiHost + 'tourist/blog/byUser/' + id);
+  }
+  getCommentsByBlogId(id: number): Observable<PagedResults<BlogComment>> {
+    return this.http.get<PagedResults<BlogComment>>(environment.apiHost + 'tourist/comment/byBlog/' + id);
+  }
+
+  
 
 }

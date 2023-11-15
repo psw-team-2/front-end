@@ -8,6 +8,8 @@ import { ApplicationReview } from './../marketplace/model/application-review.mod
 import { User } from './model/user-account.model';
 import { Profile } from './model/profile.model';
 import { PublicRequest } from '../tour-authoring/model/public-request.model';
+import { Follow} from './model/follow.model';
+import { Message } from './model/message.model';
 
 @Injectable({
   providedIn: 'root'
@@ -59,8 +61,22 @@ export class AdministrationService {
     return this.http.put<User>(environment.apiHost + 'administration/userAccounts/' + user.id, user);
   }
 
-  // dodato
-  // PROFIL
+  getUserAccountById(id: number): Observable<User> {
+    return this.http.get<User>(environment.apiHost + 'administration/userAccounts/' + id);
+  }
+  updateUserAccount(user: User): Observable<User> {
+    const url = `${environment.apiHost}administration/userAccounts/${user.id}`;
+    return this.http.put<User>(url, user);
+  }
+  // PROFILE
+  getById(message: Message): Observable<Profile> {
+    return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-id/' + message.senderId);
+  }
+
+  getById2(message: Message): Observable<Profile> {
+    return this.http.get<Profile>('https://localhost:44333/api/administration/profile2/by-id/' + message.senderId);
+  }
+
   getByUserId(): Observable<Profile> {
     return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-user');
   }
@@ -70,11 +86,11 @@ export class AdministrationService {
   }
   
   updateProfile(profile: Profile): Observable<Profile> {
-    return this.http.put<Profile>('https://localhost:44333/api/administration/profile/' + profile.id + '/' + profile.userId, profile);
+    return this.http.patch<Profile>('https://localhost:44333/api/administration/profile/' + profile.id + '/' + profile.userId, profile);
   }
 
   updateProfile2(profile: Profile): Observable<Profile> {
-    return this.http.put<Profile>('https://localhost:44333/api/administration/profile2/' + profile.id + '/' + profile.userId, profile)
+    return this.http.patch<Profile>('https://localhost:44333/api/administration/profile2/' + profile.id + '/' + profile.userId, profile)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           console.error('Request failed:', error);
@@ -108,6 +124,28 @@ export class AdministrationService {
 
     return this.http.request(req);
   }
+  
+  getProfiles(): Observable<PagedResults<Profile>> {
+    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile/all-profiles');
+  }
+
+  getProfiles2(): Observable<PagedResults<Profile>> {
+    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile2/all-profiles');
+  }
+
+
+  // FOLLOW
+  getFollows(profile: Profile): Observable<PagedResults<Profile>> {
+    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile/all-following/' + profile.id);
+  }
+
+  getFollows2(profile: Profile): Observable<PagedResults<Profile>> {
+    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile2/all-following/' + profile.id);
+  }
+
+  getAllFollowers(profile: Profile): Observable<PagedResults<Profile>> {
+    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile/all-followers/' + profile.id);
+  }
 
   getPublicRequests(): Observable<PagedResults<PublicRequest>> {
     return this.http.get<PagedResults<PublicRequest>>('https://localhost:44333/api/administrator/publicRequest');
@@ -115,5 +153,41 @@ export class AdministrationService {
 
   updatePublicRequest(pr: PublicRequest): Observable<PublicRequest> {
     return this.http.put<PublicRequest>('https://localhost:44333/api/administrator/publicRequest/update/' + pr.id, pr);
+
+  getAllFollowers2(profile: Profile): Observable<PagedResults<Profile>> {
+    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile2/all-followers/' + profile.id);
+  }
+
+  addFollow(follow: Follow): Observable<Follow> {
+    return this.http.put<Follow>(environment.apiHost + 'administration/profile/AddFollow', follow);
+  }
+
+  addFollow2(follow: Follow): Observable<Follow> {
+    return this.http.put<Follow>(environment.apiHost + 'administration/profile2/AddFollow', follow);
+  }
+
+  // MESSAGE
+  addMessage(message: Message): Observable<Message> {
+    return this.http.post<Message>(environment.apiHost + 'administration/message', message);
+  }
+
+  addMessage2(message: Message): Observable<Message> {
+    return this.http.post<Message>(environment.apiHost + 'administration/message2', message);
+  }
+
+  getAllUnreadMessages(profile: Profile): Observable<PagedResults<Message>> {
+    return this.http.get<PagedResults<Message>>(environment.apiHost + 'administration/message/unread-messages/' + profile.id);
+  }
+
+  getAllUnreadMessages2(profile: Profile): Observable<PagedResults<Message>> {
+    return this.http.get<PagedResults<Message>>(environment.apiHost + 'administration/message2/unread-messages/' + profile.id);
+  }
+
+  updateMessage(message: Message): Observable<Message> {
+    return this.http.put<Message>('https://localhost:44333/api/administration/message/' + message.id + '/' + message.senderId + '/' + message.receiverId, message);
+  }
+
+  updateMessage2(message: Message): Observable<Message> {
+    return this.http.put<Message>('https://localhost:44333/api/administration/message2/' + message.id + '/' + message.senderId + '/' + message.receiverId, message);
   }
 }

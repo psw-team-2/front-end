@@ -45,9 +45,9 @@
             </div>
         </div>
         <br>
-        <button color="primary" (click)="onAddDeadlineClicked()" mat-raised-button id="entity-icon-button">Add Deadline</button>
+        <button color="primary" *ngIf="isDeadlineAlreadyAdded===false && user.role === 'administrator'" (click)="onAddDeadlineClicked()" mat-raised-button id="entity-icon-button">Add Deadline</button>
         <div *ngIf="shouldRenderAddDeadlineForm" class="bottom-margin">
-            <form [formGroup]="addDeadlineForm">
+            <form [formGroup]="addDeadlineForm" *ngIf="isDeadlineAlreadyAdded===false">
                 <!-- Datepicker for date selection -->
                 <mat-form-field>
                     <input matInput [matDatepicker]="deadlinePicker" formControlName="deadlineDate" placeholder="Select a Date">
@@ -64,12 +64,12 @@
                     <button (click)="shouldRenderAddDeadlineForm = false" mat-raised-button id="entity-raised-button">Cancel</button>
                 </div>
             </form>
-            <div *ngIf="tourProblem?.deadlineTimeStamp && isDeadlineAlreadyAdded" ><p class="tour-problem-info-warning">Deadline is already added.</p></div>
-            <div *ngIf="tourProblem?.deadlineTimeStamp && !isDeadlineAlreadyAdded" class="success-deadline-save-message"><p class="tour-problem-info-warning">Deadline successfully added!</p></div>
+            <div *ngIf="tourProblem?.deadlineTimeStamp && isDeadlinePreviouslyAdded===true" ><p class="tour-problem-info">Deadline is already added.</p></div>
+            <div *ngIf="tourProblem?.deadlineTimeStamp && isDeadlinePreviouslyAdded===false" class="success-deadline-save-message"><p class="tour-problem-info">Deadline successfully added!</p></div>
         </div>
 
 
-        <button color="primary" (click)="onAddResponseClicked()" mat-raised-button id="entity-icon-button">Add Response</button>
+        <button color="primary"  (click)="onAddResponseClicked()" mat-raised-button id="entity-icon-button">Add Response</button>
         <div *ngIf="shouldRenderAddResponseForm" class="bottom-margin">
             <form [formGroup]="addResponseForm" (submit)="onSendResponse()">
                 <mat-form-field>
@@ -79,22 +79,26 @@
                 <button (click)="onCancelResponse()" mat-raised-button id="entity-raised-button">Cancel</button>
             </form>     
         </div>
-        <button [routerLink]="['/tour-problem', tourProblem?.id, 'responses']" color="primary" mat-raised-button id="entity-icon-button">View responses</button>
 
-       <button *ngIf="isExpired" color="primary" (click)="onPenalizeClicked()" mat-raised-button id="entity-raised-button">
-            Penalize
+        <!-- <button [routerLink]="['/tour-problem', tourProblem?.id, 'responses']" color="primary" mat-raised-button id="entity-icon-button">View responses</button> -->
+        <button mat-raised-button id="entity-icon-button" (click)="onViewResponsesClicked()">View Responses</button>
+        <xp-tour-problem-response *ngIf="shouldRenderResponses" [currentProblemId] = "tourProblemId"></xp-tour-problem-response>
+        
+
+       <button *ngIf="isExpired() && user.role === 'administrator'" color="primary" (click)="onPenalizeClicked()" mat-raised-button id="entity-raised-button">
+            Penalize Tour
         </button>
         <div *ngIf="shouldRenderPenalization">
             <td colspan="8">
-                <p>Are you sure you want to penalize this author?</p>
+                <p>Are you sure you want to penalize this author? (Remove the Tour)</p>
                 <div class="button-row">
-                    <button (click)="onPenalizeConfirmClicked()" id="entity-raised-button">Yes</button>
+                    <button (click)="onPenalizeConfirmClicked()" id="entity-raised-button" [routerLink]="'/tour-problems'">Yes</button>
                     <button (click)="shouldRenderPenalization = false" id="entity-raised-button">No</button>
                 </div>
             </td>
         </div>         
-        <button *ngIf="isExpired" color="accent" (click)="onCloseClicked()" mat-raised-button id="entity-raised-button">
-            Close 
+        <button *ngIf="isExpired() && user.role === 'administrator'" color="accent" (click)="onCloseClicked()" mat-raised-button id="entity-raised-button">
+            Close Problem
         </button>
         <div *ngIf="shouldRenderClosure">
             <td colspan="8">
@@ -104,7 +108,9 @@
                     <button (click)="shouldRenderClosure = false" id="entity-raised-button">No</button>
                 </div>
             </td>
-        </div>         
+        </div>
+
+
 
 
     </div>

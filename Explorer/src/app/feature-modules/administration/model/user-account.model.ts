@@ -1,3 +1,5 @@
+import { TourPreference } from "../../tour-preference/model/tour-preference.model";
+
 export interface User {
     id: number;
     username: string;
@@ -5,6 +7,7 @@ export interface User {
     role: UserRole;
     isActive: boolean;
     email: string;
+    tourPreference: TourPreference
 }
 
 enum UserRole

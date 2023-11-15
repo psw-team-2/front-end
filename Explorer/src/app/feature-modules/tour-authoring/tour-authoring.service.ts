@@ -9,6 +9,9 @@ import { environment } from 'src/env/environment';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { PublicRequest } from './model/public-request.model';
 import { Object } from './model/object.model';
+import { ShoppingCart } from '../marketplace/model/shopping-cart.model';
+import { OrderItem } from '../marketplace/model/order-item.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -127,16 +130,46 @@ export class TourAuthoringService {
     return this.http.put<Equipment>('https://localhost:44333/api/author/tour/remove/' + tour.id +  '/' + equipmentId,tour)
   }
 
+
   sendPublicRequest(publicRequest: PublicRequest): Observable<PublicRequest> {
     return this.http.post<PublicRequest>('https://localhost:44333/api/author/tour/publicRequest', publicRequest)
   }
+
+
+
   deleteTourAdministrator(id: number): Observable<Tour>{
     return this.http.delete<Tour>('https://localhost:44333/api/administrator/tour/' + id);
   }
 
+
   getPublicRequestsByUserId(userId: number): Observable<PagedResults<PublicRequest>> {
     return this.http.get<PagedResults<PublicRequest>>('https://localhost:44333/api/administrator/publicRequest/get/' + userId);
   }
+
+
+  getShoppingCartByUserId(userId: number): Observable<ShoppingCart> {
+    return this.http.get<ShoppingCart>(`https://localhost:44333/api/tourist/shoppingCart/user/2`);
+  }
+
+  getShoppingCartById(id: Number): Observable<ShoppingCart> {
+    return this.http.get<ShoppingCart>('https://localhost:44333/api/tourist/shoppingCart/' + id);
+  }
+
+  addToCart(shoppingCart: ShoppingCart, tour: Tour) {
+    return this.http.post<ShoppingCart>('https://localhost:44333/api/tourist/shoppingCart/shoppingItem/' + shoppingCart.id + '/' + tour.id,shoppingCart);
+  }
+
+  getOrderItemsByShoppingCart(userId: number): Observable<OrderItem[]> {
+    const encodedUserId = encodeURIComponent(userId.toString());
+    console.log(`Encoded User ID: ${encodedUserId}`);
+    return this.http.get<OrderItem[]>(`https://localhost:44333/api/tourist/orderItem/orderItems/${encodedUserId}`);
+  } 
+
+  getOrderItemsByUser(userId: number): Observable<PagedResults<OrderItem>> {
+    return this.http.get<PagedResults<OrderItem>>('https://localhost:44333/api/tourist/orderItem/orderItems/' + userId);
+  }
+
+
 }
 
 

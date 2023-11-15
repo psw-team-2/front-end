@@ -54,3 +54,27 @@ img
     width: 150px;
     height: 150px;
 }
+
+.notification {
+    position: fixed;
+    top: 85px; /* Adjust the top position as needed */
+    right: 20px; /* Adjust the right position as needed */
+    background-color: red;
+    color: black;
+    border: 2px solid black;
+    padding: 10px;
+    border-radius: 5px;
+    animation: fadeIn 0.5s ease-in-out; /* Apply a fade-in animation */
+  
+    /* Define the keyframes for the fade-in animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
