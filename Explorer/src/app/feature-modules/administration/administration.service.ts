@@ -153,7 +153,7 @@ export class AdministrationService {
 
   updatePublicRequest(pr: PublicRequest): Observable<PublicRequest> {
     return this.http.put<PublicRequest>('https://localhost:44333/api/administrator/publicRequest/update/' + pr.id, pr);
-
+  }
   getAllFollowers2(profile: Profile): Observable<PagedResults<Profile>> {
     return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile2/all-followers/' + profile.id);
   }
