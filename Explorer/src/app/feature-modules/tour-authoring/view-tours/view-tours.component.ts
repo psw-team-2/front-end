@@ -37,18 +37,13 @@ export class ViewToursComponent implements OnInit {
     private router: Router
   ) {}
  // selectedTour: Tour;
-  
-
-
-
-
   async ngOnInit(): Promise<void> {
     await this.getTours();
-        
+    this.calculateAverageGrades();
     if (this.authService.user$.value) {
       this.isLogged = true;
       this.userId = this.authService.user$.value.id;
-      this.shoppingCartId = this.userId;
+      this.shoppingCartId = this.userId;      
       this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
         next: (result: OrderItem[]) => {
           this.orderItems = result;
