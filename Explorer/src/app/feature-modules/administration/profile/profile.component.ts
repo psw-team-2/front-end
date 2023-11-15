@@ -15,14 +15,21 @@ export class ProfileComponent implements OnInit{
   selectedProfile: Profile;
   showProfileForm: boolean = false;
   showPictureForm: boolean = false;
+  showMessage: boolean = false;
   
   
   constructor(private service: AdministrationService) { }
 
   ngOnInit(): void {
     this.getByUserId();
+    this.delayedShowMessage();
   }
   
+  delayedShowMessage() {
+    setTimeout(() => {
+      this.showMessage = true;
+    }, 1000);
+  }
   
   getByUserId(): void {
     this.service.getByUserId().subscribe({

@@ -23,7 +23,8 @@ export class MapViewComponent implements AfterViewInit {
       image: 'https://media.cnn.com/api/v1/images/stellar/prod/200619190852-public-restroom-coronavirus.jpg?q=x_30,y_106,h_874,w_1554,c_crop/h_720,w_1280',
       category: 1,
       latitude: 45.2400, // Replace with actual latitude
-      longitude: 19.8210, // Replace with actual longitude
+      longitude: 19.8210,
+      isPublic:true,  // Replace with actual longitude
     },
     {
       name: 'Restaurant 1',
@@ -31,7 +32,8 @@ export class MapViewComponent implements AfterViewInit {
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl-WAwtX-kFdN4fiFJJ6IaHzVcAASJZPAUxw&usqp=CAU',
       category: 2,
       latitude: 45.2390, // Replace with actual latitude
-      longitude: 19.8230, // Replace with actual longitude
+      longitude: 19.8230,
+      isPublic:true, // Replace with actual longitude
     },
     {
       name: 'Parking 1',
@@ -39,7 +41,8 @@ export class MapViewComponent implements AfterViewInit {
       image: 'https://www.parkingns.rs/wp-content/uploads/2023/07/IMG_9491.jpg',
       category: 3,
       latitude: 45.2380, // Replace with actual latitude
-      longitude: 19.8215, // Replace with actual longitude
+      longitude: 19.8215,
+      isPublic:true,  // Replace with actual longitude
     },
     {
       name: 'Other 1',
@@ -47,7 +50,8 @@ export class MapViewComponent implements AfterViewInit {
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNHtp5f_rI48vPpi1kIsPcTcDVZHpcWOT7UQ&usqp=CAU',
       category: 4,
       latitude: 45.2410, // Replace with actual latitude
-      longitude: 19.8225, // Replace with actual longitude
+      longitude: 19.8225,
+      isPublic:true,
     },
     // Add more objects with different categories
   ];

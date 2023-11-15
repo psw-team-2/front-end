@@ -1,25 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TourAutoringService } from '../tour-autoring.service';
 import { Object } from '../model/object.model';
+import { PublicRequest } from '../model/public-request.model';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-object',
   templateUrl: './object.component.html',
   styleUrls: ['./object.component.css']
 })
-export class ObjectComponent {
+export class ObjectComponent implements OnInit {
 
-  constructor(private service: TourAutoringService) { }
+  constructor(private service: TourAutoringService, private authService: AuthService) { }
 
   currentFile: File | null;
+  objectId: number | any;
+  user: User;
 
   objectForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     image: new FormControl('', [Validators.required]),
     category: new FormControl('', [Validators.required]),
+    isPublic: new FormControl(false)
   });
+
+  ngOnInit(): void {
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    });
+  }
 
   async addObject(): Promise<void> {
     console.log(this.objectForm.value);
@@ -34,7 +46,8 @@ export class ObjectComponent {
       image: 'https://localhost:44333/Images/' + this.currentFile.name || "",
       category: parseInt(this.objectForm.value.category as string) || 0,
       longitude: 0,
-      latitude: 0
+      latitude: 0,
+      isPublic: false
     };
 
     await this.service.upload(this.currentFile).subscribe({
@@ -49,10 +62,28 @@ export class ObjectComponent {
     });
 
     this.service.addObject(object).subscribe({
-      next: (_) => {
-        console.log("Uspesno");
+      next: (object: Object) => {
+        this.objectId = object.id;
+        if (this.objectForm.value.isPublic === true) {
+          this.sendPublicRequest();
+        }
       }
     });
+  }
+
+  async sendPublicRequest(): Promise<void> {
+    const publicRequest: PublicRequest = {
+      entityId: this.objectId,
+      authorId: this.user.id,
+      comment: "",
+      isCheckPoint: false,
+      isNotified: true,
+      isApproved: false
+    }
+
+    await this.service.sendPublicRequest(publicRequest).subscribe({
+      next: (publicRequest: PublicRequest) => {}
+    })
   }
 
   onFileSelected(event: any) {

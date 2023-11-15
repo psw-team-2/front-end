@@ -7,6 +7,8 @@ import { Checkpoint } from 'src/app/feature-modules/tour-authoring/model/checkpo
 import { Tour } from 'src/app/feature-modules/tour-authoring/model/tour.model';
 import { TourAuthoringService } from 'src/app/feature-modules/tour-authoring/tour-authoring.service';
 import { MapSearchService } from './map-search.service';
+import { Object } from 'src/app/feature-modules/tour-authoring/model/object.model';
+
 
 @Component({
   selector: 'xp-map-search',
@@ -23,8 +25,54 @@ export class MapSearchComponent {
   private radiusSlider: HTMLInputElement;
   private radiusValueElement: HTMLDivElement;
   private searchResults: Tour[] = [];
+  private checkpointSearchResults: Checkpoint[] = [];
+  private objectSearchResults : Object[]=[]; 
   private routeControls: L.Routing.Control[] = [];
   private isSearchActive: boolean = false;
+  
+  private objects: Object[] = [
+    { id:1,
+      name: 'Restroom 1',
+      description: 'Restroom at location 1',
+      image: 'https://media.cnn.com/api/v1/images/stellar/prod/200619190852-public-restroom-coronavirus.jpg?q=x_30,y_106,h_874,w_1554,c_crop/h_720,w_1280',
+      category: 1,
+      latitude: 45.2400, // Replace with actual latitude
+      longitude: 19.8210,
+      isPublic:true,  // Replace with actual longitude
+    },
+    { id:2,
+      name: 'Restaurant 1',
+      description: 'Restaurant at location 1',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl-WAwtX-kFdN4fiFJJ6IaHzVcAASJZPAUxw&usqp=CAU',
+      category: 2,
+      latitude: 45.2390, // Replace with actual latitude
+      longitude: 19.8230,
+      isPublic:true, // Replace with actual longitude
+    },
+    { id:3,
+      name: 'Parking 1',
+      description: 'Parking at location 1',
+      image: 'https://www.parkingns.rs/wp-content/uploads/2023/07/IMG_9491.jpg',
+      category: 3,
+      latitude: 45.2380, // Replace with actual latitude
+      longitude: 19.8215,
+      isPublic:false,  // Replace with actual longitude
+    },
+    { id:4,
+      name: 'Other 1',
+      description: 'Other facility at location 1',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNHtp5f_rI48vPpi1kIsPcTcDVZHpcWOT7UQ&usqp=CAU',
+      category: 4,
+      latitude: 45.2410, // Replace with actual latitude
+      longitude: 19.8225,
+      isPublic:true,  // Replace with actual longitude
+    },
+
+    // Add more objects with different categories
+  ];
+  
+
+
 
   @Input() selectedTour: Tour | null;
 
@@ -35,7 +83,7 @@ export class MapSearchComponent {
 
   ngOnChanges(changes: SimpleChanges) {
     if ('selectedTour' in changes) {
-      this.setRoutes(this.searchResults)
+      this.setRoutes(this.searchResults,this.objectSearchResults,this.checkpointSearchResults)
     }
   }
   
@@ -79,6 +127,8 @@ export class MapSearchComponent {
         if (this.radius) {
           this.map.removeLayer(this.radius);
           this.searchResults = [];
+          this.objectSearchResults=[];
+          this.checkpointSearchResults=[];
           this.selectedTour = null;
           this.searchResultsEvent.emit({ tours: this.searchResults, searchActive: false });
 
@@ -181,6 +231,8 @@ export class MapSearchComponent {
     }
   }
 
+
+
   handleSearchButtonClick(): void {
     this.clearRoutesAndCheckpoints();
     // Get the latitude and longitude of the clicked location
@@ -204,7 +256,7 @@ export class MapSearchComponent {
             return of(null); // Return a null value for the checkpoint in case of an error
           })
         );
-        checkpointObservables.push(checkpointObservable);
+        checkpointObservables.push(checkpointObservable);console.log(checkpointObservable)
       });
     });
   
@@ -233,6 +285,16 @@ export class MapSearchComponent {
               // If a checkpoint is within the radius, mark this tour and break the loop
               tourHasMatchingCheckpoint = true;
             }
+
+            if(checkpoint.isPublic && distance <= selectedRadius)
+            {
+              this.addPublicCheckpointToSearchResults(checkpoint);
+            }
+
+
+
+
+
           }
   
           checkpointIndex++;
@@ -243,25 +305,71 @@ export class MapSearchComponent {
         }
       });
       
-      this.setRoutes(this.searchResults);
+
+      this.objects.forEach((object:Object) =>
+      {
+        const distance = this.calculateDistance(
+          clickedLat,
+          clickedLng,
+          object.latitude,
+          object.longitude
+        );
+
+
+
+
+          if(object.isPublic && distance <= selectedRadius)
+          {
+            this.addPublicObjectToSearchResults(object);
+          }
+      });
+
+      this.setRoutes(this.searchResults,this.objectSearchResults,this.checkpointSearchResults);
+
 
     });
 
+    this.objects.forEach((object:Object) =>
+      {
+        const distance = this.calculateDistance(
+          clickedLat,
+          clickedLng,
+          object.latitude,
+          object.longitude
+        );
+
+
+
+
+          if(object.isPublic && distance <= selectedRadius)
+          {
+            this.addPublicObjectToSearchResults(object);
+          }
+      });
+
+      this.setRoutes(this.searchResults,this.objectSearchResults,this.checkpointSearchResults);
   }
   
   clearRoutesAndCheckpoints(): void {
     // Remove existing route controls from the map and clear the array
     this.routeControls.forEach((routeControl) => {
       this.map.removeControl(routeControl);
+
     });
     this.routeControls = [];
-  
+    this.objectSearchResults=[];
+    this.checkpointSearchResults=[];
     // Clear the search results and any other related data
     //this.searchResults = [];
   }
   
-  setRoutes(tours: Tour[]): void {
-    // Clear previous route controls
+
+
+
+
+
+  setRoutes(tours: Tour[], objects: Object[], checkpoints: Checkpoint[]): void {
+    // Clear previous route controls and markers
     this.clearRoutesAndCheckpoints();
   
     const routePromises: Promise<L.Routing.Control | undefined>[] = tours.map((tour, index) => {
@@ -293,30 +401,44 @@ export class MapSearchComponent {
                   missingRouteTolerance: 100,
                 },
               });
+  
               resolve(routeControl);
+  
               if (this.selectedTour !== undefined && tour.id === this.selectedTour?.id) {
                 const bounds = L.latLngBounds(waypointCoordinates);
                 this.map.fitBounds(bounds);
-            }
-            
-            
+              }
             }
           } else {
             resolve(undefined);
           }
-          
         });
       });
     });
   
     Promise.all(routePromises).then((routeControls) => {
       this.searchResultsEvent.emit({ tours: this.searchResults, searchActive: this.isSearchActive });
-
+  
       // Store the route controls in the array and add them to the map
       this.routeControls = routeControls.filter((control) => control !== undefined) as L.Routing.Control[];
       this.routeControls.forEach((routeControl) => {
         routeControl.addTo(this.map);
-        
+      });
+  
+      // Prikaz objekata
+      objects.forEach((object) => {
+        const objectMarker = L.marker([object.latitude, object.longitude])
+          .bindPopup(`Object: ${object.name}`)
+          .addTo(this.map);
+        // Dodajte dodatne postavke ili informacije o markeru po potrebi
+      });
+  
+      // Prikaz checkpointa
+      checkpoints.forEach((checkpoint) => {
+        const checkpointMarker = L.marker([checkpoint.latitude, checkpoint.longitude])
+          .bindPopup(`Checkpoint: ${checkpoint.name}`)
+          .addTo(this.map);
+        // Dodajte dodatne postavke ili informacije o markeru po potrebi
       });
     });
   }
@@ -347,6 +469,38 @@ export class MapSearchComponent {
       this.searchResults.push(tour);
     }
   }
+
+  private publicCheckpointIcon = L.icon({
+    iconUrl: 'https://i.imgur.com/kkMoydC.jpg',
+    iconSize: [48, 48], 
+    // ... (ostale opcije ikonice za javni checkpoint)
+  });
+  
+
+  addPublicCheckpointToSearchResults(checkpoint: Checkpoint): void {
+    // Check if the checkpoint is not already in the search results
+    if (!this.checkpointSearchResults.some((result) => result.id === checkpoint.id)) {
+      this.checkpointSearchResults.push(checkpoint);
+  
+      // Dodajte marker na mapu sa odgovarajućom ikonicom samo za javne checkpointe
+      const markerIcon = checkpoint.isPublic ? this.publicCheckpointIcon : L.Marker.prototype.options.icon;
+  
+      const marker = L.marker([checkpoint.latitude, checkpoint.longitude], {
+        icon: markerIcon,
+      }).bindPopup(`Checkpoint: ${checkpoint.name}`).addTo(this.map);
+  
+      // Dodajte dodatne postavke ili informacije o markeru po potrebi
+    }
+  }
+  
+  addPublicObjectToSearchResults(object: Object): void {
+    // Check if the tour is not already in the search results
+    if (!this.objectSearchResults.some((result) => result.id === object.id)) {
+      this.objectSearchResults.push(object);
+    }
+  }
+
+
   calculateDistance(
     lat1: number,
     lng1: number,

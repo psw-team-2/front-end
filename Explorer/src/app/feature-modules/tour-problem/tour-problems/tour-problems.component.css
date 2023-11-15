@@ -1,0 +1,73 @@
+#tour-problems {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+#tour-problem-details {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+p {
+    font-size: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 300px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+thead tr {
+    background-color: #2e003e;
+    color: #ffffff;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 15px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+    border-bottom: 2px solid #2e003e;
+}
+
+tbody tr.active-row {
+    font-weight: bold;
+    color: #2e003e;
+}
+
+.tr-tour-problem-5d-old {
+    background-color: #dfbab0;
+    border: 1px solid #851e1e; /* Add a border for separation */
+    border-radius: 3px; /* Add rounded edges */
+}
+
+.tr-tour-problem-5d-old-solved {
+    background-color: #bd5c5c;
+    border: 1px solid #851e1e; /* Add a border for separation */
+    border-radius: 3px; /* Add rounded edges */
+}
+  
+.tr-tour-problem-5d-old-expired {
+    background-color: #bd5c5c;
+    border: 1px solid #851e1e; /* Add a border for separation */
+    border-radius: 3px; /* Add rounded edges */
+} 
+
+.button-row {
+    display: flex; /* Use flexbox to align buttons horizontally */
+    justify-content: center; /* Center buttons horizontally within the row */
+}

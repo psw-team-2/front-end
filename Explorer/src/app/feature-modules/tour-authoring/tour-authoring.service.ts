@@ -9,8 +9,11 @@ import { environment } from 'src/env/environment';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { TourExecution } from '../tour-execution/model/tourexecution.model';
 import { TourPurchaseToken } from './model/tourPurchaseToken.model';
+import { PublicRequest } from './model/public-request.model';
+import { Object } from './model/object.model';
 import { ShoppingCart } from '../marketplace/model/shopping-cart.model';
 import { OrderItem } from '../marketplace/model/order-item.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +42,14 @@ export class TourAuthoringService {
 
   deleteCheckpoint(id: number): Observable<Checkpoint> {
     return this.http.delete<Checkpoint>('https://localhost:44333/api/addcheckpoint/checkpoint/' + id);
+  }
+
+  getObjectById(objectId: Number): Observable<Object> {
+    return this.http.get<Object>('https://localhost:44333/api/administration/object/' + objectId);
+  }
+
+  updateObject(object: Object): Observable<Object>{
+    return this.http.put<Object>('https://localhost:44333/api/administration/object/' + object.id, object)
   }
 
   upload(file: File): Observable<HttpEvent<any>> {
@@ -121,6 +132,7 @@ export class TourAuthoringService {
     return this.http.put<Equipment>('https://localhost:44333/api/author/tour/remove/' + tour.id +  '/' + equipmentId,tour)
   }
 
+
   getAverageGrade(tourId: number):Observable<any>{
     return this.http.get<number>(environment.apiHost + 'author/tour/average-grade/'+tourId)
   }
@@ -130,6 +142,22 @@ export class TourAuthoringService {
   getBoughtTours():Observable<PagedResults<TourPurchaseToken>> {
     return this.http.get<PagedResults<TourPurchaseToken>>('https://localhost:44333/api/tourist/tourPurchaseToken/getAllTokens?page=0&pageSize=0')
   }
+
+  sendPublicRequest(publicRequest: PublicRequest): Observable<PublicRequest> {
+    return this.http.post<PublicRequest>('https://localhost:44333/api/author/tour/publicRequest', publicRequest)
+  }
+
+
+
+  deleteTourAdministrator(id: number): Observable<Tour>{
+    return this.http.delete<Tour>('https://localhost:44333/api/administrator/tour/' + id);
+  }
+
+
+  getPublicRequestsByUserId(userId: number): Observable<PagedResults<PublicRequest>> {
+    return this.http.get<PagedResults<PublicRequest>>('https://localhost:44333/api/administrator/publicRequest/get/' + userId);
+  }
+
   getShoppingCartByUserId(userId: number): Observable<ShoppingCart> {
     return this.http.get<ShoppingCart>(`https://localhost:44333/api/tourist/shoppingCart/user/2`);
   }
@@ -151,6 +179,8 @@ export class TourAuthoringService {
   getOrderItemsByUser(userId: number): Observable<PagedResults<OrderItem>> {
     return this.http.get<PagedResults<OrderItem>>('https://localhost:44333/api/tourist/orderItem/orderItems/' + userId);
   }
+
+
 }
 
 
