@@ -8,37 +8,39 @@ import { Observable } from 'rxjs';
 import { Tour } from '../../tour-authoring/model/tour.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-tour-problem-form', 
   templateUrl: './tour-problem-form.component.html',
   styleUrls: ['./tour-problem-form.component.css']
 })
-export class TourProblemFormComponent implements OnChanges {
+export class TourProblemFormComponent implements OnInit {
 
-  @Output() tourProblemUpdated = new EventEmitter<null>();
-  @Input() tourProblem: TourProblem;
-  @Input() shouldEdit: boolean = false;
-  tours: Tour[] = [];
+
+  tourProblem: TourProblem;
   user: User;
+  tourId: number;
 
 
-  constructor(private service: TourProblemService, private tourAuthoringService :TourAuthoringService, private authService: AuthService) {
+  constructor(private service: TourProblemService, private tourAuthoringService :TourAuthoringService, 
+    private authService: AuthService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void{
-    this.getTours();
+
+    this.route.params.subscribe(params => {
+     this.tourId = params['id'];
+      console.log('Retrieved ID:', this.tourId);
+    });
+
     this.authService.user$.subscribe(user => {
       this.user = user;
     });
   }
 
-  ngOnChanges(): void {
-    this.tourProblemForm.reset();
-    if (this.shouldEdit && this.tourProblem) {
-      this.tourProblemForm.patchValue(this.tourProblem);
-    }
-  }
+
 
   tourProblemForm = new FormGroup({
     problemCategory: new FormControl('', [Validators.required]),
@@ -53,13 +55,19 @@ export class TourProblemFormComponent implements OnChanges {
       this.tourProblemForm.value.selectedTour = 0
     }
 
+    if(this.tourId == undefined){
+      error: () => {
+      }     
+      return
+    }
+
     const tourProblem: TourProblem = {
       
       problemCategory: this.tourProblemForm.value.problemCategory || "",
       problemPriority: this.tourProblemForm.value.problemPriority || "",
       description: this.tourProblemForm.value.description || "",
       timeStamp: new Date(), 
-      tourId: this.tourProblemForm.value.selectedTour,
+      tourId: this.tourId,
       isClosed: false,
       isResolved: false,
       touristId: this.user.id,
@@ -68,7 +76,7 @@ export class TourProblemFormComponent implements OnChanges {
 
     this.service.addTourProblemTourist(tourProblem).subscribe({
       next: () => {
-        this.tourProblemUpdated.emit();
+        this.router.navigate(['/view-tours-tourist']);
       }
     });
   }
@@ -84,7 +92,7 @@ export class TourProblemFormComponent implements OnChanges {
       problemPriority: this.tourProblemForm.value.problemPriority || "",
       description: this.tourProblemForm.value.description || "",
       timeStamp: new Date(), 
-      tourId: this.tourProblemForm.value.selectedTour,
+      tourId: this.tourId,
       isClosed: false,
       isResolved: false,
       touristId: this.user.id,
@@ -96,30 +104,18 @@ export class TourProblemFormComponent implements OnChanges {
       tourProblem.id = this.tourProblem.id;
       this.service.updateTourProblemTourist(tourProblem).subscribe({
         next: () => {
-          this.tourProblemUpdated.emit();
+
         }
       });
     }
   }
 
-  getTours(): void { 
-    this.tourAuthoringService.getToursWithAuth(this.user).subscribe({
-      next: (result: PagedResults<Tour>) =>
-      {
-        if(result)
-          this.tours = result.results;
-        else{
-
-        }
-      },
-      error: () => {
-      }     
-    })
-
+  cancelTourProblem(): void{
+    this.router.navigate(['/view-tours-tourist']);
   }
 
-  getTourInTours(id: number|null|undefined): Tour | undefined{
-    return this.tours.find((tour) => tour.id === id);
-  }
+
+
+
 
 }

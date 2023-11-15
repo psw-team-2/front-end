@@ -202,5 +202,12 @@ export class ViewToursComponent implements OnInit {
       }
     })
   }
+
+  onReportClicked(tour: Tour): void{
+    if (!this.authService.user$.value) {
+      console.error('User is not logged in. Please log in before adding to the cart.');
+      return;
+    }
+    this.router.navigate(['/tour-problem-form/', this.userId])
+  }
 }
-  

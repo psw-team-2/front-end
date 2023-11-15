@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { Tour } from '../model/tour.model';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-tour-form',
@@ -13,12 +15,18 @@ export class TourFormComponent {
   @Input() tour: Tour;
   @Input() shouldEdit: boolean = false;
   
-
+  user: User;
   
   currentFile: File;
-   constructor(private service: TourAuthoringService) { }
+   constructor(private service: TourAuthoringService, private authService: AuthService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
+
+    this.authService.user$.subscribe(user =>{
+      this.user = user;
+    })
+
+
     this.tourForm.reset();
     if (this.shouldEdit) {
       this.tourForm.patchValue({
@@ -55,6 +63,7 @@ export class TourFormComponent {
       footTime: 0,
       carTime: 0,
       bicycleTime: 0,
+      authorId: this.user.id,
      // publishTime: ""
 
     }
@@ -84,6 +93,7 @@ export class TourFormComponent {
       footTime: 1,
       carTime: 0,
       bicycleTime: 0,
+      authorId: this.user.id,
       //publishTime: "0"
     }
     tour.id = this.tour.id;

@@ -200,6 +200,16 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
           console.error('Invalid date or time input.');
           return; // Exit the function early
         }    
+
+        const currentTime = new Date();
+        const timeDifference = (deadlineCombinedDate.getTime() - currentTime.getTime());
+
+        console.log(timeDifference)
+        if(timeDifference < 0){
+          console.error('Invalid date or time input.');
+          return; // Exit the function early
+        }
+
         // Update the selectedTourProblem's deadlineTimeStamp
         this.tourProblem.deadlineTimeStamp = deadlineCombinedDate;
     
@@ -210,7 +220,7 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
         });
         this.isDeadlineAlreadyAdded = true;
       }
-  }
+    }
     
 
   
