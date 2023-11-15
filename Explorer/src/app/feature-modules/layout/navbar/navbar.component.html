@@ -19,6 +19,7 @@
         <button mat-menu-item color="primary" [routerLink]="['view-tours-author']" *ngIf="user && user.role === 'author'" routerLinkActive="active-link">View Tours</button>
         <button mat-menu-item color="primary" [routerLink]="['view-tours-tourist']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">View Tours</button>
 
+        <button mat-menu-item color="primary" [routerLink]="['blog-review']" >Blog</button>
         
     </mat-menu>
     </div>

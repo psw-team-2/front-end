@@ -1,12 +1,15 @@
 export enum BlogStatus {
     Draft = 0,
     Published = 1,
-    Closed = 2
+    Closed = 2,
+    Active = 3,
+    Famous = 4
 }
 
 export interface Blog {
     id? : number;
     userId : number;
+    username: string;
     title : string;
     description : string;
     creationTime: Date;

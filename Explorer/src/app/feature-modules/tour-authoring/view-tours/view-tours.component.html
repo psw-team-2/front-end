@@ -4,9 +4,19 @@
 <div class="tour-list">
   <h1 class="header">Available Tours</h1>
   <div class="card-container">
-    <div *ngFor="let tour of tours" class="card" (click)="selectTour(tour)" [ngClass]="{'selected-card': tour === selectedTour}">
-      <div class="remove-when-use"></div>
-      <div class="details" [ngClass]="{'selected-details': tour === selectedTour}">
+    
+<div class="header-container">   
+  <a class="cart-button" [routerLink]="isLogged ? '/shopping-cart/' : '/login'">
+    <i class="fas fa-shopping-cart"></i> Shopping cart
+    <span id="numberOfItems" class="numberOfItems">{{ numberOfItems }}</span>
+  </a>
+</div>
+  
+<div class="card-container">    
+    <div *ngFor="let tour of tours" class="card">
+      <div class="remove-when-use">
+      </div>
+      <div class="details">
         <label>{{ tour.name }}</label>
         <p>{{ tour.description }}</p>
         <p *ngIf="tour.id !== undefined">Average grade: {{ tourAverageGrades[tour.id] }}/5</p>
@@ -17,9 +27,10 @@
       </div>
       <div class="button-container">
         <a *ngIf="boughtTours.includes(tour)" class="view-button" (click)="startTour(tour)">Start tour</a>
-        <a *ngIf="!boughtTours.includes(tour)" class="view-button" >Buy tour</a>
     </div>
+          <button class="view-button" (click)="onAddClicked(tour)">Add to cart</button>
+      </div>
       </div>
     </div>
   </div>
-</div>
+

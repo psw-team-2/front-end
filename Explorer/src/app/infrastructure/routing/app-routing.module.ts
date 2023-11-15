@@ -31,11 +31,19 @@ import { BlogFormComponent } from 'src/app/feature-modules/blog/blog-form/blog-f
 import { SinglePostComponent } from 'src/app/feature-modules/blog/single-post/single-post.component';
 import { BlogManagemetComponent } from 'src/app/feature-modules/blog/blog-managemet/blog-managemet.component';
 import { BlogCommentsComponent } from 'src/app/feature-modules/blog/blog-comments/blog-comments.component';
+
+import { BlogSinglePostComponent } from 'src/app/feature-modules/blog/blog-single-post/blog-single-post.component';
+import { BlogReviewComponent } from 'src/app/feature-modules/blog/blog-review/blog-review.component';
+import { CommentsReviewComponent } from 'src/app/feature-modules/blog/comments-review/comments-review.component';
+
 import { ViewToursComponent } from 'src/app/feature-modules/tour-authoring/view-tours/view-tours.component';
 import { TourOverviewComponent } from 'src/app/feature-modules/tour-authoring/tour-overview/tour-overview.component';
 import { TouristPositionComponent } from 'src/app/feature-modules/tour-execution/tourist-position/tourist-position.component';
 import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
 import { ViewToursAuthorComponent } from 'src/app/feature-modules/tour-authoring/view-tours-author/view-tours-author.component';
+import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopping-cart/shopping-cart.component';
+import { ViewPurchasedToursComponent } from 'src/app/feature-modules/tour-authoring/view-purchased-tours/view-purchased-tours.component';
+
 
 
 const routes: Routes = [
@@ -64,6 +72,14 @@ const routes: Routes = [
   {path: 'blog-comments', component: BlogCommentsComponent, canActivate: [AuthGuard],},
   {path: 'post', component: SinglePostComponent},
   {path: 'blog-management', component: BlogManagemetComponent, canActivate: [AuthGuard],},
+
+  { path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
+  { path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
+  { path: 'blog-single-post/:id', component: BlogSinglePostComponent, },
+  {path: 'blog-review', component: BlogReviewComponent},
+  {path: 'comments-review', component: CommentsReviewComponent},
+
+
   {path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
   {path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
   {path: 'tour/:id', component: TourOverviewComponent},
@@ -71,6 +87,10 @@ const routes: Routes = [
   {path: 'activeTour', component: ActiveTourComponent},
   {path: 'view-tours-author', component: ViewToursAuthorComponent},
   {path: 'view-tours-tourist', component: ViewToursComponent},
+  //{path: 'view-tours', component: ViewToursComponent},
+  {path: 'shopping-cart', component: ShoppingCartComponent},
+  {path: 'view-purchased-tours', component: ViewPurchasedToursComponent}
+
 ];
 
 @NgModule({

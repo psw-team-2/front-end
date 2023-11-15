@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TourReviewComponent } from './tour-review/tour-review.component';
 
 import { ApplicationReviewFormComponent } from './application-review-form/application-review-form.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 
 
@@ -14,7 +15,8 @@ import { ApplicationReviewFormComponent } from './application-review-form/applic
   declarations: [
     TourReviewFormComponent,
     TourReviewComponent,
-    ApplicationReviewFormComponent
+    ApplicationReviewFormComponent,
+    ShoppingCartComponent
   ],
   imports: [
     CommonModule,

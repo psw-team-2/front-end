@@ -7,6 +7,10 @@ import { BlogCommentsComponent } from './blog-comments/blog-comments.component';
 import { BlogFormComponent } from './blog-form/blog-form.component';
 import { SinglePostComponent } from './single-post/single-post.component';
 import { BlogManagemetComponent } from './blog-managemet/blog-managemet.component';
+import { BlogSinglePostComponent } from './blog-single-post/blog-single-post.component';
+import { BlogReviewComponent } from './blog-review/blog-review.component';
+import { CommentsReviewComponent } from './comments-review/comments-review.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,11 +19,15 @@ import { BlogManagemetComponent } from './blog-managemet/blog-managemet.componen
     BlogManagemetComponent,
     BlogCommentFormComponent,
     BlogCommentsComponent,
+    BlogSinglePostComponent,
+    BlogReviewComponent,
+    CommentsReviewComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
   ],
   exports: [
     BlogCommentFormComponent,
@@ -27,6 +35,7 @@ import { BlogManagemetComponent } from './blog-managemet/blog-managemet.componen
     SinglePostComponent,
     BlogManagemetComponent,
     BlogCommentsComponent,
+    BlogReviewComponent,
   ]
 })
 export class BlogModule { }

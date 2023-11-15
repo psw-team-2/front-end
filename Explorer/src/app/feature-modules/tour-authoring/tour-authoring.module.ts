@@ -18,6 +18,8 @@ import { TourEquipmentComponent } from './tour-equipment/tour-equipment.componen
 import { ViewToursComponent } from './view-tours/view-tours.component';
 import { TourOverviewComponent } from './tour-overview/tour-overview.component';
 import { MarketplaceModule } from '../marketplace/marketplace.module';
+import { ShoppingCartComponent } from '../marketplace/shopping-cart/shopping-cart.component';
+import { ViewPurchasedToursComponent } from './view-purchased-tours/view-purchased-tours.component';
 
 
 
@@ -33,7 +35,7 @@ import { MarketplaceModule } from '../marketplace/marketplace.module';
     ObjectComponent,
     ViewToursComponent,
     TourOverviewComponent,
-
+    ViewPurchasedToursComponent,
   ],
   imports: [
     CommonModule,

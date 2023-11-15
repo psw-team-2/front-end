@@ -9,6 +9,8 @@ import { environment } from 'src/env/environment';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { TourExecution } from '../tour-execution/model/tourexecution.model';
 import { TourPurchaseToken } from './model/tourPurchaseToken.model';
+import { ShoppingCart } from '../marketplace/model/shopping-cart.model';
+import { OrderItem } from '../marketplace/model/order-item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -127,6 +129,27 @@ export class TourAuthoringService {
   } 
   getBoughtTours():Observable<PagedResults<TourPurchaseToken>> {
     return this.http.get<PagedResults<TourPurchaseToken>>('https://localhost:44333/api/tourist/tourPurchaseToken/getAllTokens?page=0&pageSize=0')
+  }
+  getShoppingCartByUserId(userId: number): Observable<ShoppingCart> {
+    return this.http.get<ShoppingCart>(`https://localhost:44333/api/tourist/shoppingCart/user/2`);
+  }
+
+  getShoppingCartById(id: Number): Observable<ShoppingCart> {
+    return this.http.get<ShoppingCart>('https://localhost:44333/api/tourist/shoppingCart/' + id);
+  }
+
+  addToCart(shoppingCart: ShoppingCart, tour: Tour) {
+    return this.http.post<ShoppingCart>('https://localhost:44333/api/tourist/shoppingCart/shoppingItem/' + shoppingCart.id + '/' + tour.id,shoppingCart);
+  }
+
+  getOrderItemsByShoppingCart(userId: number): Observable<OrderItem[]> {
+    const encodedUserId = encodeURIComponent(userId.toString());
+    console.log(`Encoded User ID: ${encodedUserId}`);
+    return this.http.get<OrderItem[]>(`https://localhost:44333/api/tourist/orderItem/orderItems/${encodedUserId}`);
+  } 
+
+  getOrderItemsByUser(userId: number): Observable<PagedResults<OrderItem>> {
+    return this.http.get<PagedResults<OrderItem>>('https://localhost:44333/api/tourist/orderItem/orderItems/' + userId);
   }
 }
 
