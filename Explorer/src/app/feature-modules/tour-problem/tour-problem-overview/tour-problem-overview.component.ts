@@ -37,6 +37,7 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
     shouldRenderClosure: boolean=false;
   
     isDeadlineAlreadyAdded: boolean=false;
+    isDeadlinePreviouslyAdded: boolean=false;
   
     //show more description
     shouldRenderSeeMoreDescription: boolean=false;
@@ -82,18 +83,32 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
               next: (result: TourProblem) => {
                   this.tourProblem = result;
                   //fetching for comments should be implemented, once the comments are added
+                  if(this.tourProblem.deadlineTimeStamp != null){
+                    this.isDeadlineAlreadyAdded = true;
+                    this.isDeadlinePreviouslyAdded = true;
+                  }
               }
             });
           } else if(this.user?.role == 'author') {
             this.tourProblemService.getTourProblemForAuthor(this.tourProblemId).subscribe({
               next: (result: TourProblem) => {
                   this.tourProblem = result;
+
+                  if(this.tourProblem.deadlineTimeStamp != null){
+                    this.isDeadlineAlreadyAdded = true;
+                    this.isDeadlinePreviouslyAdded = true;
+                  }
               }
             });
           } else if(this.user?.role == 'tourist'){
             this.tourProblemService.getTourProblemTourist(this.tourProblemId).subscribe({
               next: (result: TourProblem) => {
                   this.tourProblem = result;
+
+                  if(this.tourProblem.deadlineTimeStamp != null){
+                    this.isDeadlineAlreadyAdded = true;
+                    this.isDeadlinePreviouslyAdded = true;
+                  }
               }
             })
           }
@@ -156,6 +171,7 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
     onPenalizeConfirmClicked(): void{
       
       this.tourAuthService.deleteTourAdministrator(this.tourProblem.tourId).subscribe({
+      
   
       })
     }
@@ -192,6 +208,7 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
           // There is currently no TourProblemUpdated emitter implemented
           // next: () => { this.tourProblemUpdated.emit()} 
         });
+        this.isDeadlineAlreadyAdded = true;
       }
   }
     
@@ -215,7 +232,7 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
     }
 
     onAddResponseClicked() {
-      this.shouldRenderAddResponseForm = true;
+      this.shouldRenderAddResponseForm = !this.shouldRenderAddDeadlineForm;
       this.response = '';
     }
   
