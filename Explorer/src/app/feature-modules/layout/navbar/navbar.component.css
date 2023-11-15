@@ -4,7 +4,6 @@
   align-items: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
-  
 }
 
 
@@ -31,6 +30,11 @@
   
 }
 
+.notificationsButton{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 350;
+  margin-left: 2;
+}
 
 .logButton{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

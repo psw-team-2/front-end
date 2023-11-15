@@ -22,6 +22,7 @@ export class ViewToursComponent implements OnInit {
   userId: number;
   isLogged: boolean;
 
+
   constructor(private service: TourAuthoringService, private authService: AuthService) {
   }
 

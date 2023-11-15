@@ -13,6 +13,7 @@ import { BlogModule } from './feature-modules/blog/blog.module';
 import { MarketplaceModule } from './feature-modules/marketplace/marketplace.module';
 import { TourAuthoringModule } from './feature-modules/tour-authoring/tour-authoring.module';
 import { TourExecutionModule } from './feature-modules/tour-execution/tour-execution.module';
+import { NotificationsModule } from './feature-modules/notifications/notifications.module';
 import { AuthModule } from './infrastructure/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
@@ -27,6 +28,9 @@ import { ClubModule } from './feature-modules/club/club.module';
 import { ClubFormComponent } from './feature-modules/club/club-form/club-form.component';
 import { TourPreferenceModule } from './feature-modules/tour-preference/tour-preference.module';
 import { AuthService } from './infrastructure/auth/auth.service';
+
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -51,7 +55,10 @@ import { AuthService } from './infrastructure/auth/auth.service';
     MatMenuModule,
     ClubModule,
     ReactiveFormsModule,
-    TourPreferenceModule
+    TourPreferenceModule,
+    DatePipe,
+    FormsModule,
+    NotificationsModule,
   ],
   providers: [
     {

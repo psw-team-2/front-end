@@ -120,6 +120,11 @@ export class TourAuthoringService {
   }
 
 
+  deleteTourAdministrator(id: number): Observable<Tour>{
+    return this.http.delete<Tour>('https://localhost:44333/api/administrator/tour/' + id);
+  }
+
+
   getShoppingCartByUserId(userId: number): Observable<ShoppingCart> {
     return this.http.get<ShoppingCart>(`https://localhost:44333/api/tourist/shoppingCart/user/2`);
   }
@@ -141,6 +146,7 @@ export class TourAuthoringService {
   getOrderItemsByUser(userId: number): Observable<PagedResults<OrderItem>> {
     return this.http.get<PagedResults<OrderItem>>('https://localhost:44333/api/tourist/orderItem/orderItems/' + userId);
   }
+
 }
 
 

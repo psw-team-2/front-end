@@ -9,7 +9,7 @@ import { EquipmentComponent } from 'src/app/feature-modules/administration/equip
 import { AuthGuard } from '../auth/auth.guard';
 
 
-import { TourProblemsComponent } from 'src/app/feature-modules/tour-problem/tour-problems/tour-problem.component';
+import { TourProblemsComponent } from 'src/app/feature-modules/tour-problem/tour-problems/tour-problems.component';
 
 import { TourEquipmentComponent } from 'src/app/feature-modules/tour-authoring/tour-equipment/tour-equipment.component';
 import { ObjectComponent } from 'src/app/feature-modules/tour-authoring/object-form/object.component';
@@ -38,10 +38,16 @@ import { CommentsReviewComponent } from 'src/app/feature-modules/blog/comments-r
 
 import { ViewToursComponent } from 'src/app/feature-modules/tour-authoring/view-tours/view-tours.component';
 import { TourOverviewComponent } from 'src/app/feature-modules/tour-authoring/tour-overview/tour-overview.component';
+
+import { NotificationsOverviewComponent } from 'src/app/feature-modules/notifications/notifications-overview/notifications-overview.component';
+
 import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopping-cart/shopping-cart.component';
 import { ViewPurchasedToursComponent } from 'src/app/feature-modules/tour-authoring/view-purchased-tours/view-purchased-tours.component';
 
 
+
+import {TourProblemOverviewComponent } from 'src/app/feature-modules/tour-problem/tour-problem-overview/tour-problem-overview.component';
+import { TourProblemResponseComponent } from 'src/app/feature-modules/tour-problem/tour-problem-response/tour-problem-response.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -49,7 +55,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
-  {path: 'tour-problem', component: TourProblemsComponent, canActivate: [AuthGuard],},
+  {path: 'tour-problems', component: TourProblemsComponent, canActivate: [AuthGuard],},
   {path: 'checkpoint/:id', component: CheckpointComponent},
   {path: 'tour', component: TourComponent},
   {path: 'equipment/:id', component: TourEquipmentComponent},
@@ -81,8 +87,15 @@ const routes: Routes = [
   {path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
   {path: 'view-tours', component: ViewToursComponent},
   {path: 'tour/:id', component: TourOverviewComponent},
+
+  {path: 'tour-problem/:id', component: TourProblemOverviewComponent},
+  {path: 'tour-problem/:problemId/responses', component: TourProblemResponseComponent },
+
+  {path: 'notifications', component: NotificationsOverviewComponent},
+
   {path: 'shopping-cart', component: ShoppingCartComponent},
   {path: 'view-purchased-tours', component: ViewPurchasedToursComponent}
+
 
 ];
 
