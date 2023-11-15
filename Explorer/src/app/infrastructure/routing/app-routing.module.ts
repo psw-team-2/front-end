@@ -40,6 +40,7 @@ import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopp
 import { ViewPurchasedToursComponent } from 'src/app/feature-modules/tour-authoring/view-purchased-tours/view-purchased-tours.component';
 import {TourProblemOverviewComponent } from 'src/app/feature-modules/tour-problem/tour-problem-overview/tour-problem-overview.component';
 import { TourProblemResponseComponent } from 'src/app/feature-modules/tour-problem/tour-problem-response/tour-problem-response.component';
+import { TourProblemFormComponent } from 'src/app/feature-modules/tour-problem/tour-problem-form/tour-problem-form.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -85,6 +86,7 @@ const routes: Routes = [
   {path: 'tour-problem/:id', component: TourProblemOverviewComponent},
   {path: 'tour-problem/:problemId/responses', component: TourProblemResponseComponent },
   {path: 'notifications', component: NotificationsOverviewComponent},
+  {path: 'tour-problem-form/:id', component: TourProblemFormComponent},
 
   {path: 'shopping-cart', component: ShoppingCartComponent},
   {path: 'view-purchased-tours', component: ViewPurchasedToursComponent}
