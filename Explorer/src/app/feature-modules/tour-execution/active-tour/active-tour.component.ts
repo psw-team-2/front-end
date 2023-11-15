@@ -26,6 +26,7 @@ export class ActiveTourComponent implements OnInit  {
   public checkpointList:Checkpoint[] = [];
   public markerList:Marker[]=[];
   public markersReady:Promise<boolean>;
+
   public userIcon = L.icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/3710/3710297.png',
     shadowUrl: '',

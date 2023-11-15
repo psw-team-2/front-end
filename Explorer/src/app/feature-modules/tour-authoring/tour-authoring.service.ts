@@ -8,6 +8,7 @@ import { Tour } from './model/tour.model';
 import { environment } from 'src/env/environment';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { TourExecution } from '../tour-execution/model/tourexecution.model';
+import { TourPurchaseToken } from './model/tourPurchaseToken.model';
 
 @Injectable({
   providedIn: 'root'
@@ -124,6 +125,9 @@ export class TourAuthoringService {
   startTour(tourExecution: TourExecution) : Observable<TourExecution> {
     return this.http.post<TourExecution>('https://localhost:44333/api/tourexecution/start', tourExecution);
   } 
+  getBoughtTours():Observable<PagedResults<TourPurchaseToken>> {
+    return this.http.get<PagedResults<TourPurchaseToken>>('https://localhost:44333/api/tourist/tourPurchaseToken/getAllTokens?page=0&pageSize=0')
+  }
 }
 
 

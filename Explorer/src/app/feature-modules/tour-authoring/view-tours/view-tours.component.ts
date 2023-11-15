@@ -8,18 +8,25 @@ import { TourExecution } from '../../tour-execution/model/tourexecution.model';
 import { Checkpoint } from '../model/checkpoint.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Router } from '@angular/router';
+import { TourPurchaseToken } from '../model/tourPurchaseToken.model';
 @Component({
   selector: 'xp-view-tours',
   templateUrl: './view-tours.component.html',
-  styleUrls: ['./view-tours.component.css']
+  styleUrls: ['./view-tours.component.css'],
 })
 export class ViewToursComponent implements OnInit {
   tours: Tour[] = [];
+  boughtTours: Tour[] = [];
+  boughtTourTokens: TourPurchaseToken[] = [];
   allTours: Tour[] = [];
   selectedTour: Tour | null = null; // Store the selected tour
   tourAverageGrades: { [tourId: number]: number } = {};
-  constructor(private service: TourAuthoringService, private marketService: MarketplaceService, private authService:AuthService, private router: Router) {}
-
+  constructor(
+    private service: TourAuthoringService,
+    private marketService: MarketplaceService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   async ngOnInit(): Promise<void> {
     await this.getTours();
@@ -27,12 +34,38 @@ export class ViewToursComponent implements OnInit {
 
   async getTours(): Promise<void> {
     try {
-      const result: PagedResults<Tour> | undefined = await this.service.getTours().toPromise();
+      const result: PagedResults<Tour> | undefined = await this.service
+        .getTours()
+        .toPromise();
 
       if (result) {
         this.allTours = result.results;
         this.tours = result.results;
         this.calculateAverageGrades();
+        const userId = this.authService.user$.value.id;
+        this.service
+          .getBoughtTours()
+          .subscribe({next:(tourTokenList: PagedResults<TourPurchaseToken>) => {
+             let newlist = tourTokenList.results.filter((tourToken: TourPurchaseToken) => {
+              if (tourToken.userId == userId) {
+                return true;
+              } else {
+                return false;
+              }
+            });
+            this.boughtTours = this.allTours.filter((tour: Tour) => {
+              for (let i = 0; i < newlist.length; i++) {
+                const boughtTourToken = newlist[i];
+                if (tour.id == boughtTourToken.tourId) {
+                  return true;
+                } else {
+                  return false;
+                }
+              }
+              return false;
+            });
+            console.log(this.allTours)
+          }});
       } else {
         // Handle the case where result is undefined
       }
@@ -45,9 +78,9 @@ export class ViewToursComponent implements OnInit {
     this.selectedTour = tour;
   }
 
-  handleSearchResults(data: { tours: Tour[], searchActive: boolean }) {
+  handleSearchResults(data: { tours: Tour[]; searchActive: boolean }) {
     const searchActive = data.searchActive;
-    
+
     if (searchActive) {
       // Display search results when search is active
       this.tours = data.tours;
@@ -55,7 +88,7 @@ export class ViewToursComponent implements OnInit {
       // Display all tours when search is not active
       this.getTours(); // Refresh the tours to display all of them
     }
-  
+
     // You can use this.tours in your component's template to display the updated results.
   }
 
@@ -70,28 +103,37 @@ export class ViewToursComponent implements OnInit {
       }
     }
   }
-  
-  async startTour(tour:Tour) {
-    let tourExecution:TourExecution = {
-      tourId:tour.id!,
-      TouristId:this.authService.user$.value.id,
-      StartTime:new Date(),
+
+  async startTour(tour: Tour) {
+    let tourExecution: TourExecution = {
+      tourId: tour.id!,
+      TouristId: this.authService.user$.value.id,
+      StartTime: new Date(),
       EndTime: undefined,
       Completed: false,
       Abandoned: false,
       CurrentLatitude: 0,
       CurrentLongitude: 0,
       LastActivity: new Date(),
-      visitedCheckpoints : [tour.checkPoints[0]],
+      visitedCheckpoints: [tour.checkPoints[0]],
       touristDistance: 0,
     };
-    await this.service.getCheckpointById(tour.checkPoints[0]).subscribe((checkpoint:Checkpoint)=>{
-      tourExecution.CurrentLatitude = checkpoint.latitude;
-      tourExecution.CurrentLongitude = checkpoint.longitude;
-      this.service.startTour(tourExecution).subscribe((value)=>{
-      localStorage.setItem(tourExecution.TouristId.toString(),JSON.stringify({userId:tourExecution.TouristId,latitude:tourExecution.CurrentLatitude,longitude:tourExecution.CurrentLongitude}))
-      this.router.navigate(['activeTour']);
-      })
-    })
+    await this.service
+      .getCheckpointById(tour.checkPoints[0])
+      .subscribe((checkpoint: Checkpoint) => {
+        tourExecution.CurrentLatitude = checkpoint.latitude;
+        tourExecution.CurrentLongitude = checkpoint.longitude;
+        this.service.startTour(tourExecution).subscribe((value) => {
+          localStorage.setItem(
+            tourExecution.TouristId.toString(),
+            JSON.stringify({
+              userId: tourExecution.TouristId,
+              latitude: tourExecution.CurrentLatitude,
+              longitude: tourExecution.CurrentLongitude,
+            })
+          );
+          this.router.navigate(['activeTour']);
+        });
+      });
   }
 }

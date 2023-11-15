@@ -16,7 +16,8 @@
           <a class="view-button" [routerLink]="'/tour/' + tour.id">View more</a>
       </div>
       <div class="button-container">
-        <a class="view-button" (click)="startTour(tour)">Start tour</a>
+        <a *ngIf="boughtTours.includes(tour)" class="view-button" (click)="startTour(tour)">Start tour</a>
+        <a *ngIf="!boughtTours.includes(tour)" class="view-button" >Buy tour</a>
     </div>
       </div>
     </div>
