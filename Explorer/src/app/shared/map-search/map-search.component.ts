@@ -256,7 +256,7 @@ export class MapSearchComponent {
             return of(null); // Return a null value for the checkpoint in case of an error
           })
         );
-        checkpointObservables.push(checkpointObservable);
+        checkpointObservables.push(checkpointObservable);console.log(checkpointObservable)
       });
     });
   
@@ -329,6 +329,25 @@ export class MapSearchComponent {
 
     });
 
+    this.objects.forEach((object:Object) =>
+      {
+        const distance = this.calculateDistance(
+          clickedLat,
+          clickedLng,
+          object.latitude,
+          object.longitude
+        );
+
+
+
+
+          if(object.isPublic && distance <= selectedRadius)
+          {
+            this.addPublicObjectToSearchResults(object);
+          }
+      });
+
+      this.setRoutes(this.searchResults,this.objectSearchResults,this.checkpointSearchResults);
   }
   
   clearRoutesAndCheckpoints(): void {
