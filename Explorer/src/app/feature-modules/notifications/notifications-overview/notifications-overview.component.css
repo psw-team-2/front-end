@@ -1,0 +1,43 @@
+.notification-container {
+  max-width: 400px;
+  margin: 20px auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.notification,
+.publicRequests {
+  list-style: none;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+}
+
+h1 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #3c2c7c;
+  text-align: center;
+  padding: 15px 0;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  border-radius: 10px 10px 0 0;
+}
+
+p {
+  margin: 0;
+  color: #333;
+  flex-grow: 1;
+}
+
+button {
+  padding: 8px 12px;
+  background-color: #3c2c7c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

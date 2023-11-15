@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourProblem } from '../model/tour-problem.model';
-import { TourModelService } from '../tour-problem-model.service';
+import { TourProblemService } from '../tour-problem.service';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Observable } from 'rxjs';
@@ -20,10 +20,10 @@ export class TourProblemFormComponent implements OnChanges {
   @Input() tourProblem: TourProblem;
   @Input() shouldEdit: boolean = false;
   tours: Tour[] = [];
-  user: User | undefined;
+  user: User;
 
 
-  constructor(private service: TourModelService, private tourAuthoringService :TourAuthoringService, private authService: AuthService) {
+  constructor(private service: TourProblemService, private tourAuthoringService :TourAuthoringService, private authService: AuthService) {
   }
 
   ngOnInit(): void{
@@ -59,10 +59,14 @@ export class TourProblemFormComponent implements OnChanges {
       problemPriority: this.tourProblemForm.value.problemPriority || "",
       description: this.tourProblemForm.value.description || "",
       timeStamp: new Date(), 
-      tourId: this.tourProblemForm.value.selectedTour
+      tourId: this.tourProblemForm.value.selectedTour,
+      isClosed: false,
+      isResolved: false,
+      touristId: this.user.id,
+      deadlineTimeStamp: undefined,
     };
 
-    this.service.addTourProblem(tourProblem).subscribe({
+    this.service.addTourProblemTourist(tourProblem).subscribe({
       next: () => {
         this.tourProblemUpdated.emit();
       }
@@ -80,12 +84,17 @@ export class TourProblemFormComponent implements OnChanges {
       problemPriority: this.tourProblemForm.value.problemPriority || "",
       description: this.tourProblemForm.value.description || "",
       timeStamp: new Date(), 
-      tourId: this.tourProblemForm.value.selectedTour
+      tourId: this.tourProblemForm.value.selectedTour,
+      isClosed: false,
+      isResolved: false,
+      touristId: this.user.id,
+      //Deadline TimeStamp is temporariliy undefined, no real update Tour Problem needed in current stage
+      deadlineTimeStamp: undefined,
     };
 
     if (this.tourProblem) {
       tourProblem.id = this.tourProblem.id;
-      this.service.updateTourProblem(tourProblem).subscribe({
+      this.service.updateTourProblemTourist(tourProblem).subscribe({
         next: () => {
           this.tourProblemUpdated.emit();
         }
@@ -112,7 +121,5 @@ export class TourProblemFormComponent implements OnChanges {
   getTourInTours(id: number|null|undefined): Tour | undefined{
     return this.tours.find((tour) => tour.id === id);
   }
-
-
 
 }

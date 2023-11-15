@@ -14,7 +14,7 @@ export class ViewToursComponent implements OnInit {
   selectedTour: Tour | null = null; // Store the selected tour
 
   constructor(private service: TourAuthoringService) {}
-
+  
   async ngOnInit(): Promise<void> {
     await this.getTours();
   }

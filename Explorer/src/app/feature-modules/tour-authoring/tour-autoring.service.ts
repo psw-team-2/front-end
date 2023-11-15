@@ -4,6 +4,7 @@ import { environment } from 'src/env/environment';
 import {Observable,map} from 'rxjs';
 import { Object } from './model/object.model';
 import { HttpRequest } from '@angular/common/http';
+import { PublicRequest } from './model/public-request.model';
 
 
 @Injectable({
@@ -34,4 +35,7 @@ upload(file: File): Observable<HttpEvent<any>> {
   return this.http.request(req);
 }
 
+  sendPublicRequest(publicRequest: PublicRequest): Observable<PublicRequest> {
+    return this.http.post<PublicRequest>('https://localhost:44333/api/author/tour/publicRequest', publicRequest)
+  }
 }

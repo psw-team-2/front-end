@@ -48,7 +48,7 @@ export class MapViewComponent implements AfterViewInit {
       category: 4,
       latitude: 45.2410, // Replace with actual latitude
       longitude: 19.8225,
-      isPublic:true,  // Replace with actual longitude
+      isPublic:true,
     },
     // Add more objects with different categories
   ];

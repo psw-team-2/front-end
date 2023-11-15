@@ -6,5 +6,5 @@ export interface Checkpoint {
     longitude: number,
     latitude: number,
     image: string,
-    isPublic:boolean
+    isPublic: boolean
 }
