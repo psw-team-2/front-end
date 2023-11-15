@@ -64,7 +64,8 @@ export class CheckpointFormComponent {
       description: this.checkpointForm.value.description || "",
       longitude: this.selectedCoordinates[1] || this.checkpointToPresent.longitude,
       latitude: this.selectedCoordinates[0] || this.checkpointToPresent.latitude,
-      image: 'https://localhost:44333/Images/' + this.currentFile.name
+      image: 'https://localhost:44333/Images/' + this.currentFile.name,
+      isPublic: false
     }
     await this.service.upload(this.currentFile).subscribe({
       next: (value) => {
@@ -105,7 +106,8 @@ export class CheckpointFormComponent {
       description: this.checkpointForm.value.description || "",
       longitude: this.selectedCoordinates[1] || this.checkpointToPresent.longitude,
       latitude: this.selectedCoordinates[0] || this.checkpointToPresent.latitude,
-      image: this.checkpointForm.value.image || ""
+      image: this.checkpointForm.value.image || "",
+      isPublic:false
     }
     checkpoint.id = this.checkpoint.id;
     this.service.updateCheckpoint(checkpoint).subscribe({
