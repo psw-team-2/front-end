@@ -9,5 +9,12 @@
         <button [routerLink]="'/tour-problem/' + notification.tourProblemId">Show chat</button>
       </li>
     </ng-container>
+    <ng-container *ngFor="let pr of publicRequests">
+      <li class="publicRequests">
+        <p>
+          Your request for a public {{ pr.isCheckPoint ? "checkpoint" : "object" }} is {{ pr.isApproved ? "approved" : "rejected" }} with the comment: <i>{{ pr.comment }}</i>.
+        </p>
+      </li>
+    </ng-container>
   </ul>
 </div>

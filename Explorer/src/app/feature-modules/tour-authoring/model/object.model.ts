@@ -6,4 +6,5 @@ export interface Object{
     category:number
     longitude: number,
     latitude: number,
+    isPublic:boolean
 }

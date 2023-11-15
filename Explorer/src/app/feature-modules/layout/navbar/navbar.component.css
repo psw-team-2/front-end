@@ -1,18 +1,22 @@
+/* General Navbar Styles */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  width: 100%; /* Make the navbar span the entire width */
+  padding: 1rem; /* Add some padding for spacing */
 }
 
-
+/* Left Section Styles */
 .navbar-left {
   display: flex;
   align-items: center;
   font-weight: 350;
 }
 
+/* Right Section Styles */
 .navbar-right {
   display: flex;
   align-items: center;
@@ -20,33 +24,47 @@
 }
 
 .menuButton {
-  margin-right: 0vw; /* Adjust the spacing between the menu button and the Explorer text */
+  margin-right: 1vw; /* Adjust the spacing between the menu button and the Explorer text */
   font-weight: 350;
+  text-decoration: none; /* Remove underline for anchor tags */
+  color: #fff; /* Set the text color for anchor tags */
 }
 
 .explorer {
-  font-size: 1.5vw; /* Adjust the font size for Explorer text */
+  font-size: 1.5vw;
   margin-top: 1vw;
-  
+  color: #fff; /* Set the text color for Explorer text */
 }
 
-.notificationsButton{
+.notificationsButton {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 350;
-  margin-left: 2;
+  margin-left: 2vw;
+  text-decoration: none;
+  color: #fff;
 }
 
-.logButton{
+.logButton {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 350;
+  text-decoration: none;
+  color: #fff;
 }
 
 #buttons {
-    width: auto;
-    margin-left: auto;
+  width: auto;
+  margin-left: auto;
 }
 
+/* Active Link Styles */
 .active-link {
-    display: none;
+  display: none;
 }
 
+a {
+  text-decoration: none;
+  color: #000000;
+  margin-right: 1vw; /* Adjust the spacing between the menu button and the Explorer text */
+  font-weight: 400;
+  text-decoration: none; /* Remove underline for anchor tags */
+}

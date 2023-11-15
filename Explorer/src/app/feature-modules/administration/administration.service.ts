@@ -7,6 +7,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { ApplicationReview } from './../marketplace/model/application-review.model';
 import { User } from './model/user-account.model';
 import { Profile } from './model/profile.model';
+import { PublicRequest } from '../tour-authoring/model/public-request.model';
 import { Follow} from './model/follow.model';
 import { Message } from './model/message.model';
 
@@ -146,6 +147,13 @@ export class AdministrationService {
     return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile/all-followers/' + profile.id);
   }
 
+  getPublicRequests(): Observable<PagedResults<PublicRequest>> {
+    return this.http.get<PagedResults<PublicRequest>>('https://localhost:44333/api/administrator/publicRequest');
+  }
+
+  updatePublicRequest(pr: PublicRequest): Observable<PublicRequest> {
+    return this.http.put<PublicRequest>('https://localhost:44333/api/administrator/publicRequest/update/' + pr.id, pr);
+  }
   getAllFollowers2(profile: Profile): Observable<PagedResults<Profile>> {
     return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile2/all-followers/' + profile.id);
   }

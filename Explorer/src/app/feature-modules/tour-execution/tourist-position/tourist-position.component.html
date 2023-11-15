@@ -1,0 +1,5 @@
+<h1>Choose your position: </h1>
+<div>
+    <tourist-position-map (coordinatesSelected)="onCoordinatesSelected($event)" [coordinatesToDisplay]="[touristPosition.latitude, touristPosition.longitude]"></tourist-position-map>
+    <button mat-raised-button type="submit" (click)="updatePosition()" >Save your position</button>
+</div>

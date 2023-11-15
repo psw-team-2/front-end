@@ -85,7 +85,7 @@ export class ShoppingCartComponent implements OnInit{
 
       this.service.createTokens(this.orderItems, this.userId).subscribe({
         next: () => {
-          alert('Checkout successful!');
+          alert('Checkout successful!'+ this.userId);
           this.numberOfItems = 0;
           this.totalPrice = 0;
           this.orderItems = [];

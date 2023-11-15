@@ -13,14 +13,22 @@
 </div>
   
 <div class="card-container">    
-    <div *ngFor="let tour of tours" class="card">
+    <div *ngFor="let tour of tours" class="card" (click)="selectTour(tour)" [ngClass]="{'selected-card': tour === selectedTour}">
       <div class="remove-when-use">
       </div>
       <div class="details">
         <label>{{ tour.name }}</label>
         <p>{{ tour.description }}</p>
+        <p *ngIf="tour.id !== undefined">Average grade: {{ tourAverageGrades[tour.id] }}/5</p>
+        <p>{{ tour.description }}</p>
+        <p>{{ tour.description }}</p>
         <div class="button-container">
           <a class="view-button" [routerLink]="'/tour/' + tour.id">View more</a>
+      </div>
+      <div class="button-container">
+      <!--  <a *ngIf="boughtTours.includes(tour)" class="view-button" (click)="startTour(tour)">Start tour</a>-->
+        <a class="view-button" (click)="startTour(tour)">Start tour</a>
+    </div>
           <button class="view-button" (click)="onAddClicked(tour)">Add to cart</button>
       </div>
       </div>
