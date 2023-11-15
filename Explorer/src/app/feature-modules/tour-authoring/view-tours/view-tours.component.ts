@@ -62,7 +62,7 @@ export class ViewToursComponent implements OnInit {
     }
   }
 
-
+/*
   async getTours(): Promise<void> {
     try {
       const result: PagedResults<Tour> | undefined = await this.service
@@ -103,8 +103,22 @@ export class ViewToursComponent implements OnInit {
     } catch (error) {
       // Handle errors if needed
     }
-  }
+  }*/
 
+  async getTours(): Promise<void> {
+    try {
+      const result: PagedResults<Tour> | undefined = await this.service.getTours().toPromise();
+
+      if (result) {
+        this.allTours = result.results;
+        this.tours = result.results;
+      } else {
+        // Handle the case where result is undefined
+      }
+    } catch (error) {
+      // Handle errors if needed
+    }
+  }
   selectTour(tour: Tour): void {
     this.selectedTour = tour;
   }
@@ -167,6 +181,7 @@ export class ViewToursComponent implements OnInit {
         });
       });
   }
+  
   onAddClicked(tour: Tour): void {
     if (!this.authService.user$.value) {
       console.error('User is not logged in. Please log in before adding to the cart.');
@@ -186,6 +201,5 @@ export class ViewToursComponent implements OnInit {
       }
     })
   }
-  
-  
 }
+  
