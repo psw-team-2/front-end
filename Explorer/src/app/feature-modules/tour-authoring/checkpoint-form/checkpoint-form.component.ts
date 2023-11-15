@@ -1,16 +1,19 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { Checkpoint } from '../model/checkpoint.model';
+import { PublicRequest } from '../model/public-request.model';
 import { MapService } from 'src/app/shared/map/map.service';
 import { Tour } from '../model/tour.model';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-checkpoint-form',
   templateUrl: './checkpoint-form.component.html',
   styleUrls: ['./checkpoint-form.component.css']
 })
-export class CheckpointFormComponent {
+export class CheckpointFormComponent implements OnInit {
 
   @Output() checkpointUpdated = new EventEmitter<null>();
   @Output() formClosed = new EventEmitter<null>();
@@ -21,10 +24,18 @@ export class CheckpointFormComponent {
   currentFile: File | null;
   selectedCoordinates: number[] = [];
   isClickEnabled: boolean = true;
+  checkpointId: number;
+  user: User;
   public checkpointToPresent: Checkpoint | any;
 
-  constructor(private service: TourAuthoringService,) {
+  constructor(private service: TourAuthoringService, private authService: AuthService) {
     this.checkpointToPresent = { latitude: 45.2396, longitude: 19.8227 }
+  }
+
+  ngOnInit(): void {
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -51,6 +62,7 @@ export class CheckpointFormComponent {
     description: new FormControl('', [Validators.required]),
     longitude: new FormControl('', [Validators.required]),
     latitude: new FormControl('', [Validators.required]),
+    isPublic: new FormControl(false),
     image: new FormControl('', [Validators.required])
   })
 
@@ -64,7 +76,8 @@ export class CheckpointFormComponent {
       description: this.checkpointForm.value.description || "",
       longitude: this.selectedCoordinates[1] || this.checkpointToPresent.longitude,
       latitude: this.selectedCoordinates[0] || this.checkpointToPresent.latitude,
-      image: 'https://localhost:44333/Images/' + this.currentFile.name
+      image: 'https://localhost:44333/Images/' + this.currentFile.name,
+      isPublic: false
     }
     await this.service.upload(this.currentFile).subscribe({
       next: (value) => {
@@ -79,16 +92,35 @@ export class CheckpointFormComponent {
     await this.service.addCheckpoint(checkpoint).subscribe({
       next: (checkpoint: Checkpoint) => {
         let checkpointId: number|any;
-        checkpointId= checkpoint.id;
+        checkpointId = checkpoint.id;
+        this.checkpointId = checkpointId;
         this.service.updateTourCheckpoints(this.tour, checkpointId).subscribe({
           next: (val) => {
             this.checkpointUpdated.emit()
             this.formClosed.emit()
           }
         })
+
+        if (this.checkpointForm.value.isPublic === true) {
+          this.sendPublicRequest();
+        }
       },
     });
+  }
 
+  async sendPublicRequest(): Promise<void> {
+    const publicRequest: PublicRequest = {
+      entityId: this.checkpointId,
+      authorId: this.user.id,
+      comment: "",
+      isCheckPoint: true,
+      isNotified: true,
+      isApproved: false
+    }
+
+    await this.service.sendPublicRequest(publicRequest).subscribe({
+      next: (publicRequest: PublicRequest) => {}
+    })
   }
 
   onFileSelected(event: any) {
@@ -105,7 +137,8 @@ export class CheckpointFormComponent {
       description: this.checkpointForm.value.description || "",
       longitude: this.selectedCoordinates[1] || this.checkpointToPresent.longitude,
       latitude: this.selectedCoordinates[0] || this.checkpointToPresent.latitude,
-      image: this.checkpointForm.value.image || ""
+      image: this.checkpointForm.value.image || "",
+      isPublic: false
     }
     checkpoint.id = this.checkpoint.id;
     this.service.updateCheckpoint(checkpoint).subscribe({

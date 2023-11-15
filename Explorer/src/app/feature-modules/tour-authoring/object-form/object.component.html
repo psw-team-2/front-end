@@ -12,6 +12,8 @@
         <textarea matInput formControlName="description"></textarea>
       </mat-form-field>
 
+      <input type="checkbox" formControlName="isPublic">Public
+
       <mat-label>Image:</mat-label>
       <button mat-raised-button color="primary" width="200" (click)="fileInput.click()">Upload File</button>
       <input hidden #fileInput type="file" (change)="onFileSelected($event)">

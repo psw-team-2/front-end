@@ -18,6 +18,8 @@ import { AuthModule } from './infrastructure/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { SharedModule } from './shared/shared.module';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 import { TouristSelectedEquipmentComponent } from './feature-modules/tourist/tourist-selected-equipment/tourist-selected-equipment.component';
 import { TouristModule } from './feature-modules/tourist/tourist.module';
@@ -56,6 +58,7 @@ import { DatePipe } from '@angular/common';
     ClubModule,
     ReactiveFormsModule,
     TourPreferenceModule,
+    MatDialogModule,
     DatePipe,
     FormsModule,
     NotificationsModule,
