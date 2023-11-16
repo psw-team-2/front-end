@@ -137,8 +137,8 @@
   border-radius: 0.375vw;
   text-decoration: none;
   transition: background-color 0.3s, color 0.3s;
-  margin-top: -450px;
-  margin-right: 70px;
+  margin-top: -420px;
+  margin-right: 30px;
 
   position: absolute; /* Postavlja apsolutni položaj */
   top: 485px; /* Postavlja na vrh stranice */

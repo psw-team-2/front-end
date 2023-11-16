@@ -20,18 +20,15 @@
         <label>{{ tour.name }}</label>
         <p>{{ tour.description }}</p>
         <p *ngIf="tour.id !== undefined">Average grade: {{ tourAverageGrades[tour.id] }}/5</p>
-        <p>{{ tour.description }}</p>
-        <p>{{ tour.description }}</p>
         <div class="button-container">
           <a class="view-button" [routerLink]="'/tour/' + tour.id">View more</a>
       </div>
       <div class="button-container">
       <!--  <a *ngIf="boughtTours.includes(tour)" class="view-button" (click)="startTour(tour)">Start tour</a>-->
-        <a class="view-button" (click)="startTour(tour)">Start tour</a>
-        </div>
-            <button class="view-button" (click)="onAddClicked(tour)">Add to cart</button>
-            <button class="view-button" (click)="onReportClicked(tour)">Report tour</button>
-        </div>
+        <a class="view-button" (click)="startTour(tour)">Start  tour</a>
+        <a class="view-button" (click)="onAddClicked(tour)">Add to cart</a>
+        <a class="view-button" (click)="onReportClicked(tour)">Report tour</a>
+      
       </div>
     </div>
   </div>
