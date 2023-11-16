@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.checkIfUserExists();
   }
-  
+
   private checkIfUserExists(): void {
     this.authService.checkIfUserExists();
   }

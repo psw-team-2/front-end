@@ -7,17 +7,12 @@ import { CheckpointComponent } from 'src/app/feature-modules/tour-authoring/chec
 import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.component';
 import { EquipmentComponent } from 'src/app/feature-modules/administration/equipment/equipment.component';
 import { AuthGuard } from '../auth/auth.guard';
-
-
-import { TourProblemsComponent } from 'src/app/feature-modules/tour-problem/tour-problems/tour-problem.component';
-
+import { TourProblemsComponent } from 'src/app/feature-modules/tour-problem/tour-problems/tour-problems.component';
 import { TourEquipmentComponent } from 'src/app/feature-modules/tour-authoring/tour-equipment/tour-equipment.component';
 import { ObjectComponent } from 'src/app/feature-modules/tour-authoring/object-form/object.component';
 import { TouristSelectedEquipmentComponent } from 'src/app/feature-modules/tourist/tourist-selected-equipment/tourist-selected-equipment.component';
 import { TourReviewFormComponent } from 'src/app/feature-modules/marketplace/tour-review-form/tour-review-form.component';
 import { TourReviewComponent } from 'src/app/feature-modules/marketplace/tour-review/tour-review.component';
-
-
 import { ClubsOverviewComponent } from 'src/app/feature-modules/club/clubs-overview/clubs-overview.component';
 import { ClubOverviewComponent } from 'src/app/feature-modules/club/club-overview/club-overview.component';
 import { ClubRequestComponent } from 'src/app/feature-modules/club/club-request/club-request.component';
@@ -31,7 +26,21 @@ import { BlogFormComponent } from 'src/app/feature-modules/blog/blog-form/blog-f
 import { SinglePostComponent } from 'src/app/feature-modules/blog/single-post/single-post.component';
 import { BlogManagemetComponent } from 'src/app/feature-modules/blog/blog-managemet/blog-managemet.component';
 import { BlogCommentsComponent } from 'src/app/feature-modules/blog/blog-comments/blog-comments.component';
-
+import { BlogSinglePostComponent } from 'src/app/feature-modules/blog/blog-single-post/blog-single-post.component';
+import { BlogReviewComponent } from 'src/app/feature-modules/blog/blog-review/blog-review.component';
+import { CommentsReviewComponent } from 'src/app/feature-modules/blog/comments-review/comments-review.component';
+import { ViewToursComponent } from 'src/app/feature-modules/tour-authoring/view-tours/view-tours.component';
+import { TourOverviewComponent } from 'src/app/feature-modules/tour-authoring/tour-overview/tour-overview.component';
+import { TouristPositionComponent } from 'src/app/feature-modules/tour-execution/tourist-position/tourist-position.component';
+import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
+import { ViewToursAuthorComponent } from 'src/app/feature-modules/tour-authoring/view-tours-author/view-tours-author.component';
+import { PublicRequestsComponent } from 'src/app/feature-modules/administration/public-requests/public-requests.component';
+import { NotificationsOverviewComponent } from 'src/app/feature-modules/notifications/notifications-overview/notifications-overview.component';
+import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopping-cart/shopping-cart.component';
+import { ViewPurchasedToursComponent } from 'src/app/feature-modules/tour-authoring/view-purchased-tours/view-purchased-tours.component';
+import {TourProblemOverviewComponent } from 'src/app/feature-modules/tour-problem/tour-problem-overview/tour-problem-overview.component';
+import { TourProblemResponseComponent } from 'src/app/feature-modules/tour-problem/tour-problem-response/tour-problem-response.component';
+import { TourProblemFormComponent } from 'src/app/feature-modules/tour-problem/tour-problem-form/tour-problem-form.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -39,7 +48,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
-  {path: 'tour-problem', component: TourProblemsComponent, canActivate: [AuthGuard],},
+  {path: 'tour-problems', component: TourProblemsComponent, canActivate: [AuthGuard],},
   {path: 'checkpoint/:id', component: CheckpointComponent},
   {path: 'tour', component: TourComponent},
   {path: 'equipment/:id', component: TourEquipmentComponent},
@@ -60,9 +69,27 @@ const routes: Routes = [
   {path: 'post', component: SinglePostComponent},
   {path: 'blog-management', component: BlogManagemetComponent, canActivate: [AuthGuard],},
   { path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
-  { path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], }
+  { path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
+  { path: 'blog-single-post/:id', component: BlogSinglePostComponent, },
+  {path: 'blog-review', component: BlogReviewComponent},
+  {path: 'comments-review', component: CommentsReviewComponent},
+  {path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
+  {path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
+  {path: 'tour/:id', component: TourOverviewComponent},
 
+  {path: 'touristposition', component: TouristPositionComponent},
+  {path: 'activeTour', component: ActiveTourComponent},
+  {path: 'view-tours-author', component: ViewToursAuthorComponent},
+  {path: 'view-tours-tourist', component: ViewToursComponent},
 
+  {path: 'publicRequests', component: PublicRequestsComponent},
+  {path: 'tour-problem/:id', component: TourProblemOverviewComponent},
+  {path: 'tour-problem/:problemId/responses', component: TourProblemResponseComponent },
+  {path: 'notifications', component: NotificationsOverviewComponent},
+  {path: 'tour-problem-form/:id', component: TourProblemFormComponent},
+
+  {path: 'shopping-cart', component: ShoppingCartComponent},
+  {path: 'view-purchased-tours', component: ViewPurchasedToursComponent}
 ];
 
 @NgModule({

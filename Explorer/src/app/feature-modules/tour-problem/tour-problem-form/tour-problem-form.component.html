@@ -1,33 +1,45 @@
-<form [formGroup]="tourProblemForm">
-    <div>
-        <mat-form-field>
-            <mat-label>Problem Category</mat-label>
-            <mat-select formControlName="problemCategory">
-                <mat-option value="category1">Category 1</mat-option>
-                <mat-option value="category2">Category 2</mat-option>
-                <mat-option value="category3">Category 3</mat-option>
-            </mat-select>
-        </mat-form-field>
+<div class="centered-content">
+    <div class="tour-problem-container">
+      <h1 id="entity-title-paragraph">Report Tour Problem</h1>
+      <hr>
 
-        <mat-form-field>
-            <mat-label>Problem Priority</mat-label>
-            <mat-select formControlName="problemPriority">
-                <mat-option value="priority1">Priority 1</mat-option>
-                <mat-option value="priority2">Priority 2</mat-option>
-                <mat-option value="priority3">Priority 3</mat-option>
-            </mat-select>
-        </mat-form-field>
+      <form [formGroup]="tourProblemForm">
+        <div class="entity-details two-column-layout">
+            <div class="card flex-container">
+                <div class="tour-problem-info">
+                    <mat-form-field>
+                    <mat-label>Problem Category</mat-label>
+                    <mat-select formControlName="problemCategory">
+                        <mat-option value="category1">Category 1</mat-option>
+                        <mat-option value="category2">Category 2</mat-option>
+                        <mat-option value="category3">Category 3</mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                </div>
+        
+                <div class="tour-problem-info">
+                    <mat-form-field>
+                    <mat-label>Problem Priority</mat-label>
+                    <mat-select formControlName="problemPriority">
+                        <mat-option value="priority1">Priority 1</mat-option>
+                        <mat-option value="priority2">Priority 2</mat-option>
+                        <mat-option value="priority3">Priority 3</mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                </div>
+        
+                <div class="tour-problem-info">
+                    <mat-form-field>
+                    <mat-label>Description</mat-label>
+                    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" formControlName="description" cdkAutosizeMaxRows="5"></textarea>
+                    </mat-form-field>
+                </div>
+        
+            </div>
+        </div>
 
-        <mat-form-field>
-            <mat-label>Description</mat-label>
-            <textarea matInput
-                cdkTextareaAutosize
-                cdkAutosizeMinRows="1"
-                formControlName="description"
-                cdkAutosizeMaxRows="5"></textarea>
-        </mat-form-field>
-
-        <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addTourProblem()" mat-raised-button>Done</button>
-        <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateTourProblem()" mat-raised-button>Done</button>
+        <button color="primary" type="submit"  (click)="addTourProblem()" mat-raised-button id="entity-raised-button">Report</button>
+        <button color="primary" type="submit"  (click)="cancelTourProblem()" mat-raised-button id="entity-raised-button">Cancel</button>
+      </form>
     </div>
-</form>
+</div>

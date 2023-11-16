@@ -1,47 +1,60 @@
+<div class="center-container">
 <div id="tour-review">
     <hr>
     <div id="tourReview-details">
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Grade</th>
-                    <th>Comment</th>
-                    <th>Image</th>
-                    <th>Review date</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let tr of tourReview">
-                    <td>{{ getUserName(tr.userId) }}</td>
-                    <td>{{tr.grade}}</td>
-                    <td>{{tr.comment}}</td>
-                    <td class="thumbnail">
-                        <img   src={{tr.images}} alt="" srcset="">
-                    </td>
-                    <td>{{tr.reviewDate}}</td>
-                    <td>
-                        <button color="accent" (click)="deleteTourReview(tr.id || 0)"  mat-icon-button>
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                        <button color="primary"  mat-icon-button>
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                    </td>
-                </tr>
-                <tr><button color="primary" (click)="onAddClicked()"  mat-icon-button>
-                    <mat-icon>add</mat-icon>
-                </button></tr>
-                
-            </tbody>
+        <div>
+            <label (click)="toggleTable()">Comments 
+                <span [ngClass]="{'arrow-up': showTable, 'arrow-down': !showTable}">&#9660;</span>
+            </label>
+            <table>
+            <div *ngIf="showTable">
+                <div class="tour-review-box" *ngFor="let tr of tourReview">
+                    <div class="column">
+                        <div class="row">
+                            <div class="user-info">
+                                <div class="username">{{ getUserName(tr.userId) }}</div>
+                                <div class="review-date">{{ tr.reviewDate | date: 'yyyy-MM-dd' }}</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="comment">{{ tr.comment }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="grade">{{ tr.grade }}/5</div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="row">
+                            <div class="username">
+                              
+                            </div>
+                            <div class="thumbnail">
+                                <img src="{{tr.images}}" alt="" srcset="">
+                            </div>
+                            <div class="button-action">
+                                <button  *ngIf="tr.userId === currentUserId" color="accent" (click)="deleteTourReview(tr.id || 0)" mat-icon-button>
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                                <button  *ngIf="tr.userId === currentUserId" color="primary" (click)="onEditClicked(tr)" mat-icon-button>
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                    
+                    </div>
+                    
+                </div>
+            </div>
         </table>
-    </div>
-    <div>
-        <xp-tour-review-form *ngIf="shouldRenderTourReviewForm"[shouldEdit]="shouldEdit" [tourReview]="selectedTourReview" (tourReviewUpdated)="getTourReview()"></xp-tour-review-form>
-    </div>
+            <button color="primary" (click)="onAddClicked()" mat-icon-button>
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <div>
+            <xp-tour-review-form *ngIf="shouldRenderTourReviewForm" [shouldEdit]="shouldEdit" [tourReview]="selectedTourReview" (tourReviewUpdated)="getTourReviewByTourId(tourId)"></xp-tour-review-form>
+        </div>
     </div>
 </div>
-
+</div>

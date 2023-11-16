@@ -3,6 +3,7 @@ import { Blog, BlogStatus, numberToBlogStatus } from '../model/blog.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { BlogService } from '../blog.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 
 
@@ -19,14 +20,15 @@ export class BlogManagemetComponent {
   numberToBlogStatus = numberToBlogStatus;
   BlogStatus = BlogStatus;
   olderFileUrl: string | null = null;
+  userId = this.authService.user$.value.id;
 
-  constructor(private service: BlogService, private router: Router) { }
+  constructor(private service: BlogService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.getBlogs();
+    this.getBlogsByUserId(this.userId);
   }
 
-  getBlogs(): void {
+  /*getBlogs(): void {
     this.service.getBlogs().subscribe({
       next: (result: PagedResults<Blog>) => {
         this.blogs = result.results;
@@ -34,7 +36,7 @@ export class BlogManagemetComponent {
       error: () => {
       }
     })
-  }
+  }*/
 
   closeBlog(blog: Blog): void {
     this.updateBlogStatus(blog, BlogStatus.Closed);
@@ -68,9 +70,28 @@ export class BlogManagemetComponent {
   deleteBlog(id: number): void {
     this.service.deleteBlog(id).subscribe({
       next: () => {
-        this.getBlogs();
+        this.getBlogsByUserId(this.userId);
       },
     })
+  }
+
+  async getBlogsByUserId(userId: number): Promise<void> {
+    try {
+      userId = this.userId;
+      const result = await this.service.getBlogsByUserId(userId).toPromise();
+  
+      if (result && Array.isArray(result) && result.length > 0) {
+  
+        const firstBlog = result[0];
+  
+        this.blogs = result;
+  
+      } else {
+        console.error('Invalid response format: blog data is unavailable.');
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
   }
 
 }

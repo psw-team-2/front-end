@@ -1,0 +1,9 @@
+div.panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    position: absolute;
+    z-index: 999;
+    left: 2em; /* Change 'right' to 'left' */
+    bottom: 2em; /* Change 'top' to 'bottom' */
+}

@@ -8,3 +8,72 @@ div {
 .mat-icon {
     vertical-align: middle;
 }
+
+.description-overflow {
+    max-height: 100px; /* Adjust this value to limit the description to the desired number of rows */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tour-problem-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Horizontally center */
+  }
+  
+.flex-container {
+    display: flex;
+    flex-direction: column; /* Arrange items vertically */
+}
+
+.limited-description {
+    max-height: 80px; /* Adjust the max-height as needed for the limited text */
+    overflow: hidden;
+}
+
+.tour-problem-info {
+    margin: 10px 0; /* Add margin to separate information blocks */
+}
+
+.tour-problem-info-warning {
+    color: red;
+    margin: 10px 0; /* Add margin to separate information blocks */
+}
+
+
+.limited-description {
+    max-height: 100px; /* Set a maximum height to limit the description's height */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+.success-deadline-save-message {
+    background-color: #c5d6b2;
+    padding: 10px; /* Add padding for spacing */
+    margin-bottom: 10px;
+   /* border: 1px solid green; /* Add a border for separation */
+  }
+  
+  .tour-problem-description {
+    margin: 0 20px; /* Adjust the margin as needed */
+    max-width: 40vw; /* Adjust the max width as needed */
+    white-space: pre-wrap; /* Allow line breaks */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add ellipsis for overflow */
+    display: block;
+}
+
+.button-row {
+    display: flex; /* Use flexbox to align buttons horizontally */
+    justify-content: center; /* Center buttons horizontally within the row */
+}
+
+.centered-content {
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+
+  }

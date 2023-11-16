@@ -1,0 +1,88 @@
+<div id="entity" class="center-content">
+    <p id="entity-title-paragraph">Tour Problems</p>
+    <hr>
+    <div id="entity-details" class="two-column-layout">
+        <div>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Problem Category</th>
+                            <th>Problem Priority</th>
+                            <th>Description</th>
+                            <th>Timestamp</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let problem of tourProblems">
+                            <tr [ngClass]="{'tr-tour-problem-5d-old': isFiveDaysOld(problem) && user.role === 'administrator'}" >
+                                <td>{{problem.problemCategory}}</td>
+                                <td>{{problem.problemPriority}}</td>
+                                <td>{{ truncateText(problem.description, 20) }}</td>
+                                <td>{{problem.timeStamp | date:'medium'}}</td>
+                                <td>
+                                    <button color="primary" [routerLink]="'/tour-problem/' + problem.id" mat-raised-button id="entity-raised-button">
+                                        See More
+                                    </button>
+                                </td>
+                                <td>
+                                    <button *ngIf="isExpired(problem) && user?.role === 'administrator'" color="accent" (click)="onCloseClicked(problem)" mat-raised-button id="entity-raised-button">
+                                        Close Problem
+                                    </button>
+                                </td>
+                                <td>    
+                                    <button *ngIf="isExpired(problem) && user.role === 'administrator'" color="primary" (click)="onPenalizeClicked(problem)" mat-raised-button id="entity-raised-button">
+                                        Penalize Tour
+                                    </button>
+                                </td>
+                                <td>    
+                                    <button color="primary" *ngIf="user.role === 'tourist' && !isProblemResolved(problem)" (click)="onProblemSolved(problem)" mat-raised-button id="entity-raised-button">
+                                        Problem solved
+                                    </button>
+                                    <button color="primary" *ngIf="user.role === 'tourist' && isProblemResolved(problem)" (click)="onAddCommentClicked(problem)" mat-raised-button id="entity-raised-button">Problem Unsolved</button>
+                                    <div *ngIf="shouldRenderAddCommentForm && selectedProblemForComment === problem" class="bottom-margin">
+                                       <form [formGroup]="addCommentForm" (submit)="onProblemUnsolved(problem)">
+                                           <mat-form-field>
+                                               <input matInput type="text" placeholder="Enter your comment" formControlName="comment" [(ngModel)]="comment">
+                                           </mat-form-field>                  
+                                           <button type="submit" mat-raised-button id="entity-raised-button">Add</button>
+                                           <button (click)="onCancelComment()" mat-raised-button id="entity-raised-button">Cancel</button>
+                                       </form>     
+                                    </div>
+                                </td>
+                                <td>
+                                    <img *ngIf="isExpired(problem)" src="../../../../assets/icons/expiration-icon.png" id="entity-details-icon">
+                                </td>
+
+                            </tr>   
+                            <tr *ngIf="shouldRenderPenalization && user.role === 'administrator'">
+                                <td colspan="8">
+                                    <p>Are you sure you want to penalize this author?</p>
+                                    <div class="button-row">
+                                        <button (click)="onPenalizeConfirmClicked(problem)" id="entity-raised-button">Yes</button>
+                                        <button (click)="shouldRenderPenalization = false" id="entity-raised-button">No</button>
+                                    </div>
+                                </td>
+                            </tr>         
+                            <tr *ngIf="shouldRenderClosure && user.role === 'administrator'">
+                                <td colspan="8">
+                                    <p>Are you sure you want to close this problem?</p>
+                                    <div class="button-row">
+                                        <button (click)="onCloseConfirmClicked(problem)" id="entity-raised-button">Yes</button>
+                                        <button (click)="shouldRenderClosure = false" id="entity-raised-button">No</button>
+                                    </div>
+                                </td>
+                            </tr>         
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+
+    <ng-container *ngIf="markersReady | async">
+        <execution-map [markerList]="markerList" [checkpoints]="checkpointList" [tourExecution]="tourExecution" [activeTour] = "tour"></execution-map>
+        <div class="panel">
+            <button mat-raised-button class="complete" (click)="updateTourExec('complete')" type="submit" >Complete Tour</button>
+            <button mat-raised-button class="primary" (click)="updateTourExec('abandon')" type="submit">Abandon Tour</button>
+            <button mat-raised-button class="primary" (click)="leaveReview()">Leave a review</button>
+        </div>
+    </ng-container>
+

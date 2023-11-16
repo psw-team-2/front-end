@@ -1,0 +1,39 @@
+.message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 520px;
+}
+
+.tour-problem-response-title {
+  font-weight: bold;
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.message {
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 10px;
+  margin-bottom: 10px;
+  max-width: 80%;
+  align-self: center;
+}
+
+.message-content {
+  margin-bottom: 5px;
+  word-wrap: break-word;
+}
+
+.message-metadata {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+}
+
+.timestamp,
+.tourist {
+  margin-right: 10px;
+  color: #888;
+}

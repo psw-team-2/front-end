@@ -1,0 +1,154 @@
+.card-container {
+  margin: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  width: 220px;
+  height: 340px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-bottom: 20px;
+  background: url('https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg') no-repeat center center;
+  background-size: cover;
+  border: 3px solid rgb(56, 28, 117); /* Add a purple border */
+}
+
+
+.details > p {
+  font-size: 0.8em;
+  margin-top: 0.5em;
+  color: transparent; /* Hide the rest of the text */
+}
+
+.details > label {
+  font-weight: bold;
+}
+
+.details {
+  color: white;
+  box-shadow: 0 3px 10px rgb(56, 28, 117);
+  width: 100%;
+  background-color: rgb(56, 28, 117);
+  position: absolute;
+  bottom: 0;
+  height: 2.6em;
+  transition: height 0.5s ease-in-out;
+  padding: 0.6em;
+  overflow: hidden;
+  box-sizing: border-box; /* Include padding and border in the element's width and height */
+}
+
+.card:hover > .details {
+  height: 80%;
+}
+
+.card:hover > .details > p {
+  color: white; /* Make the rest of the text visible on hover */
+  overflow: hidden; /* Hide any overflow */
+}
+.view-button {
+  display: inline-block;
+  padding: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 16;
+  color: #2E003D;
+  background-color: #ffffff;
+  border: 0.2vw solid #2E003D;
+  border-radius: 0.375vw;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+.button-container {
+  text-align: center;
+  margin: 5px;
+}
+.view-button:hover {
+  background-color: #2E003D;
+  color: #ffffff;
+}
+
+
+.header {
+  font-size: 30px;
+  color: #2E003D; /* Text color */
+  text-align: center; /* Center the text */
+  margin: 20px; /* Add space below the header */
+  font-weight: bold; /* Make the text bold if desired */
+  text-transform: uppercase; /* Convert text to uppercase if desired */
+}
+
+.tour-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0; /* Center the component horizontally */
+  z-index: 2;
+  width: 25%;
+  background: rgba(255, 255, 255, 0.8);
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+}
+
+.map-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.selected-card {
+  background-color: #B855D4; /* Change to the light purple color you desire */
+  border: 3px solid #B855D4; /* Border color matches background color */
+  color: #2E003D; /* Text color matches the original text color */
+}
+
+.selected-details {
+  color: white;
+  box-shadow: 0 3px 10px #B855D4;
+  width: 100%;
+  background-color: #B855D4;
+  position: absolute;
+  bottom: 0;
+  height: 2.6em;
+  transition: height 0.5s ease-in-out;
+  padding: 0.6em;
+  overflow: hidden;
+  box-sizing: border-box; /* Include padding and border in the element's width and height */
+}
+.cart-button {
+  display: inline-block;
+  padding: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 16;
+  color: #2E003D;
+  background-color: #ffffff;
+  border: 0.2vw solid #2E003D;
+  border-radius: 0.375vw;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+
+  position: absolute; /* Postavlja apsolutni položaj */
+  top: 485px; /* Postavlja na vrh stranice */
+  right: 10px; /* Postavlja na desnu stranu stranice */
+}
+
+.cart-button i.fas.fa-shopping-cart::before {
+  margin-right: 5px; /* Margina sa desne strane ikone */
+  font-size: 20px; /* Veličina ikone korpe */
+}
+
+.cart-button:hover {
+  background-color: #2E003D;
+  color: #ffffff;
+}
+

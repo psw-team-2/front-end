@@ -1,0 +1,37 @@
+<xp-map-view *ngIf="canRender" [loadedCheckpoints]="checkpoints" [loadedTour]="tour"></xp-map-view>
+<xp-tour-review></xp-tour-review>
+<!--<xp-map-view *ngIf="canRender" [loadedCheckpoints]="checkpoints"></xp-map-view>> -->
+<!-- tour-details.component.html -->
+
+<div *ngIf="tour" class="tour-details-container">
+    <div class="tour-info">
+      <h2>{{ tour.name }}</h2>
+      <p><strong>Description:</strong> {{ tour.description }}</p>
+      <p><strong>Difficulty:</strong>
+        <span class="difficulty-stars">
+        <span *ngFor="let star of difficultyStars(tour.difficulty)">&#9733;</span>
+      </span></p>
+    </div>
+  
+    <div class="tour-reviews">
+        <div *ngFor="let review of reviews" class="review-card">
+          <div class="review-header">
+            <h2>{{ review.comment }}</h2>
+            <p><strong>Grade:</strong> {{ review.grade }}</p>
+          </div>
+          <p class="review-date">{{ review.reviewDate | date:'medium' }}</p>
+        </div>
+      </div>
+      
+  
+      <div class="image-carousel-container" [@fadeInOut]="true">
+        <div class="nav-buttons">
+          <button class="nav-button left" (click)="prevImage()">&#9664;</button>
+          <button class="nav-button right" (click)="nextImage()">&#9654;</button>
+        </div>
+        <div class="image-wrapper">
+          <img [src]="getCurrentImage()" alt="Checkpoint Image" [@fadeInOut]="canRender ? 'fade' : ''" />
+        </div>
+      </div>
+  </div>
+  

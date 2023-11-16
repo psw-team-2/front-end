@@ -41,15 +41,16 @@ export class CheckpointComponent implements OnInit {
         let temporaryList: Checkpoint[] = [];
         this.service.getCheckpoints().subscribe({
           next: (results: PagedResults<Checkpoint>) => {
-            for (let i = 0; i < results.results.length; i++) {
-              const checkpoint = results.results[i];
-              results.results.forEach((cp: Checkpoint) => {
-                if (checkpoint.id == cp.id) {
-                  temporaryList.push(cp);
+              for (let i = 0; i < results.results.length; i++) {
+                const checkpoint = results.results[i];
+                for (let j = 0; j < this.tour.checkPoints.length; j++) {
+                  const cpId = this.tour.checkPoints[j];
+                  if (checkpoint.id == cpId) {
+                    temporaryList.push(checkpoint);
+                  }
                 }
-              });
 
-            }
+              }
             this.checkpoint = temporaryList;
           }
         })
