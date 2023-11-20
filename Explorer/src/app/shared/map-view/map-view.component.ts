@@ -15,8 +15,10 @@ import { Tour } from '../../feature-modules/tour-authoring/model/tour.model';
 export class MapViewComponent implements AfterViewInit {
   @Input() loadedCheckpoints: Checkpoint[];
   @Input() loadedTour: Tour;
+  currentVehicle: string;
   private map: any;
   private objects: Object[] = [
+
     {
       name: 'Restroom 1',
       description: 'Restroom at location 1',
@@ -76,13 +78,11 @@ export class MapViewComponent implements AfterViewInit {
     );
     tiles.addTo(this.map);
 
+    this.showWalkingRoute();
     //this.registerOnClick();
     //this.search();
     // For walking
 
-    await this.setRoute(this.loadedCheckpoints, 'driving');
-    await this.setRoute(this.loadedCheckpoints, 'cycling');
-    await this.setRoute(this.loadedCheckpoints, 'walking');
 
     this.service.updateTour(this.loadedTour).subscribe({
       next: (_) => {
@@ -190,9 +190,6 @@ private addLabelToPopupContent(categoryLabel: string, imageSrc: string, name: st
   return `<div style="max-width: ${maxPopupWidth}px;">${popupContent}</div>`;
 }
 
-
-
-
 // Updated setRoute method
 private async setRoute(checkpoints: Checkpoint[], profile: 'walking' | 'driving' | 'cycling'): Promise<void> {
   return new Promise<void>((resolve) => {
@@ -252,9 +249,25 @@ private async setRoute(checkpoints: Checkpoint[], profile: 'walking' | 'driving'
         this.loadedTour.carTime = totalSeconds;
       }
 
-      // Resolve the promise to indicate that the asynchronous operation is complete
       resolve();
     });
+  });
+}
+deleteRoutes(): void {
+  this.currentVehicle = "none";
+  this.map.eachLayer((layer: any) => {
+    // Check if the layer is a route and clear waypoints from the plan
+    if (layer instanceof L.Routing.Control) {
+      // Check if the route control has a plan and is still on the map
+      if (layer.getPlan() && this.map.hasLayer(layer)) {
+        layer.getPlan().setWaypoints([]); // Clear waypoints
+      }
+    }
+
+    // Check if the layer is a marker group and remove it
+    if (layer instanceof L.LayerGroup) {
+      this.map.removeLayer(layer);
+    }
   });
 }
 
@@ -333,5 +346,22 @@ private async addMarkersForCategory(category: number): Promise<void> {
         return 'OTHER'; // Provide a default label for unknown categories
     }
   }
-
+  async showWalkingRoute(): Promise<void> {
+    this.deleteRoutes();
+    this.currentVehicle = "walking";
+    await this.setRoute(this.loadedCheckpoints, 'walking');
+  }
+  
+  async showBicycleRoute(): Promise<void> {
+    this.deleteRoutes();
+    this.currentVehicle = "cycling";
+    await this.setRoute(this.loadedCheckpoints, 'cycling');
+  }
+  
+  async showCarRoute(): Promise<void> {
+    this.deleteRoutes();
+    this.currentVehicle = "car";
+    await this.setRoute(this.loadedCheckpoints, 'driving');
+  }
+  
 }
