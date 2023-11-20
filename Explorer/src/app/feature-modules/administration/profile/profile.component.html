@@ -21,9 +21,18 @@
     <xp-picture-form *ngIf="selectedProfile && showPictureForm" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-picture-form>
   </div>
 </div>
-
-
 <xp-tour-preference-field></xp-tour-preference-field>
-<xp-profiles></xp-profiles>
-<xp-followers></xp-followers>
+<div class="center-class">
+  <table class="split-table">
+    <tr>
+      <td class="left-side">
+        <xp-followers></xp-followers>
+      </td>
+      <td class="right-side">
+        <xp-tourist-posts></xp-tourist-posts>            
+      </td>
+    </tr>
+  </table>
+</div>
+
 <xp-message *ngIf="showMessage" class="notification"></xp-message>

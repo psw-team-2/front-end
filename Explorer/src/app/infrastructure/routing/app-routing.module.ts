@@ -41,6 +41,7 @@ import { ViewPurchasedToursComponent } from 'src/app/feature-modules/tour-author
 import {TourProblemOverviewComponent } from 'src/app/feature-modules/tour-problem/tour-problem-overview/tour-problem-overview.component';
 import { TourProblemResponseComponent } from 'src/app/feature-modules/tour-problem/tour-problem-response/tour-problem-response.component';
 import { TourProblemFormComponent } from 'src/app/feature-modules/tour-problem/tour-problem-form/tour-problem-form.component';
+import { ProfilesComponent } from 'src/app/feature-modules/administration/profiles/profiles.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -89,6 +90,7 @@ const routes: Routes = [
   {path: 'tour-problem-form/:id', component: TourProblemFormComponent},
 
   {path: 'shopping-cart', component: ShoppingCartComponent},
+  {path: 'find-people', component: ProfilesComponent},
   {path: 'view-purchased-tours', component: ViewPurchasedToursComponent}
 ];
 

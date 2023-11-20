@@ -28,12 +28,12 @@ import { Followers2Component } from './followers2/followers2.component';
 import { Message2Component } from './message2/message2.component';
 import { MessageForm2Component } from './message-form2/message-form2.component';
 import { Profiles2Component } from './profiles2/profiles2.component';
+import { TouristPostsComponent } from './tourist-posts/tourist-posts.component';
 
 @NgModule({
   declarations: [
     EquipmentFormComponent,
     EquipmentComponent,
-
     ApplicationReviewComponent,
     ProfileComponent,
     ProfileFormComponent,
@@ -52,7 +52,7 @@ import { Profiles2Component } from './profiles2/profiles2.component';
     Message2Component,
     MessageForm2Component,
     Profiles2Component,
-
+    TouristPostsComponent,
   ],
   imports: [
     CommonModule,
@@ -73,6 +73,8 @@ import { Profiles2Component } from './profiles2/profiles2.component';
     Profile2Component,
     UserAccountAdministrationComponent,
     PublicRequestsComponent,
+    ProfilesComponent,
+    Profiles2Component
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
