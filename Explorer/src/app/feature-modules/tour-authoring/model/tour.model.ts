@@ -3,7 +3,7 @@ export interface Tour {
     name: string,
     description: string,
     difficulty: number,
-    tags: string,
+    tags: string[],
     checkPoints: number[],
     equipments: Number[],
     status: Number,
@@ -12,5 +12,6 @@ export interface Tour {
     bicycleTime: Number,
     carTime: Number,
     authorId: number,
-    //publishTime: string,
+    publishTime: string
+
 }

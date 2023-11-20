@@ -205,7 +205,7 @@ private async setRoute(checkpoints: Checkpoint[], profile: 'walking' | 'driving'
       router: L.Routing.mapbox('pk.eyJ1IjoiZGpucGxtcyIsImEiOiJjbG56Mzh3a2gwNWwzMnZxdDljdHIzNDIyIn0.iZjiPJJV-SgTiIOeF8UWvA', { profile: `mapbox/${profile}` }),
       routeWhileDragging: false,
     }).addTo(this.map);
-
+    routeControl.hide();
     const markerGroup = L.layerGroup();
 
     routeControl.on('routesfound', (e) => {
@@ -277,6 +277,7 @@ private async addMarkersForCategory(category: number): Promise<void> {
 
             const iconUrl = this.getCategoryIcon(category);
             const marker = L.marker([object.latitude, object.longitude], {
+              draggable: false,
               icon: L.icon({
                 iconUrl: iconUrl,
                 iconSize: [32, 32],

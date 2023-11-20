@@ -33,8 +33,6 @@ import { AuthService } from './infrastructure/auth/auth.service';
 import { MatButtonModule } from '@angular/material/button';
 
 import { MatDatepickerModule } from '@angular/material/datepicker'
-import { DatePipe } from '@angular/common';
-
 @NgModule({
   declarations: [
     AppComponent
@@ -61,7 +59,6 @@ import { DatePipe } from '@angular/common';
     TourPreferenceModule,
     MatButtonModule,
     MatDialogModule,
-    DatePipe,
     FormsModule,
     NotificationsModule,
   ],

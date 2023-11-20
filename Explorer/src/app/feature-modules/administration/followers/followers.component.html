@@ -13,6 +13,8 @@
     </div>
   </div>  
   <button class="find-people-button" (click)="findPeople()">Find people</button>
+  <xp-message-form *ngIf="selectedFollower && showMessageForm" [selectedFollower]="selectedFollower"></xp-message-form>
+  <button class="find-people-button" (click)="findPeople()">Find people</button>
   <div *ngIf="selectedFollower && showMessageForm" class="message-form-wrapper">
     <button mat-icon-button class="close-button" (click)="toggleChat()">
       <mat-icon>close</mat-icon>

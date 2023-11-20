@@ -1,113 +1,85 @@
-/* tour-details.component.css */
-
-.tour-details-container {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 800px; /* Adjust the maximum width as needed */
-  margin: 20px auto;
-}
-
-.difficulty-stars {
-  color: #ffcd00; /* Star color */
-  font-size: 20px; /* Adjust the font size as needed */
-}
-
-.tour-reviews {
-  flex: 1;
-  max-width: calc(50% - 15px); /* Increased margin for more space between tour-info and tour-reviews */
-  margin-right: 30px; /* Increased right margin for more space */
-}
-
-.tour-info {
-  flex: 1;
-  max-width: calc(40% - 15px); /* Increased maximum width for more space to the left */
-  margin-right: 30px; /* Increased right margin for more space */
-}
-
-.tour-reviews {
-  margin-right: 0; /* No right margin for the last element in the row */
-}
-
-.image-carousel-container {
-  flex: 1;
-  max-width: calc(100% - 30px); /* Increased margin for more space between reviews and image carousel */
-  margin-top: 30px; /* Increased top margin for more space */
+/* General Styles */
+.map-section {
   position: relative;
+  overflow: hidden; /* Hide overflow to prevent unwanted scrolling on the map */
 }
 
-.nav-buttons {
+.section h2 {
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  padding: 10px;
+  margin: 0;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.section-container {
   position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 60%;
+  left: 0;
+  transform: translateY(-60%);
   display: flex;
-  justify-content: space-between;
-  width: calc(100% - 60px);
-  z-index: 2;
-}
-
-.nav-button {
-  background-color: purple;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 12px;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
-}
-
-.nav-button:hover {
-  background-color: #69359c; /* Darker shade on hover */
-}
-
-.image-wrapper {
-  position: relative;
-  height: 300px; /* Increased height for a larger image */
-  margin-top: 70px; /* Adjusted margin to position the image a little bit lower */
-}
-
-.image-carousel-container img {
-  max-width: 100%;
-  height: auto;
-  width: 100%;
-  opacity: 1;
-  transition: opacity 300ms ease-in-out;
-}
-
-.image-carousel-container img.fade {
-  opacity: 0;
-}
-
-/* Add these styles to your existing styles or create a new CSS file */
-
-.tour-reviews {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.review-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin: 20px; /* Increased margin for more space between review cards */
-  padding: 20px; /* Increased padding for more space */
-  width: 320px; /* Increased width for more space */
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.review-header {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  overflow-x: auto; /* Add horizontal scroll bar if content overflows */
 }
 
-.review-text {
-  margin-top: 15px; /* Increased margin for more space */
+/* Section Styles */
+.section {
+  width: 600px; /* Set a maximum width for the sections */
+  height: 560px;
+  background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(211, 211, 211, 0.8)), white; /* White/light gray gradient background */
+  border: 1px solid black;
+  padding: 15px;
+  overflow-y: auto; /* Add vertical scroll bar if content overflows */
+  border-radius: 15px; /* Add border-radius for rounded corners */
 }
 
-.review-date {
-  color: #666;
-  font-size: 14px;
-  margin-top: 12px; /* Increased margin for more space */
+.info-section h2 {
+  margin-bottom: 10px; /* Add margin between header and form */
 }
+
+.edit-button-wrapper {
+  text-align: right; /* Align the button to the right */
+}
+
+.edit-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Button Styles */
+.navigation-button {
+  font-size: 50px;
+  padding: 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.navigation-button i {
+  color: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+}
+
+/* Form Styles */
+label {
+  display: block;
+  margin-bottom: 6px; /* Increased margin */
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  height: 30px; /* Adjust the height as needed */
+  margin-bottom: 6px; /* Increased margin */
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  height: 120px; /* Adjust the height as needed */
+  margin-bottom: 6px; /* Increased margin */
+  overflow-x: auto; /* Add horizontal scroll if content overflows */
+}
+

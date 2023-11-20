@@ -14,6 +14,7 @@ footer {
     display: flex; /* Use flex display to align items in a row */
     justify-content: space-between; /* Space between items in the row */
     align-items: center; /* Vertically align content */
+    z-index: -5;
   }
 
 /* Styling for the title (bigger font) */

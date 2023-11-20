@@ -101,6 +101,7 @@ export class TourAuthoringService {
   }
 
   addTour(tour: Tour) : Observable<Tour>{
+    console.log(tour);
     return this.http.post<Tour>('https://localhost:44333/api/author/tour/' , tour)
   }
 

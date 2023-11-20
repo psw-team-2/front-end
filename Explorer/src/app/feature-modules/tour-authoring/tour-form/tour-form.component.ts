@@ -33,8 +33,6 @@ export class TourFormComponent {
         name: this.tour.name || null,
         description: this.tour.description || null,
         difficulty: String(this.tour.difficulty) || null,
-        tags: this.tour.tags || null,
-        
        
       });
     }
@@ -55,7 +53,7 @@ export class TourFormComponent {
       name: this.tourForm.value.name || "",
       description: this.tourForm.value.description || "",
       difficulty: Number(this.tourForm.value.difficulty) || 0,
-      tags: this.tourForm.value.tags || "",
+      tags: [],
       checkPoints : [],
       equipments: [],
       status: 0,
@@ -64,7 +62,7 @@ export class TourFormComponent {
       carTime: 0,
       bicycleTime: 0,
       authorId: this.user.id,
-     // publishTime: ""
+      publishTime: ""
 
     }
   
@@ -85,7 +83,7 @@ export class TourFormComponent {
       name: this.tourForm.value.name || "",
       description: this.tourForm.value.description || "",
       difficulty: Number(this.tourForm.value.difficulty) || 0,
-      tags: String(this.tourForm.value.tags) || "",
+      tags: [],
       checkPoints: [],
       equipments: [],
       status: 1,
@@ -94,7 +92,7 @@ export class TourFormComponent {
       carTime: 0,
       bicycleTime: 0,
       authorId: this.user.id,
-      //publishTime: "0"
+      publishTime: "0"
     }
     tour.id = this.tour.id;
     this.service.updateTour(tour).subscribe({
