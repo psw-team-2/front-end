@@ -7,22 +7,12 @@ import { forkJoin } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { TourReview } from '../../marketplace/model/tour-review.model';
 import { MarketplaceService } from '../../marketplace/marketplace.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'xp-tour-overview',
   templateUrl: './tour-overview.component.html',
   styleUrls: ['./tour-overview.component.css'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms', style({ opacity: 1 })),
-      ]),
-      transition(':leave', [
-        animate('300ms', style({ opacity: 0 })),
-      ]),
-    ]),
-  ],
 })
 export class TourOverviewComponent {
   tour: Tour;
@@ -32,8 +22,41 @@ export class TourOverviewComponent {
   images: string[] = [];
   currentIndex: number = 0;
   reviews: TourReview[] = [];
+  currentSection: number = 0;
+  tourInfoForm: FormGroup;
+  editMode = false;
+  
+  formatDate(date: string): string {
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    };
 
-  constructor(private tourService: TourAuthoringService, private route: ActivatedRoute, private marketplaceService: MarketplaceService) { }
+    const formattedDate = new Date(date).toLocaleDateString('en-US', options);
+    return formattedDate;
+  }
+
+  nextSection() {
+    this.currentSection = Math.min(this.currentSection + 1, 2);
+  }
+
+  prevSection() {
+    this.currentSection = Math.max(this.currentSection - 1, 0);
+  }
+  constructor(private tourService: TourAuthoringService, private route: ActivatedRoute, private marketplaceService: MarketplaceService, private fb: FormBuilder) {
+    this.tourInfoForm = this.fb.group({
+      name: [''],
+      description: [''],
+      difficulty: [''],
+      publishTime: [''],
+      tags: [''], // Add the 'tags' form control
+      // Add more form controls as needed
+    });
+    
+   }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -44,6 +67,16 @@ export class TourOverviewComponent {
           next: (result: Tour) => {
             this.tour = result;
             this.fetchCheckpointsForTour(this.tourId);
+            this.tourInfoForm.patchValue({
+              name: this.tour?.name,
+              description: this.tour?.description,
+              difficulty: this.tour?.difficulty,
+              publishTime: this.tour?.publishTime,
+              tags: this.tour?.tags.map(tag => `#${tag}`).join(' '), // Add "#" to each tag
+              // Update with other properties
+            });
+            
+            
           }
         });
         this.fetchTourReviews();
@@ -53,8 +86,12 @@ export class TourOverviewComponent {
     });
   }
 
-  difficultyStars(difficulty: number): number[] {
-    return Array(difficulty).fill(1);
+  toggleEditMode() {
+    this.editMode = !this.editMode;
+    if(!this.editMode)
+    {
+      this.onSubmit();
+    }
   }
 
   fetchTourReviews(): void {
@@ -105,4 +142,49 @@ export class TourOverviewComponent {
   nextImage() {
     this.currentIndex = (this.currentIndex + 1) % this.images.length;
   }
+  onSubmit() {
+    const existingTags = (this.tour.tags || []).map((tag: string) => tag.toLowerCase());
+  
+    // Process the input string
+    const newTags = (this.tourInfoForm.get('tags')?.value || '')
+      .replace(/\s+/g, '') // Remove extra spaces
+      .toLowerCase() // Convert to lowercase
+      .split('#') // Split by '#'
+      .filter((tag: string) => tag !== ''); // Remove empty tags
+  
+    // Remove duplicates manually
+    const uniqueNewTags: string[] = [];
+    newTags.forEach((tag: string) => {
+      if (!uniqueNewTags.includes(tag)) {
+        uniqueNewTags.push(tag);
+      }
+    });
+  
+    // Remove deleted tags
+    const updatedValues = {
+      name: this.tourInfoForm.get('name')?.value || '',
+      description: this.tourInfoForm.get('description')?.value || '',
+      difficulty: this.tourInfoForm.get('difficulty')?.value || 0,
+      tags: [...uniqueNewTags],
+      // Add more properties as needed
+    };
+  
+    // Update the existing this.tour object with the form values
+    this.tour = {
+      ...this.tour,
+      ...updatedValues,
+    };
+  
+    this.tourService.updateTour(this.tour)
+      .subscribe(updatedTour => {
+        console.log('Tour updated successfully:', updatedTour);
+        // Do not update form controls directly here
+      }, error => {
+        console.error('Error updating tour:', error);
+        // Handle the error appropriately
+      });
+  }
+  
+  
+  
 }
