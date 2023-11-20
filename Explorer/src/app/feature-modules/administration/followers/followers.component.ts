@@ -16,6 +16,13 @@ export class FollowersComponent implements OnInit {
   profiles: Profile[];
   selectedFollower: Profile | null = null; // Initialize as null
   showMessageForm: boolean = false;
+  toggleChat() {
+    this.showMessageForm = !this.showMessageForm;
+  }
+
+  closeChat() {
+    this.showMessageForm = false;
+  }
 
   constructor(private service: AdministrationService,private router: Router) {}
   

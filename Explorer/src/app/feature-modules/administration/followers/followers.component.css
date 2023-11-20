@@ -84,10 +84,31 @@
   margin-bottom: 30px;
 }
   
-.find-people-button:hover {
-  
+.find-people-button:hover {  
   background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
   color: white;
   border: none;
 }
-  
+
+.message-form-wrapper {
+  position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40vw;
+    height: 25vw;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.close-button {
+  position: absolute;
+  top: 0; /* Adjusted position */
+  right: 0; /* Adjusted position */
+  margin: 10px; /* Added margin for better spacing */
+  color: rgb(56, 28, 117); /* Updated color */
+  cursor: pointer; /* Added cursor style */
+}
+

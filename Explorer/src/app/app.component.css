@@ -1,0 +1,18 @@
+/* app.component.css */
+.message-form-wrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: rgb(56, 28, 117); /* Updated color */
+  }
+  
