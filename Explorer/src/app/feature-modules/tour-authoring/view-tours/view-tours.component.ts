@@ -106,8 +106,8 @@ export class ViewToursComponent implements OnInit {
       const result: PagedResults<Tour> | undefined = await this.service.getTours().toPromise();
 
       if (result) {
-        this.allTours = result.results;
-        this.tours = result.results;
+        this.allTours = result.results.filter(tour => tour.status === 1);
+        this.tours = result.results.filter(tour => tour.status === 1);;
       } else {
         // Handle the case where result is undefined
       }

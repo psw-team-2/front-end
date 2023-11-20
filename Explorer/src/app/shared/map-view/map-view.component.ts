@@ -354,7 +354,7 @@ private async addMarkersForCategory(category: number): Promise<void> {
   
   async showBicycleRoute(): Promise<void> {
     this.deleteRoutes();
-    this.currentVehicle = "cycling";
+    this.currentVehicle = "bicycle";
     await this.setRoute(this.loadedCheckpoints, 'cycling');
   }
   
