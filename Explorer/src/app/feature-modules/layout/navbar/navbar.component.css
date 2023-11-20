@@ -5,7 +5,7 @@
   align-items: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
-  width: 100%; /* Make the navbar span the entire width */
+  width: 100vw; /* Make the navbar span the entire width */
   padding: 1rem; /* Add some padding for spacing */
 }
 

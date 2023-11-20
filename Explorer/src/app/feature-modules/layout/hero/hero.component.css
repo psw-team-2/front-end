@@ -3,12 +3,12 @@
   position: relative;
   overflow: hidden; /* Clip image overflow */
   width: 100vw; /* Stretch to full width of the page */
-  height: 100vh;
+  height: 65vh;
 }
 
 /* Style the background image */
 .hero-image-background {
-  width: 100%;
+  width: 100vw;
   height: 100%;
   object-fit: cover; /* Ensure the image covers the entire container */
   display: block;
@@ -19,7 +19,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -33,7 +33,7 @@
 
 /* Style the text within the overlay */
 .hero-image-text-overlay h1 {
-  font-size: 8vw;
+  font-size: 5vw;
   font-family: 'Montserrat', sans-serif; /* Montserrat font family */
   position: relative;
   left: 5vw;
