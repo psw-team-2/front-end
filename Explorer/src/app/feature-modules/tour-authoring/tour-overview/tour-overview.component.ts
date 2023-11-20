@@ -178,7 +178,14 @@ export class TourOverviewComponent {
     this.tourService.updateTour(this.tour)
       .subscribe(updatedTour => {
         console.log('Tour updated successfully:', updatedTour);
-        // Do not update form controls directly here
+        this.tourInfoForm.patchValue({
+          name: updatedTour?.name,
+          description: updatedTour?.description,
+          difficulty: updatedTour?.difficulty,
+          publishTime: updatedTour?.publishTime,
+          tags: updatedTour?.tags.map(tag => `#${tag}`).join(' '), // Add "#" to each tag
+          // Update with other properties
+        });
       }, error => {
         console.error('Error updating tour:', error);
         // Handle the error appropriately
