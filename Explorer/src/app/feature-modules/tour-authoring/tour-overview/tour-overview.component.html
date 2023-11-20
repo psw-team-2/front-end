@@ -54,7 +54,7 @@
   </label>
   
   <label>
-    <i><strong>Last published:</strong> {{ tour?.publishTime ? formatDate(tour.publishTime) : 'N/A' }}</i>
+    <i><strong>Last published:</strong> {{ tour?.publishTime | date:'medium' }}</i>
   </label>
 
 </form>
@@ -103,6 +103,35 @@
       <!-- Add more details as needed -->
     </div>
 
+        <!-- Tour Equipment Section -->
+<!-- tour-reviews.component.html -->
+
+<div *ngIf="currentSection === 3" class="section review-section">
+  <h2>Tour Reviews</h2>
+
+  <!-- Display Reviews -->
+  <div *ngFor="let review of reviews" class="review-item">
+    <p class="rating">
+      Rating: 
+      <span class="stars">
+        <i *ngFor="let star of getStarArray(review.grade)" class="fas fa-star"></i>
+      </span>
+    </p>
+    <p>{{ review.comment }}</p>
+    <p class="review-date">Review Date: {{ review.reviewDate | date:'medium' }}</p>
+    <!-- Add more details as needed, e.g., user info, images, etc. -->
+  </div>
+
+  <!-- Add Review Form -->
+  <div class="review-form">
+    <h3>Add Your Review</h3>
+    <form (ngSubmit)="submitReview()">
+    </form>
+  </div>
+</div>
+
+
+        
     <!-- Navigation Buttons (Right) -->
     <button class="navigation-button" (click)="nextSection()">
       <i class="fas fa-chevron-right"></i> <!-- FontAwesome right arrow icon -->

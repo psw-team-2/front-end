@@ -40,12 +40,22 @@ export class TourOverviewComponent {
     return formattedDate;
   }
 
-  nextSection() {
-    this.currentSection = Math.min(this.currentSection + 1, 2);
+nextSection() {
+  if (this.currentSection === 3) {
+    // If on the last section, navigate to the first section
+    this.currentSection = 0;
+  } else {
+    // Otherwise, move to the next section
+    this.currentSection = Math.min(this.currentSection + 1, 3);
   }
-
+}
   prevSection() {
+    if (this.currentSection === 0) {
+      // If on the last section, navigate to the first section
+      this.currentSection = 3;
+    } else {
     this.currentSection = Math.max(this.currentSection - 1, 0);
+    }
   }
   constructor(private tourService: TourAuthoringService, private route: ActivatedRoute, private marketplaceService: MarketplaceService, private fb: FormBuilder) {
     this.tourInfoForm = this.fb.group({
@@ -131,18 +141,6 @@ export class TourOverviewComponent {
       this.canRender = true; // If there are no checkpoint IDs, set canRender to true immediately.
     }
   }
-
-  getCurrentImage(): string {
-    return this.images[this.currentIndex];
-  }
-
-  prevImage() {
-    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
-  }
-
-  nextImage() {
-    this.currentIndex = (this.currentIndex + 1) % this.images.length;
-  }
   onSubmit() {
     const existingTags = (this.tour.tags || []).map((tag: string) => tag.toLowerCase());
   
@@ -202,5 +200,14 @@ export class TourOverviewComponent {
 
     console.log(`Deleting checkpoint: ${checkpoint.name}`);
   }
-  
+  submitReview(): void {
+    // Implement logic to add a new review using the review service
+    // Update the reviews array to reflect the new review
+  }
+
+    // Define the getStarArray method
+    getStarArray(rating: number): number[] {
+      // Assuming each star corresponds to a whole number in the rating
+      return Array(Math.round(rating)).fill(0).map((x, i) => i);
+    }
 }
