@@ -73,12 +73,16 @@ export class MessageComponent implements OnInit {
 
   updateMessage(message: Message) {
     message.status = 1;
-
-
+  
     this.service.updateMessage(message).subscribe({
       next: (_) => {
-        console.log('update successful');
+        console.log('Update successful');
+        window.location.reload(); // Reload the page
+      },
+      error: (error) => {
+        console.error('Error updating message:', error);
       }
-    })
+    });
   }
+  
 }

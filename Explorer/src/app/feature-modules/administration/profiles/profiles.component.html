@@ -1,15 +1,15 @@
 <!-- find-other-people.component.html -->
 <div class="center-class">  
-<div class="find-people-container">
-  <h1>Discover people you might know:</h1>
-  <div class="profile-list">
-    <div *ngFor="let individualProfile of profiles" class="profile-card">
-      <img class="profile-picture" src="{{ individualProfile.profilePicture }}" alt="">
-      <div class="profile-details">
-        <div class="name">{{ individualProfile.firstName }} {{ individualProfile.lastName }}</div>
-        <button class="follow-button" (click)="onFollowClicked(individualProfile)" *ngIf="!followedProfiles[individualProfile.id!]">Follow</button>
+  <div class="find-people-container">
+    <h1>Discover people you might know:</h1>
+    <div class="profile-list">
+      <div *ngFor="let individualProfile of profiles" class="profile-card">
+        <img class="profile-picture" src="{{ individualProfile.profilePicture }}" alt="">
+        <div class="profile-details">
+          <div class="name">{{ individualProfile.firstName }} {{ individualProfile.lastName }}</div>
+          <button class="follow-button" (click)="onFollowClicked(individualProfile)" *ngIf="!followedProfiles[individualProfile.id!]">Follow</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
