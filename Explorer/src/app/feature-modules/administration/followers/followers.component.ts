@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Profile } from '../model/profile.model';
 import { AdministrationService } from '../administration.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-followers',
@@ -9,13 +10,14 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
   styleUrls: ['./followers.component.css']
 })
 export class FollowersComponent implements OnInit {
+
   loggedInProfile: Profile | null = null;
   followers: Profile[] = [];
   profiles: Profile[];
   selectedFollower: Profile | null = null; // Initialize as null
   showMessageForm: boolean = false;
 
-  constructor(private service: AdministrationService) {}
+  constructor(private service: AdministrationService,private router: Router) {}
   
   ngOnInit(): void {
     // Get the currently logged-in user's profile
@@ -55,5 +57,8 @@ export class FollowersComponent implements OnInit {
     this.showMessageForm = true;
     console.log(this.selectedFollower);
   }
-  
+
+  findPeople() {
+    this.router.navigate(['find-people']);
+  }
 }

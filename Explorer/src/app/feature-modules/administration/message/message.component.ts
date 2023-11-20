@@ -14,6 +14,15 @@ export class MessageComponent implements OnInit {
   messages: Message[] = [];
   profiles: Profile[];
   senderProfiles: { [senderId: number]: Profile } = {}; //dodato
+  isChatOpen = false;
+
+  toggleChat() {
+    this.isChatOpen = !this.isChatOpen;
+  }
+
+  closeChat() {
+    this.isChatOpen = false;
+  }
 
   constructor(private service: AdministrationService) {}
 

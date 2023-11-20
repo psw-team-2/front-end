@@ -1,16 +1,17 @@
-<h1>Your followers:</h1>
-<table>
-    <tr>
-      <th>Profile Picture:</th>
-      <th>First Name:</th>
-      <th>Last Name:</th>
-      <th></th>
-    </tr>
-    <tr *ngFor="let individualFollower of followers">
-      <td><img class="thumbnail" src={{individualFollower.profilePicture}} alt="" srcset=""></td>
-      <td>{{ individualFollower.firstName }}</td>
-      <td>{{ individualFollower.lastName }}</td>
-      <td><button (click)="sendMessageTo(individualFollower)">Send a message</button></td>
-    </tr>
-</table>
-<xp-message-form *ngIf="selectedFollower && showMessageForm" [selectedFollower]="selectedFollower"></xp-message-form>
+<!-- tourist-followers.component.html -->
+<div class="center-class">  
+  <div class="followers-container">
+    <h1>Your Followers:</h1>
+    <div class="follower-list">
+      <div *ngFor="let individualFollower of followers" class="follower-card">
+        <img class="profile-picture" src="{{ individualFollower.profilePicture }}" alt="">
+        <div class="follower-details">
+          <div class="name">{{ individualFollower.firstName }} {{ individualFollower.lastName }}</div>
+          <button class="message-button" (click)="sendMessageTo(individualFollower)">Message</button>
+        </div>
+      </div>
+    </div>
+  </div>  
+  <button class="find-people-button" (click)="findPeople()">Find people</button>
+  <xp-message-form *ngIf="selectedFollower && showMessageForm" [selectedFollower]="selectedFollower"></xp-message-form>
+</div>
