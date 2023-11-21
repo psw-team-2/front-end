@@ -9,14 +9,23 @@
           <p>{{ tour.description }}</p>
           <p>Status: <i>{{ getStatusWord(tour.status) }}</i></p>
           <div class="button-container">
-            <a class="view-button" [routerLink]="'/tour/' + tour.id">View more</a>
+            <a class="view-button" [routerLink]="'/tour/' + tour.id">
+                <i class="fas fa-info-circle"></i> View more
+            </a>
         </div>
+        
         <div class="button-container" *ngIf="tour.status == 0 || tour.status == 2">
-          <a class="view-button"  (click)="onPublishClicked(tour)">Publish</a>
-        </div>    
+            <a class="view-button" (click)="onPublishClicked(tour)">
+                <i class="fas fa-upload"></i> Publish
+            </a>
+        </div>
+        
         <div class="button-container" *ngIf="tour.status == 1">
-          <a class="view-button"  (click)="onArchiveClicked(tour)">Archive</a>
-        </div>     
+            <a class="view-button" (click)="onArchiveClicked(tour)">
+                <i class="fas fa-archive"></i> Archive
+            </a>
+        </div>
+          
         </div>
       </div>
     </div>

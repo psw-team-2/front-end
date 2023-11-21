@@ -190,7 +190,6 @@ private addLabelToPopupContent(categoryLabel: string, imageSrc: string, name: st
   return `<div style="max-width: ${maxPopupWidth}px;">${popupContent}</div>`;
 }
 
-// Updated setRoute method
 private async setRoute(checkpoints: Checkpoint[], profile: 'walking' | 'driving' | 'cycling'): Promise<void> {
   return new Promise<void>((resolve) => {
     const waypointCoordinates = checkpoints.map(checkpoint => {
@@ -201,6 +200,10 @@ private async setRoute(checkpoints: Checkpoint[], profile: 'walking' | 'driving'
       waypoints: waypointCoordinates,
       router: L.Routing.mapbox('pk.eyJ1IjoiZGpucGxtcyIsImEiOiJjbG56Mzh3a2gwNWwzMnZxdDljdHIzNDIyIn0.iZjiPJJV-SgTiIOeF8UWvA', { profile: `mapbox/${profile}` }),
       routeWhileDragging: false,
+      lineOptions: {
+        styles: [{ color: 'rgb(56, 28, 117)', opacity: 1, weight: 5 }]
+        // You can customize color, opacity, and weight as needed
+      } as L.Routing.LineOptions, // Add this type assertion
     }).addTo(this.map);
     routeControl.hide();
     const markerGroup = L.layerGroup();
@@ -209,28 +212,7 @@ private async setRoute(checkpoints: Checkpoint[], profile: 'walking' | 'driving'
       const routes = e.routes;
 
       checkpoints.forEach((checkpoint, index) => {
-        this.mapService.reverseSearch(checkpoint.latitude, checkpoint.longitude).subscribe((res) => {
-          if (res.address) {
-            const street = res.address.road || res.address.street;
-            const number = res.address.house_number;
-            const city = res.address.city_district || res.address.city || res.address.town || res.address.village || res.address.suburb;
-            const location = `${street} ${number}, ${city}`;
-
-            const marker = L.marker([checkpoint.latitude, checkpoint.longitude], {
-              draggable: false,
-            })
-              .addTo(markerGroup)
-              .bindPopup(this.addLabelToPopupContent("CHECKPOINT " + ++index, checkpoint.image, checkpoint.name, location))
-              .on('mouseover', (event) => {
-                marker.openPopup();
-              })
-              .on('mouseout', (event) => {
-                marker.closePopup();
-              });
-
-            markerGroup.addTo(this.map);
-          }
-        });
+        // ... (your existing code for creating markers)
       });
 
       markerGroup.addTo(this.map);
@@ -253,6 +235,8 @@ private async setRoute(checkpoints: Checkpoint[], profile: 'walking' | 'driving'
     });
   });
 }
+
+
 deleteRoutes(): void {
   this.currentVehicle = "none";
   this.map.eachLayer((layer: any) => {

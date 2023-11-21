@@ -8,6 +8,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { TourReview } from '../../marketplace/model/tour-review.model';
 import { MarketplaceService } from '../../marketplace/marketplace.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-tour-overview',
@@ -27,6 +28,8 @@ export class TourOverviewComponent {
   editMode = false;
   defaultImageUrl = "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg";
   vehicleMode: string = "walk";
+  userRole: string;
+
   formatDate(date: string): string {
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
@@ -40,24 +43,28 @@ export class TourOverviewComponent {
     return formattedDate;
   }
 
-nextSection() {
-  if (this.currentSection === 3) {
-    // If on the last section, navigate to the first section
-    this.currentSection = 0;
-  } else {
-    // Otherwise, move to the next section
-    this.currentSection = Math.min(this.currentSection + 1, 3);
-  }
-}
-  prevSection() {
-    if (this.currentSection === 0) {
-      // If on the last section, navigate to the first section
-      this.currentSection = 3;
+  nextSection() {
+    if (this.userRole === 'author') {
+      // If the user is an author, navigate through sections 0 to 4 continuously
+      this.currentSection = (this.currentSection + 1) % 5;
     } else {
-    this.currentSection = Math.max(this.currentSection - 1, 0);
+      // If the user is a tourist, navigate through sections 0 to 2 continuously
+      this.currentSection = (this.currentSection + 1) % 3;
     }
   }
-  constructor(private tourService: TourAuthoringService, private route: ActivatedRoute, private marketplaceService: MarketplaceService, private fb: FormBuilder) {
+  
+  prevSection() {
+    if (this.userRole === 'author') {
+      // If the user is an author, navigate through sections 0 to 4 continuously
+      this.currentSection = (this.currentSection - 1 + 5) % 5;
+    } else {
+      // If the user is a tourist, navigate through sections 0 to 2 continuously
+      this.currentSection = (this.currentSection - 1 + 3) % 3;
+    }
+  }
+  
+  
+  constructor(private tourService: TourAuthoringService, private route: ActivatedRoute, private marketplaceService: MarketplaceService, private fb: FormBuilder, private authService: AuthService) {
     this.tourInfoForm = this.fb.group({
       name: [''],
       description: [''],
@@ -70,6 +77,7 @@ nextSection() {
    }
 
   ngOnInit(): void {
+
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       this.tourId = id ? parseInt(id, 10) : null;
@@ -91,6 +99,11 @@ nextSection() {
           }
         });
         this.fetchTourReviews();
+
+        this.authService.user$.subscribe((user) => {
+          this.userRole = user.role;
+        });
+    
       } else {
         // Handle the case where id is null
       }
