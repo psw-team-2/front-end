@@ -6,6 +6,22 @@ export enum BlogStatus {
     Famous = 4
 }
 
+export enum BlogCategory {
+  Destinations = 0,
+  Travelogues = 1,
+  Activities = 2,
+  Gastronomy = 3,
+  Tips = 4,
+  Culture = 5,
+  Accommodation = 6
+}
+
+export function getBlogCategoryValues(): number[] {
+  return Object.values(BlogCategory).filter(value => typeof value === 'number') as number[];
+}
+
+
+
 export interface Blog {
     id? : number;
     userId : number;
@@ -15,6 +31,7 @@ export interface Blog {
     creationTime: Date;
     status : BlogStatus;
     image: string | "";
+    category: BlogCategory;
 }
 
 export function numberToBlogStatus(value: number): BlogStatus {
