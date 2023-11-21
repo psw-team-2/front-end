@@ -146,7 +146,6 @@ async updateBlog(): Promise<void> {
   const userId = this.authService.user$.value.id;
   const username = this.authService.user$.value.username;
   if (this.blogId !== null) {
-    if (this.selectedCategory !== undefined) {
     if (!this.currentFile) {
       const blog: Blog = {
         userId : userId,
@@ -188,7 +187,7 @@ async updateBlog(): Promise<void> {
       this.service.updateBlog(blog).subscribe({
         next: (_) => { this.blogUpdated.emit() }
       });}
-    }
+    
   }
 }
   
