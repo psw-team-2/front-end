@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Blog, BlogCategory, BlogStatus, getBlogCategoryValues } from '../model/blog.model';
+import { Blog, BlogCategory, BlogStatus, BlogCategoryValues } from '../model/blog.model';
 import { BlogService } from '../blog.service';
 import { AuthService } from '../../../infrastructure/auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
@@ -84,9 +84,7 @@ export class BlogFormComponent {
     });
   }
 
-  get blogCategoryValues(): number[] {
-    return getBlogCategoryValues();
-  }
+  
 
   async addBlog(): Promise<void> {
     const userId = this.authService.user$.value.id;

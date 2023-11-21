@@ -6,6 +6,8 @@ export enum BlogStatus {
     Famous = 4
 }
 
+
+
 export enum BlogCategory {
   Destinations = 0,
   Travelogues = 1,
@@ -16,9 +18,8 @@ export enum BlogCategory {
   Accommodation = 6
 }
 
-export function getBlogCategoryValues(): number[] {
-  return Object.values(BlogCategory).filter(value => typeof value === 'number') as number[];
-}
+export const BlogCategoryValues = Object.values(BlogCategory);
+
 
 
 
