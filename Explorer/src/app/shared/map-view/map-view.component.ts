@@ -6,6 +6,7 @@ import 'leaflet-routing-machine';
 import { Object } from 'src/app/feature-modules/tour-authoring/model/object.model';
 import { TourAuthoringService } from '../../feature-modules/tour-authoring/tour-authoring.service';
 import { Tour } from '../../feature-modules/tour-authoring/model/tour.model';
+import { forkJoin, Observable } from 'rxjs';
 
 @Component({
   selector: 'xp-map-view',
@@ -17,7 +18,7 @@ export class MapViewComponent implements AfterViewInit {
   @Input() loadedTour: Tour;
   currentVehicle: string;
   private map: any;
-  private objects: Object[] = [];
+  private objects: Object[] | undefined= [];
   constructor(private mapService:  MapViewService, private service: TourAuthoringService) {}
 
   private async initMap(): Promise<void> {
@@ -46,18 +47,37 @@ export class MapViewComponent implements AfterViewInit {
 
 
     this.service.updateTour(this.loadedTour).subscribe({
-      next: (_) => {
-        console.log(this.loadedTour)
-      }
-    })
+      next: async (_) => {
+        console.log(this.loadedTour);
+  
+        // Fetch objects for the tour and update the objects array
+        await this.fetchObjectsForTour(this.loadedTour.objects);
+  
+        // Add markers for categories after fetching objects
+        this.addMarkersForCategory(1); // Restrooms
+        this.addMarkersForCategory(2); // Restaurants
+        this.addMarkersForCategory(3); // Parking
+        this.addMarkersForCategory(4); // Other
+      },
+    });
 
-    this.addMarkersForCategory(1); // Restrooms
-    this.addMarkersForCategory(2); // Restaurants
-    this.addMarkersForCategory(3); // Parking
-    this.addMarkersForCategory(4); // Other
     
   }
 
+  private async fetchObjectsForTour(objectIds: number[]): Promise<void> {
+    this.objects = undefined; // Set to undefined before fetching
+  
+    const objectRequests: Observable<Object>[] = objectIds.map(objectId =>
+      this.service.getObjectById(objectId)
+    );
+  
+    // Wait for all object requests to complete
+    const objects = await forkJoin(objectRequests).toPromise();
+  
+    // Update the objects array
+    this.objects = objects;
+  }
+    
   ngAfterViewInit(): void {
     let DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
@@ -219,7 +239,7 @@ deleteRoutes(): void {
 // Updated addMarkersForCategory method
 private async addMarkersForCategory(category: number): Promise<void> {
   return new Promise<void>((resolve) => {
-    const filteredObjects = this.objects.filter((obj) => obj.category === category);
+    const filteredObjects = this.objects ? this.objects.filter((obj) => obj.category + 1 === category) : [];
     const promises: Promise<void>[] = [];
 
     filteredObjects.forEach((object) => {
