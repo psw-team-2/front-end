@@ -102,6 +102,10 @@
   padding: 0;
 }
 
+.upper-start{
+  height: 100%;
+}
+
 .right-side {
   width: 100%;
   border: none;

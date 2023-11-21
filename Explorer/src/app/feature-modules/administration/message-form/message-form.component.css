@@ -7,6 +7,7 @@
     background: white;
     padding: 20px;
     border-radius: 10px;
+    font-family: Roboto, sans-serif;
 }
 
 .form-heading {
@@ -36,6 +37,7 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
+    font-family: Roboto, sans-serif;
 }
 
 button:hover {

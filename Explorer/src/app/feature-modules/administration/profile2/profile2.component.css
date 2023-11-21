@@ -1,80 +1,124 @@
-#equipment {
-    margin-top: 20px;
-    margin-left: 20px;
-}
-
-#equipment-details {
+/* profile.component.css */
+.center-class {
     display: flex;
-    flex-direction: row;
-    gap: 50px;
-    align-items: flex-start;
-}
-
-p {
-    font-size: 20px;
-}
-
-table {
-    border-collapse: collapse;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 300px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-
-thead tr {
-    background-color: #3f51b5;
-    color: #ffffff;
-    text-align: left;
-}
-
-th, td {
-    padding: 12px 15px;
-}
-
-tbody tr {
-    border-bottom: 1px solid #dddddd;
-}
-
-tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-tbody tr:last-of-type {
-    border-bottom: 2px solid #3f51b5;
-}
-
-tbody tr.active-row {
-    font-weight: bold;
-    color: #3f51b5;
-}
-
-img
-{
+    justify-content: center;
+    align-items: center;
+  }
+  .profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 100vw;
+  }
+  
+  .profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    color: black;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 25vw;
+  }
+  
+  .profile-picture {
     width: 150px;
     height: 150px;
-}
-
-.notification {
-    position: fixed;
-    top: 85px; /* Adjust the top position as needed */
-    right: 20px; /* Adjust the right position as needed */
-    background-color: red;
-    color: black;
-    border: 2px solid black;
-    padding: 10px;
-    border-radius: 5px;
-    animation: fadeIn 0.5s ease-in-out; /* Apply a fade-in animation */
-  
-    /* Define the keyframes for the fade-in animation */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+    border-radius: 50%;
+    margin-bottom: 10px;
+    margin-top: 20px;
   }
+  
+  .profile-details {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .name {
+    margin-bottom: 10px;
+  }
+  
+  .first-name,
+  .last-name {
+    font-size: 23px;
+    font-weight: bold;
+    color: rgb(56, 28, 117);
+  }
+  
+  .biography,
+  .motto {
+    margin-top: 10px;
+    font-size: 20px;
+  }
+  
+  .profile-actions {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .action-button {
+    margin-top: 20px;
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .action-button:hover {
+    background: white;
+    color: black;
+    border: 1px solid rgb(56, 28, 117);
+  }
+  
+  .label {
+    color: gray;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  .split-table {
+    width: 90vw;
+    height: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: none;
+  }
+  
+  .left-side {
+    width: 40%;
+    border: none;
+    padding: 0;
+  }
+  
+  .upper-start{
+    height: 100%;
+  }
+  
+  .right-side {
+    width: 100%;
+    border: none;
+    padding: 0;
+    display: flex;
+    justify-content: top;  
+    flex-direction: column;
+    align-items: center;
+    align-items: center;
+  
+  }
+  .messages{
+    bottom: 0;
+    right: 0;
+  }
+  

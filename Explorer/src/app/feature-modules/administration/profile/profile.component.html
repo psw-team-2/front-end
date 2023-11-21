@@ -14,11 +14,11 @@
       <div class="motto emphasized">{{ individualProfile.motto }}</div>
     </div>    
     <div class="profile-actions">
-      <button class="action-button" (click)="onEditClicked(individualProfile)">Edit Profile Info</button>
-      <button class="action-button" (click)="onChangeClicked(individualProfile)">Change Profile Picture</button>
-    </div>
-    <xp-profile-form *ngIf="selectedProfile && showProfileForm" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-profile-form>
-    <xp-picture-form *ngIf="selectedProfile && showPictureForm" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-picture-form>
+      <button class="action-button" mat-raised-button (click)="onEditClicked(individualProfile)">Edit Profile Info</button>
+      <button class="action-button" mat-raised-button (click)="onChangeClicked(individualProfile)">Change Profile Picture</button>
+    </div>    
+    <xp-profile-form *ngIf="selectedProfile && showEditProfileForm" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-profile-form>
+    <xp-picture-form *ngIf="selectedProfile && showProfilePictureForm" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-picture-form>
   </div>
 </div>
 <xp-tour-preference-field></xp-tour-preference-field>
@@ -26,7 +26,9 @@
   <table class="split-table">
     <tr>
       <td class="left-side">
-        <xp-followers></xp-followers>
+        <div class="upper-start">            
+          <xp-followers></xp-followers>
+        </div>
       </td>
       <td class="right-side">
         <xp-tourist-posts></xp-tourist-posts>            

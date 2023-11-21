@@ -45,7 +45,7 @@
           </tr>
         </table>      
       </div>
-      <button type="button" class="edit-button emphasized" [class.save]="isEditing" (click)="toggleEdit()">
+      <button type="button" mat-raised-button class="edit-button emphasized" [class.save]="isEditing" (click)="toggleEdit()">
         {{ isEditing ? 'Save' : 'Edit' }}
       </button>
     </form>

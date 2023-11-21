@@ -1,7 +1,10 @@
-<form [formGroup]="pictureForm">
-    <div>
-        <button mat-raised-button color="primary" (click)="fileInput.click()">Select a new profile picture</button>
+<!-- picture-form2.component.html -->
+<div class="form-container">
+    <form [formGroup]="pictureForm">
+      <div class="button-container">
+        <button class="action-button" mat-raised-button color="primary" (click)="fileInput.click()">Select a New Profile Picture</button>
         <input hidden #fileInput type="file" (change)="onFileSelected($event)">
-        <button mat-raised-button type="submit" color="primary" (click)="changePicture()">Change profile picture</button>
-    </div>
-</form>
+        <button class="action-button" mat-raised-button type="submit" color="primary" (click)="changePicture()">Change Profile Picture</button>
+      </div>
+    </form>
+  </div>

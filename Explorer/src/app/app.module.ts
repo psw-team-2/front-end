@@ -32,7 +32,7 @@ import { TourPreferenceModule } from './feature-modules/tour-preference/tour-pre
 import { AuthService } from './infrastructure/auth/auth.service';
 import { MatButtonModule } from '@angular/material/button';
 
-import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatDatepickerModule } from '@angular/material/datepicker';
 @NgModule({
   declarations: [
     AppComponent
