@@ -34,10 +34,6 @@
 <form [formGroup]="tourInfoForm" (ngSubmit)="onSubmit()">
 
   <label>
-    <i><strong>Published:</strong> {{ tour?.publishTime ? formatDate(tour.publishTime) : 'N/A' }}</i>
-  </label>
-
-  <label>
     <strong>Name:</strong>
     <input type="text" formControlName="name" [readonly]="!editMode" />
   </label>
@@ -57,24 +53,47 @@
     <textarea formControlName="tags" [readonly]="!editMode"></textarea>
   </label>
   
-</form>
-<!-- Form End -->
+  <label>
+    <i><strong>Last published:</strong> {{ tour?.publishTime ? formatDate(tour.publishTime) : 'N/A' }}</i>
+  </label>
 
-<!-- Form End -->
+</form>
 
       <!-- Form End -->
     </div>    
 
-    <!-- Tour Checkpoints Section -->
     <div *ngIf="currentSection === 1" class="section checkpoints-section">
-      <!-- Display Tour Checkpoints here -->
+      <!-- Display Tour Checkpoints as a table -->
       <h2>Tour Checkpoints</h2>
-      <div *ngFor="let checkpoint of checkpoints">
-        <!-- Display checkpoint details here -->
-        <p>{{ checkpoint.name }}</p>
-        <!-- Add more details as needed -->
-      </div>
+      <table style="width: 100%; text-align: center;">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let checkpoint of checkpoints">
+            <td>
+              <!-- Display checkpoint image -->
+              <img *ngIf="checkpoint.image" [src]="checkpoint.image" alt="Checkpoint Image" style="width: 200px; height: 100px;">
+              <!-- Add a default image or placeholder if checkpoint.image is not available -->
+              <img *ngIf="!checkpoint.image" [src]="defaultImageUrl" alt="Default Image" style="width: 100px; height: 100px;">
+            </td>
+            <td>{{ checkpoint.name }}</td>
+            <td>{{ checkpoint.description }}</td>
+            <td>
+              <!-- Add options for editing and deleting -->
+              <button (click)="editCheckpoint(checkpoint)">Edit</button>
+              <button (click)="deleteCheckpoint(checkpoint)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    
 
     <!-- Tour Equipment Section -->
     <div *ngIf="currentSection === 2" class="section equipment-section">

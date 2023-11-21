@@ -25,7 +25,8 @@ export class TourOverviewComponent {
   currentSection: number = 0;
   tourInfoForm: FormGroup;
   editMode = false;
-  
+  defaultImageUrl = "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg";
+  vehicleMode: string = "walk";
   formatDate(date: string): string {
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
@@ -193,5 +194,13 @@ export class TourOverviewComponent {
   }
   
   
+  editCheckpoint(checkpoint: any): void {
+    console.log(`Editing checkpoint: ${checkpoint.name}`);
+  }
+
+  deleteCheckpoint(checkpoint: any): void {
+
+    console.log(`Deleting checkpoint: ${checkpoint.name}`);
+  }
   
 }

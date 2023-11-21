@@ -48,6 +48,13 @@
   cursor: pointer;
   font-size: 20px;
 }
+.vehicle-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  margin: 10px;
+}
 
 /* Button Styles */
 .navigation-button {
