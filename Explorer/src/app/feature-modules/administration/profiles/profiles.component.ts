@@ -14,7 +14,7 @@ export class ProfilesComponent implements OnInit {
   loggedInProfile: Profile | null = null; // Store the logged-in user's profile
   follows: Profile[] = [];
   followedProfiles: { [key: number]: boolean } = {};
-
+  
   constructor(private service: AdministrationService) {}
 
   ngOnInit(): void {

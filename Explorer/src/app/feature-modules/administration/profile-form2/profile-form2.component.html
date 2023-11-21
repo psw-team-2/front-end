@@ -1,26 +1,34 @@
-<h1>Profile update:</h1>
-<form [formGroup]="profileForm">
-    <div>
+<!-- profile-form2.component.html -->
+<div class="form-container">
+    <h1>Profile Update:</h1>
+    <form [formGroup]="profileForm">
+        <div class="form-field">
         <mat-form-field>
             <mat-label>First Name:</mat-label>
             <input matInput type="text" formControlName="firstName">
         </mat-form-field>
+        </div>
+        <div class="form-field">
         <mat-form-field>
             <mat-label>Last Name:</mat-label>
             <input matInput type="text" formControlName="lastName">
         </mat-form-field>
+        </div>
+        <div class="form-field">
         <mat-form-field>
             <mat-label>Biography:</mat-label>
-            <textarea matInput
-          cdkTextareaAutosize
-          cdkAutosizeMinRows="1"
-          formControlName="biography"
-          cdkAutosizeMaxRows="5"></textarea>
+            <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" formControlName="biography" cdkAutosizeMaxRows="5"></textarea>
         </mat-form-field>
+        </div>
+        <div class="form-field">
         <mat-form-field>
             <mat-label>Motto:</mat-label>
             <input matInput type="text" formControlName="motto">
         </mat-form-field>
-        <button mat-raised-button type="submit" color="primary" (click)="updateProfile()">Change profile info</button>
-    </div>
-</form>
+        </div>
+        <div class="profile-actions">
+            <button class="action-button" mat-raised-button type="submit" color="primary" (click)="updateProfile()">Change Profile Info</button>
+        </div>
+    </form>
+</div>
+  

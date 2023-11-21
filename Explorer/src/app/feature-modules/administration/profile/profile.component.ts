@@ -16,7 +16,16 @@ export class ProfileComponent implements OnInit{
   showProfileForm: boolean = false;
   showPictureForm: boolean = false;
   showMessage: boolean = false;
+  showProfilePictureForm: boolean = false;
+  showEditProfileForm: boolean = false;
   
+  toggleEditProfileForm() {
+    this.showEditProfileForm = !this.showEditProfileForm;
+  }
+
+  toggleProfilePictureForm() {
+    this.showProfilePictureForm = !this.showProfilePictureForm;
+  }  
   
   constructor(private service: AdministrationService) { }
 
@@ -46,15 +55,13 @@ export class ProfileComponent implements OnInit{
 
   onEditClicked(profile: Profile): void {
     this.selectedProfile = profile;
-    console.log(this.selectedProfile);
-    this.showProfileForm = true;
-    this.showPictureForm = false;
+    console.log(this.selectedProfile);   
+    this.toggleEditProfileForm();
   }
 
   onChangeClicked(profile: Profile): void {
     this.selectedProfile = profile;
     console.log(this.selectedProfile);
-    this.showProfileForm = false;
-    this.showPictureForm = true;
+    this.toggleProfilePictureForm();
   }
 }

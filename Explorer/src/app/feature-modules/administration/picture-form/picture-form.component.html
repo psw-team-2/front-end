@@ -2,7 +2,7 @@
 <div class="form-container">
   <form [formGroup]="pictureForm">
     <div class="button-container">
-      <button class="action-button"mat-raised-button color="primary" (click)="fileInput.click()">Select a New Profile Picture</button>
+      <button class="action-button" mat-raised-button color="primary" (click)="fileInput.click()">Select a New Profile Picture</button>
       <input hidden #fileInput type="file" (change)="onFileSelected($event)">
       <button class="action-button" mat-raised-button type="submit" color="primary" (click)="changePicture()">Change Profile Picture</button>
     </div>

@@ -29,6 +29,7 @@ import { Message2Component } from './message2/message2.component';
 import { MessageForm2Component } from './message-form2/message-form2.component';
 import { Profiles2Component } from './profiles2/profiles2.component';
 import { TouristPostsComponent } from './tourist-posts/tourist-posts.component';
+import { TouristPosts2Component } from './tourist-posts2/tourist-posts2.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { TouristPostsComponent } from './tourist-posts/tourist-posts.component';
     MessageForm2Component,
     Profiles2Component,
     TouristPostsComponent,
+    TouristPosts2Component,
   ],
   imports: [
     CommonModule,

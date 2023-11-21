@@ -12,7 +12,7 @@
   color: white;
   padding-top: 20px;
   padding-bottom: 20px;
-  width: 100vw;
+  width: 100vw - 20px;
 }
 
 .profile-card {
@@ -100,6 +100,10 @@
   width: 40%;
   border: none;
   padding: 0;
+}
+
+.upper-start{
+  height: 100%;
 }
 
 .right-side {
