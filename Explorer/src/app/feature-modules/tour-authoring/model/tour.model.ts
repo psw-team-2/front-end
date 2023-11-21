@@ -5,7 +5,8 @@ export interface Tour {
     difficulty: number,
     tags: string[],
     checkPoints: number[],
-    equipments: Number[],
+    equipment: number[],
+    objects: number[],
     status: Number,
     totalLength: number,
     footTime: Number,
@@ -13,5 +14,4 @@ export interface Tour {
     carTime: Number,
     authorId: number,
     publishTime: string
-
 }

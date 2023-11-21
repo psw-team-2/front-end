@@ -51,7 +51,7 @@ export class AddedEquipmentComponent implements OnInit {
             for (let i = 0; i < results.results.length; i++) {
               const equipment = results.results[i];
               // Check if the equipment ID is in the tour's equipment IDs
-              if (this.tour.equipments .includes(equipment.id || 0)) {
+              if (this.tour.equipment .includes(equipment.id || 0)) {
                 temporaryList.push(equipment);
               }
             }
