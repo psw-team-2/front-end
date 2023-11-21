@@ -2,7 +2,7 @@
 .hero-image-container {
   position: relative;
   overflow: hidden; /* Clip image overflow */
-  width: 100vw; /* Stretch to full width of the page */
+  width: 100vw - 20px; /* Stretch to full width of the page */
   height: 65vh;
 }
 
