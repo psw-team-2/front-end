@@ -1,25 +1,41 @@
-<h1>Your profile (tourist):</h1>
-<table>
-  <tr>
-    <th>First Name:</th>
-    <th>Last Name:</th>
-    <th>Profile Picture:</th>
-    <th>Biography:</th>
-    <th>Motto:</th>
-  </tr>
-  <tr *ngFor="let individualProfile of profile">
-    <td>{{ individualProfile.firstName }}</td>
-    <td>{{ individualProfile.lastName }}</td>
-    <td><img class="thumbnail" src={{individualProfile.profilePicture}} alt="" srcset=""></td>
-    <td>{{ individualProfile.biography }}</td>
-    <td>{{ individualProfile.motto }}</td>
-    <button (click) = "onEditClicked(individualProfile)">Edit profile info</button>
-    <button (click) = "onChangeClicked(individualProfile)">Change profile picture</button>
-  </tr>
-</table>
-<xp-profile-form *ngIf="selectedProfile && showProfileForm" (profileUpdated) = "getByUserId()" [profile] = "selectedProfile"></xp-profile-form>
-<xp-picture-form *ngIf="selectedProfile && showPictureForm" (profileUpdated) = "getByUserId()" [profile] = "selectedProfile"></xp-picture-form>
+<!-- profile.component.html TOURIST-->
+<div class="profile-container">
+  <div class="profile-card" *ngFor="let individualProfile of profile">
+    <div class="label">TOURIST</div>
+    <img class="profile-picture" src="{{ individualProfile.profilePicture }}" alt="">
+    <div class="profile-details">
+      <div class="name">
+        <span class="first-name">{{ individualProfile.firstName }} </span>
+        <span class="last-name">{{ individualProfile.lastName }}</span>
+      </div>
+      <div class="label">Biography:</div>
+      <div class="biography emphasized">{{ individualProfile.biography }}</div>
+      <div class="label">Motto:</div>
+      <div class="motto emphasized">{{ individualProfile.motto }}</div>
+    </div>    
+    <div class="profile-actions">
+      <button class="action-button" mat-raised-button (click)="onEditClicked(individualProfile)">Edit Profile Info</button>
+      <button class="action-button" mat-raised-button (click)="onChangeClicked(individualProfile)">Change Profile Picture</button>
+    </div>    
+    <xp-profile-form *ngIf="selectedProfile && showEditProfileForm" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-profile-form>
+    <xp-picture-form *ngIf="selectedProfile && showProfilePictureForm" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-picture-form>
+  </div>
+</div>
 <xp-tour-preference-field></xp-tour-preference-field>
-<xp-profiles></xp-profiles>
-<xp-followers></xp-followers>
-<xp-message *ngIf="showMessage" class="notification"></xp-message>
+<div class="center-class">
+  <table class="split-table">
+    <tr>
+      <td class="left-side">
+        <div class="upper-start">            
+          <xp-followers></xp-followers>
+        </div>
+      </td>
+      <td class="right-side">
+        <xp-tourist-posts></xp-tourist-posts>            
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="messages">
+  <xp-message *ngIf="showMessage" class="notification"></xp-message>
+</div>

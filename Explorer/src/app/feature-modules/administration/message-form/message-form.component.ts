@@ -16,7 +16,7 @@ export class MessageFormComponent {
 
   loggedInProfile: Profile | null = null;
   profiles: Profile[];
-
+  
   constructor(private service: AdministrationService) {}
 
   messageForm = new FormGroup({

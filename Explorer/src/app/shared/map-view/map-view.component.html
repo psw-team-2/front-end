@@ -1,3 +1,18 @@
 <div class="map-frame">
     <div id="map"></div>
-  </div>
+    <div class="map-buttons">
+        <button class="map-button" (click)="showWalkingRoute()" [class.selected]="currentVehicle === 'walking'">
+          <i class="fas fa-walking"></i> Walking Route
+        </button>
+        <button class="map-button" (click)="showBicycleRoute()" [class.selected]="currentVehicle === 'bicycle'">
+          <i class="fas fa-bicycle"></i> Bicycle Route
+        </button>
+        <button class="map-button" (click)="showCarRoute()" [class.selected]="currentVehicle === 'car'">
+          <i class="fas fa-car"></i> Car Route
+        </button>
+        <button class="map-button" (click)="deleteRoutes()" [class.selected]="currentVehicle === 'none'">
+          <i class="fas fa-times"></i> No Routes
+        </button>
+      </div>      
+      
+</div>

@@ -7,22 +7,13 @@ import { forkJoin } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { TourReview } from '../../marketplace/model/tour-review.model';
 import { MarketplaceService } from '../../marketplace/marketplace.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-tour-overview',
   templateUrl: './tour-overview.component.html',
   styleUrls: ['./tour-overview.component.css'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms', style({ opacity: 1 })),
-      ]),
-      transition(':leave', [
-        animate('300ms', style({ opacity: 0 })),
-      ]),
-    ]),
-  ],
 })
 export class TourOverviewComponent {
   tour: Tour;
@@ -32,10 +23,61 @@ export class TourOverviewComponent {
   images: string[] = [];
   currentIndex: number = 0;
   reviews: TourReview[] = [];
+  currentSection: number = 0;
+  tourInfoForm: FormGroup;
+  editMode = false;
+  defaultImageUrl = "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg";
+  vehicleMode: string = "walk";
+  userRole: string;
 
-  constructor(private tourService: TourAuthoringService, private route: ActivatedRoute, private marketplaceService: MarketplaceService) { }
+  formatDate(date: string): string {
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    };
+
+    const formattedDate = new Date(date).toLocaleDateString('en-US', options);
+    return formattedDate;
+  }
+
+  nextSection() {
+    if (this.userRole === 'author') {
+      // If the user is an author, navigate through sections 0 to 4 continuously
+      this.currentSection = (this.currentSection + 1) % 5;
+    } else {
+      // If the user is a tourist, navigate through sections 0 to 2 continuously
+      this.currentSection = (this.currentSection + 1) % 3;
+    }
+  }
+  
+  prevSection() {
+    if (this.userRole === 'author') {
+      // If the user is an author, navigate through sections 0 to 4 continuously
+      this.currentSection = (this.currentSection - 1 + 5) % 5;
+    } else {
+      // If the user is a tourist, navigate through sections 0 to 2 continuously
+      this.currentSection = (this.currentSection - 1 + 3) % 3;
+    }
+  }
+  
+  
+  constructor(private tourService: TourAuthoringService, private route: ActivatedRoute, private marketplaceService: MarketplaceService, private fb: FormBuilder, private authService: AuthService) {
+    this.tourInfoForm = this.fb.group({
+      name: [''],
+      description: [''],
+      difficulty: [''],
+      publishTime: [''],
+      tags: [''], // Add the 'tags' form control
+      // Add more form controls as needed
+    });
+    
+   }
 
   ngOnInit(): void {
+
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       this.tourId = id ? parseInt(id, 10) : null;
@@ -44,17 +86,36 @@ export class TourOverviewComponent {
           next: (result: Tour) => {
             this.tour = result;
             this.fetchCheckpointsForTour(this.tourId);
+            this.tourInfoForm.patchValue({
+              name: this.tour?.name,
+              description: this.tour?.description,
+              difficulty: this.tour?.difficulty,
+              publishTime: this.tour?.publishTime,
+              tags: this.tour?.tags.map(tag => `#${tag}`).join(' '), // Add "#" to each tag
+              // Update with other properties
+            });
+            
+            
           }
         });
         this.fetchTourReviews();
+
+        this.authService.user$.subscribe((user) => {
+          this.userRole = user.role;
+        });
+    
       } else {
         // Handle the case where id is null
       }
     });
   }
 
-  difficultyStars(difficulty: number): number[] {
-    return Array(difficulty).fill(1);
+  toggleEditMode() {
+    this.editMode = !this.editMode;
+    if(!this.editMode)
+    {
+      this.onSubmit();
+    }
   }
 
   fetchTourReviews(): void {
@@ -93,16 +154,73 @@ export class TourOverviewComponent {
       this.canRender = true; // If there are no checkpoint IDs, set canRender to true immediately.
     }
   }
-
-  getCurrentImage(): string {
-    return this.images[this.currentIndex];
+  onSubmit() {
+    const existingTags = (this.tour.tags || []).map((tag: string) => tag.toLowerCase());
+  
+    // Process the input string
+    const newTags = (this.tourInfoForm.get('tags')?.value || '')
+      .replace(/\s+/g, '') // Remove extra spaces
+      .toLowerCase() // Convert to lowercase
+      .split('#') // Split by '#'
+      .filter((tag: string) => tag !== ''); // Remove empty tags
+  
+    // Remove duplicates manually
+    const uniqueNewTags: string[] = [];
+    newTags.forEach((tag: string) => {
+      if (!uniqueNewTags.includes(tag)) {
+        uniqueNewTags.push(tag);
+      }
+    });
+  
+    // Remove deleted tags
+    const updatedValues = {
+      name: this.tourInfoForm.get('name')?.value || '',
+      description: this.tourInfoForm.get('description')?.value || '',
+      difficulty: this.tourInfoForm.get('difficulty')?.value || 0,
+      tags: [...uniqueNewTags],
+      // Add more properties as needed
+    };
+  
+    // Update the existing this.tour object with the form values
+    this.tour = {
+      ...this.tour,
+      ...updatedValues,
+    };
+  
+    this.tourService.updateTour(this.tour)
+      .subscribe(updatedTour => {
+        console.log('Tour updated successfully:', updatedTour);
+        this.tourInfoForm.patchValue({
+          name: updatedTour?.name,
+          description: updatedTour?.description,
+          difficulty: updatedTour?.difficulty,
+          publishTime: updatedTour?.publishTime,
+          tags: updatedTour?.tags.map(tag => `#${tag}`).join(' '), // Add "#" to each tag
+          // Update with other properties
+        });
+      }, error => {
+        console.error('Error updating tour:', error);
+        // Handle the error appropriately
+      });
+  }
+  
+  
+  editCheckpoint(checkpoint: any): void {
+    console.log(`Editing checkpoint: ${checkpoint.name}`);
   }
 
-  prevImage() {
-    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+  deleteCheckpoint(checkpoint: any): void {
+
+    console.log(`Deleting checkpoint: ${checkpoint.name}`);
+  }
+  submitReview(): void {
+    // Implement logic to add a new review using the review service
+    // Update the reviews array to reflect the new review
   }
 
-  nextImage() {
-    this.currentIndex = (this.currentIndex + 1) % this.images.length;
-  }
+    // Define the getStarArray method
+    getStarArray(rating: number): number[] {
+      // Assuming each star corresponds to a whole number in the rating
+      return Array(Math.round(rating)).fill(0).map((x, i) => i);
+    }
 }

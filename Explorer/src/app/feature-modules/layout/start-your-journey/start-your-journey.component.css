@@ -2,18 +2,24 @@
     margin: 0 7vw;
     text-align: center;
 }
-
+.center-container {
+    text-align: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 h2 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
-    font-size: 3vw;
+    font-size: 2vw;
     color: #2E003D;
-    margin-top: 5vw;
-    margin-bottom: 2vw;
+    margin-top: 4vw;
+    margin-bottom: 4vw;
 }
 
 .content-table {
-    width: 100%;
+    width: 80vw;
     border-collapse: collapse;
 }
 
@@ -63,18 +69,18 @@ h2 {
 }
 
 .button-container {
-    padding-top: 3vw;
-    padding-bottom: 3vw;
+    padding-top: 2vw;
+    padding-bottom: 2vw;
     text-align: center;
     margin-top: 1.33vw;
 }
 
 .register-button {
     display: inline-block;
-    padding: 1.5vw 3vw; /* Make the register button 25% bigger */
+    padding: 1vw 2vw; /* Make the register button 25% bigger */
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
-    font-size: 2.0625vw; /* Make the register button 25% bigger */
+    font-size: 1.5vw; /* Make the register button 25% bigger */
     color: #2E003D;
     background-color: #ffffff;
     border: 0.2vw solid #2E003D;

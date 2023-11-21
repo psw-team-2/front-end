@@ -15,46 +15,9 @@ import { Tour } from '../../feature-modules/tour-authoring/model/tour.model';
 export class MapViewComponent implements AfterViewInit {
   @Input() loadedCheckpoints: Checkpoint[];
   @Input() loadedTour: Tour;
+  currentVehicle: string;
   private map: any;
-  private objects: Object[] = [
-    {
-      name: 'Restroom 1',
-      description: 'Restroom at location 1',
-      image: 'https://media.cnn.com/api/v1/images/stellar/prod/200619190852-public-restroom-coronavirus.jpg?q=x_30,y_106,h_874,w_1554,c_crop/h_720,w_1280',
-      category: 1,
-      latitude: 45.2400, // Replace with actual latitude
-      longitude: 19.8210,
-      isPublic:true,  // Replace with actual longitude
-    },
-    {
-      name: 'Restaurant 1',
-      description: 'Restaurant at location 1',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl-WAwtX-kFdN4fiFJJ6IaHzVcAASJZPAUxw&usqp=CAU',
-      category: 2,
-      latitude: 45.2390, // Replace with actual latitude
-      longitude: 19.8230,
-      isPublic:true, // Replace with actual longitude
-    },
-    {
-      name: 'Parking 1',
-      description: 'Parking at location 1',
-      image: 'https://www.parkingns.rs/wp-content/uploads/2023/07/IMG_9491.jpg',
-      category: 3,
-      latitude: 45.2380, // Replace with actual latitude
-      longitude: 19.8215,
-      isPublic:true,  // Replace with actual longitude
-    },
-    {
-      name: 'Other 1',
-      description: 'Other facility at location 1',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNHtp5f_rI48vPpi1kIsPcTcDVZHpcWOT7UQ&usqp=CAU',
-      category: 4,
-      latitude: 45.2410, // Replace with actual latitude
-      longitude: 19.8225,
-      isPublic:true,
-    },
-    // Add more objects with different categories
-  ];
+  private objects: Object[] = [];
   constructor(private mapService:  MapViewService, private service: TourAuthoringService) {}
 
   private async initMap(): Promise<void> {
@@ -76,13 +39,11 @@ export class MapViewComponent implements AfterViewInit {
     );
     tiles.addTo(this.map);
 
+    this.showWalkingRoute();
     //this.registerOnClick();
     //this.search();
     // For walking
 
-    await this.setRoute(this.loadedCheckpoints, 'driving');
-    await this.setRoute(this.loadedCheckpoints, 'cycling');
-    await this.setRoute(this.loadedCheckpoints, 'walking');
 
     this.service.updateTour(this.loadedTour).subscribe({
       next: (_) => {
@@ -190,10 +151,6 @@ private addLabelToPopupContent(categoryLabel: string, imageSrc: string, name: st
   return `<div style="max-width: ${maxPopupWidth}px;">${popupContent}</div>`;
 }
 
-
-
-
-// Updated setRoute method
 private async setRoute(checkpoints: Checkpoint[], profile: 'walking' | 'driving' | 'cycling'): Promise<void> {
   return new Promise<void>((resolve) => {
     const waypointCoordinates = checkpoints.map(checkpoint => {
@@ -204,36 +161,19 @@ private async setRoute(checkpoints: Checkpoint[], profile: 'walking' | 'driving'
       waypoints: waypointCoordinates,
       router: L.Routing.mapbox('pk.eyJ1IjoiZGpucGxtcyIsImEiOiJjbG56Mzh3a2gwNWwzMnZxdDljdHIzNDIyIn0.iZjiPJJV-SgTiIOeF8UWvA', { profile: `mapbox/${profile}` }),
       routeWhileDragging: false,
+      lineOptions: {
+        styles: [{ color: 'rgb(56, 28, 117)', opacity: 1, weight: 5 }]
+        // You can customize color, opacity, and weight as needed
+      } as L.Routing.LineOptions, // Add this type assertion
     }).addTo(this.map);
-
+    routeControl.hide();
     const markerGroup = L.layerGroup();
 
     routeControl.on('routesfound', (e) => {
       const routes = e.routes;
 
       checkpoints.forEach((checkpoint, index) => {
-        this.mapService.reverseSearch(checkpoint.latitude, checkpoint.longitude).subscribe((res) => {
-          if (res.address) {
-            const street = res.address.road || res.address.street;
-            const number = res.address.house_number;
-            const city = res.address.city_district || res.address.city || res.address.town || res.address.village || res.address.suburb;
-            const location = `${street} ${number}, ${city}`;
-
-            const marker = L.marker([checkpoint.latitude, checkpoint.longitude], {
-              draggable: false,
-            })
-              .addTo(markerGroup)
-              .bindPopup(this.addLabelToPopupContent("CHECKPOINT " + ++index, checkpoint.image, checkpoint.name, location))
-              .on('mouseover', (event) => {
-                marker.openPopup();
-              })
-              .on('mouseout', (event) => {
-                marker.closePopup();
-              });
-
-            markerGroup.addTo(this.map);
-          }
-        });
+        // ... (your existing code for creating markers)
       });
 
       markerGroup.addTo(this.map);
@@ -252,9 +192,27 @@ private async setRoute(checkpoints: Checkpoint[], profile: 'walking' | 'driving'
         this.loadedTour.carTime = totalSeconds;
       }
 
-      // Resolve the promise to indicate that the asynchronous operation is complete
       resolve();
     });
+  });
+}
+
+
+deleteRoutes(): void {
+  this.currentVehicle = "none";
+  this.map.eachLayer((layer: any) => {
+    // Check if the layer is a route and clear waypoints from the plan
+    if (layer instanceof L.Routing.Control) {
+      // Check if the route control has a plan and is still on the map
+      if (layer.getPlan() && this.map.hasLayer(layer)) {
+        layer.getPlan().setWaypoints([]); // Clear waypoints
+      }
+    }
+
+    // Check if the layer is a marker group and remove it
+    if (layer instanceof L.LayerGroup) {
+      this.map.removeLayer(layer);
+    }
   });
 }
 
@@ -277,6 +235,7 @@ private async addMarkersForCategory(category: number): Promise<void> {
 
             const iconUrl = this.getCategoryIcon(category);
             const marker = L.marker([object.latitude, object.longitude], {
+              draggable: false,
               icon: L.icon({
                 iconUrl: iconUrl,
                 iconSize: [32, 32],
@@ -332,5 +291,22 @@ private async addMarkersForCategory(category: number): Promise<void> {
         return 'OTHER'; // Provide a default label for unknown categories
     }
   }
-
+  async showWalkingRoute(): Promise<void> {
+    this.deleteRoutes();
+    this.currentVehicle = "walking";
+    await this.setRoute(this.loadedCheckpoints, 'walking');
+  }
+  
+  async showBicycleRoute(): Promise<void> {
+    this.deleteRoutes();
+    this.currentVehicle = "bicycle";
+    await this.setRoute(this.loadedCheckpoints, 'cycling');
+  }
+  
+  async showCarRoute(): Promise<void> {
+    this.deleteRoutes();
+    this.currentVehicle = "car";
+    await this.setRoute(this.loadedCheckpoints, 'driving');
+  }
+  
 }

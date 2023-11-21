@@ -5,16 +5,16 @@ footer {
     position: relative;
     bottom: 0;
     left: 0;
-    width: 100%;
+    width: 100vw - 20px;
     padding-top: 1vw;
-    margin-top: 17vw;
+    margin-top: 10vw;
     background-color: #333; /* Dark grey background */
     color: #fff; /* White text color */
     font-family: 'Montserrat', sans-serif; /* Montserrat font family */
-    padding: 1vw; /* Add padding for spacing */
     display: flex; /* Use flex display to align items in a row */
     justify-content: space-between; /* Space between items in the row */
     align-items: center; /* Vertically align content */
+    z-index: -5;
   }
 
 /* Styling for the title (bigger font) */

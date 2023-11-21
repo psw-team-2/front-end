@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CheckpointComponent } from './checkpoint/checkpoint.component';
 import { CheckpointFormComponent } from './checkpoint-form/checkpoint-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
@@ -46,7 +46,9 @@ import { ViewPurchasedToursComponent } from './view-purchased-tours/view-purchas
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    MarketplaceModule
+    MarketplaceModule,
+    FormsModule,
+
   ],
   exports: [
     CheckpointComponent,

@@ -1,12 +1,15 @@
 /* General Navbar Styles */
 .navbar {
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
-  width: 100%; /* Make the navbar span the entire width */
+  width: 100vw - 20px; /* Make the navbar span the entire width */
   padding: 1rem; /* Add some padding for spacing */
+  z-index: 500;
 }
 
 /* Left Section Styles */

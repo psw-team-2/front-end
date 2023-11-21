@@ -1,0 +1,47 @@
+/* xp-message-form.component.css */
+.message-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    font-family: Roboto, sans-serif;
+}
+
+.form-heading {
+    color: rgb(56, 28, 117); /* Adjusted color */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.message-input {
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+button {
+    margin-top: 20px;
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: Roboto, sans-serif;
+}
+
+button:hover {
+    background: white;
+    color: black;
+    border: 1px solid rgb(56, 28, 117);
+}

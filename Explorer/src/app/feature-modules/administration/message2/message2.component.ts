@@ -14,6 +14,15 @@ export class Message2Component {
   messages: Message[] = [];
   profiles: Profile[];
   senderProfiles: { [senderId: number]: Profile } = {}; //dodato
+  isChatOpen = false;
+
+  toggleChat() {
+    this.isChatOpen = !this.isChatOpen;
+  }
+
+  closeChat() {
+    this.isChatOpen = false;
+  }
 
   constructor(private service: AdministrationService) {}
 
@@ -64,12 +73,15 @@ export class Message2Component {
 
   updateMessage(message: Message) {
     message.status = 1;
-
-
+  
     this.service.updateMessage2(message).subscribe({
       next: (_) => {
-        console.log('update successful');
+        console.log('Update successful');
+        window.location.reload(); // Reload the page
+      },
+      error: (error) => {
+        console.error('Error updating message:', error);
       }
-    })
+    });
   }
 }
