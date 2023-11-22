@@ -30,7 +30,7 @@
     width: 100%;
     border-collapse: collapse;
     border: 1px solid black; 
-    color:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));;
+    color:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
 }
 
 .user-table th, .user-table td {
@@ -39,7 +39,7 @@
     border: 1px solid black; 
 }
 th{
-    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));;
+    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
 }
 .user-table th {
     font-size: 18px;
