@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Observable, catchError, concatMap, forkJoin, map, of } from 'rxjs';
 import { Profile } from '../../administration/model/profile.model';
 import { AdministrationService } from '../../administration/administration.service';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
   selector: 'xp-club-overview',
@@ -25,9 +26,10 @@ export class ClubOverviewComponent {
   allMemberIds: number[] = [];
   nonMemberIds: number[] = [];
   nonMemberUsernames: string[] = [];
-
-  mappedMembers: { [key: number]: string } = {};
-  mappedNonMembers: { [key: number]: string } = {};
+  
+  
+  allMembersProfiles: Profile[]=[];
+  nonMembersProfiles: Profile[]=[];
 
   ngOnInit(): void {
     this.clubId = Number(this.route.snapshot.paramMap.get('id'));
@@ -59,23 +61,15 @@ export class ClubOverviewComponent {
               this.nonMemberIds.push(userId);
             }
           }
-          for (let i = 0; i < this.nonMemberIds.length; i++) {
-            const currentValue = this.nonMemberIds[i];
-            this.authService.getUsername(currentValue).subscribe((response: object) => {
-              const username = response as { username: string, password: string};
-              this.nonMemberUsernames.push(username.username);
-            });
-          }
-          this.mapUsernames();
+          this.nonMemberIds = this.nonMemberIds.filter(id => !this.club.memberIds.includes(id));
+          this.adminService.getProfiles().subscribe((profilesResult: PagedResults<Profile>) => {
+            const allProfiles: Profile[] = profilesResult.results;
+            this.allMembersProfiles = allProfiles.filter(profile => this.club.memberIds.includes(profile.userId as number));
+            this.nonMembersProfiles = allProfiles.filter(profile => this.nonMemberIds.includes(profile.userId as number));
+          });
         });
 
-        for (let i = 0; i < this.club.memberIds.length; i++) {
-          const currentValue = this.club.memberIds[i];
-          this.authService.getUsername(currentValue).subscribe((response: object) => {
-            const username = response as { username: string, password: string };
-            this.memberUsernames.push(username.username);
-          });
-        }
+        
       },
       error: () => {
       }
