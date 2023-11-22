@@ -4,14 +4,14 @@
     <p>{{ club?.description }}</p>
     <h2>Members:</h2>
     <ul>
-        <li *ngFor="let memberId of club?.memberIds; let i=index">{{ memberId || 'Unknown' }}
+        <li *ngFor="let memberId of club?.memberIds; let i=index">{{ memberId || 'Unknown' }} {{ mappedMembers[memberId] }}
             <button *ngIf="isOwner && memberId !== club?.ownerId" (click)="kickMember(memberId)">Kick</button>
         </li>
     </ul>
     <div *ngIf="isOwner">
         <h2>Invite users:</h2>
         <ul>
-            <li *ngFor="let nonMemberId of nonMemberIds; let i=index">{{ nonMemberId || 'Unknown' }}
+            <li *ngFor="let nonMemberId of nonMemberIds; let i=index">{{ nonMemberId || 'Unknown' }} {{ mappedNonMembers[nonMemberId] }}
                 <button (click)="inviteMember(nonMemberId)">Invite</button>
             </li>
         </ul>
