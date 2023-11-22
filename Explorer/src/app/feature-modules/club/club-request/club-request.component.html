@@ -1,48 +1,40 @@
 <div id="clubRequest">
-    <p>Club Requests</p>
-    <hr>
+    <h1>Club Requests</h1>
     <div id="clubRequest-details">
-        <table>
-            <thead>
-                <tr>
-                    <th>Club name</th>
-                    <th>User Id</th>
-                    <th>Request status</th>
-                    <th>Request type</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let cr of clubRequestWithUser">
-                    <td>
-                        {{getMappedClubName(cr.clubId)}}
-                    </td>
-                    <td>
-                        {{cr.account.username}}
-                    </td>
-                    <td>
-                        {{getMappedRequestStatus(cr.requestStatus)}}
-                    </td>
-                    <td>
-                        {{getMappedRequestType(cr.requestType)}}
-                    </td>
-                    <td>
-                        <button color="accent" (click)="onWithdrawRequestClicked(cr.id || 0)">withdraw request</button>
-                    </td>
-                    <td>
-                        <button color="accent" (click)="onAcceptRequestClicked(cr)">accept request</button>
-
-                        <button color="accent" (click)="onRejectRequestClicked(cr)">reject request</button>
-                    </td>
-                    <td>
-                        <button color="accent" (click)="onAcceptInvitationClicked(cr)">accept invitation</button>
-
-                        <button color="accent" (click)="onRejectInvitationClicked(cr)">reject invitation</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div *ngFor="let cr of clubRequestWithUser" class="club-request-item">
+            <div class="request-card">
+                <div class="div-table">
+                    <table class="request-table">
+                        <tr>
+                            <td class="column-label">Club name:</td>
+                            <td class="column-content">{{ getMappedClubName(cr.clubId) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="column-label">Applicant:</td>
+                            <td class="column-content">{{ cr.account.username }}</td>
+                        </tr>
+                        <tr>
+                            <td class="column-label">Request status:</td>
+                            <td class="column-content">{{ getMappedRequestStatus(cr.requestStatus) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="column-label">Request type:</td>
+                            <td class="column-content">{{ getMappedRequestType(cr.requestType) }}</td>
+                        </tr>
+                    </table>
+                </div>                
+                <div class="actions" *ngIf="cr.accountId==currentUser.id && cr.requestType==1 && cr.requestStatus==0">
+                    <button class="action-button" color="accent" (click)="onWithdrawRequestClicked(cr.id || 0)">Withdraw request</button>
+                </div>
+                <div class="actions" *ngIf="cr.accountId!==currentUser.id && cr.requestType==1">
+                    <button *ngIf="cr.requestStatus==0 || cr.requestStatus==2" class="action-button" color="accent" (click)="onAcceptRequestClicked(cr)">Accept request</button>                        
+                    <button *ngIf="cr.requestStatus==0 || cr.requestStatus==1" class="action-button" color="accent" (click)="onRejectRequestClicked(cr)">Reject request</button>
+                </div>
+                <div class="actions" *ngIf="cr.accountId==currentUser.id && cr.requestType==0">
+                    <button *ngIf="cr.requestStatus==0 || cr.requestStatus==2" class="action-button" color="accent" (click)="onAcceptInvitationClicked(cr)">Accept invitation</button>
+                    <button *ngIf="cr.requestStatus==0 || cr.requestStatus==1" class="action-button" color="accent" (click)="onRejectInvitationClicked(cr)">Reject invitation</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
