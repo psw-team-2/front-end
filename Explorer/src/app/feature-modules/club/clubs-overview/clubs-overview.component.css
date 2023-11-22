@@ -67,6 +67,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
+    margin-bottom: 30px;
   }
   .follow-button:hover {
     background: white;
