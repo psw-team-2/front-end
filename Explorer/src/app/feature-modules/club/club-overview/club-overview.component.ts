@@ -5,7 +5,7 @@ import { ClubRequest } from '../model/club-request.model';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
-import { Observable, concatMap, forkJoin } from 'rxjs';
+import { Observable, catchError, concatMap, forkJoin, map, of } from 'rxjs';
 
 @Component({
   selector: 'xp-club-overview',
@@ -24,6 +24,9 @@ export class ClubOverviewComponent {
   allMemberIds: number[] = [];
   nonMemberIds: number[] = [];
   nonMemberUsernames: string[] = [];
+
+  mappedMembers: { [key: number]: string } = {};
+  mappedNonMembers: { [key: number]: string } = {};
 
   ngOnInit(): void {
     this.clubId = Number(this.route.snapshot.paramMap.get('id'));
@@ -61,6 +64,7 @@ export class ClubOverviewComponent {
               this.nonMemberUsernames.push(username.username);
             });
           }
+          this.mapUsernames();
         });
 
         for (let i = 0; i < this.club.memberIds.length; i++) {
@@ -99,5 +103,45 @@ export class ClubOverviewComponent {
     this.service.inviteMember(request).subscribe({
       next: () => {}
     });
+  }
+
+  mapUsernames(): void {
+    this.club.memberIds.forEach(response => {
+      this.getMappedUsername(response).subscribe(
+        (username: string) => {
+          this.mappedMembers[response] = username;
+        },
+        (error: any) => {
+          console.error(error);
+        }
+      );
+    });
+
+    this.nonMemberIds.forEach(response => {
+      this.getMappedUsername(response).subscribe(
+        (username: string) => {
+          this.mappedNonMembers[response] = username;
+        },
+        (error: any) => {
+          console.error(error);
+        }
+      );
+    });
+  }
+
+  getMappedUsername(userId: number): Observable<string> {
+    return this.authService.getUsername(userId).pipe(
+        map((userData: any) => {
+            if (userData && userData.username) {
+                return userData.username;
+            } else {
+                return 'Unknown';
+            }
+        }),
+        catchError(error => {
+            console.error('Error fetching username:', error);
+            return of('Unknown');
+        })
+    );
   }
 }
