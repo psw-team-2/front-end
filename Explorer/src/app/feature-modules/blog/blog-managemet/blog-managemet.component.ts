@@ -68,6 +68,7 @@ export class BlogManagemetComponent {
   }
   
   deleteBlog(id: number): void {
+    console.log(id)
     this.service.deleteBlog(id).subscribe({
       next: () => {
         this.getBlogsByUserId(this.userId);

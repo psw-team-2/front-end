@@ -69,6 +69,10 @@ export class AdministrationService {
     return this.http.put<User>(url, user);
   }
   // PROFILE
+  getByProfileUserId(id: number): Observable<Profile> {
+    return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-id/' + id);
+  }
+  
   getById(message: Message): Observable<Profile> {
     return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-id/' + message.senderId);
   }

@@ -76,7 +76,8 @@ import { TouristPosts2Component } from './tourist-posts2/tourist-posts2.componen
     UserAccountAdministrationComponent,
     PublicRequestsComponent,
     ProfilesComponent,
-    Profiles2Component
+    Profiles2Component,
+    TouristPostsComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
