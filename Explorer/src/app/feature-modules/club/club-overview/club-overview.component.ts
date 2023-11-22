@@ -26,10 +26,6 @@ export class ClubOverviewComponent {
   allMemberIds: number[] = [];
   nonMemberIds: number[] = [];
   nonMemberUsernames: string[] = [];
-  
-  
-  allMembersProfiles: Profile[]=[];
-  nonMembersProfiles: Profile[]=[];
 
   ngOnInit(): void {
     this.clubId = Number(this.route.snapshot.paramMap.get('id'));
@@ -61,15 +57,14 @@ export class ClubOverviewComponent {
               this.nonMemberIds.push(userId);
             }
           }
-          this.nonMemberIds = this.nonMemberIds.filter(id => !this.club.memberIds.includes(id));
-          this.adminService.getProfiles().subscribe((profilesResult: PagedResults<Profile>) => {
-            const allProfiles: Profile[] = profilesResult.results;
-            this.allMembersProfiles = allProfiles.filter(profile => this.club.memberIds.includes(profile.userId as number));
-            this.nonMembersProfiles = allProfiles.filter(profile => this.nonMemberIds.includes(profile.userId as number));
-          });
-        });
-
-        
+          for (let i = 0; i < this.nonMemberIds.length; i++) {
+            const currentValue = this.nonMemberIds[i];
+            this.authService.getUsername(currentValue).subscribe((response: object) => {
+              const username = response as { username: string, password: string};
+              this.nonMemberUsernames.push(username.username);
+            });
+          }
+        });        
       },
       error: () => {
       }
