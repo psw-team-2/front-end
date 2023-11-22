@@ -50,13 +50,13 @@ export class ClubsOverviewComponent implements OnInit {
 
   onEditClicked(club: Club): void {
     this.selectedClub = club;
-    this.shouldRenderClubForm = true;
+    this.shouldRenderClubForm = !this.shouldRenderClubForm;
     this.shouldEdit = true;
   }
 
   onAddClicked(): void {
     this.shouldEdit = false;
-    this.shouldRenderClubForm = true;
+    this.shouldRenderClubForm = !this.shouldRenderClubForm;
   }
 
   viewClub(club: Club): void {

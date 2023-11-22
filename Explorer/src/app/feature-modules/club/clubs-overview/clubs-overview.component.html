@@ -1,37 +1,34 @@
-<div id="equipment">
-    <p>Clubs</p>
-    <hr>
-    <div id="equipment-details">
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let cl of clubs">
-                        <td>{{cl.name}}</td>
-                        <td>{{cl.description}}</td>
-                        <td>
-                            <button color="primary" (click)="onEditClicked(cl)" mat-icon-button><mat-icon>edit</mat-icon></button>
-                            <button color="primary" [routerLink]="['/clubs', cl.id]">Go to Club</button>
-                        </td>
-                        <td>
-                            <button (click)="onSendRequestClicked(cl)" color="primary">send request</button>
-                        </td>
-                    </tr>
-                    <tr><button color="primary" (click)="onAddClicked()" mat-icon-button>
-                        <mat-icon>add</mat-icon>
-                    </button></tr>
-                </tbody>
-            </table>
-        </div>
-        <div>
-            <xp-club-form *ngIf="shouldRenderClubForm" [shouldEdit]="shouldEdit" [club]="selectedClub" (clubUpdated)="getClubs()" (clubAdded)="getClubs()"></xp-club-form>
+<!-- CLUB Component -->
+<div id="equipment" class="club-container">
+    <div id="equipment-details" class="club-details-container">
+        <div class="center-class">  
+            <div class="find-people-container">
+              <h1>Discover clubs</h1>
+              <div class="add-club-button">   
+                <button color="primary" (click)="onAddClicked()" mat-icon-button><mat-icon>add</mat-icon></button>
+              </div>
+              <hr>
+              <div class="profile-list">
+                <div *ngFor="let club of clubs" class="profile-card">
+                    <div class="eb">
+                        <button  class="edit-button" color="primary" (click)="onEditClicked(club)" mat-icon-button><mat-icon>edit</mat-icon></button>
+                    </div>
+                    <img class="profile-picture" src="{{ club.imageUrl }}" alt="">
+                    <div class="profile-details">
+                        <div class="name">{{ club.name }}</div>
+                        <button class="follow-button" color="primary" [routerLink]="['/clubs', club.id]">More</button>     
+                        <button class="follow-button" (click)="onSendRequestClicked(club)" color="primary">Send Request</button>
+                    </div>
+                </div>
+               </div>
+               
+            </div>
         </div>
     </div>
+</div>
+<div  *ngIf="shouldRenderClubForm" class="message-form-wrapper">
+    <button mat-icon-button class="close-button" (click)="onAddClicked()">
+        <mat-icon>close</mat-icon>
+    </button>
+    <xp-club-form [shouldEdit]="shouldEdit" [club]="selectedClub" (clubUpdated)="getClubs()" (clubAdded)="getClubs()"></xp-club-form>
 </div>
