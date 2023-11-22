@@ -17,9 +17,9 @@
     <!-- Tour Info Section -->
     <div *ngIf="currentSection === 0" class="section info-section">
       <!-- Display Tour Info here -->
-      <h2>Tour Information</h2>
+      <h2><i class="fas fa-info-circle"></i> Tour Information</h2>
       
-      <div class="edit-button-wrapper">
+      <div class="edit-button-wrapper" *ngIf="userRole === 'author'">
         <button class="edit-button" (click)="toggleEditMode()" [hidden]="editMode">
           <i class="fas fa-edit"></i> <!-- FontAwesome edit icon -->
         </button>
@@ -54,7 +54,7 @@
   </label>
   
   <label>
-    <i><strong>Last published:</strong> {{ tour?.publishTime ? formatDate(tour.publishTime) : 'N/A' }}</i>
+    <i><strong>Last published:</strong> {{ tour?.publishTime | date:'medium' }}</i>
   </label>
 
 </form>
@@ -64,7 +64,7 @@
 
     <div *ngIf="currentSection === 1" class="section checkpoints-section">
       <!-- Display Tour Checkpoints as a table -->
-      <h2>Tour Checkpoints</h2>
+      <h2><i class="fas fa-location-dot"></i> Tour Checkpoints</h2>
       <table style="width: 100%; text-align: center;">
         <thead>
           <tr>
@@ -93,16 +93,50 @@
         </tbody>
       </table>
     </div>
-    
+
+        <!-- Tour Equipment Section -->
+<!-- tour-reviews.component.html -->
+
+<div *ngIf="currentSection === 2" class="section review-section">
+  <h2><i class="fas fa-star"></i> Tour Reviews</h2>
+
+  <!-- Display Reviews -->
+  <div *ngFor="let review of reviews" class="review-item">
+    <p class="rating">
+      Rating: 
+      <span class="stars">
+        <i *ngFor="let star of getStarArray(review.grade)" class="fas fa-star"></i>
+      </span>
+    </p>
+    <p>{{ review.comment }}</p>
+    <p class="review-date">Posted: {{ review.reviewDate | date:'medium' }}</p>
+    <!-- Add more details as needed, e.g., user info, images, etc. -->
+  </div>
+
+  <!-- Add Review Form -->
+  <div class="review-form">
+    <h3>Add Your Review</h3>
+    <form (ngSubmit)="submitReview()">
+    </form>
+  </div>
+</div>
 
     <!-- Tour Equipment Section -->
-    <div *ngIf="currentSection === 2" class="section equipment-section">
+<div *ngIf="currentSection === 3" class="section equipment-section">
+  <!-- Display Tour Equipment here -->
+  <h2><i class="fa-solid fa-binoculars"></i> Tour Equipment</h2>
+  <!-- Add your tour equipment details here -->
+  <!-- Add more details as needed -->
+</div>
+
+    <!-- Tour Objects Section -->
+    <div *ngIf="currentSection === 4" class="section object-section">
       <!-- Display Tour Equipment here -->
-      <h2>Tour Equipment</h2>
+      <h2><i class="fa-solid fa-building"></i> Tour Objects</h2>
       <!-- Add your tour equipment details here -->
       <!-- Add more details as needed -->
     </div>
-
+        
     <!-- Navigation Buttons (Right) -->
     <button class="navigation-button" (click)="nextSection()">
       <i class="fas fa-chevron-right"></i> <!-- FontAwesome right arrow icon -->

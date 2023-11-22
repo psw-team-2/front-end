@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { TourAutoringService } from '../tour-autoring.service';
 import { Object } from '../model/object.model';
 import { PublicRequest } from '../model/public-request.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { TourAuthoringService } from '../tour-authoring.service';
 
 @Component({
   selector: 'xp-object',
@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 })
 export class ObjectComponent implements OnInit {
 
-  constructor(private service: TourAutoringService, private authService: AuthService) { }
+  constructor(private service: TourAuthoringService, private authService: AuthService) { }
 
   currentFile: File | null;
   objectId: number | any;
@@ -50,7 +50,7 @@ export class ObjectComponent implements OnInit {
       isPublic: false
     };
 
-    await this.service.upload(this.currentFile).subscribe({
+    await this.service.uploadObject(this.currentFile).subscribe({
       next: (value) => {
         // Obrada uspešnog upload-a
       },

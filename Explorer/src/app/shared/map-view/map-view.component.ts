@@ -6,6 +6,7 @@ import 'leaflet-routing-machine';
 import { Object } from 'src/app/feature-modules/tour-authoring/model/object.model';
 import { TourAuthoringService } from '../../feature-modules/tour-authoring/tour-authoring.service';
 import { Tour } from '../../feature-modules/tour-authoring/model/tour.model';
+import { forkJoin, Observable } from 'rxjs';
 
 @Component({
   selector: 'xp-map-view',
@@ -17,46 +18,7 @@ export class MapViewComponent implements AfterViewInit {
   @Input() loadedTour: Tour;
   currentVehicle: string;
   private map: any;
-  private objects: Object[] = [
-
-    {
-      name: 'Restroom 1',
-      description: 'Restroom at location 1',
-      image: 'https://media.cnn.com/api/v1/images/stellar/prod/200619190852-public-restroom-coronavirus.jpg?q=x_30,y_106,h_874,w_1554,c_crop/h_720,w_1280',
-      category: 1,
-      latitude: 45.2400, // Replace with actual latitude
-      longitude: 19.8210,
-      isPublic:true,  // Replace with actual longitude
-    },
-    {
-      name: 'Restaurant 1',
-      description: 'Restaurant at location 1',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl-WAwtX-kFdN4fiFJJ6IaHzVcAASJZPAUxw&usqp=CAU',
-      category: 2,
-      latitude: 45.2390, // Replace with actual latitude
-      longitude: 19.8230,
-      isPublic:true, // Replace with actual longitude
-    },
-    {
-      name: 'Parking 1',
-      description: 'Parking at location 1',
-      image: 'https://www.parkingns.rs/wp-content/uploads/2023/07/IMG_9491.jpg',
-      category: 3,
-      latitude: 45.2380, // Replace with actual latitude
-      longitude: 19.8215,
-      isPublic:true,  // Replace with actual longitude
-    },
-    {
-      name: 'Other 1',
-      description: 'Other facility at location 1',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNHtp5f_rI48vPpi1kIsPcTcDVZHpcWOT7UQ&usqp=CAU',
-      category: 4,
-      latitude: 45.2410, // Replace with actual latitude
-      longitude: 19.8225,
-      isPublic:true,
-    },
-    // Add more objects with different categories
-  ];
+  private objects: Object[] | undefined= [];
   constructor(private mapService:  MapViewService, private service: TourAuthoringService) {}
 
   private async initMap(): Promise<void> {
@@ -85,18 +47,37 @@ export class MapViewComponent implements AfterViewInit {
 
 
     this.service.updateTour(this.loadedTour).subscribe({
-      next: (_) => {
-        console.log(this.loadedTour)
-      }
-    })
+      next: async (_) => {
+        console.log(this.loadedTour);
+  
+        // Fetch objects for the tour and update the objects array
+        await this.fetchObjectsForTour(this.loadedTour.objects);
+  
+        // Add markers for categories after fetching objects
+        this.addMarkersForCategory(1); // Restrooms
+        this.addMarkersForCategory(2); // Restaurants
+        this.addMarkersForCategory(3); // Parking
+        this.addMarkersForCategory(4); // Other
+      },
+    });
 
-    this.addMarkersForCategory(1); // Restrooms
-    this.addMarkersForCategory(2); // Restaurants
-    this.addMarkersForCategory(3); // Parking
-    this.addMarkersForCategory(4); // Other
     
   }
 
+  private async fetchObjectsForTour(objectIds: number[]): Promise<void> {
+    this.objects = undefined; // Set to undefined before fetching
+  
+    const objectRequests: Observable<Object>[] = objectIds.map(objectId =>
+      this.service.getObjectById(objectId)
+    );
+  
+    // Wait for all object requests to complete
+    const objects = await forkJoin(objectRequests).toPromise();
+  
+    // Update the objects array
+    this.objects = objects;
+  }
+    
   ngAfterViewInit(): void {
     let DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
@@ -190,7 +171,6 @@ private addLabelToPopupContent(categoryLabel: string, imageSrc: string, name: st
   return `<div style="max-width: ${maxPopupWidth}px;">${popupContent}</div>`;
 }
 
-// Updated setRoute method
 private async setRoute(checkpoints: Checkpoint[], profile: 'walking' | 'driving' | 'cycling'): Promise<void> {
   return new Promise<void>((resolve) => {
     const waypointCoordinates = checkpoints.map(checkpoint => {
@@ -201,6 +181,10 @@ private async setRoute(checkpoints: Checkpoint[], profile: 'walking' | 'driving'
       waypoints: waypointCoordinates,
       router: L.Routing.mapbox('pk.eyJ1IjoiZGpucGxtcyIsImEiOiJjbG56Mzh3a2gwNWwzMnZxdDljdHIzNDIyIn0.iZjiPJJV-SgTiIOeF8UWvA', { profile: `mapbox/${profile}` }),
       routeWhileDragging: false,
+      lineOptions: {
+        styles: [{ color: 'rgb(56, 28, 117)', opacity: 1, weight: 5 }]
+        // You can customize color, opacity, and weight as needed
+      } as L.Routing.LineOptions, // Add this type assertion
     }).addTo(this.map);
     routeControl.hide();
     const markerGroup = L.layerGroup();
@@ -209,28 +193,7 @@ private async setRoute(checkpoints: Checkpoint[], profile: 'walking' | 'driving'
       const routes = e.routes;
 
       checkpoints.forEach((checkpoint, index) => {
-        this.mapService.reverseSearch(checkpoint.latitude, checkpoint.longitude).subscribe((res) => {
-          if (res.address) {
-            const street = res.address.road || res.address.street;
-            const number = res.address.house_number;
-            const city = res.address.city_district || res.address.city || res.address.town || res.address.village || res.address.suburb;
-            const location = `${street} ${number}, ${city}`;
-
-            const marker = L.marker([checkpoint.latitude, checkpoint.longitude], {
-              draggable: false,
-            })
-              .addTo(markerGroup)
-              .bindPopup(this.addLabelToPopupContent("CHECKPOINT " + ++index, checkpoint.image, checkpoint.name, location))
-              .on('mouseover', (event) => {
-                marker.openPopup();
-              })
-              .on('mouseout', (event) => {
-                marker.closePopup();
-              });
-
-            markerGroup.addTo(this.map);
-          }
-        });
+        // ... (your existing code for creating markers)
       });
 
       markerGroup.addTo(this.map);
@@ -253,6 +216,8 @@ private async setRoute(checkpoints: Checkpoint[], profile: 'walking' | 'driving'
     });
   });
 }
+
+
 deleteRoutes(): void {
   this.currentVehicle = "none";
   this.map.eachLayer((layer: any) => {
@@ -274,7 +239,7 @@ deleteRoutes(): void {
 // Updated addMarkersForCategory method
 private async addMarkersForCategory(category: number): Promise<void> {
   return new Promise<void>((resolve) => {
-    const filteredObjects = this.objects.filter((obj) => obj.category === category);
+    const filteredObjects = this.objects ? this.objects.filter((obj) => obj.category + 1 === category) : [];
     const promises: Promise<void>[] = [];
 
     filteredObjects.forEach((object) => {

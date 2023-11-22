@@ -51,6 +51,23 @@ export class TourAuthoringService {
   updateObject(object: Object): Observable<Object>{
     return this.http.put<Object>('https://localhost:44333/api/administration/object/' + object.id, object)
   }
+  addObject( object: Object): Observable<Object>
+  {
+    return this.http.post<Object>(environment.apiHost+ 'administration/object',object)
+  }
+
+  uploadObject(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    const req = new HttpRequest('POST', `https://localhost:44333/api/administration/object/UploadFile`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+    return this.http.request(req);
+  }
+    sendPublicRequest(publicRequest: PublicRequest): Observable<PublicRequest> {
+      return this.http.post<PublicRequest>('https://localhost:44333/api/author/tour/publicRequest', publicRequest)
+    }
 
   upload(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
@@ -143,12 +160,6 @@ export class TourAuthoringService {
   getBoughtTours():Observable<PagedResults<TourPurchaseToken>> {
     return this.http.get<PagedResults<TourPurchaseToken>>('https://localhost:44333/api/tourist/tourPurchaseToken/getAllTokens?page=0&pageSize=0')
   }
-
-  sendPublicRequest(publicRequest: PublicRequest): Observable<PublicRequest> {
-    return this.http.post<PublicRequest>('https://localhost:44333/api/author/tour/publicRequest', publicRequest)
-  }
-
-
 
   deleteTourAdministrator(id: number): Observable<Tour>{
     return this.http.delete<Tour>('https://localhost:44333/api/administrator/tour/' + id);

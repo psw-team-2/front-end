@@ -8,6 +8,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { TourReview } from '../../marketplace/model/tour-review.model';
 import { MarketplaceService } from '../../marketplace/marketplace.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-tour-overview',
@@ -27,6 +28,8 @@ export class TourOverviewComponent {
   editMode = false;
   defaultImageUrl = "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg";
   vehicleMode: string = "walk";
+  userRole: string;
+
   formatDate(date: string): string {
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
@@ -41,13 +44,27 @@ export class TourOverviewComponent {
   }
 
   nextSection() {
-    this.currentSection = Math.min(this.currentSection + 1, 2);
+    if (this.userRole === 'author') {
+      // If the user is an author, navigate through sections 0 to 4 continuously
+      this.currentSection = (this.currentSection + 1) % 5;
+    } else {
+      // If the user is a tourist, navigate through sections 0 to 2 continuously
+      this.currentSection = (this.currentSection + 1) % 3;
+    }
   }
-
+  
   prevSection() {
-    this.currentSection = Math.max(this.currentSection - 1, 0);
+    if (this.userRole === 'author') {
+      // If the user is an author, navigate through sections 0 to 4 continuously
+      this.currentSection = (this.currentSection - 1 + 5) % 5;
+    } else {
+      // If the user is a tourist, navigate through sections 0 to 2 continuously
+      this.currentSection = (this.currentSection - 1 + 3) % 3;
+    }
   }
-  constructor(private tourService: TourAuthoringService, private route: ActivatedRoute, private marketplaceService: MarketplaceService, private fb: FormBuilder) {
+  
+  
+  constructor(private tourService: TourAuthoringService, private route: ActivatedRoute, private marketplaceService: MarketplaceService, private fb: FormBuilder, private authService: AuthService) {
     this.tourInfoForm = this.fb.group({
       name: [''],
       description: [''],
@@ -60,6 +77,7 @@ export class TourOverviewComponent {
    }
 
   ngOnInit(): void {
+
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       this.tourId = id ? parseInt(id, 10) : null;
@@ -81,6 +99,11 @@ export class TourOverviewComponent {
           }
         });
         this.fetchTourReviews();
+
+        this.authService.user$.subscribe((user) => {
+          this.userRole = user.role;
+        });
+    
       } else {
         // Handle the case where id is null
       }
@@ -130,18 +153,6 @@ export class TourOverviewComponent {
     } else {
       this.canRender = true; // If there are no checkpoint IDs, set canRender to true immediately.
     }
-  }
-
-  getCurrentImage(): string {
-    return this.images[this.currentIndex];
-  }
-
-  prevImage() {
-    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
-  }
-
-  nextImage() {
-    this.currentIndex = (this.currentIndex + 1) % this.images.length;
   }
   onSubmit() {
     const existingTags = (this.tour.tags || []).map((tag: string) => tag.toLowerCase());
@@ -202,5 +213,14 @@ export class TourOverviewComponent {
 
     console.log(`Deleting checkpoint: ${checkpoint.name}`);
   }
-  
+  submitReview(): void {
+    // Implement logic to add a new review using the review service
+    // Update the reviews array to reflect the new review
+  }
+
+    // Define the getStarArray method
+    getStarArray(rating: number): number[] {
+      // Assuming each star corresponds to a whole number in the rating
+      return Array(Math.round(rating)).fill(0).map((x, i) => i);
+    }
 }

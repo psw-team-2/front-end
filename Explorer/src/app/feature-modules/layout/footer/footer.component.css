@@ -5,7 +5,7 @@ footer {
     position: relative;
     bottom: 0;
     left: 0;
-    width: 100vw;
+    width: 100vw - 20px;
     padding-top: 1vw;
     margin-top: 10vw;
     background-color: #333; /* Dark grey background */
