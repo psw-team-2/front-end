@@ -7,6 +7,7 @@
         <li *ngFor="let memberId of club?.memberIds; let i=index">{{ memberId || 'Unknown' }}
             <button *ngIf="isOwner && memberId !== club?.ownerId" (click)="kickMember(memberId)">Kick</button>
         </li>
+        <button color="primary" [routerLink]="['/clubs/'+ club.id + '/inviteMembersToTour']">Invite members to tour</button>
     </ul>
     <div *ngIf="isOwner">
         <h2>Invite users:</h2>
