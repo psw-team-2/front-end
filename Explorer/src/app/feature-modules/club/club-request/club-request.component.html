@@ -15,12 +15,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let cr of clubRequest">
+                <tr *ngFor="let cr of clubRequestWithUser">
                     <td>
                         {{getMappedClubName(cr.clubId)}}
                     </td>
                     <td>
-                        {{cr.accountId}}
+                        {{cr.account.username}}
                     </td>
                     <td>
                         {{getMappedRequestStatus(cr.requestStatus)}}
