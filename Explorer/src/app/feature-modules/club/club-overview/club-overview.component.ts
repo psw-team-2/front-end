@@ -5,7 +5,9 @@ import { ClubRequest } from '../model/club-request.model';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
-import { Observable, concatMap, forkJoin } from 'rxjs';
+import { Observable, catchError, concatMap, forkJoin, map, of } from 'rxjs';
+import { Profile } from '../../administration/model/profile.model';
+import { AdministrationService } from '../../administration/administration.service';
 
 @Component({
   selector: 'xp-club-overview',
@@ -14,16 +16,18 @@ import { Observable, concatMap, forkJoin } from 'rxjs';
 })
 export class ClubOverviewComponent {
 
-  constructor(private route: ActivatedRoute, private service: ClubService, private authService: AuthService) { }
+  constructor(private route: ActivatedRoute, private service: ClubService, private authService: AuthService,private adminService: AdministrationService ) { }
 
   clubId: number;
   club: Club;
   isOwner: boolean;
   user: User | undefined;
-  memberUsernames: string[] = [];
   allMemberIds: number[] = [];
   nonMemberIds: number[] = [];
   nonMemberUsernames: string[] = [];
+
+  mappedMembers: { [key: number]: string } = {};
+  mappedNonMembers: { [key: number]: string } = {};
 
   ngOnInit(): void {
     this.clubId = Number(this.route.snapshot.paramMap.get('id'));
@@ -32,6 +36,7 @@ export class ClubOverviewComponent {
     this.authService.user$.subscribe(user => {
       this.user = user;
     });
+    
   }
 
   getClub(clubId: number): void {
@@ -48,7 +53,7 @@ export class ClubOverviewComponent {
           const userIds = Object.values(response);
           for (const userId of userIds) {
             this.allMemberIds.push(userId);
-        }
+          }
           for (let userId of this.allMemberIds) {
             if (this.club.memberIds.indexOf(userId) === -1) {
               this.nonMemberIds.push(userId);
@@ -61,6 +66,7 @@ export class ClubOverviewComponent {
               this.nonMemberUsernames.push(username.username);
             });
           }
+          this.mapUsernames();
         });
 
         for (let i = 0; i < this.club.memberIds.length; i++) {
@@ -76,14 +82,22 @@ export class ClubOverviewComponent {
     })
   }
 
-  kickMember(memberId: number) {
+  kickMember(memberId: number | undefined) {
+    if (memberId === undefined) {
+      console.error('Member ID is undefined');
+      return;
+    }
     this.club.memberIds = this.club.memberIds.filter(id => id !== memberId);
     this.service.updateClub(this.club).subscribe({
       next: () => {}
     });
   }
 
-  inviteMember(nonMemberId: number) {
+  inviteMember(nonMemberId: number| undefined) {
+    if (nonMemberId === undefined) {
+      console.error('Non-member ID is undefined');
+      return;
+    }
     this.nonMemberIds = this.nonMemberIds.filter(id => id !== nonMemberId);
     
     let clubId = this.clubId;
