@@ -28,7 +28,7 @@
 
 #entity-icon-button{
     color: #ffffff;
-    background-color: #2e003e;
+    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     transition: background-color 0.3s, color 0.3s;  
     margin: 0.5vw;
     display: flex;
@@ -52,7 +52,7 @@
 }
 
 #entity-raised-button:hover{
-    color:#2e003e;
+    color: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     background-color: #ffffff;
 }
 
@@ -117,7 +117,7 @@ tbody tr:nth-of-type(even) {
 }
 
 tbody tr:last-of-type {
-    border-bottom: 2px solid #2e003e;
+    border-bottom: 2px solid  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     
 }
 
@@ -128,7 +128,7 @@ tbody tr.active-row {
 
 
 button {
-    background-color: #2e003e;
+    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     color: #ffffff;
     transition: background-color 0.3s, color 0.3s;    
 }
@@ -173,14 +173,14 @@ button {
 
 
 .mat-mdc-raised-button.mat-primary {
-    background-color: #2e003e;
+    background-color:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     color: #ffffff;
     transition: background-color 0.3s, color 0.3s;    
 }
 
 .mat-mdc-raised-button.mat-primary:hover {
     background-color: #ffffff;
-    color: #2e003e;
+    color:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
 }
 
 .Monserrat{
