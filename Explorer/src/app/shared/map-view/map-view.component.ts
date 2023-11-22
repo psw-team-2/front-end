@@ -191,12 +191,32 @@ private async setRoute(checkpoints: Checkpoint[], profile: 'walking' | 'driving'
 
     routeControl.on('routesfound', (e) => {
       const routes = e.routes;
-
+    
       checkpoints.forEach((checkpoint, index) => {
-        // ... (your existing code for creating markers)
-      });
+        
+        this.mapService.reverseSearch(checkpoint.latitude, checkpoint.longitude).subscribe((res) => {
+            const street = res.address.road || res.address.street;
+            const number = res.address.house_number;
+            const city = res.address.city_district || res.address.city || res.address.town || res.address.village || res.address.suburb;
+            const location = `${street} ${number}, ${city}`;
 
+        const popupContent = this.addLabelToPopupContent((index+1).toString(), checkpoint.image, checkpoint.name, location); // Customize the content as needed
+        const marker = L.marker([checkpoint.latitude, checkpoint.longitude])
+          .bindPopup(popupContent)
+          .addTo(markerGroup);
+    
+        marker.on('mouseover', (event) => {
+          marker.openPopup();
+        });
+    
+        marker.on('mouseout', (event) => {
+          marker.closePopup();
+        });
+      });
+    });
+    
       markerGroup.addTo(this.map);
+
       var summary = routes[0].summary;
       const totalSeconds = summary.totalTime; // Assuming totalTime is in seconds
       const totalDistance = summary.totalDistance
