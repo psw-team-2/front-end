@@ -6,7 +6,7 @@
 }
 
 .blog-title {
-    background-color: #2a2133; 
+    background:linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131)); 
     color: white;
     text-align: center;
     height: 150px;
@@ -50,9 +50,6 @@
     
   }
   
-  
-  
-
 .blog-text {
     margin-right: 300px;
     margin-left: 300px;
