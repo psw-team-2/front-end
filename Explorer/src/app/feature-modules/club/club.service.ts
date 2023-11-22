@@ -5,6 +5,7 @@ import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { ClubRequest } from './model/club-request.model';
+import { ClubMessage } from './model/club-message.model';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +53,15 @@ export class ClubService {
     });
 
     return this.http.request(req);
+  }
+
+  // Club Messages
+
+  getClubMessages(clubId : number): Observable<PagedResults<ClubMessage>> {
+    return this.http.get<PagedResults<ClubMessage>>('https://localhost:44333/api/club/' + clubId + '/chatroom?page=1&pageSize=1');
+  }
+
+  addClubMessage(clubMessage: ClubMessage): Observable<ClubMessage> {
+    return this.http.post<ClubMessage>('https://localhost:44333/api/club', clubMessage);
   }
 }

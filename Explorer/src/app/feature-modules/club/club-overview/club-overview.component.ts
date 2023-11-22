@@ -5,7 +5,9 @@ import { ClubRequest } from '../model/club-request.model';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
-import { Observable, catchError, concatMap, forkJoin, map, of } from 'rxjs';
+import { Observable, catchError, concatMap, forkJoin, map, of, timestamp } from 'rxjs';
+import { ClubMessage } from '../model/club-message.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
   selector: 'xp-club-overview',
@@ -28,13 +30,52 @@ export class ClubOverviewComponent {
   mappedMembers: { [key: number]: string } = {};
   mappedNonMembers: { [key: number]: string } = {};
 
+  clubMessages: ClubMessage[] = [];
+  newClubMessage : ClubMessage;
+  messageTime : Date;
+
   ngOnInit(): void {
     this.clubId = Number(this.route.snapshot.paramMap.get('id'));
     this.getClub(this.clubId);
+    this.getClubMessages(this.clubId)
 
     this.authService.user$.subscribe(user => {
       this.user = user;
     });
+
+
+  }
+
+  addClubMessage() : void {
+    //this.newClubMessage = clubMessage;
+    this.messageTime = new Date();
+
+    if (this.user) {
+      const clubMessage : ClubMessage = {
+        id: undefined,
+        userId: this.user.id,
+        clubId: this.clubId,
+        time: this.messageTime,
+        text: "test proba",
+      };
+
+      this.service.addClubMessage(clubMessage).subscribe({
+        next: () => {
+          console.log("Club message successfully sent!");
+          console.log(clubMessage.text);
+        }
+      });
+    }
+  }
+
+  getClubMessages(clubId: number) : void {
+    this.service.getClubMessages(clubId).subscribe({
+      next: (result: PagedResults<ClubMessage>) => {
+        //@ts-ignore
+        this.clubMessages = result;
+        console.log(this.clubMessages);
+      }
+    })
   }
 
   getClub(clubId: number): void {
