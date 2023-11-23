@@ -6,5 +6,6 @@ export interface Registration {
     password: string,
     profilePicture: string,
     biography: string,
-    motto: string
+    motto: string,
+    questionaireDone: boolean
 }
