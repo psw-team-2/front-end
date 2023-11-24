@@ -64,5 +64,5 @@
         <input type="radio" name="adventure" value="prefer"><span class="green">I prefer them</span>
         <input type="radio" name="adventure" value="strongly-prefer"><span class="green">I strongly prefer them</span>
     </div>
-    <button type="submit" mat-raised-button>Submit answers</button>
+    <button type="submit" *ngIf="showSubmitButton" mat-raised-button>Submit answers</button>
 </form>
