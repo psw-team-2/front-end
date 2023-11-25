@@ -1,16 +1,16 @@
-<form [formGroup]="blogForm"  >
+<form [formGroup]="blogForm" class="center-class" >
     <div>
-        <mat-form-field>
+        <mat-form-field class="custom-form-field1">
             <mat-label>Title</mat-label>
             <input matInput formControlName="title" type="text"/>
-        </mat-form-field>
-        <mat-form-field>
+          </mat-form-field>
+          <mat-form-field class="custom-form-field">
             <mat-label>Description</mat-label>
             <textarea matInput
-            cdkTextareaAutosize
-            cdkAutosizeMinRows="1"
-            formControlName="description"
-            cdkAutosizeMaxRows="5"></textarea>
+                      cdkTextareaAutosize
+                      cdkAutosizeMinRows="1"
+                      formControlName="description"
+                      cdkAutosizeMaxRows="5"></textarea>
           </mat-form-field>
           <div id="blog-category">
             <mat-form-field>
@@ -29,9 +29,9 @@
           <img *ngIf="currentFile" [src]="currentFileUrl" alt="Selected Image" class="thumbnail"/>
           <img *ngIf="!currentFile" [src]="currentFileUrl" class="thumbnail"/>
           <mat-label>Images</mat-label>
-            <button mat-raised-button color="primary" (click)="fileInput.click()">Upload File</button>
+            <button class="action-button" mat-raised-button color="primary" (click)="fileInput.click()">Upload File</button>
             <input hidden #fileInput type="file" (change)="onFileSelected($event)">
-        <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addBlog()" mat-raised-button>Done</button>
-    <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateBlog()" mat-raised-button>Done</button>
+        <button class="action-button" mat-raised-button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addBlog()" >Done</button>
+    <button class="action-button" mat-raised-button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateBlog()" >Done</button>
     </div>
 </form>

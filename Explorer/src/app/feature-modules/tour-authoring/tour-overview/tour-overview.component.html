@@ -21,16 +21,13 @@
       
       <div class="edit-button-wrapper" *ngIf="userRole === 'author'">
         <button class="edit-button" (click)="toggleEditMode()" [hidden]="editMode">
-          <i class="fas fa-edit"></i> <!-- FontAwesome edit icon -->
+          <i class="fas fa-edit"> Edit</i><!-- FontAwesome edit icon -->
         </button>
         <button class="edit-button" (click)="toggleEditMode()"  [hidden]="!editMode">
-          <i class="fas fa-save"></i> <!-- FontAwesome floppy disk icon -->
+          <i class="fas fa-save"> Save</i><!-- FontAwesome floppy disk icon -->
         </button>
       </div>
 
-      <!-- Form Start -->
-<!-- Form Start -->
-<!-- Form Start -->
 <form [formGroup]="tourInfoForm" (ngSubmit)="onSubmit()">
 
   <label>
@@ -121,21 +118,61 @@
   </div>
 </div>
 
-    <!-- Tour Equipment Section -->
+<!-- Tour Equipment Section -->
 <div *ngIf="currentSection === 3" class="section equipment-section">
   <!-- Display Tour Equipment here -->
   <h2><i class="fa-solid fa-binoculars"></i> Tour Equipment</h2>
-  <!-- Add your tour equipment details here -->
-  <!-- Add more details as needed -->
+  <div class="equipment-container">
+    <!-- Loop through each equipment item and display its name and description -->
+    <div *ngFor="let equipmentItem of equipment" class="equipment-item">
+      <h3>{{ equipmentItem.name }}</h3>
+      <p>{{ equipmentItem.description }}</p>
+    </div>
+  </div>
 </div>
 
-    <!-- Tour Objects Section -->
-    <div *ngIf="currentSection === 4" class="section object-section">
-      <!-- Display Tour Equipment here -->
-      <h2><i class="fa-solid fa-building"></i> Tour Objects</h2>
-      <!-- Add your tour equipment details here -->
-      <!-- Add more details as needed -->
+
+<!-- Tour Objects Section -->
+<div *ngIf="currentSection === 4" class="section object-section">
+  <!-- Display Tour Equipment here -->
+  <h2><i class="fa-solid fa-building"></i> Tour Objects</h2>
+  <div class="edit-button-wrapper" *ngIf="userRole === 'author'">
+    <button class="edit-button">
+      <i class="fas fa-circle-plus"> Add</i> <!-- FontAwesome edit icon -->
+    </button>
+  </div>
+  <div *ngFor="let tourObject of objects" class="object-item">
+    <img *ngIf="tourObject.image" [src]="tourObject.image" alt="{{ tourObject.name }} Image" class="object-image">
+    <div class="object-details">
+      <h3>{{ tourObject.name }}</h3>
+      <p>{{ tourObject.description }}</p>
+      <div class="category">
+        <div *ngIf="tourObject.category === 0">
+          <p class="restroom">Category: Restroom <i class="fas fa-restroom restroom-icon"></i></p>
+        </div>
+        <div *ngIf="tourObject.category === 1">
+          <p class="restaurant">Category: Restaurant <i class="fas fa-utensils restaurant-icon"></i></p>
+        </div>
+        <div *ngIf="tourObject.category === 2">
+          <p class="parking">Category: Parking <i class="fas fa-parking parking-icon"></i></p>
+        </div>
+        <div *ngIf="tourObject.category === 3">
+          <p class="other">Category: Other <i class="fas fa-question other-icon"></i></p>
+        </div>
+      </div>
+      <!-- Move edit and delete buttons here -->
+      <div class="object-actions">
+        <button class="edit-button">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="edit-button">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
     </div>
+  </div>
+</div>
+
         
     <!-- Navigation Buttons (Right) -->
     <button class="navigation-button" (click)="nextSection()">

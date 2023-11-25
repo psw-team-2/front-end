@@ -55,14 +55,15 @@ export class TourFormComponent {
       difficulty: Number(this.tourForm.value.difficulty) || 0,
       tags: [],
       checkPoints : [],
-      equipments: [],
+      equipment: [],
+      objects: [],
       status: 0,
       totalLength: 0,
       footTime: 0,
       carTime: 0,
       bicycleTime: 0,
       authorId: this.user.id,
-      publishTime: ""
+      publishTime: "",
 
     }
   
@@ -85,7 +86,8 @@ export class TourFormComponent {
       difficulty: Number(this.tourForm.value.difficulty) || 0,
       tags: [],
       checkPoints: [],
-      equipments: [],
+      equipment: [],
+      objects: [],
       status: 1,
       totalLength: 1,
       footTime: 1,

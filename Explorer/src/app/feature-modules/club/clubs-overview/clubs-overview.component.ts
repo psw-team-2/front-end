@@ -5,6 +5,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { ClubRequest } from '../model/club-request.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,14 +14,13 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
   styleUrls: ['./clubs-overview.component.css']
 })
 export class ClubsOverviewComponent implements OnInit {
-
   clubs: Club[] = [];
   selectedClub: Club;
   shouldRenderClubForm: boolean = false;
   shouldEdit: boolean = false;
   currentUser: User;
 
-  constructor(private service: ClubService, private authService: AuthService) { }
+  constructor(private service: ClubService, private authService: AuthService,private router: Router) { }
 
   ngOnInit(): void {
     this.getClubs();
@@ -50,13 +50,13 @@ export class ClubsOverviewComponent implements OnInit {
 
   onEditClicked(club: Club): void {
     this.selectedClub = club;
-    this.shouldRenderClubForm = true;
+    this.shouldRenderClubForm = !this.shouldRenderClubForm;
     this.shouldEdit = true;
   }
 
   onAddClicked(): void {
     this.shouldEdit = false;
-    this.shouldRenderClubForm = true;
+    this.shouldRenderClubForm = !this.shouldRenderClubForm;
   }
 
   viewClub(club: Club): void {

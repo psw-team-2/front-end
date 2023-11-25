@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TourAutoringService } from './tour-autoring.service';
+import { ChallengesService } from './challenges.service';
 
-describe('TourAutoringService', () => {
-  let service: TourAutoringService;
+describe('ChallengesService', () => {
+  let service: ChallengesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(TourAutoringService);
+    service = TestBed.inject(ChallengesService);
   });
 
   it('should be created', () => {

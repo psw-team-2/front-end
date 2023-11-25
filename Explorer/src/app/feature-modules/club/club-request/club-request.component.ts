@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Club } from '../model/club.model';
 import { ClubService } from '../club.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { forkJoin } from 'rxjs';
+import { ClubRequestWithUser } from '../model/club-request-with-user';
 
 @Component({
   selector: 'xp-club-request',
@@ -18,6 +20,7 @@ export class ClubRequestComponent implements OnInit {
   selectedRequest: ClubRequest;
   clubs: Club[] = [];
   currentUser: User;
+  clubRequestWithUser: ClubRequestWithUser[] = [];
 
   constructor(private service: ClubRequestService, private authService: AuthService, private clubService: ClubService) {}
 
@@ -34,10 +37,26 @@ export class ClubRequestComponent implements OnInit {
     this.service.getClubRequests().subscribe({
       next: (result: PagedResults<ClubRequest>) => {
         this.clubRequest = result.results;
+
+        // Fetch user details for each user ID in ClubRequests
+        const userIds = this.clubRequest.map(request => request.accountId);
+        if (userIds.length > 0) {
+          forkJoin(userIds.map(userId => this.authService.getUserById(userId)))
+            .subscribe(users => {
+              // Assuming the order of users in the response corresponds to the order of userIds
+              this.clubRequestWithUser = this.clubRequest.map((request, index) => {
+                return {
+                  ...request,
+                  account: users[index]
+                };
+              });
+            });
+        }
       },
       error: () => {
+        // Handle error
       }
-    })
+    });
   }
 
   onWithdrawRequestClicked(id: number): void {
@@ -79,7 +98,8 @@ export class ClubRequestComponent implements OnInit {
     return club ? club.name : 'Unknown';
   }
 
-  onAcceptRequestClicked(clubRequest: ClubRequest): void {
+  onAcceptRequestClicked(clubRequestWithUser: ClubRequestWithUser): void {
+    const clubRequest = this.convertToClubRequest(clubRequestWithUser);
     this.selectedRequest = clubRequest;
     const club = this.clubs.find(c => c.id === clubRequest.clubId);
 
@@ -106,7 +126,8 @@ export class ClubRequestComponent implements OnInit {
     }
   }
 
-  onRejectRequestClicked(clubRequest: ClubRequest): void {
+  onRejectRequestClicked(clubRequestWithUser: ClubRequestWithUser): void {
+    const clubRequest = this.convertToClubRequest(clubRequestWithUser);
     this.selectedRequest = clubRequest;
     const club = this.clubs.find(c => c.id === clubRequest.clubId);
 
@@ -123,7 +144,8 @@ export class ClubRequestComponent implements OnInit {
     }
   }
 
-  onAcceptInvitationClicked(clubRequest: ClubRequest): void {
+  onAcceptInvitationClicked(clubRequestWithUser: ClubRequestWithUser): void {
+    const clubRequest = this.convertToClubRequest(clubRequestWithUser);
     this.selectedRequest = clubRequest;
     const club = this.clubs.find(c => c.id === clubRequest.clubId);
 
@@ -148,7 +170,8 @@ export class ClubRequestComponent implements OnInit {
     }
   }
 
-  onRejectInvitationClicked(clubRequest: ClubRequest): void {
+  onRejectInvitationClicked(clubRequestWithUser: ClubRequestWithUser): void {
+    const clubRequest = this.convertToClubRequest(clubRequestWithUser);
     this.selectedRequest = clubRequest;
     const club = this.clubs.find(c => c.id === clubRequest.clubId);
 
@@ -162,5 +185,15 @@ export class ClubRequestComponent implements OnInit {
         error: () => {}
       });
     }
+  }
+
+  private convertToClubRequest(clubRequestWithUser: ClubRequestWithUser): ClubRequest {
+    return {
+      id: clubRequestWithUser.id,
+      clubId: clubRequestWithUser.clubId,
+      accountId: clubRequestWithUser.accountId,
+      requestStatus: clubRequestWithUser.requestStatus,
+      requestType: clubRequestWithUser.requestType
+    };
   }
 }

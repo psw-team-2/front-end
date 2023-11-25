@@ -3,12 +3,15 @@ import { ActivatedRoute } from '@angular/router';
 import { Checkpoint } from '../model/checkpoint.model';
 import { Tour } from '../model/tour.model';
 import { TourAuthoringService } from '../tour-authoring.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { TourReview } from '../../marketplace/model/tour-review.model';
 import { MarketplaceService } from '../../marketplace/marketplace.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { Object } from '../model/object.model';
+import { Equipment } from '../model/equipment.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
   selector: 'xp-tour-overview',
@@ -26,6 +29,8 @@ export class TourOverviewComponent {
   currentSection: number = 0;
   tourInfoForm: FormGroup;
   editMode = false;
+  objects: Object[] | undefined= [];
+  equipment: Equipment[] | undefined= [];
   defaultImageUrl = "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg";
   vehicleMode: string = "walk";
   userRole: string;
@@ -86,6 +91,8 @@ export class TourOverviewComponent {
           next: (result: Tour) => {
             this.tour = result;
             this.fetchCheckpointsForTour(this.tourId);
+            this.fetchObjectsForTour(this.tour.objects);
+            this.fetchEquipmentForTour(this.tour.equipment);
             this.tourInfoForm.patchValue({
               name: this.tour?.name,
               description: this.tour?.description,
@@ -109,7 +116,21 @@ export class TourOverviewComponent {
       }
     });
   }
+  private async fetchObjectsForTour(objectIds: number[]): Promise<void> {
+    this.objects = undefined; // Set to undefined before fetching
+  
+    const objectRequests: Observable<Object>[] = objectIds.map(objectId =>
+      this.tourService.getObjectById(objectId)
+    );
+  
+    // Wait for all object requests to complete
+    const objects = await forkJoin(objectRequests).toPromise();
+  
+    // Update the objects array
+    this.objects = objects;
+  }
 
+  
   toggleEditMode() {
     this.editMode = !this.editMode;
     if(!this.editMode)
@@ -125,7 +146,32 @@ export class TourOverviewComponent {
       }
     });
   }
-
+  private async fetchEquipmentForTour(equipmentIds: number[]): Promise<void> {
+    this.objects = undefined; // Set to undefined before fetching
+  
+    const allEquipment$: Observable<PagedResults<Equipment>> = this.tourService.getEquipment();
+  
+    allEquipment$.subscribe(
+      (pagedResults: PagedResults<Equipment>) => {
+        const allEquipment: Equipment[] = pagedResults.results;
+  
+        // Filter equipment based on the provided IDs
+        const selectedEquipment: Equipment[] = allEquipment.filter(equipment =>
+          equipmentIds.includes(equipment.id || 0)  // Make sure 'id' is defined or use a default value
+        );
+  
+        // Now 'selectedEquipment' contains only the equipment with the provided IDs
+        console.log(selectedEquipment);
+  
+        // Handle the rest of your logic with the selected equipment
+      },
+      (error) => {
+        // Handle errors here
+        console.error(error);
+      }
+    );
+  }
+  
   fetchCheckpointsForTour(tourId: number | null): void {
     if (tourId === null) {
       // Handle the case where tourId is null
