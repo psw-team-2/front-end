@@ -12,6 +12,20 @@
                       formControlName="description"
                       cdkAutosizeMaxRows="5"></textarea>
           </mat-form-field>
+          <div id="blog-category">
+            <mat-form-field>
+                <mat-label>Category</mat-label>
+                <mat-select formControlName="category" [(value)]="selectedCategory">
+                  <mat-option [value]="BlogCategory.Destinations">Destinations</mat-option>
+                  <mat-option [value]="BlogCategory.Travelogues">Travelogues</mat-option>
+                  <mat-option [value]="BlogCategory.Activities">Activities</mat-option>
+                  <mat-option [value]="BlogCategory.Gastronomy">Gastronomy</mat-option>
+                  <mat-option [value]="BlogCategory.Tips">Tips</mat-option>
+                  <mat-option [value]="BlogCategory.Culture">Culture</mat-option>
+                  <mat-option [value]="BlogCategory.Destinations">Accommodation</mat-option>
+                </mat-select>
+              </mat-form-field>
+          </div>
           <img *ngIf="currentFile" [src]="currentFileUrl" alt="Selected Image" class="thumbnail"/>
           <img *ngIf="!currentFile" [src]="currentFileUrl" class="thumbnail"/>
           <mat-label>Images</mat-label>

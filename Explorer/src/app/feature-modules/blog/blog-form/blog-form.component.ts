@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Blog, BlogStatus } from '../model/blog.model';
+import { Blog, BlogCategory, BlogStatus, BlogCategoryValues } from '../model/blog.model';
 import { BlogService } from '../blog.service';
 import { AuthService } from '../../../infrastructure/auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
@@ -20,7 +20,9 @@ export class BlogFormComponent {
   currentFileUrl: string | null = null;
   
   blogForm: FormGroup;
+  BlogCategory = BlogCategory;
   private blogId: number | null = null;
+  selectedCategory: BlogCategory;
 
   constructor(private service: BlogService, private authService: AuthService, private route: ActivatedRoute) {
     this.route.paramMap.subscribe(params => {
@@ -70,51 +72,24 @@ export class BlogFormComponent {
       }
     }
   }
-  /*
-  ngOnChanges(): void {
-    this.blogForm.reset();
-    if(this.shouldEdit) {
-      this.blogForm.patchValue(this.blog);
-    }
-  }*/
+  
+  
 
   private initializeForm(): void {
     this.blogForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
       image: new FormControl(''),
+      category: new FormControl(null, [Validators.required]),
     });
   }
 
-  /*
-  async addBlog(): Promise<void> {
-    const userId = this.authService.user$.value.id;
-    
-    const blog: Blog = {
-      title: this.blogForm.value.title || "",
-      description: this.blogForm.value.description || "",
-      creationTime: new Date('2023-10-22T10:30:00'),
-      status:  BlogStatus.Published,
-      image: 'https://localhost:44333/Images/' + this.currentFile.name,
-      userId: userId,
-    };
-    await this.service.upload(this.currentFile).subscribe({
-      next: (value) => {
-
-      },
-      error: (value) => {
-
-      }, complete: () => {
-      },
-    });
-    this.service.addBlog(blog).subscribe({
-      next: (_) => { this.blogUpdated.emit() }
-    });
-  }*/
+  
 
   async addBlog(): Promise<void> {
     const userId = this.authService.user$.value.id;
     const username = this.authService.user$.value.username;
+    if (this.selectedCategory !== undefined) {
     if (!this.currentFile) {
       const blog: Blog = {
         title: this.blogForm.value.title || "",
@@ -124,6 +99,7 @@ export class BlogFormComponent {
         status: BlogStatus.Published,
         userId: userId,
         image: "",	
+        category:this.selectedCategory
       };
       this.service.addBlog(blog).subscribe({
         next: (_) => {
@@ -139,7 +115,8 @@ export class BlogFormComponent {
         status:  BlogStatus.Published,
         image: 'https://localhost:44333/Images/' + this.currentFile.name,
         userId: userId,
-      };
+        category: this.selectedCategory
+    };
       await this.service.upload(this.currentFile).subscribe({
         next: (value) => {
   
@@ -151,7 +128,7 @@ export class BlogFormComponent {
       });
       this.service.addBlog(blog).subscribe({
         next: (_) => { this.blogUpdated.emit() }
-      });
+    });}
     }
   }
   
@@ -164,34 +141,7 @@ export class BlogFormComponent {
       this.currentFileUrl = window.URL.createObjectURL(this.currentFile);
     }
   }
-/*
-  async updateBlog(): Promise<void> {
-  const userId = this.authService.user$.value.id;
-  if (this.blogId !== null) {
-    const blog: Blog = {
-      userId : userId,
-      title: this.blogForm.value.title || "",
-      description: this.blogForm.value.description || "",
-      creationTime: new Date('2023-10-22T10:30:00'),
-      status: BlogStatus.Published,
-      id: this.blogId,
-      image: 'https://localhost:44333/Images/' + this.currentFile.name,
-    };
-    await this.service.upload(this.currentFile).subscribe({
-      next: (value) => {
 
-      },
-      error: (value) => {
-
-      }, complete: () => {
-      },
-    });
-    this.service.updateBlog(blog).subscribe({
-      next: () => { this.blogUpdated.emit(); }
-    });
-  }
- 
-}*/
 async updateBlog(): Promise<void> {
   const userId = this.authService.user$.value.id;
   const username = this.authService.user$.value.username;
@@ -206,6 +156,7 @@ async updateBlog(): Promise<void> {
         status: BlogStatus.Published,
         id: this.blogId,
         image: this.blogForm.value.image || "",
+        category: this.selectedCategory,
       };
       this.service.updateBlog(blog).subscribe({
         next: (_) => {
@@ -222,6 +173,7 @@ async updateBlog(): Promise<void> {
         status: BlogStatus.Published,
         id: this.blogId,
         image: 'https://localhost:44333/Images/' + this.currentFile.name,
+        category: this.selectedCategory,
       };
       await this.service.upload(this.currentFile).subscribe({
         next: (value) => {
@@ -234,8 +186,8 @@ async updateBlog(): Promise<void> {
       });
       this.service.updateBlog(blog).subscribe({
         next: (_) => { this.blogUpdated.emit() }
-      });
-    }
+      });}
+    
   }
 }
   
