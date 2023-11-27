@@ -194,4 +194,6 @@ export class AdministrationService {
   updateMessage2(message: Message): Observable<Message> {
     return this.http.put<Message>('https://localhost:44333/api/administration/message2/' + message.id + '/' + message.senderId + '/' + message.receiverId, message);
   }
+
+  
 }
