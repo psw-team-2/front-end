@@ -13,6 +13,7 @@ import { PublicRequest } from './model/public-request.model';
 import { Object } from './model/object.model';
 import { ShoppingCart } from '../marketplace/model/shopping-cart.model';
 import { OrderItem } from '../marketplace/model/order-item.model';
+import { PaymentNotification } from './model/paymentNotification.model';
 
 
 @Injectable({
@@ -192,7 +193,9 @@ export class TourAuthoringService {
     return this.http.get<PagedResults<OrderItem>>('https://localhost:44333/api/tourist/orderItem/orderItems/' + userId);
   }
 
-
+  getUnreadPaymentNotifications(userId: number) : Observable<PagedResults<PaymentNotification>>{
+    return this.http.get<PagedResults<PaymentNotification>>('https://localhost:44333/api/administrator/paymentNotification/unread-notifications/' + userId);
+  }
 }
 
 
