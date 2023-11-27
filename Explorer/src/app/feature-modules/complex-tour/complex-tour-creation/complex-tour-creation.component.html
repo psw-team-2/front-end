@@ -1,0 +1,27 @@
+<div>
+    <h1 class="header">Create complex tours</h1>
+  <div class="card-container">
+      <div *ngFor="let tour of boughtTours" class="card">
+        <div class="remove-when-use">
+        </div>
+        <div class="details">
+          <label>{{ tour.name }}</label>
+          <p>{{ tour.description }}</p>
+          <div class="button-container">
+            <a class="view-button" [routerLink]="'/tour/' + tour.id">
+                <i class="fas fa-info-circle"></i> View more
+            </a>
+        </div>
+        
+        <div class="button-container">
+            <a class="view-button" (click)="AddToComplexTour(tour)">
+                <i class="fas fa-archive"></i> Add to complex tour
+            </a>
+        </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  

@@ -33,6 +33,8 @@ import { AuthService } from './infrastructure/auth/auth.service';
 import { MatButtonModule } from '@angular/material/button';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ComplexTourCreationComponent } from './feature-modules/complex-tour/complex-tour-creation/complex-tour-creation.component';
+import { ComplexTourModule } from './feature-modules/complex-tour/complex-tour.module';
 @NgModule({
   declarations: [
     AppComponent
@@ -61,6 +63,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatDialogModule,
     FormsModule,
     NotificationsModule,
+    ComplexTourModule
   ],
   providers: [
     {

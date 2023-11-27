@@ -43,6 +43,7 @@ import { TourProblemResponseComponent } from 'src/app/feature-modules/tour-probl
 import { TourProblemFormComponent } from 'src/app/feature-modules/tour-problem/tour-problem-form/tour-problem-form.component';
 import { ProfilesComponent } from 'src/app/feature-modules/administration/profiles/profiles.component';
 import { Profiles2Component } from 'src/app/feature-modules/administration/profiles2/profiles2.component';
+import { ComplexTourCreationComponent } from 'src/app/feature-modules/complex-tour/complex-tour-creation/complex-tour-creation.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -90,7 +91,9 @@ const routes: Routes = [
   {path: 'shopping-cart', component: ShoppingCartComponent},
   {path: 'find-people', component: ProfilesComponent},
   {path: 'find-people-autor', component: Profiles2Component},
-  {path: 'view-purchased-tours', component: ViewPurchasedToursComponent}
+  {path: 'view-purchased-tours', component: ViewPurchasedToursComponent},
+  {path: 'complex-tour-creaton', component: ComplexTourCreationComponent}
+  
 ];
 
 @NgModule({
