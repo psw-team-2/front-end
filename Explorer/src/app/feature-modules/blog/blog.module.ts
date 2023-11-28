@@ -11,6 +11,7 @@ import { BlogSinglePostComponent } from './blog-single-post/blog-single-post.com
 import { BlogReviewComponent } from './blog-review/blog-review.component';
 import { CommentsReviewComponent } from './comments-review/comments-review.component';
 import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { FormsModule } from '@angular/forms';
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    MatSelectModule
   ],
   exports: [
     BlogCommentFormComponent,

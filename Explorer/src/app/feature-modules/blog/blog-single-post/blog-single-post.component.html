@@ -33,6 +33,20 @@
   <div>
     <xp-comments-review [comments]="comments"></xp-comments-review>
   </div>
+  <div class="you-might-like-section">
+    <h3 class="title-card">You Might Also Like</h3>
+    <div class="similar-blogs" *ngIf="similarBlogs as similarBlogs">
+      <div class="similar-blog" *ngFor="let similarBlog of similarBlogs">
+        <div class="similar-blog-card">
+          <img [src]="similarBlog.image" alt="Blog Image" class="blog-image">
+          <div class="blog-details">
+            <h3 class="similar-blog-title">{{ similarBlog.title }}</h3>
+          </div>
+          <button class="read-more-button" (click)="onReadMoreClicked(similarBlog.id || 0)" >Read More</button>
+        </div>
+      </div>
+    </div>
+  </div>  
 </div>
  
 

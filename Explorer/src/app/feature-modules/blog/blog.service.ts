@@ -3,7 +3,7 @@ import { BlogComment } from './model/blog-comment.model';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Blog, BlogStatus } from './model/blog.model';
 import { environment } from 'src/env/environment';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Rating } from './model/blog-rating.model';
 
@@ -81,6 +81,20 @@ export class BlogService {
     return this.http.get<PagedResults<BlogComment>>(environment.apiHost + 'tourist/comment/byBlog/' + id);
   }
 
-  
+  getSimilarBlogs(currentBlog: Blog): Observable<Blog[]> {
+    return this.getBlogs().pipe(
+      map((allBlogs: PagedResults<Blog>) => {
+        const similarBlogs: Blog[] = [];
+
+        const similarCategoryBlogs = allBlogs.results.filter(blog => blog.category === currentBlog.category && blog.id !== currentBlog.id);
+        
+        for (let i = 0; i < 4 && i < similarCategoryBlogs.length; i++) {
+          similarBlogs.push(similarCategoryBlogs[i]);
+        }
+
+        return similarBlogs;
+      })
+    );
+  }
 
 }

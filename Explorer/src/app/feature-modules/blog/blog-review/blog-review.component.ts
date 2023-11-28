@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BlogService } from '../blog.service';
-import { Blog, BlogStatus } from '../model/blog.model';
+import { Blog, BlogCategory, BlogStatus, BlogCategoryValues  } from '../model/blog.model';
 import { Router } from '@angular/router';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
@@ -17,6 +17,8 @@ export class BlogReviewComponent {
   currentPage = 1; 
   totalPages: number; 
   totalPageArray: number[] = [];
+  BlogCategory: BlogCategory;
+  originalBlogs: Blog[] = [];
 
   constructor(private service: BlogService, private router: Router) {}
 
@@ -29,6 +31,7 @@ export class BlogReviewComponent {
     this.service.getBlogs().subscribe({
       next: (result: PagedResults<Blog>) => {
         this.blogs = result.results;
+        this.originalBlogs = [...result.results];
         this.totalPages = Math.ceil(this.blogs.length / this.itemsPerPage); 
         this.totalPageArray = Array.from({ length: this.totalPages }, (_, index) => index + 1);
         this.updateBlogRows();
@@ -50,6 +53,20 @@ export class BlogReviewComponent {
     return BlogStatus; 
   }
 
+  get category() {
+    return BlogCategory; 
+  }
+
+  filterByCategory(category: BlogCategory): void {
+    //this.blogs = this.originalBlogs;
+    if (category === null) {
+      this.getBlogs();
+    } else {
+      this.blogs = this.originalBlogs.filter(blog => blog.category === category);
+    this.updateBlogRows();
+    }
+  }
+
   filterByStatus(status: BlogStatus | null): void {
     console.log('Filtering blogs by status:', status);
   
@@ -64,6 +81,7 @@ export class BlogReviewComponent {
             this.blogs = result.results;
             this.totalPages = Math.ceil(this.blogs.length / this.itemsPerPage);
             this.totalPageArray = Array.from({ length: this.totalPages }, (_, index) => index + 1);
+              
             this.updateBlogRows();
           } else {
             this.handleNoResults();

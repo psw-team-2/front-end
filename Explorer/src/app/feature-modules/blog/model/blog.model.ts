@@ -6,6 +6,23 @@ export enum BlogStatus {
     Famous = 4
 }
 
+
+
+export enum BlogCategory {
+  Destinations = 0,
+  Travelogues = 1,
+  Activities = 2,
+  Gastronomy = 3,
+  Tips = 4,
+  Culture = 5,
+  Accommodation = 6
+}
+
+export const BlogCategoryValues = Object.values(BlogCategory);
+
+
+
+
 export interface Blog {
     id? : number;
     userId : number;
@@ -15,6 +32,7 @@ export interface Blog {
     creationTime: Date;
     status : BlogStatus;
     image: string | "";
+    category: BlogCategory;
 }
 
 export function numberToBlogStatus(value: number): BlogStatus {

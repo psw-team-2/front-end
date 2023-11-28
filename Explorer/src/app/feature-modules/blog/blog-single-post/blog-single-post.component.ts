@@ -27,8 +27,9 @@ export class BlogSinglePostComponent implements OnInit {
   downvoted: boolean = false;
   ratingCount: number = 0;
   ratingCountUpdated = new EventEmitter<number>();
+  similarBlogs: Blog[] = [];
 
-constructor(private blogService: BlogService, private route: ActivatedRoute, private authService: AuthService) { }
+constructor(private blogService: BlogService, private route: ActivatedRoute, private authService: AuthService, private router: Router) { }
 
 
 ngOnInit(): void {
@@ -44,7 +45,10 @@ ngOnInit(): void {
         this.getCommentsByBlogId(this.blogId);
         this.blogService.getRatingCount(this.blogId).subscribe((ratingCount) => {
           this.ratingCount = ratingCount.count;
+          this.blogService.getSimilarBlogs(this.blogPost).subscribe((similarBlogs: Blog[]) => {
+          this.similarBlogs = similarBlogs;
         });
+      });
       } else {
         // Handle the case when there is no valid tour ID in the URL.
       }
@@ -167,20 +171,9 @@ ngOnInit(): void {
     })
   }
 
-  /*getCommentsByBlogId(blogId: number): void {
-    if (blogId) {
-      this.blogService.getCommentsByBlogId(blogId).subscribe({
-        next: (result: PagedResults<BlogComment>) => {
-          this.comments = result.results;
-        },
-        error: () => {
-          // Obrada greške
-        }
-      });
-    } else {
-      // Obrada slučaja kada blogId nije postavljen
-    }
-  }*/
+  onReadMoreClicked(id: number){
+    this.router.navigate(['blog-single-post', id]);
+  }
 
 }
 
