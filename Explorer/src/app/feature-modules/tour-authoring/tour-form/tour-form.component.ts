@@ -63,7 +63,7 @@ export class TourFormComponent {
       carTime: 0,
       bicycleTime: 0,
       authorId: this.user.id,
-      publishTime: "",
+      publishTime: new Date().toISOString()
 
     }
   
