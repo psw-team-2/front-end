@@ -14,6 +14,8 @@ import { Object } from './model/object.model';
 import { ShoppingCart } from '../marketplace/model/shopping-cart.model';
 import { OrderItem } from '../marketplace/model/order-item.model';
 import { PaymentNotification } from './model/paymentNotification.model';
+import { Bundle } from './model/bundle.model';
+import { TourBundle } from './model/tour-bundle.model';
 
 
 @Injectable({
@@ -195,6 +197,38 @@ export class TourAuthoringService {
 
   getUnreadPaymentNotifications(userId: number) : Observable<PagedResults<PaymentNotification>>{
     return this.http.get<PagedResults<PaymentNotification>>('https://localhost:44333/api/administrator/paymentNotification/unread-notifications/' + userId);
+  }
+    getAllBundles(): Observable<Bundle[]> {
+    return this.http.get<Bundle[]>('https://localhost:44333/api/tourist/bundle');
+   
+  }
+
+  getBundleById(id: number): Observable<Bundle> {
+    return this.http.get<Bundle>(`https://localhost:44333/api/tourist/bundle/`+id);
+    
+  }
+
+  createBundle(bundle: Bundle): Observable<Bundle> {
+    return this.http.post<Bundle>('https://localhost:44333/api/tourist/bundle', bundle);
+   
+  }
+
+  updateBundle(bundle: Bundle): Observable<Bundle> {
+    return this.http.put<Bundle>(`https://localhost:44333/api/tourist/bundle/` + bundle.id, bundle);  
+  }
+
+  deleteBundle(id: number): Observable<Bundle> {
+    return this.http.delete<Bundle>(`https://localhost:44333/api/tourist/bundle/` + id);
+    
+  }
+
+
+  getBundlesByAuthorId(userId: number): Observable<Bundle[]> {
+    return this.http.get<Bundle[]>(`https://localhost:44333/api/tourist/bundle/byAuthor/${userId}`);
+  }
+
+  getToursByAuthorId(userId: number): Observable<TourBundle[]> {
+    return this.http.get<TourBundle[]>(`https://localhost:44333/api/author/tour/byAuthor/${userId}`);
   }
 }
 
