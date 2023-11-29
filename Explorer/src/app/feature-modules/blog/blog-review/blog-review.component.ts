@@ -58,7 +58,6 @@ export class BlogReviewComponent {
   }
 
   filterByCategory(category: BlogCategory): void {
-    //this.blogs = this.originalBlogs;
     if (category === null) {
       this.getBlogs();
     } else {

@@ -45,6 +45,8 @@ import { ProfilesComponent } from 'src/app/feature-modules/administration/profil
 import { Profiles2Component } from 'src/app/feature-modules/administration/profiles2/profiles2.component';
 import { BundleManagementComponent } from 'src/app/feature-modules/tour-authoring/bundle-management/bundle-management.component';
 import { BundleFormComponent } from 'src/app/feature-modules/tour-authoring/bundle-form/bundle-form.component';
+import { WalletsOverviewComponent } from 'src/app/feature-modules/administration/wallets-overview/wallets-overview.component';
+
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -94,7 +96,8 @@ const routes: Routes = [
   {path: 'find-people-autor', component: Profiles2Component},
   {path: 'view-purchased-tours', component: ViewPurchasedToursComponent},
   {path: 'bundle-management', component: BundleManagementComponent},
-  {path: 'bundle-form', component: BundleFormComponent}
+  {path: 'bundle-form', component: BundleFormComponent},
+  {path: 'wallets', component: WalletsOverviewComponent}
 ];
 
 @NgModule({
