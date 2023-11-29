@@ -1,0 +1,19 @@
+<button routerLink="/bundle-form" class="create-button">Create</button>
+<table class="bundle-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let bundle of bundles">
+      <td>{{ bundle.name }}</td>
+      <td>{{ bundle.price }}</td>
+      <td><button class="edit-button" (click)="editBundle(bundle)">Edit</button></td>
+      <td><button class="delete-button" (click)="deleteBundle(bundle)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>

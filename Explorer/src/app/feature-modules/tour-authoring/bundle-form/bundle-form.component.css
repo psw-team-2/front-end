@@ -1,0 +1,60 @@
+.custom-form-field1,
+.custom-form-field {
+  width: 70%;
+  margin-bottom: 15px;
+}
+
+#bundle-tours {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+#bundle-tours mat-form-field {
+  width: 60%;
+  margin-right: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+li button {
+  margin-left: 10px;
+}
+
+/* Stil za formu */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Stil za mat-form-field */
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  /* Stil za input unutar mat-form-field */
+  mat-form-field input,
+  mat-form-field mat-select {
+    width: 70%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  /* Stil za polje za odabir ture */
+#bundle-tours mat-form-field {
+    width: 70%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  

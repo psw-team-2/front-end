@@ -1,0 +1,33 @@
+<form [formGroup]="bundleDataForm" class="center-class">
+    <div>
+
+        <mat-form-field  class="custom-form-field">
+            <mat-label>Price</mat-label>
+            <input matInput formControlName="price" type="number" />
+          </mat-form-field>
+        <div class="table-container">
+            <table class="tours-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Add</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tour of tours">
+                        <td>{{ tour.name }}</td>
+                        
+                        <td>
+                            <button (click)="onAddClicked(tour)">+</button>
+    
+                        </td>
+    
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    
+    </div>
+  </form>
+  

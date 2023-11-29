@@ -20,6 +20,9 @@ import { TourOverviewComponent } from './tour-overview/tour-overview.component';
 import { MarketplaceModule } from '../marketplace/marketplace.module';
 import { ShoppingCartComponent } from '../marketplace/shopping-cart/shopping-cart.component';
 import { ViewPurchasedToursComponent } from './view-purchased-tours/view-purchased-tours.component';
+import { BundleManagementComponent } from './bundle-management/bundle-management.component';
+import { BundleFormComponent } from './bundle-form/bundle-form.component';
+import { BundleDataFormComponent } from './bundle-data-form/bundle-data-form.component';
 
 
 
@@ -36,6 +39,9 @@ import { ViewPurchasedToursComponent } from './view-purchased-tours/view-purchas
     ViewToursComponent,
     TourOverviewComponent,
     ViewPurchasedToursComponent,
+    BundleManagementComponent,
+    BundleFormComponent,
+    BundleDataFormComponent,
   ],
   imports: [
     CommonModule,
