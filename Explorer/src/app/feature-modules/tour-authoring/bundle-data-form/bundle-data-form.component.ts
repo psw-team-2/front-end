@@ -46,6 +46,13 @@ export class BundleDataFormComponent implements OnInit{
   }*/
   
   createBundle(bundle: Bundle): void {
+    const priceControl = this.bundleDataForm.get('price');
+
+  if (priceControl !== null && priceControl.value !== null) {
+    // Convert the string to a number using parseFloat
+    this.selectedBundle.price = parseFloat(priceControl.value as string);
+  }
+
      this.service.publishBundle(bundle).subscribe(response => {
       this.selectedBundle = response;
       if(this.selectedBundle.status === 1) {
@@ -65,6 +72,7 @@ export class BundleDataFormComponent implements OnInit{
   onAddClicked(tour: TourBundle): void {
     this.selectedTour = tour;
     tour.isAdded = true;
+    
     // Check if 'this.selectedTours' is defined and has a valid 'id' property
     if (this.selectedBundle && this.selectedTour && this.selectedTour.id !== undefined) {
       // Dodajte odabranu turu u listu tura za bundle
