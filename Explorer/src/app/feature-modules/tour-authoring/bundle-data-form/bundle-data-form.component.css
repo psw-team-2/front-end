@@ -1,0 +1,7 @@
+.button-container {
+    margin: 5px;
+  }
+.view-button:hover {
+    background-color: #2E003D;
+    color: #ffffff;
+  }

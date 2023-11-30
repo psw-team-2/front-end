@@ -209,7 +209,7 @@ export class TourAuthoringService {
   }
 
   createBundle(bundle: Bundle): Observable<Bundle> {
-    return this.http.post<Bundle>('https://localhost:44333/api/tourist/bundle', bundle);
+    return this.http.post<Bundle>('https://localhost:44333/api/author/bundle', bundle);
    
   }
 
@@ -224,11 +224,20 @@ export class TourAuthoringService {
 
 
   getBundlesByAuthorId(userId: number): Observable<Bundle[]> {
-    return this.http.get<Bundle[]>(`https://localhost:44333/api/tourist/bundle/byAuthor/${userId}`);
+    return this.http.get<Bundle[]>(`https://localhost:44333/api/author/bundle/byAuthor/${userId}`);
   }
 
   getToursByAuthorId(userId: number): Observable<TourBundle[]> {
     return this.http.get<TourBundle[]>(`https://localhost:44333/api/author/tour/byAuthor/${userId}`);
+  }
+
+
+  addTourToBundle(tourId: number, bundle: Bundle): Observable<Bundle> {
+    return this.http.post<Bundle>(`https://localhost:44333/api/author/bundle/addTour/${tourId}`, bundle);
+  }
+
+  publishBundle(bundle: Bundle): Observable<Bundle> {
+    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/publish/` + bundle.id, bundle);  
   }
 }
 
