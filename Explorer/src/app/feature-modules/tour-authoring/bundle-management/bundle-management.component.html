@@ -13,7 +13,7 @@
       <td>{{ bundle.name }}</td>
       <td>{{ bundle.price }}</td>
       <td><button class="edit-button" (click)="editBundle(bundle)">Edit</button></td>
-      <td><button class="delete-button" (click)="deleteBundle(bundle)">Delete</button></td>
+      <td><button class="delete-button" (click)="deleteBundle(bundle.id)">Delete</button></td>
     </tr>
   </tbody>
 </table>

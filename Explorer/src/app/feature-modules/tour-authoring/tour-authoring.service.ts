@@ -218,7 +218,7 @@ export class TourAuthoringService {
   }
 
   deleteBundle(id: number): Observable<Bundle> {
-    return this.http.delete<Bundle>(`https://localhost:44333/api/tourist/bundle/` + id);
+    return this.http.delete<Bundle>(`https://localhost:44333/api/author/bundle/` + id);
     
   }
 
