@@ -10,7 +10,8 @@ export interface TourBundle{
     carTime: number,
     totalLength: number,
     publishTime: Date,
-    authorId: number
+    authorId: number,
+    isAdded: boolean
 }
 
 export enum AccountStatus {

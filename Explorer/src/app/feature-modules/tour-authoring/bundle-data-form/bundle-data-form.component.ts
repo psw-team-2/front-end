@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { Tour } from '../model/tour.model';
@@ -6,6 +6,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Observable } from 'rxjs';
 import { TourBundle } from '../model/tour-bundle.model';
+import { Bundle } from '../model/bundle.model';
 
 @Component({
   selector: 'xp-bundle-data-form',
@@ -14,8 +15,10 @@ import { TourBundle } from '../model/tour-bundle.model';
 })
 export class BundleDataFormComponent implements OnInit{
   tours: TourBundle[] = [];
-  selectedTours: TourBundle[] = [];
+  selectedTour: TourBundle;
+  @Input() selectedBundle : Bundle;
   userId = this.authService.user$.value.id;
+  price : number;
   constructor(private service: TourAuthoringService,private authService: AuthService) {}
 
   bundleDataForm = new FormGroup({
@@ -42,10 +45,42 @@ export class BundleDataFormComponent implements OnInit{
     });
   }*/
   
-  
-
-  onAddClicked(tour: any): void {
-    // Dodajte odabranu turu u listu tura za bundle
-    this.selectedTours.push(tour);
+  createBundle(bundle: Bundle): void {
+     this.service.publishBundle(bundle).subscribe(response => {
+      this.selectedBundle = response;
+      if(this.selectedBundle.status === 1) {
+        alert("Succesfully created bundle")
+      } else if(this.selectedBundle.status === 0){
+        alert("Created bundle has status draft")
+      }
+     },  
+     error => {
+      alert("Not created")
+     }
+     )
   }
+  onRemoveClicked(tour: TourBundle): void {
+    tour.isAdded = false;
+  }
+  onAddClicked(tour: TourBundle): void {
+    this.selectedTour = tour;
+    tour.isAdded = true;
+    // Check if 'this.selectedTours' is defined and has a valid 'id' property
+    if (this.selectedBundle && this.selectedTour && this.selectedTour.id !== undefined) {
+      // Dodajte odabranu turu u listu tura za bundle
+      this.service.addTourToBundle(this.selectedTour.id, this.selectedBundle)
+        .subscribe(response => {
+          this.selectedBundle.price += this.selectedTour.price;
+          console.log('Tour added to bundle:', response);
+          // Handle the response as needed
+        }, error => {
+          console.error('Error adding tour to bundle:', error);
+          // Handle the error as needed
+        });
+    } else {
+      console.error('Invalid selectedBundle or selectedTours');
+      // Handle the case where selectedBundle or selectedTours is undefined or id is not valid
+    }
+  }
+  
 }
