@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Observable } from 'rxjs';
 import { TourBundle } from '../model/tour-bundle.model';
 import { Bundle } from '../model/bundle.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-bundle-data-form',
@@ -19,7 +20,7 @@ export class BundleDataFormComponent implements OnInit{
   @Input() selectedBundle : Bundle;
   userId = this.authService.user$.value.id;
   price : number;
-  constructor(private service: TourAuthoringService,private authService: AuthService) {}
+  constructor(private service: TourAuthoringService,private authService: AuthService,  private router: Router) {}
 
   
   bundleDataForm = new FormGroup({
@@ -62,6 +63,8 @@ export class BundleDataFormComponent implements OnInit{
       } else if (this.selectedBundle.status === 0) {
         alert("Created bundle has status draft");
       }
+      
+      this.router.navigate(['/bundle-management']);
     }, error => {
       alert("Not created");
     });
