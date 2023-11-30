@@ -239,8 +239,8 @@ export class TourAuthoringService {
     return this.http.post<Bundle>(`https://localhost:44333/api/author/bundle/addTour/${tourId}`, bundle);
   }
 
-  publishBundle(bundle: Bundle): Observable<Bundle> {
-    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/publish/` + bundle.id, bundle);  
+  publishBundle(bundle: Bundle, price: number): Observable<Bundle> {
+    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/publish/${bundle.id}/` + price, bundle);  
   }
 }
 

@@ -21,6 +21,7 @@ export class BundleDataFormComponent implements OnInit{
   price : number;
   constructor(private service: TourAuthoringService,private authService: AuthService) {}
 
+  
   bundleDataForm = new FormGroup({
     price: new FormControl('', [Validators.required])
   });
@@ -45,26 +46,34 @@ export class BundleDataFormComponent implements OnInit{
     });
   }*/
   
-  createBundle(bundle: Bundle): void {
-     this.service.publishBundle(bundle).subscribe(response => {
+  createBundle(bundle: Bundle, price: string | null | undefined): void {
+    let numericPrice: number;
+  
+    if (price !== null && price !== undefined && price !== '') {
+      numericPrice = +price; // Use the unary plus operator to convert string to number
+    } else {
+      numericPrice = this.selectedBundle.price;
+    }
+  
+    this.service.publishBundle(bundle, numericPrice).subscribe(response => {
       this.selectedBundle = response;
-      if(this.selectedBundle.status === 1) {
-        alert("Succesfully created bundle")
-      } else if(this.selectedBundle.status === 0){
-        alert("Created bundle has status draft")
+      if (this.selectedBundle.status === 1) {
+        alert("Successfully created bundle");
+      } else if (this.selectedBundle.status === 0) {
+        alert("Created bundle has status draft");
       }
-     },  
-     error => {
-      alert("Not created")
-     }
-     )
+    }, error => {
+      alert("Not created");
+    });
   }
+
   onRemoveClicked(tour: TourBundle): void {
     tour.isAdded = false;
   }
   onAddClicked(tour: TourBundle): void {
     this.selectedTour = tour;
     tour.isAdded = true;
+    
     // Check if 'this.selectedTours' is defined and has a valid 'id' property
     if (this.selectedBundle && this.selectedTour && this.selectedTour.id !== undefined) {
       // Dodajte odabranu turu u listu tura za bundle
