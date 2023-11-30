@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { TourBundle } from '../model/tour-bundle.model';
 
 @Component({
   selector: 'xp-bundle-form',
@@ -20,6 +21,7 @@ export class BundleFormComponent {
   private bundleId: number | null = null;
   selectedTours: any[] = [];
   availableTours: any[] = []; 
+  selectedBundle: Bundle;
 
   constructor(private service: TourAuthoringService, private authService: AuthService, private route: ActivatedRoute) {
     this.route.paramMap.subscribe(params => {
@@ -70,11 +72,6 @@ export class BundleFormComponent {
     tours: new FormControl([]), 
     });
   }
-
-  addTourToBundle(): void {
-    this.shouldRender = true;
-  }
-
   
   removeTourFromBundle(tour: any): void {
     const index = this.selectedTours.indexOf(tour);
@@ -83,7 +80,7 @@ export class BundleFormComponent {
     }
   }
 
-  addBundle(): void {
+  async addBundle(): Promise<void> {
     this.shouldRender = true;
     const userId = this.authService.user$.value.id;
     const bundle: Bundle = {
@@ -91,11 +88,13 @@ export class BundleFormComponent {
       price: 0,
       userId: userId,
       status: BundleStatus.Draft,
-      tours:  [] 
-    }
+      tours: []
+    };
+  
     // Poziv servisa kako biste dodali novi bundle
     this.service.createBundle(bundle).subscribe({
-      next: (_) => {
+      next: (createdBundle) => {
+        this.selectedBundle = createdBundle; // Assign the created bundle with the server-assigned id
         this.bundleUpdated.emit(); // Emitovanje događaja da je bundle ažuriran
       },
       error: (error) => {
@@ -103,5 +102,8 @@ export class BundleFormComponent {
         // Ovde možete dodati logiku za prikaz greške korisniku ako je potrebno
       }
     });
-    }
+  }
+  
+
+    
 }

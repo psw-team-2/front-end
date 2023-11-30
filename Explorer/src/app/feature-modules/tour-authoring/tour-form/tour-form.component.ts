@@ -42,7 +42,6 @@ export class TourFormComponent {
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     difficulty: new FormControl('', [Validators.required]),
-    tags: new FormControl('', [Validators.required]),
     
    
   })

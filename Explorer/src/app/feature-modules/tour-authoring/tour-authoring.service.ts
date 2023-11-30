@@ -233,6 +233,15 @@ export class TourAuthoringService {
   getToursByAuthorId(userId: number): Observable<TourBundle[]> {
     return this.http.get<TourBundle[]>(`https://localhost:44333/api/author/tour/byAuthor/${userId}`);
   }
+
+
+  addTourToBundle(tourId: number, bundle: Bundle): Observable<Bundle> {
+    return this.http.post<Bundle>(`https://localhost:44333/api/author/bundle/addTour/${tourId}`, bundle);
+  }
+
+  publishBundle(bundle: Bundle): Observable<Bundle> {
+    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/publish/` + bundle.id, bundle);  
+  }
 }
 
 

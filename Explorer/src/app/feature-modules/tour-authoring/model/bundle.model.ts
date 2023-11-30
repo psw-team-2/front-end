@@ -3,8 +3,8 @@ export interface Bundle {
     userId: number;
     name: string;
     price: number;
-    tours: number[];
     status: BundleStatus;
+    tours: number[];
   }
   
   export enum BundleStatus {
