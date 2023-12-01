@@ -222,6 +222,14 @@ export class TourAuthoringService {
     
   }
 
+  archiveBundle(id: number, bundle: Bundle): Observable<Bundle> {
+    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/archive/` + id, bundle);
+    
+  }
+
+  finishCreatingBundle(bundle: Bundle , price: number): Observable<Bundle>{
+    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/finish-creating/${bundle.id}/` + price,  bundle);  
+  }
 
   getBundlesByAuthorId(userId: number): Observable<Bundle[]> {
     return this.http.get<Bundle[]>(`https://localhost:44333/api/author/bundle/byAuthor/${userId}`);
@@ -236,8 +244,8 @@ export class TourAuthoringService {
     return this.http.post<Bundle>(`https://localhost:44333/api/author/bundle/addTour/${tourId}`, bundle);
   }
 
-  publishBundle(bundle: Bundle, price: number): Observable<Bundle> {
-    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/publish/${bundle.id}/` + price, bundle);  
+  publishBundle(bundle: Bundle): Observable<Bundle> {
+    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/publish/${bundle.id}`,  bundle);  
   }
 }
 

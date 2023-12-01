@@ -32,6 +32,31 @@ export class BundleManagementComponent implements OnInit {
   editBundle(bundle: Bundle): void {
     // Implement your edit logic here
   }
+  archiveBundle(id: number | undefined, bundle: Bundle): void{
+    if (id !== undefined) {
+      this.service.archiveBundle(id, bundle).subscribe({
+        next: () => {
+          this.getBundlesByAuthorId(this.userId);
+        },
+      });
+    } else {
+      // Handle the case where id is undefined (optional)
+      console.error('Cannot archive bundle with undefined id');
+    }
+  }
+
+  publishBundle(bundle: Bundle): void {
+    if (bundle !== undefined) {
+      this.service.publishBundle(bundle).subscribe({
+        next: () => {
+          this.getBundlesByAuthorId(this.userId);
+        },
+      });
+    } else {
+      // Handle the case where id is undefined (optional)
+      console.error('Cannot archive bundle with undefined id');
+    }
+  }
 
   deleteBundle(id: number | undefined): void {
     if (id !== undefined) {

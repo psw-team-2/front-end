@@ -46,6 +46,8 @@ export class BundleDataFormComponent implements OnInit{
       }
     });
   }*/
+
+
   
   createBundle(bundle: Bundle, price: string | null | undefined): void {
     let numericPrice: number;
@@ -56,15 +58,9 @@ export class BundleDataFormComponent implements OnInit{
       numericPrice = this.selectedBundle.price;
     }
   
-    this.service.publishBundle(bundle, numericPrice).subscribe(response => {
-      this.selectedBundle = response;
-      if (this.selectedBundle.status === 1) {
-        alert("Successfully created bundle");
-      } else if (this.selectedBundle.status === 0) {
-        alert("Created bundle has status draft");
-      }
-      
-      this.router.navigate(['/bundle-management']);
+    this.service.finishCreatingBundle(bundle, numericPrice).subscribe(response => {
+      this.selectedBundle = response;  
+     this.router.navigate(['/bundle-management']);
     }, error => {
       alert("Not created");
     });
