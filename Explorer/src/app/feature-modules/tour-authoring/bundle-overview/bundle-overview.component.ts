@@ -48,7 +48,8 @@ export class BundleOverviewComponent implements OnInit{
     })
   }
 
-  /*onAddClicked(bundle: Bundle): void {
+  
+  onAddClicked(bundle: Bundle): void {
     if (!this.authService.user$.value) {
       console.error('User is not logged in. Please log in before adding to the cart.');
       return;
@@ -56,7 +57,7 @@ export class BundleOverviewComponent implements OnInit{
     this.service.getShoppingCartById(this.shoppingCartId).subscribe({
       next: (result: ShoppingCart) => {
         this.shoppingCart = result;
-        this.service.addToCart(this.shoppingCart, bundle).subscribe({
+        this.service.addBundleToCart(this.shoppingCart, bundle).subscribe({
           next: () => {
             this.numberOfItems += 1;
           },
@@ -66,8 +67,7 @@ export class BundleOverviewComponent implements OnInit{
         })
       }
     })
-  }*/
-
+  }
 
 }
 
