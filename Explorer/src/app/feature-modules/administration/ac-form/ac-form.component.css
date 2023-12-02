@@ -25,7 +25,7 @@
   }
 
 .done-button {
-    font-size: 12;
+    font-size: medium;
     font-family: 'Open Sans', sans-serif; 
     background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131)); 
     color: white; 
