@@ -1,15 +1,11 @@
 <form [formGroup]="bundleDataForm" class="center-class">
     <div>
-
-        <mat-form-field  class="custom-form-field">
-            <mat-label>Price</mat-label>
-            <input matInput formControlName="price" type="number"  [value]="selectedBundle?.price" />
-          </mat-form-field>
         <div class="table-container">
-            <table class="tours-table">
+            <table >
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Price</th>
                         <th>Add</th>
                         
                     </tr>
@@ -18,7 +14,6 @@
                     <tr *ngFor="let tour of tours">
                         <td>{{ tour.name }}</td>
                         <td>{{ tour.price }}</td>
-                        
                         <td>
                             <button
                               color="primary"
@@ -32,11 +27,15 @@
                     </tr>
                 </tbody>
             </table>
+            <mat-form-field  class="custom-form-field">
+              <mat-label>Price</mat-label>
+              <input matInput formControlName="price" type="number"  [value]="selectedBundle?.price" />
+            </mat-form-field>
             <div class="button-container">
-                <a color="primary" class="view-button"  (click)="createBundle(selectedBundle)"  mat-raised-button>Done</a>
-            </div>
+                <a color="primary" class="done-button"  (click)="createBundle(selectedBundle, bundleDataForm.value.price )" mat-raised-button>Done</a>  </div>
         </div>
     
     </div>
+
   </form>
   

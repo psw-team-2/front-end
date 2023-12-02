@@ -198,13 +198,16 @@ export class TourAuthoringService {
   getUnreadPaymentNotifications(userId: number) : Observable<PagedResults<PaymentNotification>>{
     return this.http.get<PagedResults<PaymentNotification>>('https://localhost:44333/api/administrator/paymentNotification/unread-notifications/' + userId);
   }
-    getAllBundles(): Observable<Bundle[]> {
-    return this.http.get<Bundle[]>('https://localhost:44333/api/tourist/bundle');
-   
+
+  
+
+  
+  getAllBundles(): Observable<PagedResults<Bundle>> {
+    return this.http.get<PagedResults<Bundle>>('https://localhost:44333/api/author/bundle?page=0&pageSize=0')
   }
 
   getBundleById(id: number): Observable<Bundle> {
-    return this.http.get<Bundle>(`https://localhost:44333/api/tourist/bundle/`+id);
+    return this.http.get<Bundle>(`https://localhost:44333/api/author/bundle/`+id);
     
   }
 
@@ -214,14 +217,22 @@ export class TourAuthoringService {
   }
 
   updateBundle(bundle: Bundle): Observable<Bundle> {
-    return this.http.put<Bundle>(`https://localhost:44333/api/tourist/bundle/` + bundle.id, bundle);  
+    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/` + bundle.id, bundle);  
   }
 
   deleteBundle(id: number): Observable<Bundle> {
-    return this.http.delete<Bundle>(`https://localhost:44333/api/tourist/bundle/` + id);
+    return this.http.delete<Bundle>(`https://localhost:44333/api/author/bundle/` + id);
     
   }
 
+  archiveBundle(id: number, bundle: Bundle): Observable<Bundle> {
+    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/archive/` + id, bundle);
+    
+  }
+
+  finishCreatingBundle(bundle: Bundle , price: number): Observable<Bundle>{
+    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/finish-creating/${bundle.id}/` + price,  bundle);  
+  }
 
   getBundlesByAuthorId(userId: number): Observable<Bundle[]> {
     return this.http.get<Bundle[]>(`https://localhost:44333/api/author/bundle/byAuthor/${userId}`);
@@ -237,7 +248,7 @@ export class TourAuthoringService {
   }
 
   publishBundle(bundle: Bundle): Observable<Bundle> {
-    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/publish/` + bundle.id, bundle);  
+    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/publish/${bundle.id}`,  bundle);  
   }
 }
 

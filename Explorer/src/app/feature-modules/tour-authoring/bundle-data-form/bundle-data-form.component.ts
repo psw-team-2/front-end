@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Observable } from 'rxjs';
 import { TourBundle } from '../model/tour-bundle.model';
 import { Bundle } from '../model/bundle.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-bundle-data-form',
@@ -19,8 +20,9 @@ export class BundleDataFormComponent implements OnInit{
   @Input() selectedBundle : Bundle;
   userId = this.authService.user$.value.id;
   price : number;
-  constructor(private service: TourAuthoringService,private authService: AuthService) {}
+  constructor(private service: TourAuthoringService,private authService: AuthService,  private router: Router) {}
 
+  
   bundleDataForm = new FormGroup({
     price: new FormControl('', [Validators.required])
   });
@@ -44,28 +46,26 @@ export class BundleDataFormComponent implements OnInit{
       }
     });
   }*/
+
+
   
-  createBundle(bundle: Bundle): void {
-    const priceControl = this.bundleDataForm.get('price');
-
-  if (priceControl !== null && priceControl.value !== null) {
-    // Convert the string to a number using parseFloat
-    this.selectedBundle.price = parseFloat(priceControl.value as string);
+  createBundle(bundle: Bundle, price: string | null | undefined): void {
+    let numericPrice: number;
+  
+    if (price !== null && price !== undefined && price !== '') {
+      numericPrice = +price; // Use the unary plus operator to convert string to number
+    } else {
+      numericPrice = this.selectedBundle.price;
+    }
+  
+    this.service.finishCreatingBundle(bundle, numericPrice).subscribe(response => {
+      this.selectedBundle = response;  
+     this.router.navigate(['/bundle-management']);
+    }, error => {
+      alert("Not created");
+    });
   }
 
-     this.service.publishBundle(bundle).subscribe(response => {
-      this.selectedBundle = response;
-      if(this.selectedBundle.status === 1) {
-        alert("Succesfully created bundle")
-      } else if(this.selectedBundle.status === 0){
-        alert("Created bundle has status draft")
-      }
-     },  
-     error => {
-      alert("Not created")
-     }
-     )
-  }
   onRemoveClicked(tour: TourBundle): void {
     tour.isAdded = false;
   }

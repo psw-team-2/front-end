@@ -23,6 +23,7 @@ import { ViewPurchasedToursComponent } from './view-purchased-tours/view-purchas
 import { BundleManagementComponent } from './bundle-management/bundle-management.component';
 import { BundleFormComponent } from './bundle-form/bundle-form.component';
 import { BundleDataFormComponent } from './bundle-data-form/bundle-data-form.component';
+import { BundleOverviewComponent } from './bundle-overview/bundle-overview.component';
 
 
 
@@ -42,6 +43,7 @@ import { BundleDataFormComponent } from './bundle-data-form/bundle-data-form.com
     BundleManagementComponent,
     BundleFormComponent,
     BundleDataFormComponent,
+    BundleOverviewComponent,
   ],
   imports: [
     CommonModule,

@@ -9,34 +9,66 @@ import { TourAuthoringService } from '../tour-authoring.service';
   templateUrl: './bundle-management.component.html',
   styleUrls: ['./bundle-management.component.css']
 })
-export class BundleManagementComponent implements OnInit{
+export class BundleManagementComponent implements OnInit {
   bundles: Bundle[] = [];
   userId = this.authService.user$.value.id;
 
-  constructor(private http: HttpClient,private authService: AuthService, private service: TourAuthoringService) { }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private service: TourAuthoringService
+  ) {}
 
   ngOnInit(): void {
     this.getBundlesByAuthorId(this.userId);
   }
 
- getBundlesByAuthorId(userId: number): void {
-  this.service.getBundlesByAuthorId(userId)
-    .subscribe(response => {
+  getBundlesByAuthorId(userId: number): void {
+    this.service.getBundlesByAuthorId(userId).subscribe((response) => {
       this.bundles = response;
     });
   }
 
   editBundle(bundle: Bundle): void {
-   
-    
+    // Implement your edit logic here
+  }
+  archiveBundle(id: number | undefined, bundle: Bundle): void{
+    if (id !== undefined) {
+      this.service.archiveBundle(id, bundle).subscribe({
+        next: () => {
+          this.getBundlesByAuthorId(this.userId);
+        },
+      });
+    } else {
+      // Handle the case where id is undefined (optional)
+      console.error('Cannot archive bundle with undefined id');
+    }
   }
 
-  deleteBundle(bundle: Bundle): void {
-    
-    
+  publishBundle(bundle: Bundle): void {
+    if (bundle !== undefined) {
+      this.service.publishBundle(bundle).subscribe({
+        next: () => {
+          this.getBundlesByAuthorId(this.userId);
+        },
+      });
+    } else {
+      // Handle the case where id is undefined (optional)
+      console.error('Cannot archive bundle with undefined id');
+    }
   }
 
+  deleteBundle(id: number | undefined): void {
+    if (id !== undefined) {
+      this.service.deleteBundle(id).subscribe({
+        next: () => {
+          this.getBundlesByAuthorId(this.userId);
+        },
+      });
+    } else {
+      // Handle the case where id is undefined (optional)
+      console.error('Cannot delete bundle with undefined id');
+    }
+  }
+  
 }
-
-
-
