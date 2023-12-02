@@ -67,7 +67,21 @@ export class BundleDataFormComponent implements OnInit{
   }
 
   onRemoveClicked(tour: TourBundle): void {
+    this.selectedTour = tour;
     tour.isAdded = false;
+
+    if (this.selectedBundle && this.selectedTour && this.selectedTour.id !== undefined) {
+      this.service.removeTourFromBundle(this.selectedTour.id, this.selectedBundle)
+        .subscribe(response => {
+          this.selectedBundle.price -= this.selectedTour.price;
+          console.log('Tour removed from bundle:', response);
+        }, error => {
+          console.error('Error removing tour to bundle:', error);
+        });
+    } else {
+      console.error('Invalid selectedBundle or selectedTours');
+    }
+
   }
   onAddClicked(tour: TourBundle): void {
     this.selectedTour = tour;
