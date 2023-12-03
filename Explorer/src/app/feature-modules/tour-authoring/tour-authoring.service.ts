@@ -247,6 +247,10 @@ export class TourAuthoringService {
     return this.http.post<Bundle>(`https://localhost:44333/api/author/bundle/addTour/${tourId}`, bundle);
   }
 
+  removeTourFromBundle(tourId: number, bundle: Bundle): Observable<void> {
+    return this.http.put<void>('https://localhost:44333/api/author/bundle/removeTour/'+ bundle.id + '/' + tourId, null);
+  }
+
   publishBundle(bundle: Bundle): Observable<Bundle> {
     return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/publish/${bundle.id}`,  bundle);  
   }
