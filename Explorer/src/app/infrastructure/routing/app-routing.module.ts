@@ -47,6 +47,7 @@ import { BundleManagementComponent } from 'src/app/feature-modules/tour-authorin
 import { BundleFormComponent } from 'src/app/feature-modules/tour-authoring/bundle-form/bundle-form.component';
 import { WalletsOverviewComponent } from 'src/app/feature-modules/administration/wallets-overview/wallets-overview.component';
 import { BundleOverviewComponent } from 'src/app/feature-modules/tour-authoring/bundle-overview/bundle-overview.component';
+import { PurchaseReportComponent } from 'src/app/feature-modules/tourist/purchase-report/purchase-report.component';
 
 
 const routes: Routes = [
@@ -99,7 +100,8 @@ const routes: Routes = [
   {path: 'bundle-management', component: BundleManagementComponent},
   {path: 'bundle-form', component: BundleFormComponent},
   {path: 'wallets', component: WalletsOverviewComponent},
-  {path: 'bundle-overview', component: BundleOverviewComponent}
+  {path: 'bundle-overview', component: BundleOverviewComponent},
+  {path: 'purchase-reports', component: PurchaseReportComponent }
 ];
 
 @NgModule({
