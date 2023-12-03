@@ -7,4 +7,5 @@ export interface Encounter {
     xp : number;
     status : number;
     type : number;
+    mandatory: boolean;
 }
