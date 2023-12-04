@@ -31,7 +31,7 @@
         <button *ngIf="bundle.status === 2 || bundle.status === 0" (click)="deleteBundle(bundle.id)">Delete</button>
       </td>
       <td>
-        <button *ngIf="bundle.status === 2" (click)="publishBundle(bundle)">Publish</button>
+        <button *ngIf="bundle.status === 2 || bundle.status === 0" (click)="publishBundle(bundle)">Publish</button>
       </td>
     </tr>
   </tbody>

@@ -54,7 +54,10 @@ export class BundleManagementComponent implements OnInit {
       });
     } else {
       // Handle the case where id is undefined (optional)
-      console.error('Cannot archive bundle with undefined id');
+      console.error('Cannot publish this bundle');
+    }
+    if(bundle.status == 0){
+      alert("Cannot publish this bundle")
     }
   }
 
