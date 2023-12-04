@@ -1,72 +1,40 @@
-.done-button {
-    margin-top: -100px;
+.form-container {
+  border: 3px solid #2E003D;; /* You can customize the border style, color, and width */
+  padding: 50px; /* Adjust the padding as needed */
+  margin-top: 100px; /* Adjust the margin as needed */
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.table-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  }
-  .action-button {
-    margin-bottom: 20px;
-    margin-top: 20px;
-    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    margin-left: 0px;
-    margin-right: 30px;
-    width: 15vw;
-}
-.view-button:hover {
-    background-color: #2E003D;
-    color: #ffffff;
-  }
-  .center-class {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  div {
-    width: 40vw;
-    margin: 30px auto 0 auto;
-    display:flex;
-    gap: 5px;
-    flex-direction: column;
-    min-height: 50vh;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    min-width: 40vw;
-}
 table {
-  width: 70%;
+  width: 100%; /* Ensure the table takes the full width */
   border-collapse: collapse;
-  margin-bottom: 20px;
-  margin: 20px auto;
-  
 }
 
 th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
+  width: 33%; /* Adjust the width based on your design */
+  text-align: center; /* Center the text within cells */
 }
 
+.custom-form-field {
+  max-width: 150px;
+  margin-top: 50px; /* Adjust the margin as needed for spacing */
+  margin-right: 250px;
+}
+
+.button-container {
+  max-width: 150px;
+  margin-top: -60px; /* Adjust the margin as needed for spacing */
+  margin-right: -330px;
+  background-color: #2E003D
+}
 th {
-  background-color: #f2f2f2;
-  color:  #2E003D;
-}
-
-
-
-/* Stilizacija za dugmad */
-button {
-  padding: 8px 12px;
-  cursor: pointer;
-  border: none;
-  border-radius: 4px;
-  background-color: #8a2be2;
-  color: #fff;
-  transition: background-color 0.3s;
-  margin-top: 10px;
-  margin-right: 10px;
+  background-color: linear-gradient(rgb(84, 59, 140), rgb(71, 68, 106)); /* Set the background color for table header */
+  color: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131)); /* Set the text color for table header */
 }

@@ -2,6 +2,7 @@
 .custom-form-field {
   width: 70%;
   margin-bottom: 15px;
+  margin-top: 10px;
 }
 
 #bundle-tours {
@@ -37,15 +38,15 @@ form {
   }
   
   /* Stil za mat-form-field */
-  mat-form-field {
+  .mat-form-field {
     width: 100%;
     margin-bottom: 15px;
     text-align: center;
   }
   
   /* Stil za input unutar mat-form-field */
-  mat-form-field input,
-  mat-form-field mat-select {
+  .mat-form-field input,
+  .mat-form-field mat-select {
     width: 70%;
     max-width: 300px;
     margin: 0 auto;
@@ -57,4 +58,26 @@ form {
     margin: 0 auto;
   }
   
+  .form-container {
+    border: 3px solid #2E003D;; /* You can customize the border style, color, and width */
+    padding: 50px; /* Adjust the padding as needed */
+    margin-top: 100px; /* Adjust the margin as needed */
+  }
+  .header-text {
+    text-align: center;
+    margin-bottom: 10px;
+    
+    font-size: 17px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
   
+  .header-text p {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
