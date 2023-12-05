@@ -11,6 +11,7 @@ import { encounterStatus, encounterType } from '../model/encounter.model';
 })
 export class EncounterFormComponent {
   router: any;
+  currentFile: File | null;
 
   constructor(private encounterService: EncounterService) {}
 
@@ -27,6 +28,25 @@ export class EncounterFormComponent {
   });
 
   addEncounter(): void {
+
+    if (this.currentFile == null) {
+      return;
+    }
+
+    this.encounterService.upload(this.currentFile).subscribe({
+      next: (value) => {
+        
+      },
+      error: (value) => {
+
+      }, complete: () => {
+      },
+    });
+
+
+
+    
+
     let status: number = -1;
     let type: number = -1;
   
@@ -59,18 +79,24 @@ export class EncounterFormComponent {
       mandatory: Boolean(this.encounterForm.value.mandatory),
       peopleCount: Number(this.encounterForm.value.peopleCount) || 0,
       range: Number(this.encounterForm.value.range) || 0,
-      image: this.encounterForm.value.image || ""
+      image: 'https://localhost:44333/Images/' + this.currentFile.name || "",
     };
-  
+
     console.log(encounter);
-  
-    if (this.encounterForm.valid) {
-      this.encounterService.addEncounter(encounter).subscribe({
-        next: () => {
-          alert('You have successfully added an encounter.');
-        },
-      });
-    }
+    
+    this.encounterService.addEncounter(encounter).subscribe({
+      next: () => {
+        alert('You have successfully added an encounter.');
+      },
+    });
+  }
+
+  onFileSelected(event: any) {
+    this.currentFile = event.target.files[0];
+  }
+
+  deleteFile() {
+    this.currentFile = null;
   }
   
 }

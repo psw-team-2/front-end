@@ -33,7 +33,12 @@ Ecounter adding:
         <input formControlName="range" type="number"/>
 
         <label>Image</label>
-        <input formControlName="image" type="text"/>
+        <button color="primary" width="200" (click)="fileInput.click()">Upload File</button> 
+        <input hidden #fileInput type="file" (change)="onFileSelected($event)"> 
+        <div *ngIf="currentFile">
+            <span>{{ currentFile.name }}</span>
+            <button icon-button (click)="deleteFile()">X</button>
+        </div>
 
         <button type="submit">Add encounter</button>
     </div>

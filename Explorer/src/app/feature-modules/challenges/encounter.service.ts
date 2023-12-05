@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Encounter } from './model/encounter.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
@@ -18,5 +18,18 @@ export class EncounterService {
 
   addEncounter(encounter: Encounter): Observable<Encounter> {
     return this.http.post<Encounter>(environment.apiHost + 'administrator/encounter', encounter);
+  }
+
+  upload(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST', `https://localhost:44333/api/administrator/encounter/UploadFile`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
   }
 }
