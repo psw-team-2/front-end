@@ -77,6 +77,8 @@ const routes: Routes = [
   {path: 'comments-review', component: CommentsReviewComponent},
   {path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
   {path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
+  {path: 'blog-form/tour-report/:tourId', component: BlogFormComponent, canActivate: [AuthGuard], },
+  {path: 'blog-form/:id/tour-report/:tourId', component: BlogFormComponent, canActivate: [AuthGuard], },
   {path: 'tour/:id', component: TourOverviewComponent},
   {path: 'touristposition', component: TouristPositionComponent},
   {path: 'activeTour', component: ActiveTourComponent},

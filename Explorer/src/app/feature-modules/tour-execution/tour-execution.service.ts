@@ -6,6 +6,7 @@ import { TouristPosition } from './model/touristposition.model';
 import { TourExecution } from './model/tourexecution.model';
 import { Checkpoint } from '../tour-authoring/model/checkpoint.model';
 import { Secret } from './model/secret.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,4 +34,9 @@ export class TourExecutionService {
   getSecrets(cpId:number){
     return this.http.get<Secret>('https://localhost:44333/api/tourexecution/getSecret/' + cpId);
   }
+  
+  getTourExecutionByTourAndUser(tourId: number, userId: number): Observable<PagedResults<TourExecution>>{
+    return this.http.get<PagedResults<TourExecution>>('https://localhost:44333/api/tourexecution/'+ tourId +'/' + userId);
+  }
+
 }

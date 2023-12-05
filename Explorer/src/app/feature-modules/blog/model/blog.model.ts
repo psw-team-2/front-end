@@ -1,3 +1,5 @@
+import { BlogTourReport } from "./blog-tour-report";
+
 export enum BlogStatus {
     Draft = 0,
     Published = 1,
@@ -33,6 +35,7 @@ export interface Blog {
     status : BlogStatus;
     image: string | "";
     category: BlogCategory;
+    tourReport?: BlogTourReport; 
 }
 
 export function numberToBlogStatus(value: number): BlogStatus {
