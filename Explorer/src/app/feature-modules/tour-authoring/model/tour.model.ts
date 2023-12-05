@@ -13,5 +13,6 @@ export interface Tour {
     bicycleTime: Number,
     carTime: Number,
     authorId: number,
-    publishTime: string
+    publishTime: string,
+    points: number
 }

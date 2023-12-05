@@ -33,7 +33,8 @@ export class RegistrationComponent {
       password: this.registrationForm.value.password || "",
       profilePicture: "/",
       biography: "/",
-      motto: "/"
+      motto: "/",
+      questionaireDone: false
     };
 
     if (this.registrationForm.valid) {
