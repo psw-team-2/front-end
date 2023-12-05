@@ -20,6 +20,7 @@ import { TourOverviewComponent } from './tour-overview/tour-overview.component';
 import { MarketplaceModule } from '../marketplace/marketplace.module';
 import { ShoppingCartComponent } from '../marketplace/shopping-cart/shopping-cart.component';
 import { ViewPurchasedToursComponent } from './view-purchased-tours/view-purchased-tours.component';
+import { EncounterModule } from '../challenges/encounter.module';
 
 
 
@@ -48,7 +49,7 @@ import { ViewPurchasedToursComponent } from './view-purchased-tours/view-purchas
     MatButtonModule,
     MarketplaceModule,
     FormsModule,
-
+    EncounterModule
   ],
   exports: [
     CheckpointComponent,

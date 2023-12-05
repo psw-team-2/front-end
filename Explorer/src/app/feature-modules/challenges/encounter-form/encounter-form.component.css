@@ -1,0 +1,10 @@
+form {
+    display: flex;
+    justify-content: center;
+}
+
+div {
+    width: 300px;
+    display:flex;
+    flex-direction: column;
+}

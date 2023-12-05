@@ -13,13 +13,13 @@ export interface Encounter {
     image: string;
 }
 
-enum encounterStatus{
+export enum encounterStatus{
     Active,
     Draft,
     Archived
 }
 
-enum encounterType{
+export enum encounterType{
     Social,
     Location,
     Misc

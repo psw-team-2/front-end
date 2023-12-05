@@ -15,4 +15,8 @@ export class EncounterService {
   getEncounters(): Observable<PagedResults<Encounter>> {
     return this.http.get<PagedResults<Encounter>>(environment.apiHost + 'administrator/encounter');
   }
+
+  addEncounter(encounter: Encounter): Observable<Encounter> {
+    return this.http.post<Encounter>(environment.apiHost + 'administrator/encounter', encounter);
+  }
 }

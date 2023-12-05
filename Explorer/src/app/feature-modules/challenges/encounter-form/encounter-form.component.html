@@ -1,0 +1,40 @@
+Ecounter adding:
+<form [formGroup]="encounterForm" (ngSubmit)="addEncounter()">
+    <div>
+        <label>Name</label>
+        <input formControlName="name" type="text"/>
+
+        <label>Description</label>
+        <input formControlName="description" type="text"/>
+
+        <label>XP</label>
+        <input formControlName="xp" type="number"/>
+
+        <label>Status</label>
+        <select formControlName="status">
+            <option>Active</option>
+            <option>Draft</option>
+            <option>Archived</option>
+        </select>
+        
+        <label>Type</label>
+        <select formControlName="type">
+            <option>Social</option>
+            <option>Location</option>
+            <option>Misc</option>
+        </select>
+
+        <input type="checkbox" formControlName="mandatory"/>Mandatory
+
+        <label>People count</label>
+        <input formControlName="peopleCount" type="number"/>
+
+        <label>Range</label>
+        <input formControlName="range" type="number"/>
+
+        <label>Image</label>
+        <input formControlName="image" type="text"/>
+
+        <button type="submit">Add encounter</button>
+    </div>
+</form>
