@@ -5,10 +5,22 @@ export interface Encounter {
     latitude : number;
     longitude : number;
     xp : number;
-    status : number;
-    type : number;
+    status : encounterStatus;
+    type : encounterType;
     mandatory: boolean;
     peopleCount: number;
     range: number;
     image: string;
+}
+
+enum encounterStatus{
+    Active,
+    Draft,
+    Archived
+}
+
+enum encounterType{
+    Social,
+    Location,
+    Misc
 }
