@@ -82,6 +82,7 @@ export class CheckpointComponent implements OnInit {
     this.shouldRenderEncounterForm = true;
     this.shouldEdit = false;
     this.shouldRenderCheckpointForm = false;
+    this.selectedCheckpoint = checkpoint;
   }
 
   deleteCheckpoint(id: number): void {

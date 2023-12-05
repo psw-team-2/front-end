@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Encounter } from '../model/encounter.model';
 import { EncounterService } from '../encounter.service';
 import { encounterStatus, encounterType } from '../model/encounter.model';
+import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
 
 @Component({
   selector: 'xp-encounter-form',
@@ -10,10 +11,15 @@ import { encounterStatus, encounterType } from '../model/encounter.model';
   styleUrls: ['./encounter-form.component.css']
 })
 export class EncounterFormComponent {
+  @Input() checkpoint: Checkpoint | null = null;
   router: any;
   currentFile: File | null;
 
   constructor(private encounterService: EncounterService) {}
+
+  ngOnInit() {
+    console.dir(this.checkpoint); // Log the Checkpoint object
+  }
 
   encounterForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -71,8 +77,8 @@ export class EncounterFormComponent {
     const encounter: Encounter = {
       name: this.encounterForm.value.name || "",
       description: this.encounterForm.value.description || "",
-      latitude: 0,
-      longitude: 0,
+      latitude: this.checkpoint?.latitude || 0,
+      longitude: this.checkpoint?.longitude || 0,
       xp: this.encounterForm.value.xp || 0,
       status: status,
       type: type,

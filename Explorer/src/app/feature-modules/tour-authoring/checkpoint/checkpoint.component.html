@@ -44,7 +44,10 @@
             </table>
         </div>
         <div>
-            <xp-encounter-form *ngIf="shouldRenderEncounterForm" (formClosed)="resetForm()"></xp-encounter-form>
+            <xp-encounter-form *ngIf="shouldRenderEncounterForm" 
+                   (formClosed)="resetForm()" 
+                   [checkpoint]="selectedCheckpoint">
+</xp-encounter-form>
                 <xp-checkpoint-form *ngIf="shouldRenderCheckpointForm" (checkpointUpdated)="getCheckpoint()"
                 [checkpoint]="selectedCheckpoint" [tour]="tour" (formClosed)="resetForm()" [shouldEdit]="shouldEdit"></xp-checkpoint-form>
         </div>
