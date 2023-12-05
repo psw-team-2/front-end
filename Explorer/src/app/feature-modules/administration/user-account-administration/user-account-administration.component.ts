@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user-account.model';
 import { AdministrationService } from '../administration.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Wallet } from '../model/wallet.model';
 
 @Component({
   selector: 'xp-user-account-administration',
@@ -30,6 +31,8 @@ export class UserAccountAdministrationComponent implements OnInit {
     });
   }
 
+  
+
   deactivateUser(user: User): void {
     if (user.role !== 0 && user.isActive) {
       user.isActive= false;
@@ -46,4 +49,6 @@ export class UserAccountAdministrationComponent implements OnInit {
       });
     }
   }
+
+  
 }

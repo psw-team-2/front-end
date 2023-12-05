@@ -1,0 +1,44 @@
+.div {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px; 
+}
+
+.payment-title-section {
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.payment-title {
+    color: rgb(56, 28, 117);
+    margin-bottom: 30px;
+    margin-top: 10px;
+    font-size: medium;
+}
+.center-class {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+.done-button {
+    font-size: medium;
+    font-family: 'Open Sans', sans-serif; 
+    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131)); 
+    color: white; 
+    display: block;
+    margin: 0 auto;
+    padding: 8px 16px; 
+    border: none; 
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.done-button :hover {
+    background: white;
+    color: black;
+    border: 1px solid rgb(56, 28, 117);
+}

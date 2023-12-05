@@ -1,0 +1,14 @@
+<form [formGroup]="acForm" class="center-class">
+    <div>
+        <div class="payment-title-section">
+            <h1 class="payment-title">Payment</h1>
+        </div>
+        <mat-form-field>
+            <mat-label>AC</mat-label>
+            <input matInput formControlName="ac" type="number" min="1" max="1000"/>
+        </mat-form-field>
+        
+    <button class="done-button"  type="submit" (click)="addAC()">Done</button>
+    
+    </div>
+</form>

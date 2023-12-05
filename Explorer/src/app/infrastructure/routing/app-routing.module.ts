@@ -44,6 +44,14 @@ import { TourProblemFormComponent } from 'src/app/feature-modules/tour-problem/t
 import { ProfilesComponent } from 'src/app/feature-modules/administration/profiles/profiles.component';
 import { Profiles2Component } from 'src/app/feature-modules/administration/profiles2/profiles2.component';
 import { ComplexTourCreationComponent } from 'src/app/feature-modules/complex-tour/complex-tour-creation/complex-tour-creation.component';
+import { BundleManagementComponent } from 'src/app/feature-modules/tour-authoring/bundle-management/bundle-management.component';
+import { BundleFormComponent } from 'src/app/feature-modules/tour-authoring/bundle-form/bundle-form.component';
+import { WalletsOverviewComponent } from 'src/app/feature-modules/administration/wallets-overview/wallets-overview.component';
+import { BundleOverviewComponent } from 'src/app/feature-modules/tour-authoring/bundle-overview/bundle-overview.component';
+import { PurchaseReportComponent } from 'src/app/feature-modules/tourist/purchase-report/purchase-report.component';
+import { BundleViewComponent } from 'src/app/feature-modules/tour-authoring/bundle-view/bundle-view.component';
+import { BundleUpdateFormComponent } from 'src/app/feature-modules/tour-authoring/bundle-update-form/bundle-update-form.component';
+
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -92,8 +100,14 @@ const routes: Routes = [
   {path: 'find-people', component: ProfilesComponent},
   {path: 'find-people-autor', component: Profiles2Component},
   {path: 'view-purchased-tours', component: ViewPurchasedToursComponent},
-  {path: 'complex-tour-creaton', component: ComplexTourCreationComponent}
-  
+  {path: 'complex-tour-creaton', component: ComplexTourCreationComponent},
+  {path: 'bundle-management', component: BundleManagementComponent},
+  {path: 'bundle-form', component: BundleFormComponent},
+  {path: 'wallets', component: WalletsOverviewComponent},
+  {path: 'bundle-overview', component: BundleOverviewComponent},
+  {path: 'purchase-reports', component: PurchaseReportComponent },
+  {path: 'bundle-update-form/:id', component: BundleUpdateFormComponent},
+  {path: 'bundle-view/:id', component: BundleViewComponent}
 ];
 
 @NgModule({

@@ -16,5 +16,12 @@
         </p>
       </li>
     </ng-container>
+    <ng-container *ngFor="let paymentNotification of paymentNotifications">
+      <li class="notification">
+        <p>
+          New payment : {{paymentNotification.adventureCoin}} AC
+        </p>
+      </li>
+    </ng-container>
   </ul>
 </div>
