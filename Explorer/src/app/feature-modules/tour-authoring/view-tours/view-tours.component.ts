@@ -11,10 +11,22 @@ import { TourExecution } from '../../tour-execution/model/tourexecution.model';
 import { Checkpoint } from '../model/checkpoint.model';
 import { Router } from '@angular/router';
 import { TourPurchaseToken } from '../model/tourPurchaseToken.model';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 @Component({
   selector: 'xp-view-tours',
   templateUrl: './view-tours.component.html',
   styleUrls: ['./view-tours.component.css'],
+  animations: [
+    trigger('slider', [
+      state('small', style({
+        width: '25%',
+      })),
+      state('large', style({
+        width: '85%',
+      })),
+      transition('small <=> large', animate('300ms ease-in-out')),
+    ]),
+  ],
 })
 export class ViewToursComponent implements OnInit {
   tours: Tour[] = [];
@@ -29,6 +41,7 @@ export class ViewToursComponent implements OnInit {
   orderItems: OrderItem[];
   userId: number;
   isLogged: boolean;
+  sliderState = 'small';
 
   constructor(
     private service: TourAuthoringService,
@@ -36,6 +49,10 @@ export class ViewToursComponent implements OnInit {
     private authService: AuthService,
     private router: Router
   ) {}
+
+  toggleSlider() {
+    this.sliderState = (this.sliderState === 'small') ? 'large' : 'small';
+  }
  // selectedTour: Tour;
   async ngOnInit(): Promise<void> {
     await this.getTours();
@@ -44,14 +61,14 @@ export class ViewToursComponent implements OnInit {
       this.isLogged = true;
       this.userId = this.authService.user$.value.id;
       this.shoppingCartId = this.userId;      
-      this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
-        next: (result: OrderItem[]) => {
-          this.orderItems = result;
-          this.numberOfItems = this.orderItems.length;
-        },
-        error: () => {
-        }
-      })
+      // this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
+      //   next: (result: OrderItem[]) => {
+      //     this.orderItems = result;
+      //     this.numberOfItems = this.orderItems.length;
+      //   },
+      //   error: () => {
+      //   }
+      // })
     }
     else{
       this.isLogged = false;
