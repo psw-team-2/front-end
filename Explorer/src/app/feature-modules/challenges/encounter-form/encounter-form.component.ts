@@ -20,7 +20,7 @@ export class EncounterFormComponent {
     xp: new FormControl(0, [Validators.required]),
     status: new FormControl('', [Validators.required]),
     type: new FormControl('', [Validators.required]),
-    mandatory: new FormControl('', [Validators.required]),
+    mandatory: new FormControl(false),
     peopleCount: new FormControl(0, [Validators.required]),
     range: new FormControl(0, [Validators.required]),
     image: new FormControl('', [Validators.required]),
