@@ -47,11 +47,27 @@ export class EncounterFormComponent {
   });
 
   addEncounter(): void {
+    if (this.currentFile != null) {
+      this.encounterService.upload(this.currentFile).subscribe({
+        next: (value) => {
+          
+        },
+        error: (value) => {
+  
+        }, complete: () => {
+          
+        },
+      });
+    }
+
+    
+
     const status = this.encounterForm.value.status ?? ''; // Handle potential null or undefined
     const type = this.encounterForm.value.type ?? ''; // Handle potential null or undefined
   
     const imageValue = this.showImage && this.currentFile ? 'https://localhost:44333/Images/' + this.currentFile?.name || '' : '';
-  
+    
+
     const encounter: Encounter = {
       id: 0,
       name: this.encounterForm.value.name || "",
