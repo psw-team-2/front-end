@@ -39,3 +39,15 @@
 <div class="messages">
   <xp-message *ngIf="showMessage" class="notification"></xp-message>
 </div>
+
+<div>
+  <!-- Check if questionnaireDone is false -->
+  <ng-container *ngIf="profile.length > 0 && !profile[0].questionnaireDone">
+    <xp-questionnaire></xp-questionnaire>
+  </ng-container>
+  <!-- If questionnaireDone is true, display a message -->
+  <ng-container *ngIf="profile.length > 0 && profile[0].questionnaireDone">
+    <h1>Questionnaire:</h1>
+    <p>You have already completed the questionnaire!</p>
+  </ng-container>
+</div>
