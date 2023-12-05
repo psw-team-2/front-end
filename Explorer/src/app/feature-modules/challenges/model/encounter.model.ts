@@ -8,4 +8,7 @@ export interface Encounter {
     status : number;
     type : number;
     mandatory: boolean;
+    peopleCount: number;
+    range: number;
+    image: string;
 }
