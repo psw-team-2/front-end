@@ -8,9 +8,9 @@ export interface Encounter {
     status : encounterStatus;
     type : encounterType;
     mandatory: boolean;
-    peopleCount: number;
-    range: number;
-    image: string;
+    peopleCount: number | null;
+    range: number | null;
+    image: string | null;
 }
 
 export enum encounterStatus{

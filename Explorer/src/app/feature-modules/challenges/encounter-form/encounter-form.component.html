@@ -24,20 +24,26 @@ Ecounter adding:
             <option>Misc</option>
         </select>
 
-        <input type="checkbox" formControlName="mandatory"/>Mandatory
+        Mandatory<input type="checkbox" formControlName="mandatory"/>
 
-        <label>People count</label>
-        <input formControlName="peopleCount" type="number"/>
+        <div *ngIf="showRange">
+            <label>Range</label>
+            <input formControlName="range" type="number"/>
+        </div>
 
-        <label>Range</label>
-        <input formControlName="range" type="number"/>
+        <div *ngIf="showPeopleCount">
+            <label>People count</label>
+            <input formControlName="peopleCount" type="number"/>
+        </div>
 
-        <label>Image</label>
-        <button color="primary" width="200" (click)="fileInput.click()">Upload File</button> 
-        <input hidden #fileInput type="file" (change)="onFileSelected($event)"> 
-        <div *ngIf="currentFile">
-            <span>{{ currentFile.name }}</span>
-            <button icon-button (click)="deleteFile()">X</button>
+        <div *ngIf="showImage">
+            <label>Image</label>
+            <button type="button" color="primary" width="200" (click)="fileInput.click()">Upload File</button> 
+            <input hidden #fileInput type="file" (change)="onFileSelected($event)"> 
+            <div *ngIf="currentFile">
+                <span>{{ currentFile.name }}</span>
+                <button icon-button (click)="deleteFile()">X</button>
+            </div>
         </div>
 
         <button type="submit">Add encounter</button>

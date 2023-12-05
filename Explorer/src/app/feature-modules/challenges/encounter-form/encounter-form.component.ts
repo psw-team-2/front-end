@@ -12,13 +12,26 @@ import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
 })
 export class EncounterFormComponent {
   @Input() checkpoint: Checkpoint | null = null;
-  router: any;
   currentFile: File | null;
+
+  showPeopleCount = false;
+  showRange = false;
+  showImage = false;
 
   constructor(private encounterService: EncounterService) {}
 
   ngOnInit() {
-    console.dir(this.checkpoint); // Log the Checkpoint object
+    this.encounterForm.get('type')?.valueChanges.subscribe((value) => {
+      if (value) {
+        this.handleEncounterType(value);
+      }
+    });
+  }
+
+  handleEncounterType(type: string) {
+    this.showPeopleCount = type === 'Social';
+    this.showRange = type !== 'Misc';
+    this.showImage = type === 'Location';
   }
 
   encounterForm = new FormGroup({
@@ -28,73 +41,66 @@ export class EncounterFormComponent {
     status: new FormControl('', [Validators.required]),
     type: new FormControl('', [Validators.required]),
     mandatory: new FormControl(false),
-    peopleCount: new FormControl(0, [Validators.required]),
-    range: new FormControl(0, [Validators.required]),
-    image: new FormControl('', [Validators.required]),
+    peopleCount: new FormControl(0),
+    range: new FormControl(0),
+    image: new FormControl(''),
   });
 
   addEncounter(): void {
-
-    if (this.currentFile == null) {
-      return;
-    }
-
-    this.encounterService.upload(this.currentFile).subscribe({
-      next: (value) => {
-        
-      },
-      error: (value) => {
-
-      }, complete: () => {
-      },
-    });
-
-
-
-    
-
-    let status: number = -1;
-    let type: number = -1;
+    const status = this.encounterForm.value.status ?? ''; // Handle potential null or undefined
+    const type = this.encounterForm.value.type ?? ''; // Handle potential null or undefined
   
-    // Mapping status
-    if (this.encounterForm.value.status === 'Active') {
-      status = 0;
-    } else if (this.encounterForm.value.status === 'Draft') {
-      status = 1;
-    } else if (this.encounterForm.value.status === 'Archived') {
-      status = 2;
-    }
-  
-    // Mapping type
-    if (this.encounterForm.value.type === 'Social') {
-      type = 0;
-    } else if (this.encounterForm.value.type === 'Location') {
-      type = 1;
-    } else if (this.encounterForm.value.type === 'Misc') {
-      type = 2;
-    }
+    const imageValue = this.showImage && this.currentFile ? 'https://localhost:44333/Images/' + this.currentFile?.name || '' : '';
   
     const encounter: Encounter = {
+      id: 0,
       name: this.encounterForm.value.name || "",
       description: this.encounterForm.value.description || "",
       latitude: this.checkpoint?.latitude || 0,
       longitude: this.checkpoint?.longitude || 0,
       xp: this.encounterForm.value.xp || 0,
-      status: status,
-      type: type,
+      status: this.getStatusValue(status),
+      type: this.getTypeValue(type),
       mandatory: Boolean(this.encounterForm.value.mandatory),
-      peopleCount: Number(this.encounterForm.value.peopleCount) || 0,
-      range: Number(this.encounterForm.value.range) || 0,
-      image: 'https://localhost:44333/Images/' + this.currentFile.name || "",
+      peopleCount: this.showPeopleCount ? Number(this.encounterForm.value.peopleCount) : 0,
+      range: this.showRange ? Number(this.encounterForm.value.range) : 0,
+      image: imageValue || '/',
     };
-
-    console.log(encounter);
-    
+  
     this.encounterService.addEncounter(encounter).subscribe({
       next: () => {
         alert('You have successfully added an encounter.');
       },
+      error: (err) => {
+        console.error('Error adding encounter:', err);
+      },
     });
+  }
+
+  getStatusValue(status: string): number {
+    switch (status) {
+      case 'Active':
+        return 0;
+      case 'Draft':
+        return 1;
+      case 'Archived':
+        return 2;
+      default:
+        return -1;
+    }
+  }
+
+  getTypeValue(type: string): number {
+    switch (type) {
+      case 'Social':
+        return 0;
+      case 'Location':
+        return 1;
+      case 'Misc':
+        return 2;
+      default:
+        return -1;
+    }
   }
 
   onFileSelected(event: any) {
@@ -104,5 +110,4 @@ export class EncounterFormComponent {
   deleteFile() {
     this.currentFile = null;
   }
-  
 }
