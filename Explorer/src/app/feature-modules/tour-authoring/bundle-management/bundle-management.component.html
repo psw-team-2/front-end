@@ -25,7 +25,7 @@
             Archived
           </ng-container>
       </td>     
-      <td><button >Edit</button></td>
+      <td><button (click)="editBundle(bundle)">Edit</button></td>
       <td>
         <button *ngIf="bundle.status === 1" (click)="archiveBundle(bundle.id, bundle)">Archive</button>
         <button *ngIf="bundle.status === 2 || bundle.status === 0" (click)="deleteBundle(bundle.id)">Delete</button>
