@@ -3,6 +3,7 @@ import { Bundle } from '../model/bundle.model';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { TourAuthoringService } from '../tour-authoring.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-bundle-management',
@@ -16,7 +17,7 @@ export class BundleManagementComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private service: TourAuthoringService
+    private service: TourAuthoringService, private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -30,7 +31,7 @@ export class BundleManagementComponent implements OnInit {
   }
 
   editBundle(bundle: Bundle): void {
-    // Implement your edit logic here
+    this.router.navigate(['/bundle-update-form', bundle.id]);
   }
   archiveBundle(id: number | undefined, bundle: Bundle): void{
     if (id !== undefined) {

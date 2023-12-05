@@ -24,6 +24,8 @@ import { BundleManagementComponent } from './bundle-management/bundle-management
 import { BundleFormComponent } from './bundle-form/bundle-form.component';
 import { BundleDataFormComponent } from './bundle-data-form/bundle-data-form.component';
 import { BundleOverviewComponent } from './bundle-overview/bundle-overview.component';
+import { BundleUpdateFormComponent } from './bundle-update-form/bundle-update-form.component';
+import { BundleViewComponent } from './bundle-view/bundle-view.component';
 
 
 
@@ -44,6 +46,8 @@ import { BundleOverviewComponent } from './bundle-overview/bundle-overview.compo
     BundleFormComponent,
     BundleDataFormComponent,
     BundleOverviewComponent,
+    BundleUpdateFormComponent,
+    BundleViewComponent,
   ],
   imports: [
     CommonModule,

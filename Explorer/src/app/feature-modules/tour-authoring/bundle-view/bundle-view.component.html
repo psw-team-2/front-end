@@ -1,0 +1,17 @@
+<div *ngIf="bundle" class="bundle-container">
+    <h1 class="bundle-name">{{ bundle.name }}</h1>
+    <p class="bundle-price">Price: {{ bundle.price }} AC</p>
+    <p class="bundle-status">Status: {{ getStatusText(bundle.status) }}</p>
+    <p class="bundle-userId">Created by User ID: {{ bundle.userId }}</p>
+  
+    <h2>Tours included:</h2>
+    <ul class="tour-list">
+      <li *ngFor="let tour of toursList" class="tour-item">
+        <p>{{ tour.name }}</p>
+      </li>
+    </ul>
+</div>
+
+<div *ngIf="!bundle" class="bundle-container">
+    <p class="loading-text">Loading...</p>
+</div>

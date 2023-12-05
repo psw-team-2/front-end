@@ -1,0 +1,33 @@
+/* Centriranje forme */
+.form-container {
+    max-width: 600px; /* Maksimalna širina forme */
+    margin: 0 auto; /* Centriranje forme na stranici */
+    padding: 20px; /* Razmak oko sadržaja forme */
+    border: 1px solid #ccc; /* Dodavanje ivice oko forme */
+    border-radius: 8px; /* Zaobljeni ivični radijus */
+  }
+  
+  .custom-form-field {
+    width: 100%; /* Širina polja forme */
+    margin-bottom: 15px; /* Razmak između polja forme */
+  }
+  
+  .table-container {
+    margin-bottom: 20px; /* Razmak između tabele i ostalog sadržaja */
+  }
+  
+  .tours-table {
+    width: 100%; /* Širina tabele */
+    border-collapse: collapse; /* Spajanje ivica tabele */
+  }
+  
+  .tours-table th,
+  .tours-table td {
+    border: 1px solid #ddd; /* Dodavanje ivice oko ćelija tabele */
+    padding: 8px; /* Razmak unutar ćelija tabele */
+  }
+  
+  .button-container {
+    text-align: center; /* Centriranje dugmeta */
+  }
+  

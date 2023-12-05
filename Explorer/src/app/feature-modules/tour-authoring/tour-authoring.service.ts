@@ -258,6 +258,13 @@ export class TourAuthoringService {
   addBundleToCart(shoppingCart: ShoppingCart, bundle: Bundle) {
     return this.http.post<ShoppingCart>('https://localhost:44333/api/tourist/shoppingCart/bundleItem/' + shoppingCart.id + '/' + bundle.id,shoppingCart);
   }
+
+  
+  publishBundle2(bundle: Bundle): Observable<Bundle> {
+    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/publish/${bundle.id}`, bundle);  
+  }
+  
+  
 }
 
 
