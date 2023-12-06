@@ -35,7 +35,13 @@ export class AdministrationService {
     return this.http.put<Equipment>(environment.apiHost + 'administration/equipment/' + equipment.id, equipment);
   }
 
+  getEquipmentByTouridTourist(tourId: number): Observable<PagedResults<Equipment>>{
+    return this.http.get<PagedResults<Equipment>>(environment.apiHost + 'tourist/equipment/by-tour/' + tourId)
+  }
 
+  getEquipmentByIdsTourist(equipmentIds:(number|undefined)[]): Observable<PagedResults<Equipment>>{
+    return this.http.put<PagedResults<Equipment>>(environment.apiHost + 'tourist/equipment/by-ids?page=0&pageSize=0', equipmentIds);
+  }
 
   getApplicationReview(): Observable<PagedResults<ApplicationReview>> {
     return this.http.get<PagedResults<ApplicationReview>>(environment.apiHost + 'tourist/applicationReview');

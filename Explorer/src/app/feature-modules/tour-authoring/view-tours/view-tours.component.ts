@@ -249,5 +249,12 @@ export class ViewToursComponent implements OnInit {
     this.router.navigate(['/tour-problem-form/', this.userId])
   }
 
- 
+
+  isCreatedByTourist(tour: Tour): boolean{
+    if(tour.authorId === this.userId){
+      return true;
+    }
+    return false;
+  }
+
 }
