@@ -93,8 +93,20 @@
   height: 100%;
   overflow-y: auto;
   display: flex;
-  flex-direction: column; /* Stack items vertically */
-  align-items: center; /* Center items horizontally */
+  flex-direction: column; /* Stack items vertically */ 
+}
+
+.slider-toggle-container {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  text-align: center;
+}
+i {
+  /* Your icon styles here */
+  font-size: 32px; /* Adjust the size as needed */
+  cursor: pointer; /* Add a pointer cursor for interaction */
 }
 
 .map-container {

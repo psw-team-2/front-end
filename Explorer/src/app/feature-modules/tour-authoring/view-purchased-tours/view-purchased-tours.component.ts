@@ -42,7 +42,7 @@ export class ViewPurchasedToursComponent {
   async getTours(): Promise<void> {
     try {
       for (let orderItem of this.orderItems) {
-        const result: Tour | undefined = await this.service.getTour(orderItem.tourId).toPromise();
+        const result: Tour | undefined = await this.service.getTour(orderItem.itemId).toPromise();
 
         if (result) {
           this.tours.push(result);console.log(result)

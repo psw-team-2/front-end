@@ -42,6 +42,7 @@ export class ProfileFormComponent implements OnChanges {
       isActive: true,
       follows: this.profile.follows,
       tourPreference: this.profile.tourPreference,
+      questionnaireDone: this.profile.questionnaireDone
     }
     profile.id = this.profile.id;
     profile.userId = this.profile.userId;

@@ -10,6 +10,7 @@ import { Profile } from './model/profile.model';
 import { PublicRequest } from '../tour-authoring/model/public-request.model';
 import { Follow} from './model/follow.model';
 import { Message } from './model/message.model';
+import { Wallet } from './model/wallet.model';
 
 @Injectable({
   providedIn: 'root'
@@ -145,12 +146,12 @@ export class AdministrationService {
 
 
   // FOLLOW
-  getFollows(profile: Profile): Observable<PagedResults<Profile>> {
-    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile/all-following/' + profile.id);
+  alreadyFollows(profileId: number, followerId: number): Observable<boolean> {
+    return this.http.get<boolean>(environment.apiHost + 'administration/profile/already-follows/' + profileId + '/' + followerId);
   }
 
-  getFollows2(profile: Profile): Observable<PagedResults<Profile>> {
-    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile2/all-following/' + profile.id);
+  alreadyFollows2(profileId: number, followerId: number): Observable<boolean> {
+    return this.http.get<boolean>(environment.apiHost + 'administration/profile2/already-follows/' + profileId + '/' + followerId);
   }
 
   getAllFollowers(profile: Profile): Observable<PagedResults<Profile>> {
@@ -199,5 +200,18 @@ export class AdministrationService {
 
   updateMessage2(message: Message): Observable<Message> {
     return this.http.put<Message>('https://localhost:44333/api/administration/message2/' + message.id + '/' + message.senderId + '/' + message.receiverId, message);
+  }
+
+  //WALLET
+  getWalletByUserId(): Observable<Wallet> {
+    return this.http.get<Wallet>('https://localhost:44333/api/administrator/wallet/byUser');
+  }
+
+  getAllWallets(): Observable<PagedResults<Wallet>> {
+    return this.http.get<PagedResults<Wallet>>('https://localhost:44333/api/administrator/wallet');
+  }
+
+  addAC(wallet: Wallet): Observable<Wallet> {
+    return this.http.put<Wallet>('https://localhost:44333/api/administrator/wallet/' + wallet.id , wallet);
   }
 }
