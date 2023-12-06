@@ -5,8 +5,10 @@ import { ClubRequest } from '../model/club-request.model';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
-import { Observable, catchError, concatMap, forkJoin, map, of, timestamp } from 'rxjs';
 import { ClubMessage } from '../model/club-message.model';
+import { Observable, catchError, concatMap, forkJoin, map, of, timestamp } from 'rxjs';
+import { Profile } from '../../administration/model/profile.model';
+import { AdministrationService } from '../../administration/administration.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
@@ -16,19 +18,19 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 })
 export class ClubOverviewComponent {
 
-  constructor(private route: ActivatedRoute, private service: ClubService, private authService: AuthService) { }
+  constructor(private route: ActivatedRoute, private service: ClubService, private authService: AuthService,private adminService: AdministrationService ) { }
 
   clubId: number;
   club: Club;
   isOwner: boolean;
   user: User | undefined;
-  memberUsernames: string[] = [];
   allMemberIds: number[] = [];
   nonMemberIds: number[] = [];
   nonMemberUsernames: string[] = [];
-
-  mappedMembers: { [key: number]: string } = {};
-  mappedNonMembers: { [key: number]: string } = {};
+  
+  
+  allMembersProfiles: Profile[]=[];
+  nonMembersProfiles: Profile[]=[];
 
   clubMessages: ClubMessage[] = [];
   newClubMessage : ClubMessage;
@@ -92,43 +94,43 @@ export class ClubOverviewComponent {
           const userIds = Object.values(response);
           for (const userId of userIds) {
             this.allMemberIds.push(userId);
-        }
+          }
           for (let userId of this.allMemberIds) {
             if (this.club.memberIds.indexOf(userId) === -1) {
               this.nonMemberIds.push(userId);
             }
           }
-          for (let i = 0; i < this.nonMemberIds.length; i++) {
-            const currentValue = this.nonMemberIds[i];
-            this.authService.getUsername(currentValue).subscribe((response: object) => {
-              const username = response as { username: string, password: string};
-              this.nonMemberUsernames.push(username.username);
-            });
-          }
-          this.mapUsernames();
+          this.nonMemberIds = this.nonMemberIds.filter(id => !this.club.memberIds.includes(id));
+          this.adminService.getProfiles().subscribe((profilesResult: PagedResults<Profile>) => {
+            const allProfiles: Profile[] = profilesResult.results;
+            this.allMembersProfiles = allProfiles.filter(profile => this.club.memberIds.includes(profile.userId as number));
+            this.nonMembersProfiles = allProfiles.filter(profile => this.nonMemberIds.includes(profile.userId as number));
+          });
         });
 
-        for (let i = 0; i < this.club.memberIds.length; i++) {
-          const currentValue = this.club.memberIds[i];
-          this.authService.getUsername(currentValue).subscribe((response: object) => {
-            const username = response as { username: string, password: string };
-            this.memberUsernames.push(username.username);
-          });
-        }
+        
       },
       error: () => {
       }
     })
   }
 
-  kickMember(memberId: number) {
+  kickMember(memberId: number | undefined) {
+    if (memberId === undefined) {
+      console.error('Member ID is undefined');
+      return;
+    }
     this.club.memberIds = this.club.memberIds.filter(id => id !== memberId);
     this.service.updateClub(this.club).subscribe({
       next: () => {}
     });
   }
 
-  inviteMember(nonMemberId: number) {
+  inviteMember(nonMemberId: number| undefined) {
+    if (nonMemberId === undefined) {
+      console.error('Non-member ID is undefined');
+      return;
+    }
     this.nonMemberIds = this.nonMemberIds.filter(id => id !== nonMemberId);
     
     let clubId = this.clubId;
@@ -144,45 +146,5 @@ export class ClubOverviewComponent {
     this.service.inviteMember(request).subscribe({
       next: () => {}
     });
-  }
-
-  mapUsernames(): void {
-    this.club.memberIds.forEach(response => {
-      this.getMappedUsername(response).subscribe(
-        (username: string) => {
-          this.mappedMembers[response] = username;
-        },
-        (error: any) => {
-          console.error(error);
-        }
-      );
-    });
-
-    this.nonMemberIds.forEach(response => {
-      this.getMappedUsername(response).subscribe(
-        (username: string) => {
-          this.mappedNonMembers[response] = username;
-        },
-        (error: any) => {
-          console.error(error);
-        }
-      );
-    });
-  }
-
-  getMappedUsername(userId: number): Observable<string> {
-    return this.authService.getUsername(userId).pipe(
-        map((userData: any) => {
-            if (userData && userData.username) {
-                return userData.username;
-            } else {
-                return 'Unknown';
-            }
-        }),
-        catchError(error => {
-            console.error('Error fetching username:', error);
-            return of('Unknown');
-        })
-    );
   }
 }

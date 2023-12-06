@@ -58,3 +58,6 @@
     display: flex; /* Use flexbox to align buttons horizontally */
     justify-content: center; /* Center buttons horizontally within the row */
 }
+th{
+    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));;
+}

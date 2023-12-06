@@ -13,6 +13,7 @@ import { PublicRequest } from './model/public-request.model';
 import { Object } from './model/object.model';
 import { ShoppingCart } from '../marketplace/model/shopping-cart.model';
 import { OrderItem } from '../marketplace/model/order-item.model';
+import { PaymentNotification } from './model/paymentNotification.model';
 
 
 @Injectable({
@@ -51,6 +52,23 @@ export class TourAuthoringService {
   updateObject(object: Object): Observable<Object>{
     return this.http.put<Object>('https://localhost:44333/api/administration/object/' + object.id, object)
   }
+  addObject( object: Object): Observable<Object>
+  {
+    return this.http.post<Object>(environment.apiHost+ 'administration/object',object)
+  }
+
+  uploadObject(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    const req = new HttpRequest('POST', `https://localhost:44333/api/administration/object/UploadFile`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+    return this.http.request(req);
+  }
+    sendPublicRequest(publicRequest: PublicRequest): Observable<PublicRequest> {
+      return this.http.post<PublicRequest>('https://localhost:44333/api/author/tour/publicRequest', publicRequest)
+    }
 
   upload(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
@@ -144,12 +162,6 @@ export class TourAuthoringService {
     return this.http.get<PagedResults<TourPurchaseToken>>('https://localhost:44333/api/tourist/tourPurchaseToken/getAllTokens?page=0&pageSize=0')
   }
 
-  sendPublicRequest(publicRequest: PublicRequest): Observable<PublicRequest> {
-    return this.http.post<PublicRequest>('https://localhost:44333/api/author/tour/publicRequest', publicRequest)
-  }
-
-
-
   deleteTourAdministrator(id: number): Observable<Tour>{
     return this.http.delete<Tour>('https://localhost:44333/api/administrator/tour/' + id);
   }
@@ -181,7 +193,9 @@ export class TourAuthoringService {
     return this.http.get<PagedResults<OrderItem>>('https://localhost:44333/api/tourist/orderItem/orderItems/' + userId);
   }
 
-
+  getUnreadPaymentNotifications(userId: number) : Observable<PagedResults<PaymentNotification>>{
+    return this.http.get<PagedResults<PaymentNotification>>('https://localhost:44333/api/administrator/paymentNotification/unread-notifications/' + userId);
+  }
 }
 
 

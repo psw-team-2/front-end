@@ -69,6 +69,10 @@ export class AdministrationService {
     return this.http.put<User>(url, user);
   }
   // PROFILE
+  getByProfileUserId(id: number): Observable<Profile> {
+    return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-id/' + id);
+  }
+  
   getById(message: Message): Observable<Profile> {
     return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-id/' + message.senderId);
   }
@@ -135,12 +139,12 @@ export class AdministrationService {
 
 
   // FOLLOW
-  getFollows(profile: Profile): Observable<PagedResults<Profile>> {
-    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile/all-following/' + profile.id);
+  alreadyFollows(profileId: number, followerId: number): Observable<boolean> {
+    return this.http.get<boolean>(environment.apiHost + 'administration/profile/already-follows/' + profileId + '/' + followerId);
   }
 
-  getFollows2(profile: Profile): Observable<PagedResults<Profile>> {
-    return this.http.get<PagedResults<Profile>>(environment.apiHost + 'administration/profile2/all-following/' + profile.id);
+  alreadyFollows2(profileId: number, followerId: number): Observable<boolean> {
+    return this.http.get<boolean>(environment.apiHost + 'administration/profile2/already-follows/' + profileId + '/' + followerId);
   }
 
   getAllFollowers(profile: Profile): Observable<PagedResults<Profile>> {

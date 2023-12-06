@@ -47,6 +47,8 @@ export class FollowersComponent implements OnInit {
       this.service.getAllFollowers(this.loggedInProfile).subscribe({
         next: (result: PagedResults<Profile>) => {
           this.followers = result.results;
+          console.log("FOLLOWERS");
+          console.log(this.followers);
         },
         error: (err: any) => {
           console.error('Error while getting followers:', err);

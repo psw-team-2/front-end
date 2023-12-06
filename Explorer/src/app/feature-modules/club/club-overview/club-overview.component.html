@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
     <h1>{{ club?.name }}</h1>
     <img class="thumbnail" src={{club?.imageUrl}} alt="" srcset="">
     <p>{{ club?.description }}</p>
@@ -19,4 +19,56 @@
     </div>
 
     <button (click)="addClubMessage()">ADD CLUB MESSAGE</button>
+</div> -->
+<div class="container">
+    <div class="club-container">
+        <div class="background-gradient">
+          <img class="circular-image" src="{{ club?.imageUrl }}" alt="" srcset="">
+          <h1 class="club-name">{{ club?.name }}</h1>
+        </div>
+       
+    </div>
+    <div class="center-class">
+        <p class="description">" {{ club?.description }} "</p>
+    </div>
 </div>
+<div class="mebers">
+    <div class="center-class">
+        <table class="split-table">
+            <tr>
+            <td class="left-side">
+                <div class="upper-start">            
+                    <div class="followers-container">
+                        <h2>Members:</h2>
+                        <div class="follower-list">
+                            <div *ngFor="let individualFollower of allMembersProfiles" class="follower-card">
+                            <img class="profile-picture" src="{{ individualFollower.profilePicture }}" alt="">
+                            <div class="follower-details">
+                                <div class="name">{{ individualFollower.firstName }} {{ individualFollower.lastName }}</div>
+                                <button class="message-button" *ngIf="isOwner && individualFollower.userId !== club?.ownerId" (click)="kickMember(individualFollower.userId)">Kick</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="followers-container">
+                    <h2>Invite:</h2>
+                    <div class="follower-list">
+                        <div *ngFor="let individualFollower of nonMembersProfiles" class="follower-card">
+                        <img class="profile-picture" src="{{ individualFollower.profilePicture }}" alt="">
+                        <div class="follower-details">
+                            <div class="name">{{ individualFollower.firstName }} {{ individualFollower.lastName }}</div>
+                            <button class="message-button" (click)="inviteMember(individualFollower.userId)">Invite</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>  
+            </td>
+            <td class="right-side">
+                <xp-tourist-posts></xp-tourist-posts> 
+            </td>
+            </tr>
+        </table>
+        </div>         
+    
+</div>    

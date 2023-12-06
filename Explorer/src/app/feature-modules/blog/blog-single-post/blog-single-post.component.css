@@ -6,7 +6,7 @@
 }
 
 .blog-title {
-    background-color: #2a2133; 
+    background:linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131)); 
     color: white;
     text-align: center;
     height: 150px;
@@ -50,9 +50,6 @@
     
   }
   
-  
-  
-
 .blog-text {
     margin-right: 300px;
     margin-left: 300px;
@@ -73,4 +70,99 @@
 xp-blog-comment-form {
   margin: 20px 0;
  
+}
+
+.read-more-button {
+    
+  background-color: #2a2133;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 1px;
+}
+
+.read-more-button:hover {
+  background-color: #660089; 
+}
+
+.similar-blogs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.similar-blog {
+  width: calc(25% - 10px); /* 25% širine sa razmakom od 10 piksela između kartica */
+  margin-bottom: 20px; /* Razmak između redova */
+}
+
+.similar-blog-card {
+  width: calc(80% - 20px);  /* Podelite dostupan prostor na tri dela, sa razmakom od 10px između kartica */
+  height: 330px;
+  margin: 20px;
+  border: 1px solid #e1e1e1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 1px;
+  position: relative; /* Dodajte relativni položaj kako biste mogli da centrirate sliku */
+}
+
+.similar-blog-card .blog-image {
+  width: 270px;
+  max-height: 250px; /* Maksimalna visina slike */
+  object-fit: cover; /* Održava proporcije slike */
+
+  
+
+}
+
+
+
+.similar-blog-card:hover {
+  transform: translateY(-3px);
+}
+
+
+
+.blog-details {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 1px;
+}
+
+.blog-image {
+  width: 350px;
+  max-height: 250px; /* Maksimalna visina slike */
+  object-fit: cover; /* Održava proporcije slike */
+  
+  
+}
+
+.similar-blog-title {
+  text-align: center;
+  font-size: 1.25rem; /* Prilagodite veličinu fonta prema vašem stilu */
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+.title-card {
+  text-align: center;
+  font-size: 1.5rem; /* Prilagodite veličinu fonta prema potrebama */
+  font-weight: bold;
+  color: #2a2133; /* Boja teksta */
+  margin-bottom: 20px; /* Margina ispod naslova */
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 1px;
 }

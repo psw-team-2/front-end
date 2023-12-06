@@ -79,18 +79,15 @@ const routes: Routes = [
   {path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
   {path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
   {path: 'tour/:id', component: TourOverviewComponent},
-
   {path: 'touristposition', component: TouristPositionComponent},
   {path: 'activeTour', component: ActiveTourComponent},
   {path: 'view-tours-author', component: ViewToursAuthorComponent},
   {path: 'view-tours-tourist', component: ViewToursComponent},
-
   {path: 'publicRequests', component: PublicRequestsComponent},
   {path: 'tour-problem/:id', component: TourProblemOverviewComponent},
   {path: 'tour-problem/:problemId/responses', component: TourProblemResponseComponent },
   {path: 'notifications', component: NotificationsOverviewComponent},
   {path: 'tour-problem-form/:id', component: TourProblemFormComponent},
-
   {path: 'shopping-cart', component: ShoppingCartComponent},
   {path: 'find-people', component: ProfilesComponent},
   {path: 'find-people-autor', component: Profiles2Component},

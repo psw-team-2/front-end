@@ -7,7 +7,7 @@ import { ClubFormComponent } from './club-form/club-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ClubRequestComponent } from './club-request/club-request.component';
-import { InviteMembersToTourComponent } from './invite-members-to-tour/invite-members-to-tour.component';
+import { AdministrationModule } from '../administration/administration.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { InviteMembersToTourComponent } from './invite-members-to-tour/invite-me
     RouterModule,
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    AdministrationModule 
   ],
   exports: [
     ClubsOverviewComponent,

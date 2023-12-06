@@ -30,6 +30,7 @@ import { MessageForm2Component } from './message-form2/message-form2.component';
 import { Profiles2Component } from './profiles2/profiles2.component';
 import { TouristPostsComponent } from './tourist-posts/tourist-posts.component';
 import { TouristPosts2Component } from './tourist-posts2/tourist-posts2.component';
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { TouristPosts2Component } from './tourist-posts2/tourist-posts2.componen
     Profiles2Component,
     TouristPostsComponent,
     TouristPosts2Component,
+    QuestionnaireComponent,
   ],
   imports: [
     CommonModule,
@@ -76,7 +78,8 @@ import { TouristPosts2Component } from './tourist-posts2/tourist-posts2.componen
     UserAccountAdministrationComponent,
     PublicRequestsComponent,
     ProfilesComponent,
-    Profiles2Component
+    Profiles2Component,
+    TouristPostsComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
