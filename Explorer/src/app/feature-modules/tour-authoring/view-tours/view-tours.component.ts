@@ -79,14 +79,14 @@ export class ViewToursComponent implements OnInit {
       this.isLogged = true;
       this.userId = this.authService.user$.value.id;
       this.shoppingCartId = this.userId;      
-      // this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
-      //   next: (result: OrderItem[]) => {
-      //     this.orderItems = result;
-      //     this.numberOfItems = this.orderItems.length;
-      //   },
-      //   error: () => {
-      //   }
-      // })
+      this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
+      next: (result: OrderItem[]) => {
+          this.orderItems = result;
+          this.numberOfItems = this.orderItems.length;
+          },
+          error: () => {
+          }
+       })
     }
     else{
       this.isLogged = false;

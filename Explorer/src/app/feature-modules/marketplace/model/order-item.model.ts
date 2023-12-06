@@ -6,4 +6,6 @@ export interface OrderItem {
     itemName: string;
     price: number;
     isBought: boolean;
+    isBundle: boolean;
+    shoppingCartId: number;
 }
