@@ -64,7 +64,8 @@ export class ComposedTourOverviewComponent {
       bicycleTime: composedTour.bicycleTime,
       carTime: composedTour.carTime,
       authorId: composedTour.authorId,
-      publishTime: composedTour.publishTime
+      publishTime: composedTour.publishTime,
+      points: 0
     };
   }
   nextSection() {
