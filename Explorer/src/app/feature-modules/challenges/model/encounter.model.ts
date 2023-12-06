@@ -13,6 +13,7 @@ export interface Encounter {
     image: string;
 }
 
+
 enum encounterStatus{
     Active,
     Draft,
@@ -23,4 +24,20 @@ enum encounterType{
     Social,
     Location,
     Misc
+}
+
+export interface ActiveEncounter {
+    id?: number;
+    encounterId : string;
+    touristId: string;
+    state:number;
+    end: Date
+}
+
+export interface EncounterMapMaterial {
+    encounterId?:number;
+    lat:number;
+    lng:number;
+    activeCount:number,
+    isActive:Boolean
 }
