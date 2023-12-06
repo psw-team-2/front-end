@@ -118,4 +118,8 @@ export class NotificationsOverviewComponent implements OnInit {
     this.showNotifications = !this.showNotifications;
   }
 
+
+  
+
+
 }

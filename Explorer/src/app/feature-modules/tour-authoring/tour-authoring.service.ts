@@ -18,6 +18,7 @@ import { Bundle } from './model/bundle.model';
 import { TourBundle } from './model/tour-bundle.model';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -198,8 +199,6 @@ export class TourAuthoringService {
   getUnreadPaymentNotifications(userId: number) : Observable<PagedResults<PaymentNotification>>{
     return this.http.get<PagedResults<PaymentNotification>>('https://localhost:44333/api/administrator/paymentNotification/unread-notifications/' + userId);
   }
-
-  
 
   
   getAllBundles(): Observable<PagedResults<Bundle>> {
