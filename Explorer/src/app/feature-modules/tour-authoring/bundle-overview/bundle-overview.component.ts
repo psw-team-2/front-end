@@ -5,6 +5,7 @@ import { ShoppingCart } from '../../marketplace/model/shopping-cart.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Router } from '@angular/router';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { OrderItem } from '../../marketplace/model/order-item.model';
 
 @Component({
   selector: 'xp-bundle-overview',
@@ -18,24 +19,28 @@ export class BundleOverviewComponent implements OnInit{
   numberOfItems: number;
   isLogged: boolean;
   userId: Number;
-
+  orderItems: OrderItem[];
   constructor(private service: TourAuthoringService, private authService: AuthService,private router: Router) { }
 
   ngOnInit(): void {
     this.getAllBundles();
    
-      if (this.authService.user$.value) {
-        this.isLogged = true;
-        this.userId = this.authService.user$.value.id;
-        this.shoppingCartId = this.userId;      
-      
-          error: () => {
-          }
-        
-      }
-      else{
-        this.isLogged = false;
-      }
+    if (this.authService.user$.value) {
+      this.isLogged = true;
+      this.userId = this.authService.user$.value.id;
+      this.shoppingCartId = this.userId;      
+      this.service.getOrderItemsByShoppingCart(this.userId as number).subscribe({
+        next: (result: OrderItem[]) => {
+          this.orderItems = result;
+          this.numberOfItems = this.orderItems.length;
+        },
+        error: () => {
+        }
+      })
+    }
+    else{
+      this.isLogged = false;
+    }
   }
 
   getAllBundles(): void {

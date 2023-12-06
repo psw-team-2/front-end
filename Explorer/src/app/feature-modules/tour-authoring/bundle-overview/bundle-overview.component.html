@@ -16,7 +16,7 @@
             <p>{{ bundle.price }} AC</p>
             <div class="button-container">
               <a class="view-button" [routerLink]="'/bundle-view/' + bundle.id">View more</a>
-              <a class="view-button" >Add to cart</a>
+              <a class="view-button" (click)="onAddClicked(bundle)" >Add to cart</a>
             </div>
           </div>
         </div>
