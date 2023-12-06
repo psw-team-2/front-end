@@ -1,27 +1,72 @@
-<div>
-    <h1 class="header">Create complex tours</h1>
-  <div class="card-container">
-      <div *ngFor="let tour of boughtTours" class="card">
-        <div class="remove-when-use">
-        </div>
-        <div class="details">
-          <label>{{ tour.name }}</label>
-          <p>{{ tour.description }}</p>
-          <div class="button-container">
-            <a class="view-button" [routerLink]="'/tour/' + tour.id">
-                <i class="fas fa-info-circle"></i> View more
-            </a>
-        </div>
-        
+<div class="tour-container" *ngIf="!secondSectionActive">
+  <!-- Left column for Displayed Tours -->
+  <div class="column">
+    <h1 class="header">Available Tours</h1>
+    <div *ngFor="let tour of displayedTours" class="card">
+      <div class="details">
+        <label>{{ tour.name }}</label>
+        <p>{{ tour.description }}</p>
         <div class="button-container">
-            <a class="view-button" (click)="AddToComplexTour(tour)">
-                <i class="fas fa-archive"></i> Add to complex tour
-            </a>
+          <a class="view-button" [routerLink]="'/tour/' + tour.id">
+            <i class="fas fa-info-circle"></i> View more
+          </a>
         </div>
-          
+        <div class="button-container">
+          <a class="view-button" (click)="addToComplexTour(tour)">
+            <i class="fas fa-add"></i> Add to complex tour
+          </a>
         </div>
       </div>
     </div>
   </div>
 
-  
+  <!-- Right column for Added Tours -->
+  <div class="column">
+    <h1 class="header">Added Tours</h1>
+    <div *ngIf="addedTours.length >= 2" class="button-container create-button">
+      <button (click)="createComplexTour()">Create</button>
+    </div>
+    <div *ngFor="let tour of addedTours" class="card">
+      <div class="details">
+        <label>{{ tour.name }}</label>
+        <p>{{ tour.description }}</p>
+        <div class="button-container">
+          <a class="view-button" [routerLink]="'/tour/' + tour.id">
+            <i class="fas fa-info-circle"></i> View more
+          </a>
+        </div>
+        <div class="button-container">
+          <a class="view-button" (click)="goBackToDisplayedTours(tour)">
+            <i class="fas fa-minus"></i> Remove from complex tour
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Display Checkpoints when the section is active -->
+<div *ngIf="secondSectionActive">
+  <div class="column">
+    <!-- Display Total Difficulty -->
+    <div>
+      <p>Total Difficulty: {{ totalDifficulty }}</p>
+    </div>
+
+    <!-- Display Unique Tags -->
+    <div>
+      <p>Unique Tags: {{ allTags.join(', ') }}</p>
+    </div>
+  </div>
+
+  <div class="column" cdkDropList (cdkDropListDropped)="drop($event)">
+    <!-- Display Checkpoints -->
+    <h1 class="header">Active Tour Checkpoints</h1>
+    <div *ngFor="let checkpoint of globalCheckpoints" cdkDrag>
+      <div class="checkpoint-rectangle">
+        <label>{{ checkpoint.name }}</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+
