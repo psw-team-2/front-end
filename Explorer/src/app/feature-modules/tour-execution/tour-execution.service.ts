@@ -6,6 +6,8 @@ import { TouristPosition } from './model/touristposition.model';
 import { TourExecution } from './model/tourexecution.model';
 import { Checkpoint } from '../tour-authoring/model/checkpoint.model';
 import { Secret } from './model/secret.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { ActiveEncounter, Encounter } from '../challenges/model/encounter.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,4 +35,20 @@ export class TourExecutionService {
   getSecrets(cpId:number){
     return this.http.get<Secret>('https://localhost:44333/api/tourexecution/getSecret/' + cpId);
   }
+  getEncounters():Observable<PagedResults<Encounter>>{
+    return this.http.get<PagedResults<Encounter>>('https://localhost:44333/api/administrator/encounter');
+  }
+  getActiveEncounters():Observable<PagedResults<ActiveEncounter>>{
+    return this.http.get<PagedResults<ActiveEncounter>>('https://localhost:44333/api/activeEncounter');
+  }
+  updateEncounter(encounter: Encounter): Observable<Encounter> {
+    return this.http.put<Encounter>('https://localhost:44333/api/administrator/encounter', encounter)
+  }
+  postActiveEncounters(activeEncounter:ActiveEncounter):Observable<PagedResults<ActiveEncounter>>{
+    return this.http.post<PagedResults<ActiveEncounter>>('https://localhost:44333/api/activeEncounter',activeEncounter);
+  }
+  updateActiveEncounters(activeEncounter:ActiveEncounter):Observable<PagedResults<ActiveEncounter>>{
+    return this.http.put<PagedResults<ActiveEncounter>>('https://localhost:44333/api/activeEncounter',activeEncounter);
+  }
+
 }

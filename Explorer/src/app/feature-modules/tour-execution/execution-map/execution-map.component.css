@@ -8,3 +8,18 @@
 #map {
   height: 600px;
 }
+.my-label {
+  position: absolute;
+  width:1000px;
+  font-size:20px;
+  pointer-events: auto !important;
+}
+
+.aktiviraj {
+  position: absolute;
+  width:1000px;
+  font-size:20px;
+  pointer-events: auto !important;
+  z-index: 999;
+  cursor: pointer;
+}

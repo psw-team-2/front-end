@@ -24,3 +24,19 @@ export enum encounterType{
     Location,
     Misc
 }
+
+export interface ActiveEncounter {
+    id?: number;
+    encounterId : string;
+    touristId: string;
+    state:number;
+    end: Date
+}
+
+export interface EncounterMapMaterial {
+    encounterId?:number;
+    lat:number;
+    lng:number;
+    activeCount:number,
+    isActive:Boolean
+}
