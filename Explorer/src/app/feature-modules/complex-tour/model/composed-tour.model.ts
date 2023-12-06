@@ -5,7 +5,7 @@ export interface ComposedTour {
     difficulty: number,
     toursId: number[],
     tags: string[],
-    checkpoints: number[],
+    checkPoints: number[],
     equipment: number[],
     objects: number[],
     status: Number,

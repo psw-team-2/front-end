@@ -13,13 +13,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { ViewComposedTourComponent } from './view-composed-tour/view-composed-tour.component';
+import { ComposedTourOverviewComponent } from './composed-tour-overview/composed-tour-overview.component';
 
 
 
 @NgModule({
   declarations: [
     ComplexTourCreationComponent,
-    ViewComposedTourComponent,  ],
+    ViewComposedTourComponent,
+    ComposedTourOverviewComponent,  ],
   imports: [
     CommonModule,
     MaterialModule,
@@ -29,7 +31,8 @@ import { ViewComposedTourComponent } from './view-composed-tour/view-composed-to
     FormsModule,
     MatDialogModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
+    SharedModule,
   ]
 })
 export class ComplexTourModule { }

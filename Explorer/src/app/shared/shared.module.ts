@@ -5,6 +5,7 @@ import { MapComponent } from './map/map.component';
 
 import { MapViewComponent } from './map-view/map-view.component';
 import { MapSearchComponent } from './map-search/map-search.component';
+import { ComposedTourMapComponent } from './composed-tour-map/composed-tour-map.component';
 
 
 
@@ -13,7 +14,8 @@ import { MapSearchComponent } from './map-search/map-search.component';
   declarations: [
     MapViewComponent,
     MapComponent,
-    MapSearchComponent
+    MapSearchComponent,
+    ComposedTourMapComponent
   ],
   imports: [
     CommonModule,

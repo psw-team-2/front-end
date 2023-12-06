@@ -168,7 +168,7 @@ saveComplexTour() {
       difficulty: Math.round(this.totalDifficulty),
       toursId: this.addedTourIds,
       tags: this.allTags,
-      checkpoints: this.globalCheckpointIds,
+      checkPoints: this.globalCheckpointIds,
       equipment: this.allEquipmentIds,
       objects: [],
       status: 0,
