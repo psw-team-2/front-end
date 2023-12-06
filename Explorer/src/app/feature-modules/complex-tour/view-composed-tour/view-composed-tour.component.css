@@ -6,8 +6,8 @@
   }
   
   .card {
-    width: 200px;
-    height: 320px;
+    width: 220px;
+    height: 340px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     position: relative;
     margin-bottom: 20px;
@@ -77,21 +77,4 @@
     margin: 20px; /* Add space below the header */
     font-weight: bold; /* Make the text bold if desired */
     text-transform: uppercase; /* Convert text to uppercase if desired */
-  }
-
-  .tour-container {
-    display: flex;
-  }
-  
-  .column {
-    flex: 1;
-    margin: 10px;
-  }
-
-  .checkpoint-rectangle {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 5px;
-    background-color: #f0f0f0;
-    cursor: grab;
   }

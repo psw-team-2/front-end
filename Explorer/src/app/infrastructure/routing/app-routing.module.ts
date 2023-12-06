@@ -51,6 +51,7 @@ import { BundleOverviewComponent } from 'src/app/feature-modules/tour-authoring/
 import { PurchaseReportComponent } from 'src/app/feature-modules/tourist/purchase-report/purchase-report.component';
 import { BundleViewComponent } from 'src/app/feature-modules/tour-authoring/bundle-view/bundle-view.component';
 import { BundleUpdateFormComponent } from 'src/app/feature-modules/tour-authoring/bundle-update-form/bundle-update-form.component';
+import { ViewComposedTourComponent } from 'src/app/feature-modules/complex-tour/view-composed-tour/view-composed-tour.component';
 
 
 const routes: Routes = [
@@ -101,6 +102,7 @@ const routes: Routes = [
   {path: 'find-people-autor', component: Profiles2Component},
   {path: 'view-purchased-tours', component: ViewPurchasedToursComponent},
   {path: 'complex-tour-creaton', component: ComplexTourCreationComponent},
+  {path: 'view-complex-tours', component: ViewComposedTourComponent},
   {path: 'bundle-management', component: BundleManagementComponent},
   {path: 'bundle-form', component: BundleFormComponent},
   {path: 'wallets', component: WalletsOverviewComponent},

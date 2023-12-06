@@ -12,13 +12,14 @@ import { MarketplaceModule } from '../marketplace/marketplace.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
+import { ViewComposedTourComponent } from './view-composed-tour/view-composed-tour.component';
 
 
 
 @NgModule({
   declarations: [
-    ComplexTourCreationComponent
-  ],
+    ComplexTourCreationComponent,
+    ViewComposedTourComponent,  ],
   imports: [
     CommonModule,
     MaterialModule,

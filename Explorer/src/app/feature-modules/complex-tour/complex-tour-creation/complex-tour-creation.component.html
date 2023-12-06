@@ -47,26 +47,22 @@
 <!-- Display Checkpoints when the section is active -->
 <div *ngIf="secondSectionActive">
   <div class="column">
-    <!-- Display Total Difficulty -->
-    <div>
-      <p>Total Difficulty: {{ totalDifficulty }}</p>
-    </div>
-
-    <!-- Display Unique Tags -->
-    <div>
-      <p>Unique Tags: {{ allTags.join(', ') }}</p>
-    </div>
+    <h1 class="header">New complex tour</h1>
+    <p>Total Difficulty: {{ totalDifficulty }}</p>
+    <p>Total Distance: {{ totalDistance }}</p>
+    <p>Unique Tags: {{ allTags.join(', ') }}</p>
   </div>
 
-  <div class="column" cdkDropList (cdkDropListDropped)="drop($event)">
-    <!-- Display Checkpoints -->
-    <h1 class="header">Active Tour Checkpoints</h1>
-    <div *ngFor="let checkpoint of globalCheckpoints" cdkDrag>
-      <div class="checkpoint-rectangle">
-        <label>{{ checkpoint.name }}</label>
-      </div>
-    </div>
+  <div class="column">
+    <h1 class="header">Checkpoints</h1>
+    <div *ngFor="let checkpoint of globalCheckpoints">
+    <div class = "checkpoint-rectangle">{{ checkpoint.name }}</div>
+  </div>
+  <h1 class="header">Equipment</h1>
+  <div *ngFor="let equipment of allEquipment">
+  <div class = "checkpoint-rectangle">{{ equipment.name }}</div>
+</div>
+<button (click)="saveComplexTour()">Create</button>
   </div>
 </div>
-
 
