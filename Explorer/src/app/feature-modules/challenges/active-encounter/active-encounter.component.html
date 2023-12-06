@@ -1,0 +1,13 @@
+<div *ngIf="activeEncounters">
+    <h2>Active Encounters</h2>
+    <ul>
+      <li *ngFor="let activeEncounter of activeEncounters">
+        <p>Encounter: {{ activeEncounter.encounterId }}</p>
+        <p>Tourist: {{ activeEncounter.touristId }}</p>
+        <p>State: {{activeEncounter.state}}</p>
+        <p>XP: {{activeEncounter.xp}}</p>
+        <p>Level: {{activeEncounter.level}}</p>
+        <button (click)="onCompleteClicked(activeEncounter)">Complete Encounter</button>
+      </li>
+    </ul>
+</div>

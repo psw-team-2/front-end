@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { EncounterFormComponent } from './encounter-form/encounter-form.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ActiveEncounterComponent } from './active-encounter/active-encounter.component';
 
 
 
 @NgModule({
   declarations: [
-    EncounterFormComponent
+    EncounterFormComponent,
+    ActiveEncounterComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
   ],
   exports: [
-    EncounterFormComponent
+    EncounterFormComponent,
+    ActiveEncounterComponent
   ]
 })
 export class EncounterModule { }
