@@ -28,7 +28,7 @@
               <label *ngIf="touristDistance">
                 Traveled Distance: {{ touristDistance }}m
               </label>
-              <div>
+              <div *ngIf="tourExecution != null">
                 <h3>Visited Checkpoints</h3>
                 <table>
                   <thead>
@@ -44,7 +44,8 @@
                   </tbody>
                 </table>
               </div>
-              <div>
+              <div *ngIf="tourExecution != null">
+                <h3>Equipment Used</h3>
                 <table>
                   <thead>
                     <tr>
