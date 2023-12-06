@@ -31,6 +31,10 @@ export class NotificationsOverviewComponent implements OnInit {
     });
     this.getPublicRequests();
     this.getNotifications();
+    this.getPaymentNotifications();
+  }
+
+  getPaymentNotifications(): void {
     const userId = this.authService.user$.value.id;
     this.tourAuthoringService.getUnreadPaymentNotifications(userId).subscribe({
       next: (result: PagedResults<PaymentNotification>) => {

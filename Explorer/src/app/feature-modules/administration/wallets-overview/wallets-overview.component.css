@@ -1,0 +1,83 @@
+.div {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px; 
+}
+
+.wallets-title-section {
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.wallets-title {
+    color: rgb(56, 28, 117);
+    margin-bottom: 30px;
+    margin-top: 50px;
+}
+
+.table-container {
+    margin-top: 30px;     
+    padding-bottom: 40px;
+    margin: 0 auto;
+    width: 80%;
+}
+
+.wallets-table {
+    margin-top: 20px; 
+    margin-bottom: 140px;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid black; 
+    color:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+}
+
+.wallets-table th, .wallets-table td {
+    padding: 10px;
+    text-align: center; 
+    border: 1px solid black; 
+}
+
+th{
+    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+}
+.wallets-table th {
+    font-size: 18px;
+    font-weight: normal; 
+}
+
+.wallets-table button {
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif; 
+    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131)); 
+    color: white; 
+    display: block;
+    margin: 0 auto;
+    padding: 8px 16px; 
+    border: none; 
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.message-form-wrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30vw;
+    height: 15vw;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .close-button {
+    position: absolute;
+    top: 0; /* Adjusted position */
+    right: 0; /* Adjusted position */
+    margin: 10px; /* Added margin for better spacing */
+    color: rgb(56, 28, 117); /* Updated color */
+    cursor: pointer; /* Added cursor style */
+  }

@@ -10,6 +10,7 @@ import { Profile } from './model/profile.model';
 import { PublicRequest } from '../tour-authoring/model/public-request.model';
 import { Follow} from './model/follow.model';
 import { Message } from './model/message.model';
+import { Wallet } from './model/wallet.model';
 
 @Injectable({
   providedIn: 'root'
@@ -193,5 +194,18 @@ export class AdministrationService {
 
   updateMessage2(message: Message): Observable<Message> {
     return this.http.put<Message>('https://localhost:44333/api/administration/message2/' + message.id + '/' + message.senderId + '/' + message.receiverId, message);
+  }
+
+  //WALLET
+  getWalletByUserId(): Observable<Wallet> {
+    return this.http.get<Wallet>('https://localhost:44333/api/administrator/wallet/byUser');
+  }
+
+  getAllWallets(): Observable<PagedResults<Wallet>> {
+    return this.http.get<PagedResults<Wallet>>('https://localhost:44333/api/administrator/wallet');
+  }
+
+  addAC(wallet: Wallet): Observable<Wallet> {
+    return this.http.put<Wallet>('https://localhost:44333/api/administrator/wallet/' + wallet.id , wallet);
   }
 }

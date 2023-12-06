@@ -1,0 +1,33 @@
+<div id="wallets">
+    <div class="wallets-title-section">
+        <h1 class="wallets-title">Wallets</h1>
+    </div>
+    <div class="table-container">
+        <table class="wallets-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Balance</th>
+                    <th>Payment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let wallet of wallets">
+                    <td>{{ wallet.username }}</td>
+                    <td>{{ wallet.ac }} AC</td>
+                    <td>
+                        <button (click)="onAddClicked(wallet)">Add AC</button>
+                        
+                    </td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+<div  *ngIf="shouldRenderAddACForm" class="message-form-wrapper">
+    <button mat-icon-button class="close-button" (click)="onCloseClicked()">
+        <mat-icon>close</mat-icon>
+    </button>
+        <xp-ac-form [wallet]="selectedWallet"  (walletUpdated)="getWallets()" ></xp-ac-form>
+</div>

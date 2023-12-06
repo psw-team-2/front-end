@@ -12,10 +12,13 @@
       <div class="biography emphasized">{{ individualProfile.biography }}</div>
       <div class="label">Motto:</div>
       <div class="motto emphasized">{{ individualProfile.motto }}</div>
+      <label class="label">Wallet balance:</label>
+      <div class="wallet emphasized">{{ wallet.ac }} AC</div>
     </div>    
     <div class="profile-actions">
       <button class="action-button" mat-raised-button (click)="onEditClicked(individualProfile)">Edit Profile Info</button>
       <button class="action-button" mat-raised-button (click)="onChangeClicked(individualProfile)">Change Profile Picture</button>
+      <button class="action-button" mat-raised-button (click)="onPurchaseReports()">Purchase reports</button>
     </div>    
     <xp-profile-form *ngIf="selectedProfile && showEditProfileForm" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-profile-form>
     <xp-picture-form *ngIf="selectedProfile && showProfilePictureForm" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-picture-form>
