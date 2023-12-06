@@ -8,19 +8,18 @@ export interface Encounter {
     status : encounterStatus;
     type : encounterType;
     mandatory: boolean;
-    peopleCount: number;
-    range: number;
-    image: string;
+    peopleCount: number | null;
+    range: number | null;
+    image: string | null;
 }
 
-
-enum encounterStatus{
+export enum encounterStatus{
     Active,
     Draft,
     Archived
 }
 
-enum encounterType{
+export enum encounterType{
     Social,
     Location,
     Misc

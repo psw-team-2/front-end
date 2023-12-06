@@ -16,6 +16,7 @@ export class CheckpointComponent implements OnInit {
   selectedCheckpoint: Checkpoint;
   shouldEdit: boolean = false;
   shouldRenderCheckpointForm: boolean = false;
+  shouldRenderEncounterForm: boolean = false;
   isClickEnabled: boolean = false;
   tourId: Number;
   tour: Tour;
@@ -68,11 +69,20 @@ export class CheckpointComponent implements OnInit {
     this.shouldRenderCheckpointForm = true;
     this.shouldEdit = true;
     this.selectedCheckpoint = checkpoint;
+    this.shouldRenderEncounterForm = false;
   }
 
   onAddClicked(): void {
     this.shouldRenderCheckpointForm = true;
     this.shouldEdit = false;
+    this.shouldRenderEncounterForm = false;
+  }
+
+  onAddEncounter(checkpoint: Checkpoint): void {
+    this.shouldRenderEncounterForm = true;
+    this.shouldEdit = false;
+    this.shouldRenderCheckpointForm = false;
+    this.selectedCheckpoint = checkpoint;
   }
 
   deleteCheckpoint(id: number): void {
