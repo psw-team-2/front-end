@@ -80,27 +80,45 @@ export class ActiveTourComponent implements OnInit {
       const encounter = this.encounters[i];
       if (event.encounterId == encounter.id) {
         encounter.status = 0;
-        this.tourExecutionService.updateEncounter(encounter).subscribe();
-        this.tourExecutionService.postActiveEncounters({encounterId:encounter.id!.toString(),end:(new Date()),state:1,touristId:userId.toString()})
+        //this.tourExecutionService.updateEncounter(encounter).subscribe();
+        this.tourExecutionService.postActiveEncounters({encounterId:encounter.id!.toString(),end:(new Date()),state:1,touristId:userId.toString()}).subscribe();
         this.getEncounters()
       }
     }
   }
   proveraLokacija(encounter: Encounter) {
-      const userId = this.authService.user$.value.id;
-      let userInfo = localStorage.getItem(userId.toString())
-      let userInfoParsed = JSON.parse(userInfo!)
-      if (userInfoParsed.substring(0, 2) == '{"') {
-        var start: L.LatLng = new L.LatLng(userInfoParsed.latitude, userInfoParsed.longitude)
-        var end: L.LatLng = new L.LatLng(encounter.latitude, encounter.longitude)
-        if (this.calculateDistance(start, end) < encounter.range) {
-          return true
+    const userId = this.authService.user$.value.id;
+    let userInfo = localStorage.getItem(userId.toString());
+    let userInfoParsed = JSON.parse(userInfo!);
+  
+    if (userInfoParsed.substring(0, 2) == '{"') {
+      const userLatitude = userInfoParsed.latitude;
+      const userLongitude = userInfoParsed.longitude;
+      const encounterLatitude = encounter.latitude;
+      const encounterLongitude = encounter.longitude;
+      const encounterRange = encounter.range;
+  
+      if (
+        userLatitude !== undefined &&
+        userLongitude !== undefined &&
+        encounterLatitude !== undefined &&
+        encounterLongitude !== undefined &&
+        encounterRange !== null
+      ) {
+        var start: L.LatLng = new L.LatLng(userLatitude, userLongitude);
+        var end: L.LatLng = new L.LatLng(encounterLatitude, encounterLongitude);
+  
+        if (this.calculateDistance(start, end) < encounterRange) {
+          return true;
         } else {
-          return false
+          return false;
         }
       }
-      return false;
     }
+  
+    return false;
+  }
+  
 
   allStorage() {
     var values = [],
