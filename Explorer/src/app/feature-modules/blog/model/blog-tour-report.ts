@@ -5,6 +5,6 @@ export interface BlogTourReport {
     startTime: Date;
     endTime: Date | undefined;
     length: number;
-    equipment: number[];
+    equipment: (number|undefined)[];
     checkpointsVisited: number[];
 }

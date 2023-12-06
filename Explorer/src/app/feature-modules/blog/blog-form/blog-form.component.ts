@@ -36,7 +36,7 @@ export class BlogFormComponent {
   tourExecution: TourExecution | null;
   equipment: Equipment[] | undefined = [];
   equipmentSelected: boolean[];
-  equipmentTourReport: Equipment[] | undefined = [];
+  equipmentTourReport: (number | undefined)[];
   checkpoints: Checkpoint[] | undefined = [];
   touristDistance: number=0;
 
@@ -130,20 +130,37 @@ export class BlogFormComponent {
     });
   }
 
-  
+  toggleEquipmentSelection(index: number) {
+    this.equipmentSelected[index] = !this.equipmentSelected[index];
+  }
 
   async addBlog(): Promise<void> {
     const userId = this.authService.user$.value.id;
     const username = this.authService.user$.value.username;
     if (this.selectedCategory !== undefined) {
 
-    if(this.tourExecution){
-      if (this.equipment && this.equipmentSelected) {
-        this.equipmentTourReport = this.equipment.filter((equip, index) => {
-          return this.equipmentSelected[index];
-        });
+      if (this.tourExecution && this.equipment && this.equipmentSelected) {
+        console.log(this.equipment)
+        console.log(this.equipmentSelected)
+
+        if (this.equipmentSelected.length === this.equipment.length) {
+
+          const filteredIds: (number|undefined)[] = [];
+
+          this.equipment.forEach((equip, index) => {
+            if (this.equipmentSelected[index]) {
+              filteredIds.push(equip.id);
+            }
+          });
+      
+          this.equipmentTourReport = filteredIds;
+          
+
+        } else {
+          console.error('Length of equipmentSelected does not match the length of equipment.');
+        }
       }
-    }
+      
 
     if(!this.currentFile && this.tourExecution){
       const blog: Blog = {
@@ -160,13 +177,14 @@ export class BlogFormComponent {
           startTime: this.tourExecution.StartTime,
           endTime: this.tourExecution.EndTime,
           length: this.tourExecution.touristDistance.valueOf(),
-          equipment: [1, 2, 3],
+          equipment: this.equipmentTourReport,
           checkpointsVisited: this.tourExecution.visitedCheckpoints
         }
       };
       this.service.addBlog(blog).subscribe({
         next: (_) => {
           this.blogUpdated.emit();
+          this.equipmentTourReport = [];
         }
       });
 
@@ -193,6 +211,7 @@ export class BlogFormComponent {
       this.service.addBlog(blog).subscribe({
         next: (_) => {
           this.blogUpdated.emit();
+          this.equipmentTourReport = [];
         }
       });
 

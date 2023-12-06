@@ -38,7 +38,7 @@ export class AdministrationService {
     return this.http.get<PagedResults<Equipment>>(environment.apiHost + 'tourist/equipment/by-tour/' + tourId)
   }
 
-  getEquipmentByIdsTourist(equipmentIds:number[]): Observable<PagedResults<Equipment>>{
+  getEquipmentByIdsTourist(equipmentIds:(number|undefined)[]): Observable<PagedResults<Equipment>>{
     return this.http.put<PagedResults<Equipment>>(environment.apiHost + 'tourist/equipment/by-ids?page=0&pageSize=0', equipmentIds);
   }
 

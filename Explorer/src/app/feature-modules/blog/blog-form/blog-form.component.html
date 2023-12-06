@@ -57,7 +57,7 @@
                     <tr *ngFor="let equip of equipment; let i = index">
                       <td>{{ equip.name }}</td>
                       <td>
-                        <input type="checkbox" [(ngModel)]="equipmentSelected[i]">
+                        <input type="checkbox" [checked]="equipmentSelected[i]" (change)="toggleEquipmentSelection(i)">
                       </td>
                     </tr>
                   </tbody>
