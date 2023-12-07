@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './infrastructure/routing/app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './feature-modules/layout/layout.module';
@@ -19,19 +18,19 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
-
-
 import { TouristSelectedEquipmentComponent } from './feature-modules/tourist/tourist-selected-equipment/tourist-selected-equipment.component';
 import { TouristModule } from './feature-modules/tourist/tourist.module';
 import { MatMenu, MatMenuModule } from '@angular/material/menu';
-
 import { MapViewComponent } from './shared/map-view/map-view.component';
 import { ClubModule } from './feature-modules/club/club.module';
 import { ClubFormComponent } from './feature-modules/club/club-form/club-form.component';
 import { TourPreferenceModule } from './feature-modules/tour-preference/tour-preference.module';
 import { AuthService } from './infrastructure/auth/auth.service';
 import { MatButtonModule } from '@angular/material/button';
-
+import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
+import { SaleComponent } from './feature-modules/marketplace/sale/sale.component';
+import { SaleFormComponent } from './feature-modules/marketplace/sale-form/sale-form.component';
+import { EditSaleComponent } from './feature-modules/marketplace/edit-sale/edit-sale.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ComplexTourCreationComponent } from './feature-modules/complex-tour/complex-tour-creation/complex-tour-creation.component';
 import { ComplexTourModule } from './feature-modules/complex-tour/complex-tour.module';
@@ -39,7 +38,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SaleComponent,
   ],
   imports: [
     BrowserModule,

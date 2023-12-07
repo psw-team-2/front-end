@@ -51,9 +51,13 @@ import { BundleOverviewComponent } from 'src/app/feature-modules/tour-authoring/
 import { PurchaseReportComponent } from 'src/app/feature-modules/tourist/purchase-report/purchase-report.component';
 import { BundleViewComponent } from 'src/app/feature-modules/tour-authoring/bundle-view/bundle-view.component';
 import { BundleUpdateFormComponent } from 'src/app/feature-modules/tour-authoring/bundle-update-form/bundle-update-form.component';
+import { SaleComponent } from 'src/app/feature-modules/marketplace/sale/sale.component';
+import { SaleFormComponent } from 'src/app/feature-modules/marketplace/sale-form/sale-form.component';
+import { EditSaleComponent } from 'src/app/feature-modules/marketplace/edit-sale/edit-sale.component';
 import { ViewComposedTourComponent } from 'src/app/feature-modules/complex-tour/view-composed-tour/view-composed-tour.component';
 import { ComposedTourOverviewComponent } from 'src/app/feature-modules/complex-tour/composed-tour-overview/composed-tour-overview.component';
 import { ActiveEncounterComponent } from 'src/app/feature-modules/challenges/active-encounter/active-encounter.component';
+
 
 
 const routes: Routes = [
@@ -115,7 +119,11 @@ const routes: Routes = [
   {path: 'purchase-reports', component: PurchaseReportComponent },
   {path: 'bundle-update-form/:id', component: BundleUpdateFormComponent},
   {path: 'bundle-view/:id', component: BundleViewComponent},
+  {path: 'sale', component: SaleComponent},
+  {path: 'addSale', component: SaleFormComponent},
+  {path: 'editSale', component: EditSaleComponent},
   {path: 'active-encounter', component: ActiveEncounterComponent},
+
 ];
 
 @NgModule({
