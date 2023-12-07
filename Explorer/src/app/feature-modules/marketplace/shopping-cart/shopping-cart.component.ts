@@ -5,6 +5,7 @@ import { ShoppingCart } from '../model/shopping-cart.model';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../infrastructure/auth/auth.service'; 
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Sale } from '../model/sale.model';
 
 @Component({
   selector: 'xp-shopping-cart',

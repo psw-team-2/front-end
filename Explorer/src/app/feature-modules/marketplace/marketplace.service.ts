@@ -28,6 +28,7 @@ export class MarketplaceService {
     return this.saleForEdt.next(sale);
   }
 
+
   getSale(saleId: number) :Observable<any>{
     throw new Error("Method not implemented.");
   }
