@@ -50,6 +50,11 @@
     <textarea formControlName="tags" [readonly]="!editMode"></textarea>
   </label>
   
+  <label *ngIf="this.tourExecution">
+    <strong>Since this is your tour, write a blog about it!</strong>
+    <button  type="button" mat-raised-button id="entity-raised-button" (click)="navigateToBlogForm()">Write</button>
+  </label>  
+
   <label>
     <i><strong>Last published:</strong> {{ tour?.publishTime | date:'medium' }}</i>
   </label>

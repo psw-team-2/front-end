@@ -18,6 +18,7 @@ import { Bundle } from './model/bundle.model';
 import { TourBundle } from './model/tour-bundle.model';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -28,6 +29,11 @@ export class TourAuthoringService {
   getEquipment(): Observable<PagedResults<Equipment>> {
     return this.http.get<PagedResults<Equipment>>('https://localhost:44333/api/author/equipment?page=0&pageSize=0')
   }
+
+  getEquipmentTourist(): Observable<PagedResults<Equipment>> {
+    return this.http.get<PagedResults<Equipment>>('https://localhost:44333/api/tourist/equipment?page=0&pageSize=0')
+  }
+
 
   getCheckpoints() : Observable<PagedResults<Checkpoint>> {
     return this.http.get<PagedResults<Checkpoint>>('https://localhost:44333/api/addcheckpoint/checkpoint?page=0&pageSize=0');
@@ -45,6 +51,10 @@ export class TourAuthoringService {
 
   deleteCheckpoint(id: number): Observable<Checkpoint> {
     return this.http.delete<Checkpoint>('https://localhost:44333/api/addcheckpoint/checkpoint/' + id);
+  }
+
+  getCheckpointsByVisitedCheckpoints(checkpointsVisitedIds:number[]) : Observable<PagedResults<Checkpoint>>{
+    return this.http.put<PagedResults<Checkpoint>>("https://localhost:44333/api/addcheckpoint/checkpoint/visited", checkpointsVisitedIds)  ;
   }
 
   getObjectById(objectId: Number): Observable<Object> {
@@ -198,8 +208,6 @@ export class TourAuthoringService {
   getUnreadPaymentNotifications(userId: number) : Observable<PagedResults<PaymentNotification>>{
     return this.http.get<PagedResults<PaymentNotification>>('https://localhost:44333/api/administrator/paymentNotification/unread-notifications/' + userId);
   }
-
-  
 
   
   getAllBundles(): Observable<PagedResults<Bundle>> {

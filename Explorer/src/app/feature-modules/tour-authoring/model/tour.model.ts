@@ -14,5 +14,6 @@ export interface Tour {
     carTime: Number,
     authorId: number,
     publishTime: string
-    price:number
+    price:number,
+    points: number
 }

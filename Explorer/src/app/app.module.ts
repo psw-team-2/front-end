@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './infrastructure/routing/app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './feature-modules/layout/layout.module';
@@ -32,6 +31,10 @@ import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker
 import { SaleComponent } from './feature-modules/marketplace/sale/sale.component';
 import { SaleFormComponent } from './feature-modules/marketplace/sale-form/sale-form.component';
 import { EditSaleComponent } from './feature-modules/marketplace/edit-sale/edit-sale.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ComplexTourCreationComponent } from './feature-modules/complex-tour/complex-tour-creation/complex-tour-creation.component';
+import { ComplexTourModule } from './feature-modules/complex-tour/complex-tour.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -62,6 +65,8 @@ import { EditSaleComponent } from './feature-modules/marketplace/edit-sale/edit-
     MatDialogModule,
     FormsModule,
     NotificationsModule,
+    ComplexTourModule,
+    DragDropModule,
   ],
   providers: [
     {

@@ -1,8 +1,11 @@
 <div class="map-container">
   <xp-map-search [tours]="allTours" [selectedTour]="selectedTour" (searchResultsEvent)="handleSearchResults($event)"></xp-map-search>
 </div>
-<div class="tour-list">
+<div class="tour-list" [@slider]="sliderState">
   <h1 class="header">Available Tours</h1>
+  <div class="slider-toggle-container">
+    <i [class]="sliderState === 'small' ? 'fas fa-chevron-right' : 'fas fa-chevron-left'" (click)="toggleSlider()"></i>
+  </div>
   <div class="card-container">
     
 <div class="header-container">   
@@ -26,6 +29,8 @@
       <div class="button-container">
       <!--  <a *ngIf="boughtTours.includes(tour)" class="view-button" (click)="startTour(tour)">Start tour</a>-->
         <a class="view-button" (click)="startTour(tour)">Start  tour</a>
+        <a class="view-button" *ngIf="isCreatedByTourist(tour)" (click)="startTour(tour)">Start  tour (as creator)</a>
+        <a class="view-button" *ngIf="!isCreatedByTourist(tour)">Add to cart (not as creator)</a>
         <a class="view-button" (click)="onAddClicked(tour)">Add to cart</a>
         <a class="view-button" (click)="onReportClicked(tour)">Report tour</a>
       

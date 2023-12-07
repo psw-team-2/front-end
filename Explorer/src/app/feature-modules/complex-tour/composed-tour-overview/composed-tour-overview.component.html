@@ -1,0 +1,108 @@
+<!-- Wrapper for the entire content -->
+<div class="content-wrapper">
+
+    <!-- Map Section -->
+    <div class="map-section">
+      <xp-map-view *ngIf="canRender" [loadedCheckpoints]="checkpoints" [loadedTour]="tour"></xp-map-view>
+    </div>
+  
+    <!-- Container for the sections -->
+    <div class="section-container">
+  
+      <!-- Navigation Buttons (Left) -->
+      <button class="navigation-button" (click)="prevSection()">
+        <i class="fas fa-chevron-left"></i> <!-- FontAwesome left arrow icon -->
+      </button>
+  
+      <!-- Tour Info Section -->
+      <div *ngIf="currentSection === 0" class="section info-section">
+        <!-- Display Tour Info here -->
+        <h2><i class="fas fa-info-circle"></i> Tour Information</h2>
+    
+  
+  <form [formGroup]="tourInfoForm">
+  
+    <label>
+      <strong>Name:</strong>
+      <input type="text" formControlName="name" [readonly]="!editMode" />
+    </label>
+    
+    <label>
+      <strong>Description:</strong>
+      <textarea formControlName="description" [readonly]="!editMode"></textarea>
+    </label>
+    
+    <label>
+      <strong>Difficulty:</strong>
+      <input type="number" formControlName="difficulty" [readonly]="!editMode" />
+    </label>
+
+    <label>
+      <strong>Distance:</strong>
+      <input type="number" formControlName="distance" [readonly]="!editMode" />
+    </label>
+    
+    <label>
+      <strong>Tags:</strong>
+      <textarea formControlName="tags" [readonly]="!editMode"></textarea>
+    </label>
+    
+    <label>
+      <i><strong>Last published:</strong> {{ tour?.publishTime | date:'medium' }}</i>
+    </label>
+  
+  </form>
+  
+        <!-- Form End -->
+      </div>    
+  
+      <div *ngIf="currentSection === 1" class="section checkpoints-section">
+        <!-- Display Tour Checkpoints as a table -->
+        <h2><i class="fas fa-location-dot"></i> Tour Checkpoints</h2>
+        <table style="width: 100%; text-align: center;">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let checkpoint of checkpoints">
+              <td>
+                <!-- Display checkpoint image -->
+                <img *ngIf="checkpoint.image" [src]="checkpoint.image" alt="Checkpoint Image" style="width: 200px; height: 100px;">
+                <!-- Add a default image or placeholder if checkpoint.image is not available -->
+                <img *ngIf="!checkpoint.image" [src]="defaultImageUrl" alt="Default Image" style="width: 100px; height: 100px;">
+              </td>
+              <td>{{ checkpoint.name }}</td>
+              <td>{{ checkpoint.description }}</td>
+              <td>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+  <!-- Tour Equipment Section -->
+  <div *ngIf="currentSection === 2" class="section equipment-section">
+    <!-- Display Tour Equipment here -->
+    <h2><i class="fa-solid fa-binoculars"></i> Tour Equipment</h2>
+    <div class="equipment-container">
+      <!-- Loop through each equipment item and display its name and description -->
+      <div *ngFor="let equipmentItem of equipment" class="equipment-item">
+        <h3>{{ equipmentItem.name }}</h3>
+        <p>{{ equipmentItem.description }}</p>
+      </div>
+    </div>
+  </div>
+          
+      <!-- Navigation Buttons (Right) -->
+      <button class="navigation-button" (click)="nextSection()">
+        <i class="fas fa-chevron-right"></i> <!-- FontAwesome right arrow icon -->
+      </button>
+  
+    </div>
+  </div>
+  

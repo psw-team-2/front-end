@@ -32,6 +32,8 @@ import { TouristPostsComponent } from './tourist-posts/tourist-posts.component';
 import { TouristPosts2Component } from './tourist-posts2/tourist-posts2.component';
 import { WalletsOverviewComponent } from './wallets-overview/wallets-overview.component';
 import { AcFormComponent } from './ac-form/ac-form.component';
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
+
 
 @NgModule({
   declarations: [
@@ -59,6 +61,7 @@ import { AcFormComponent } from './ac-form/ac-form.component';
     TouristPosts2Component,
     WalletsOverviewComponent,
     AcFormComponent,
+    QuestionnaireComponent,
   ],
   imports: [
     CommonModule,

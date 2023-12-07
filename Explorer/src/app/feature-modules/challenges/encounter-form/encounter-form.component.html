@@ -1,0 +1,51 @@
+Ecounter adding:
+<form [formGroup]="encounterForm" (ngSubmit)="addEncounter()">
+    <div>
+        <label>Name</label>
+        <input formControlName="name" type="text"/>
+
+        <label>Description</label>
+        <input formControlName="description" type="text"/>
+
+        <label>XP</label>
+        <input formControlName="xp" type="number"/>
+
+        <label>Status</label>
+        <select formControlName="status">
+            <option>Active</option>
+            <option>Draft</option>
+            <option>Archived</option>
+        </select>
+        
+        <label>Type</label>
+        <select formControlName="type">
+            <option>Social</option>
+            <option>Location</option>
+            <option>Misc</option>
+        </select>
+
+        Mandatory<input type="checkbox" formControlName="mandatory"/>
+
+        <div *ngIf="showRange">
+            <label>Range</label>
+            <input formControlName="range" type="number"/>
+        </div>
+
+        <div *ngIf="showPeopleCount">
+            <label>People count</label>
+            <input formControlName="peopleCount" type="number"/>
+        </div>
+
+        <div *ngIf="showImage">
+            <label>Image</label>
+            <button type="button" color="primary" width="200" (click)="fileInput.click()">Upload File</button> 
+            <input hidden #fileInput type="file" (change)="onFileSelected($event)"> 
+            <div *ngIf="currentFile">
+                <span>{{ currentFile.name }}</span>
+                <button icon-button (click)="deleteFile()">X</button>
+            </div>
+        </div>
+
+        <button type="submit">Add encounter</button>
+    </div>
+</form>

@@ -63,7 +63,8 @@ export class TourFormComponent {
       bicycleTime: 0,
       authorId: this.user.id,
       publishTime: (new Date()).toString(),
-      price:0
+      price:0,
+      points: 0,
     }
   
 
@@ -94,7 +95,8 @@ export class TourFormComponent {
       bicycleTime: 0,
       authorId: this.user.id,
       publishTime: (new Date()).toString(),
-      price:0
+      price:0,
+      points: 0,
     }
     tour.id = this.tour.id;
     this.service.updateTour(tour).subscribe({

@@ -8,6 +8,10 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Rating } from '../model/blog-rating.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Observable } from 'rxjs';
+import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+import { AdministrationService } from '../../administration/administration.service';
+import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
+import { Equipment } from '../../tour-authoring/model/equipment.model';
 
 @Component({
   selector: 'xp-blog-single-post',
@@ -28,8 +32,12 @@ export class BlogSinglePostComponent implements OnInit {
   ratingCount: number = 0;
   ratingCountUpdated = new EventEmitter<number>();
   similarBlogs: Blog[] = [];
+  checkpoints: Checkpoint[]
+  equipment: Equipment[]
+  touristDistance: number=0;
 
-constructor(private blogService: BlogService, private route: ActivatedRoute, private authService: AuthService, private router: Router) { }
+constructor(private blogService: BlogService, private route: ActivatedRoute, private authService: AuthService, 
+  private router: Router, private tourService: TourAuthoringService, private equipmentService: AdministrationService) { }
 
 
 ngOnInit(): void {
@@ -48,6 +56,19 @@ ngOnInit(): void {
           this.blogService.getSimilarBlogs(this.blogPost).subscribe((similarBlogs: Blog[]) => {
           this.similarBlogs = similarBlogs;
         });
+        if(this.blogPost.tourReport){
+          this.touristDistance = this.blogPost.tourReport.length;
+          this.tourService.getCheckpointsByVisitedCheckpoints(this.blogPost.tourReport.checkpointsVisited).subscribe({
+            next: (result: PagedResults<Checkpoint>) =>{
+              this.checkpoints = result.results;
+            }
+          })
+          this.equipmentService.getEquipmentByIdsTourist(this.blogPost.tourReport.equipment).subscribe({
+            next: (result: PagedResults<Equipment>) =>{
+              this.equipment = result.results;
+            }
+          })
+        }
       });
       } else {
         // Handle the case when there is no valid tour ID in the URL.

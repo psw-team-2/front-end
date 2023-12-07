@@ -11,10 +11,27 @@ import { TourExecution } from '../../tour-execution/model/tourexecution.model';
 import { Checkpoint } from '../model/checkpoint.model';
 import { Router } from '@angular/router';
 import { TourPurchaseToken } from '../model/tourPurchaseToken.model';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { TourPreferenceFieldComponent } from '../../tour-preference/tour-preference-field/tour-preference-field.component';
+import { AdministrationService } from '../../administration/administration.service';
+import { Profile } from '../../administration/model/profile.model';
+import { TourPreference } from '../../tour-preference/model/tour-preference.model';
+import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'xp-view-tours',
   templateUrl: './view-tours.component.html',
   styleUrls: ['./view-tours.component.css'],
+  animations: [
+    trigger('slider', [
+      state('small', style({
+        width: '25%',
+      })),
+      state('large', style({
+        width: '85%',
+      })),
+      transition('small <=> large', animate('300ms ease-in-out')),
+    ]),
+  ],
 })
 export class ViewToursComponent implements OnInit {
   tours: Tour[] = [];
@@ -29,77 +46,86 @@ export class ViewToursComponent implements OnInit {
   orderItems: OrderItem[];
   userId: number;
   isLogged: boolean;
+  sliderState = 'small';
+  user: Profile;
+  tourPreferenceForm: FormGroup;
+  preference: TourPreference = {
+    difficulty: -1,
+    walkingRating: -1,
+    bicycleRating: -1,
+    carRating: -1,
+    boatRating: -1,
+    tags: [],
+  };
 
   constructor(
     private service: TourAuthoringService,
     private marketService: MarketplaceService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private adminService: AdministrationService
+    
   ) {}
+
+  toggleSlider() {
+    this.sliderState = (this.sliderState === 'small') ? 'large' : 'small';
+  }
  // selectedTour: Tour;
   async ngOnInit(): Promise<void> {
     await this.getTours();
     this.calculateAverageGrades();
+    this.calculateTourPoints();
     if (this.authService.user$.value) {
       this.isLogged = true;
       this.userId = this.authService.user$.value.id;
       this.shoppingCartId = this.userId;      
       this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
-        next: (result: OrderItem[]) => {
+      next: (result: OrderItem[]) => {
           this.orderItems = result;
           this.numberOfItems = this.orderItems.length;
-        },
-        error: () => {
-        }
-      })
+          },
+          error: () => {
+          }
+       })
     }
     else{
       this.isLogged = false;
     }
+
+    this.authService.user$.subscribe(user => {
+      if (user) {
+        const id = user.id;
+        this.adminService.getByUserId().subscribe(
+          (profile: Profile) => {
+           this.user = profile; 
+           this.preference = profile.tourPreference;
+           this.updateFormWithPreference();
+          },
+          (error) => {
+            // Handle errors here
+            console.error('Error fetching profile:', error);
+          }
+        );
+      }
+    });
+
   }
 
-/*
-  async getTours(): Promise<void> {
-    try {
-      const result: PagedResults<Tour> | undefined = await this.service
-        .getTours()
-        .toPromise();
+  updateFormWithPreference() {
+    this.tourPreferenceForm.patchValue({
+      difficulty: this.preference.difficulty,
+      walkingRating: this.preference.walkingRating,
+      bicycleRating: this.preference.bicycleRating,
+      carRating: this.preference.carRating,
+      boatRating: this.preference.boatRating,
+      tags: this.preference.tags,
+    });
+  }
 
-      if (result) {
-        this.allTours = result.results;
-        this.tours = result.results;
-        this.calculateAverageGrades();
-        const userId = this.authService.user$.value.id;
-        this.service
-          .getBoughtTours()
-          .subscribe({next:(tourTokenList: PagedResults<TourPurchaseToken>) => {
-             let newlist = tourTokenList.results.filter((tourToken: TourPurchaseToken) => {
-              if (tourToken.userId == userId) {
-                return true;
-              } else {
-                return false;
-              }
-            });
-            this.boughtTours = this.allTours.filter((tour: Tour) => {
-              for (let i = 0; i < newlist.length; i++) {
-                const boughtTourToken = newlist[i];
-                if (tour.id == boughtTourToken.tourId) {
-                  return true;
-                } else {
-                  return false;
-                }
-              }
-              return false;
-            });
-            console.log(this.allTours)
-          }});
-      } else {
-        // Handle the case where result is undefined
-      }
-    } catch (error) {
-      // Handle errors if needed
-    }
-  }*/
+  sortToursByPointsDescending(): void {
+    this.tours.sort((a, b) => b.points - a.points);
+  }
+
 
   async getTours(): Promise<void> {
     try {
@@ -107,7 +133,8 @@ export class ViewToursComponent implements OnInit {
 
       if (result) {
         this.allTours = result.results.filter(tour => tour.status === 1);
-        this.tours = result.results.filter(tour => tour.status === 1);;
+        this.tours = result.results.filter(tour => tour.status === 1);
+        this.sortToursByPointsDescending();
       } else {
         // Handle the case where result is undefined
       }
@@ -139,11 +166,27 @@ export class ViewToursComponent implements OnInit {
         this.service.getAverageGrade(tour.id).subscribe((averageGrade) => {
           if (tour.id !== undefined) {
             this.tourAverageGrades[tour.id] = averageGrade.averageGrade;
-          }
+          } 
         });
       }
     }
   }
+
+  calculateTourPoints(): void { 
+    for (const tour of this.tours) {
+      if(tour.difficulty == this.preference.difficulty) {
+        tour.points+=3;
+      }
+      for(const tag of tour.tags) {
+        if(this.preference.tags.includes(tag)) {
+          tour.points+=1;
+        }
+       }
+      }
+    }
+  
+
+ 
 
   async startTour(tour: Tour) {
     let tourExecution: TourExecution = {
@@ -205,4 +248,13 @@ export class ViewToursComponent implements OnInit {
     }
     this.router.navigate(['/tour-problem-form/', this.userId])
   }
+
+
+  isCreatedByTourist(tour: Tour): boolean{
+    if(tour.authorId === this.userId){
+      return true;
+    }
+    return false;
+  }
+
 }
