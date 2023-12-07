@@ -1,0 +1,10 @@
+<div>
+    <div *ngIf="checkForMiscEncounter()">
+        <p>{{ currentEncoutner?.description }}</p>
+        <button (click)="MiscEncounterFinished()">Finish Encounter</button>
+    </div>
+    <div *ngIf="checkForLocationEncounters()">
+        <img src="{{ currentEncoutner?.image }}" alt="">
+        <button (click)="LocationEncounterFinished()">Finish Encounter</button>
+    </div>
+</div>

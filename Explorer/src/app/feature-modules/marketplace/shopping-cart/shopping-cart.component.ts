@@ -86,12 +86,13 @@ export class ShoppingCartComponent implements OnInit{
 
       this.service.createTokens(this.orderItems, this.userId).subscribe({
         next: () => {
-          alert('Checkout successful!'+ this.userId);
+          alert('Checkout successful! Purchase reports added to your profile.');
           this.numberOfItems = 0;
           this.totalPrice = 0;
           this.orderItems = [];
         },
         error: () => {
+          alert('You don\'t have enough money to make a purchase!');
         }
       });
     }

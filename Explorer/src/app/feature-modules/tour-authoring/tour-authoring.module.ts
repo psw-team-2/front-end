@@ -20,6 +20,7 @@ import { TourOverviewComponent } from './tour-overview/tour-overview.component';
 import { MarketplaceModule } from '../marketplace/marketplace.module';
 import { ShoppingCartComponent } from '../marketplace/shopping-cart/shopping-cart.component';
 import { ViewPurchasedToursComponent } from './view-purchased-tours/view-purchased-tours.component';
+import { EncounterModule } from '../challenges/encounter.module';
 import { BundleManagementComponent } from './bundle-management/bundle-management.component';
 import { BundleFormComponent } from './bundle-form/bundle-form.component';
 import { BundleDataFormComponent } from './bundle-data-form/bundle-data-form.component';
@@ -60,7 +61,7 @@ import { BundleViewComponent } from './bundle-view/bundle-view.component';
     MatButtonModule,
     MarketplaceModule,
     FormsModule,
-
+    EncounterModule
   ],
   exports: [
     CheckpointComponent,

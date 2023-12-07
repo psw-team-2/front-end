@@ -25,6 +25,44 @@
                   <mat-option [value]="BlogCategory.Destinations">Accommodation</mat-option>
                 </mat-select>
               </mat-form-field>
+              <label *ngIf="touristDistance">
+                Traveled Distance: {{ touristDistance }}m
+              </label>
+              <div *ngIf="tourExecution != null">
+                <h3>Visited Checkpoints</h3>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Checkpoint Name</th>
+                      <th>Traveled Distance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let checkpoint of checkpoints">
+                      <td>{{ checkpoint.name }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div *ngIf="tourExecution != null">
+                <h3>Equipment Used</h3>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Equipment Name</th>
+                      <th>Select</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let equip of equipment; let i = index">
+                      <td>{{ equip.name }}</td>
+                      <td>
+                        <input type="checkbox" [checked]="equipmentSelected[i]" (change)="toggleEquipmentSelection(i)">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>                              
+              </div>
           </div>
           <img *ngIf="currentFile" [src]="currentFileUrl" alt="Selected Image" class="thumbnail"/>
           <img *ngIf="!currentFile" [src]="currentFileUrl" class="thumbnail"/>

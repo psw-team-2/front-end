@@ -5,6 +5,8 @@ import { TouristPositionMapComponent } from './tourist-position-map/tourist-posi
 import { ActiveTourComponent } from './active-tour/active-tour.component';
 import { ExecutionMapComponent } from './execution-map/execution-map.component';
 import { MatButtonModule } from '@angular/material/button';
+import { ActiveEncounterComponent } from '../challenges/active-encounter/active-encounter.component';
+import { EncounterModule } from '../challenges/encounter.module';
 
 
 
@@ -18,7 +20,9 @@ import { MatButtonModule } from '@angular/material/button';
   ],
   imports: [
     CommonModule,
-    MatButtonModule
-  ]
+    MatButtonModule,
+    EncounterModule,
+  ],
+  providers:[]
 })
 export class TourExecutionModule { }
