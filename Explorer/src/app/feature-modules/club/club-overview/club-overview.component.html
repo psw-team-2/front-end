@@ -43,7 +43,19 @@
                 </div>  
             </td>
             <td class="right-side">
-                <xp-tourist-posts></xp-tourist-posts> 
+                <div class="chat-container">
+                    <h2>Chatroom</h2>
+                    <div *ngFor="let message of clubMessages">
+                        <p>
+                          <strong>{{ message.userId }}:</strong> "{{ message.text }}"
+                        </p>
+                    </div>
+                  </div>
+
+                  <div class="new-message" [formGroup]="clubMessageForm">
+                    <input formControlName="newMessageText" placeholder="Type your message..." />
+                    <button (click)="addClubMessage()">Send</button>
+                  </div>
             </td>
             </tr>
         </table>

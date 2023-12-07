@@ -9,6 +9,8 @@ import { Observable, catchError, concatMap, forkJoin, map, of } from 'rxjs';
 import { Profile } from '../../administration/model/profile.model';
 import { AdministrationService } from '../../administration/administration.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { ClubMessage } from '../model/club-message.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'xp-club-overview',
@@ -27,18 +29,66 @@ export class ClubOverviewComponent {
   nonMemberIds: number[] = [];
   nonMemberUsernames: string[] = [];
   
+  mappedMembers: { [key: number]: string } = {};
+  mappedNonMembers: { [key: number]: string } = {};
   
   allMembersProfiles: Profile[]=[];
   nonMembersProfiles: Profile[]=[];
 
+  clubMessages: ClubMessage[] = [];
+  newClubMessage : ClubMessage;
+  newMessageText : '';
+  messageTime : Date;
+
   ngOnInit(): void {
     this.clubId = Number(this.route.snapshot.paramMap.get('id'));
     this.getClub(this.clubId);
+    this.getClubMessages(this.clubId);
 
     this.authService.user$.subscribe(user => {
       this.user = user;
+
+      this.clubId = Number(this.route.snapshot.paramMap.get('id'));
     });
     
+  }
+
+  clubMessageForm = new FormGroup({
+    newMessageText: new FormControl('', [Validators.required]),
+  });
+
+  addClubMessage() : void {
+         //this.newClubMessage = clubMessage;
+         this.messageTime = new Date();
+    
+        if (this.user) {
+          const clubMessage : ClubMessage = {
+            id: undefined,
+            userId: this.user.id,
+            clubId: this.clubId,
+            time: this.messageTime,
+            text: this.clubMessageForm.value.newMessageText || '',
+          };
+    
+          this.service.addClubMessage(clubMessage).subscribe({
+            next: () => {
+              console.log("Club message successfully sent!");
+              console.log(clubMessage.text);
+              this.getClubMessages(this.clubId);
+            }
+          });
+        }
+      }
+    
+
+  getClubMessages(clubId: number) : void {
+    this.service.getClubMessages(clubId).subscribe({
+      next: (result: PagedResults<ClubMessage>) => {
+        //@ts-ignore
+        this.clubMessages = result.results;
+        console.log(this.clubMessages);
+      }
+    })
   }
 
   getClub(clubId: number): void {
@@ -108,4 +158,45 @@ export class ClubOverviewComponent {
       next: () => {}
     });
   }
+
+  mapUsernames(): void {
+        this.club.memberIds.forEach(response => {
+          this.getMappedUsername(response).subscribe(
+            (username: string) => {
+              this.mappedMembers[response] = username;
+            },
+            (error: any) => {
+              console.error(error);
+            }
+          );
+        });
+    
+        this.nonMemberIds.forEach(response => {
+          this.getMappedUsername(response).subscribe(
+            (username: string) => {
+              this.mappedNonMembers[response] = username;
+            },
+            (error: any) => {
+              console.error(error);
+            }
+          );
+        });
+      }
+    
+      getMappedUsername(userId: number): Observable<string> {
+        return this.authService.getUsername(userId).pipe(
+            map((userData: any) => {
+                if (userData && userData.username) {
+                    return userData.username;
+                } else {
+                    return 'Unknown';
+                }
+            }),
+            catchError(error => {
+                console.error('Error fetching username:', error);
+                return of('Unknown');
+            })
+        );
+      }
+    
 }
