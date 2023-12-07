@@ -1,0 +1,22 @@
+<form [formGroup]="bundleForm" class="center-class" *ngIf="!shouldRender">
+  <div class="form-container">
+    <div class="header-text">
+      <p>Create your new bundle</p>
+    </div>
+
+    <div class="center-content">
+      <mat-form-field class="custom-form-field1">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" type="text" />
+      </mat-form-field>
+
+      <div>
+        <button mat-raised-button color="primary" (click)="addBundle()">Next</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div *ngIf="shouldRender">
+  <xp-bundle-data-form [selectedBundle]="selectedBundle"></xp-bundle-data-form>
+</div>

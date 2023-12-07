@@ -6,6 +6,7 @@ import { AdministrationService } from '../../administration/administration.servi
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from '../../administration/model/user-account.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Profile } from '../../administration/model/profile.model';
 
 @Component({
   selector: 'xp-tour-preference-field',
@@ -23,7 +24,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 export class TourPreferenceFieldComponent implements OnInit {
   tourPreferenceForm: FormGroup;
   isEditing = false;
-  user: User
+  user: Profile
   formState: 'collapsed' | 'expanded' = 'collapsed';
   preference: TourPreference = {
     difficulty: -1,
@@ -51,14 +52,15 @@ export class TourPreferenceFieldComponent implements OnInit {
     this.authService.user$.subscribe(user => {
       if (user) {
         const id = user.id;
-        this.service.getUserAccountById(id).subscribe(
-          (userAccount) => {
-            this.user = userAccount;
-            this.preference = userAccount.tourPreference;
-            this.updateFormWithPreference();
+        this.service.getByUserId().subscribe(
+          (profile: Profile) => {
+           this.user = profile; 
+           this.preference = profile.tourPreference;
+           this.updateFormWithPreference();
           },
           (error) => {
-            console.error('Error fetching user account:', error);
+            // Handle errors here
+            console.error('Error fetching profile:', error);
           }
         );
       }
@@ -106,6 +108,10 @@ export class TourPreferenceFieldComponent implements OnInit {
   }
 
   updatePreference() {
+    if (!this.user) {
+      console.error('User is undefined. Cannot update tour preference.');
+      return;
+    }
     if (this.tourPreferenceForm.valid) {
       const updatedPreference: TourPreference = {
         difficulty: this.tourPreferenceForm.get('difficulty')?.value,
@@ -115,17 +121,19 @@ export class TourPreferenceFieldComponent implements OnInit {
         boatRating: this.tourPreferenceForm.get('boatRating')?.value,
         tags: this.preference.tags,
       };
+      console.log("CHANGING", updatedPreference)
       this.user.tourPreference = updatedPreference;
 
-      this.service.updateUserAccount(this.user).subscribe({
-        next: (result: User) => {
-          console.log('User updated:', result);
+      this.service.updateProfile(this.user).subscribe(
+        (updatedProfileResponse: Profile) => {
           this.isEditing = false;
+          console.log('Updated Profile:', updatedProfileResponse);
         },
-        error: (error) => {
-          console.error('Error updating user:', error);
+        (error) => {
+          // Handle errors here
+          console.error('Error updating profile:', error);
         }
-      });
+      );
     } else {
       console.error('Form is invalid. Please fill out all fields.');
     }

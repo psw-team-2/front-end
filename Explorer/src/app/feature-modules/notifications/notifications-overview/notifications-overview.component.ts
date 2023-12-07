@@ -7,6 +7,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Observable, catchError, map, of } from 'rxjs';
 import { PublicRequest } from '../../tour-authoring/model/public-request.model';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+import { PaymentNotification } from '../../tour-authoring/model/paymentNotification.model';
 
 @Component({
   selector: 'xp-notifications-overview',
@@ -20,6 +21,7 @@ export class NotificationsOverviewComponent implements OnInit {
   showNotifications: boolean = false;
   mappedUsername: { [key: number]: string } = {};
   publicRequests: PublicRequest[] =[];
+  paymentNotifications: PaymentNotification[] = [];
 
   constructor(private service: TourProblemService, private authService: AuthService, private tourAuthoringService: TourAuthoringService) {}
 
@@ -29,6 +31,20 @@ export class NotificationsOverviewComponent implements OnInit {
     });
     this.getPublicRequests();
     this.getNotifications();
+    this.getPaymentNotifications();
+  }
+
+  getPaymentNotifications(): void {
+    const userId = this.authService.user$.value.id;
+    this.tourAuthoringService.getUnreadPaymentNotifications(userId).subscribe({
+      next: (result: PagedResults<PaymentNotification>) => {
+        // Assuming you want to extract the results array from PagedResults
+        this.paymentNotifications = result.results;
+      },
+      error: (error) => {
+        console.error('Error fetching unread payment notifications:', error);
+      }
+    });
   }
 
   getPublicRequests(): void {
@@ -101,5 +117,9 @@ export class NotificationsOverviewComponent implements OnInit {
   toggleNotifications() {
     this.showNotifications = !this.showNotifications;
   }
+
+
+  
+
 
 }

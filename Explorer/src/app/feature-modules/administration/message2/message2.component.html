@@ -1,12 +1,24 @@
-<h1>Unread messages:</h1>
-<table>
-    <tr>
-      <th>Sender:</th>
-      <th>Message:</th>
-    </tr>
-    <tr *ngFor="let individualMessage of messages">
-      <td>{{ senderProfiles[individualMessage.senderId]?.firstName }} {{ senderProfiles[individualMessage.senderId]?.lastName }}</td>
-      <td>{{ individualMessage.messageContent }}</td>
-      <button mat-raised-button (click)="updateMessage(individualMessage)">Mark as read</button>
-    </tr>
-  </table>
+  <!-- chat2.component.html -->
+<div *ngIf="isChatOpen" class="chat-container">
+  <div class="chat-inbox">
+    <div class="inbox-header">
+      <h1>Messages:</h1>
+    </div>
+    <div class="inbox-messages">
+      <div *ngFor="let individualMessage of messages" class="message-bubble">
+        <div class="sender-info">
+          <span class="sender-name">
+            {{ senderProfiles[individualMessage.senderId]?.firstName }} {{ senderProfiles[individualMessage.senderId]?.lastName }}
+          </span>
+        </div>
+        <div class="message-content">
+          {{ individualMessage.messageContent }}
+        </div>
+        <button class="action-button" mat-raised-button  (click)="updateMessage(individualMessage)">Mark as read</button>
+      </div>
+    </div>
+    <button class="close-button" (click)="closeChat()">X</button>
+  </div>
+</div>
+
+<button class="open-chat-button" mat-raised-button (click)="toggleChat()">Read unread messages</button>

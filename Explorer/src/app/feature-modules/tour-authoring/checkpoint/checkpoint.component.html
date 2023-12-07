@@ -13,6 +13,7 @@
                         <th>Image</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,6 +30,9 @@
                             <button (click)="onEditClicked(cp)" color="primary" mat-icon-button>
                                 <mat-icon>edit</mat-icon>
                             </button>
+                            <button (click)="onAddEncounter(cp)" color="primary" mat-raised-button>
+                                Add encounter
+                            </button>
                         </td>
                     </tr>
                     <tr>
@@ -40,7 +44,11 @@
             </table>
         </div>
         <div>
-            <xp-checkpoint-form *ngIf="shouldRenderCheckpointForm" (checkpointUpdated)="getCheckpoint()"
+            <xp-encounter-form *ngIf="shouldRenderEncounterForm" 
+                   (formClosed)="resetForm()" 
+                   [checkpoint]="selectedCheckpoint">
+</xp-encounter-form>
+                <xp-checkpoint-form *ngIf="shouldRenderCheckpointForm" (checkpointUpdated)="getCheckpoint()"
                 [checkpoint]="selectedCheckpoint" [tour]="tour" (formClosed)="resetForm()" [shouldEdit]="shouldEdit"></xp-checkpoint-form>
         </div>
     </div>

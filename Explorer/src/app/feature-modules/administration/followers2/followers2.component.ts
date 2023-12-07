@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Profile } from '../model/profile.model';
 import { AdministrationService } from '../administration.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-followers2',
@@ -14,8 +15,15 @@ export class Followers2Component {
   profiles: Profile[];
   selectedFollower: Profile | null = null; // Initialize as null
   showMessageForm: boolean = false;
+  toggleChat() {
+    this.showMessageForm = !this.showMessageForm;
+  }
 
-  constructor(private service: AdministrationService) {}
+  closeChat() {
+    this.showMessageForm = false;
+  }
+
+  constructor(private service: AdministrationService,private router: Router) {}
   
   ngOnInit(): void {
     // Get the currently logged-in user's profile
@@ -54,5 +62,8 @@ export class Followers2Component {
     this.selectedFollower = follower;
     this.showMessageForm = true;
     console.log(this.selectedFollower);
+  }
+  findPeople() {
+    this.router.navigate(['find-people-autor']);
   }
 }

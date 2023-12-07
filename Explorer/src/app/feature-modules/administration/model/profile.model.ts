@@ -1,3 +1,4 @@
+import { TourPreference } from "../../tour-preference/model/tour-preference.model";
 import { Follow } from "./follow.model";
 
 export interface Profile {
@@ -10,4 +11,6 @@ export interface Profile {
     userId?: number;
     isActive: boolean;
     follows: Follow[];
+    tourPreference: TourPreference;
+    questionnaireDone: boolean;
 }

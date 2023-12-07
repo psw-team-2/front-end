@@ -4,17 +4,39 @@ import { Injectable } from '@angular/core';
 import { ApplicationReview } from './model/application-review.model'; // Updated import
 
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/env/environment';
 import { Equipment } from '../administration/model/equipment.model';
 import { OrderItem } from './model/order-item.model';
 import { ShoppingCart } from './model/shopping-cart.model';
+import { Sale } from './model/sale.model';
+import { Tour } from '../tour-authoring/model/tour.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class MarketplaceService {
+
+  private saleForEdt = new Subject<Sale>;
+
+  public getMessage(): Observable<Sale> {
+    return this.saleForEdt.asObservable();
+  }
+
+  public setMessage(sale: Sale) {
+    return this.saleForEdt.next(sale);
+  }
+
+  getSale(saleId: number) :Observable<any>{
+    throw new Error("Method not implemented.");
+  }
+  createSale(sale: Sale):Observable<any> {
+    return this.http.post<PagedResults<Sale>>(environment.apiHost + 'author/toursale',sale);
+  }
+  updateSale(sale: Sale) :Observable<any>{
+    return this.http.put<PagedResults<Sale>>(environment.apiHost + 'author/toursale',sale);
+  }
 
   constructor(private http: HttpClient) { }
 
@@ -98,5 +120,16 @@ export class MarketplaceService {
 
   updateOrderItem(orderItem: OrderItem): Observable<OrderItem> {
     return this.http.put<OrderItem>(environment.apiHost + 'tourist/orderItem/update/' + orderItem.id, orderItem);
+  }
+
+  getAllSales():Observable<PagedResults<Sale>>{
+    return this.http.get<PagedResults<Sale>>(environment.apiHost + 'author/toursale/all')
+  }
+
+  getAllToursFromSale(saleId:number):Observable<Tour[]>{
+    return this.http.get<Tour[]>(environment.apiHost + 'author/toursale/toursOnSale/'+saleId)
+  }
+  deleteSale(saleId:number):Observable<PagedResults<Sale>>{
+    return this.http.delete<PagedResults<Sale>>(environment.apiHost + 'author/toursale/'+saleId)
   }
 }

@@ -9,7 +9,7 @@
     height: 330px;
     margin: 20px;
     border: 1px solid #e1e1e1;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     transition: transform 0.2s;
     display: flex;
     flex-direction: column;
@@ -48,10 +48,10 @@
     font-weight: bold;
 }
 .blog-title-section {
-    background-color: #2a2133;
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     color: white;
     text-align: center;
-    height: 180px;
+    min-height: 40vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -63,31 +63,32 @@
   
 .blog-options {
     display:none;
-    background-color:#3d3148;
+    background:linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     flex-direction: column;
+    align-items: center;
     gap: 5px;
-    position:absolute;
     bottom: 5%;
-    left: 50%;
-    transform: translateX(-50%);
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 2px;
     z-index: 2;
+    margin-top: 30px;
+    min-height: 60px;
     
 }
   
 .blog-title-section:hover .blog-options {
     display: flex;
 }
-  
+
 .blog-options a {
-    color: white;
+    color: white;    
+    margin-top: 20px;
     text-decoration: none;
+    min-height: 30px;
 }
   
 .blog-options a:hover {
-        text-decoration: underline;
-        background-color: #4e415a;
+    text-decoration: underline;
 }
 
 .page-title{
@@ -98,7 +99,7 @@
 
 .read-more-button {
     
-    background-color: #2a2133;
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     color: white;
     border: none;
     padding: 8px 16px;
@@ -110,7 +111,7 @@
 }
 
 .read-more-button:hover {
-    background-color: #660089; 
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
 }
 
 .row {
@@ -129,7 +130,7 @@
   }
   
   .pagination button {
-    background-color: #2a2133;
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -139,22 +140,24 @@
   }
   
   .pagination button:hover {
-    background-color: #660089;
+    background-color: white;
   }
 
   #blog-review .blog-filtration button{
     margin: 0px; 
-    background-color: #2a2133; 
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     color: #fff;
     font-family: 'Montserrat', sans-serif;
     margin-bottom: 15px;
     border: 1px solid #e1e1e1;
     border-radius: 0%;
 }
-
+.blog-filtration{
+    margin-top: 20px;
+}
 #blog-review .blog-filtration button:hover {
-    background-color: #4e415a;
-    color: white;
+    background-color: white;
+    color: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     font-family: 'Montserrat', sans-serif;
 }
  

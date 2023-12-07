@@ -34,7 +34,7 @@ mat-form-field {
 .comment-button {
     margin-top: 10px;
     margin-left: 10px;
-    background-color: #954895; 
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     color: #fff; 
     font-family: 'Montserrat'; 
     border: none;
@@ -45,7 +45,7 @@ mat-form-field {
 }
   
 .comment-button:hover {
-    background-color: #cc80ef; 
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
 }
 
 .comment-form {
@@ -59,7 +59,21 @@ mat-form-field {
 .comment-text {
     width: 100%; 
     max-width: 100%;
+    resize: none;
 }
   
-  
-  
+.message-button {
+    margin-top: 20px;
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .message-button:hover {
+    background: white;
+    color: black;
+    border: 1px solid rgb(56, 28, 117);
+  }

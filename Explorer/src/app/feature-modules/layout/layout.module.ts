@@ -15,9 +15,7 @@ import { FooterComponent } from './footer/footer.component';
   declarations: [
     HomeComponent,
     NavbarComponent,
-
     WhyusComponent,
-
     HeroComponent,
     StartYourJourneyComponent,    
     FooterComponent
@@ -31,9 +29,7 @@ import { FooterComponent } from './footer/footer.component';
   exports: [
     NavbarComponent,
     HomeComponent,
-
     WhyusComponent,
-
     HeroComponent,
     StartYourJourneyComponent,
     FooterComponent

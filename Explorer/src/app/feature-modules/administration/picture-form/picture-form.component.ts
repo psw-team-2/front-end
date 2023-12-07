@@ -42,7 +42,9 @@ export class PictureFormComponent {
       biography: this.profile.biography || "",
       motto: this.profile.motto || "",
       isActive: true,
-      follows: this.profile.follows
+      follows: this.profile.follows,
+      tourPreference: this.profile.tourPreference,
+      questionnaireDone: this.profile.questionnaireDone
     }
     profile.id = this.profile.id;
     profile.userId = this.profile.userId;

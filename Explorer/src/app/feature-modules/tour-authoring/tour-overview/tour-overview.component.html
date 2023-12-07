@@ -1,37 +1,188 @@
-<xp-map-view *ngIf="canRender" [loadedCheckpoints]="checkpoints" [loadedTour]="tour"></xp-map-view>
-<xp-tour-review></xp-tour-review>
-<!--<xp-map-view *ngIf="canRender" [loadedCheckpoints]="checkpoints"></xp-map-view>> -->
-<!-- tour-details.component.html -->
+<!-- Wrapper for the entire content -->
+<div class="content-wrapper">
 
-<div *ngIf="tour" class="tour-details-container">
-    <div class="tour-info">
-      <h2>{{ tour.name }}</h2>
-      <p><strong>Description:</strong> {{ tour.description }}</p>
-      <p><strong>Difficulty:</strong>
-        <span class="difficulty-stars">
-        <span *ngFor="let star of difficultyStars(tour.difficulty)">&#9733;</span>
-      </span></p>
-    </div>
-  
-    <div class="tour-reviews">
-        <div *ngFor="let review of reviews" class="review-card">
-          <div class="review-header">
-            <h2>{{ review.comment }}</h2>
-            <p><strong>Grade:</strong> {{ review.grade }}</p>
-          </div>
-          <p class="review-date">{{ review.reviewDate | date:'medium' }}</p>
-        </div>
-      </div>
-      
-  
-      <div class="image-carousel-container" [@fadeInOut]="true">
-        <div class="nav-buttons">
-          <button class="nav-button left" (click)="prevImage()">&#9664;</button>
-          <button class="nav-button right" (click)="nextImage()">&#9654;</button>
-        </div>
-        <div class="image-wrapper">
-          <img [src]="getCurrentImage()" alt="Checkpoint Image" [@fadeInOut]="canRender ? 'fade' : ''" />
-        </div>
-      </div>
+  <!-- Map Section -->
+  <div class="map-section">
+    <xp-map-view *ngIf="canRender" [loadedCheckpoints]="checkpoints" [loadedTour]="tour"></xp-map-view>
   </div>
+
+  <!-- Container for the sections -->
+  <div class="section-container">
+
+    <!-- Navigation Buttons (Left) -->
+    <button class="navigation-button" (click)="prevSection()">
+      <i class="fas fa-chevron-left"></i> <!-- FontAwesome left arrow icon -->
+    </button>
+
+    <!-- Tour Info Section -->
+    <div *ngIf="currentSection === 0" class="section info-section">
+      <!-- Display Tour Info here -->
+      <h2><i class="fas fa-info-circle"></i> Tour Information</h2>
+      
+      <div class="edit-button-wrapper" *ngIf="userRole === 'author'">
+        <button class="edit-button" (click)="toggleEditMode()" [hidden]="editMode">
+          <i class="fas fa-edit"> Edit</i><!-- FontAwesome edit icon -->
+        </button>
+        <button class="edit-button" (click)="toggleEditMode()"  [hidden]="!editMode">
+          <i class="fas fa-save"> Save</i><!-- FontAwesome floppy disk icon -->
+        </button>
+      </div>
+
+<form [formGroup]="tourInfoForm" (ngSubmit)="onSubmit()">
+
+  <label>
+    <strong>Name:</strong>
+    <input type="text" formControlName="name" [readonly]="!editMode" />
+  </label>
   
+  <label>
+    <strong>Description:</strong>
+    <textarea formControlName="description" [readonly]="!editMode"></textarea>
+  </label>
+  
+  <label>
+    <strong>Difficulty:</strong>
+    <input type="number" formControlName="difficulty" [readonly]="!editMode" />
+  </label>
+  
+  <label>
+    <strong>Tags:</strong>
+    <textarea formControlName="tags" [readonly]="!editMode"></textarea>
+  </label>
+  
+  <label *ngIf="this.tourExecution">
+    <strong>Since this is your tour, write a blog about it!</strong>
+    <button  type="button" mat-raised-button id="entity-raised-button" (click)="navigateToBlogForm()">Write</button>
+  </label>  
+
+  <label>
+    <i><strong>Last published:</strong> {{ tour?.publishTime | date:'medium' }}</i>
+  </label>
+
+</form>
+
+      <!-- Form End -->
+    </div>    
+
+    <div *ngIf="currentSection === 1" class="section checkpoints-section">
+      <!-- Display Tour Checkpoints as a table -->
+      <h2><i class="fas fa-location-dot"></i> Tour Checkpoints</h2>
+      <table style="width: 100%; text-align: center;">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let checkpoint of checkpoints">
+            <td>
+              <!-- Display checkpoint image -->
+              <img *ngIf="checkpoint.image" [src]="checkpoint.image" alt="Checkpoint Image" style="width: 200px; height: 100px;">
+              <!-- Add a default image or placeholder if checkpoint.image is not available -->
+              <img *ngIf="!checkpoint.image" [src]="defaultImageUrl" alt="Default Image" style="width: 100px; height: 100px;">
+            </td>
+            <td>{{ checkpoint.name }}</td>
+            <td>{{ checkpoint.description }}</td>
+            <td>
+              <!-- Add options for editing and deleting -->
+              <button (click)="editCheckpoint(checkpoint)">Edit</button>
+              <button (click)="deleteCheckpoint(checkpoint)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+        <!-- Tour Equipment Section -->
+<!-- tour-reviews.component.html -->
+
+<div *ngIf="currentSection === 2" class="section review-section">
+  <h2><i class="fas fa-star"></i> Tour Reviews</h2>
+
+  <!-- Display Reviews -->
+  <div *ngFor="let review of reviews" class="review-item">
+    <p class="rating">
+      Rating: 
+      <span class="stars">
+        <i *ngFor="let star of getStarArray(review.grade)" class="fas fa-star"></i>
+      </span>
+    </p>
+    <p>{{ review.comment }}</p>
+    <p class="review-date">Posted: {{ review.reviewDate | date:'medium' }}</p>
+    <!-- Add more details as needed, e.g., user info, images, etc. -->
+  </div>
+
+  <!-- Add Review Form -->
+  <div class="review-form">
+    <h3>Add Your Review</h3>
+    <form (ngSubmit)="submitReview()">
+    </form>
+  </div>
+</div>
+
+<!-- Tour Equipment Section -->
+<div *ngIf="currentSection === 3" class="section equipment-section">
+  <!-- Display Tour Equipment here -->
+  <h2><i class="fa-solid fa-binoculars"></i> Tour Equipment</h2>
+  <div class="equipment-container">
+    <!-- Loop through each equipment item and display its name and description -->
+    <div *ngFor="let equipmentItem of equipment" class="equipment-item">
+      <h3>{{ equipmentItem.name }}</h3>
+      <p>{{ equipmentItem.description }}</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Tour Objects Section -->
+<div *ngIf="currentSection === 4" class="section object-section">
+  <!-- Display Tour Equipment here -->
+  <h2><i class="fa-solid fa-building"></i> Tour Objects</h2>
+  <div class="edit-button-wrapper" *ngIf="userRole === 'author'">
+    <button class="edit-button">
+      <i class="fas fa-circle-plus"> Add</i> <!-- FontAwesome edit icon -->
+    </button>
+  </div>
+  <div *ngFor="let tourObject of objects" class="object-item">
+    <img *ngIf="tourObject.image" [src]="tourObject.image" alt="{{ tourObject.name }} Image" class="object-image">
+    <div class="object-details">
+      <h3>{{ tourObject.name }}</h3>
+      <p>{{ tourObject.description }}</p>
+      <div class="category">
+        <div *ngIf="tourObject.category === 0">
+          <p class="restroom">Category: Restroom <i class="fas fa-restroom restroom-icon"></i></p>
+        </div>
+        <div *ngIf="tourObject.category === 1">
+          <p class="restaurant">Category: Restaurant <i class="fas fa-utensils restaurant-icon"></i></p>
+        </div>
+        <div *ngIf="tourObject.category === 2">
+          <p class="parking">Category: Parking <i class="fas fa-parking parking-icon"></i></p>
+        </div>
+        <div *ngIf="tourObject.category === 3">
+          <p class="other">Category: Other <i class="fas fa-question other-icon"></i></p>
+        </div>
+      </div>
+      <!-- Move edit and delete buttons here -->
+      <div class="object-actions">
+        <button class="edit-button">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="edit-button">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+        
+    <!-- Navigation Buttons (Right) -->
+    <button class="navigation-button" (click)="nextSection()">
+      <i class="fas fa-chevron-right"></i> <!-- FontAwesome right arrow icon -->
+    </button>
+
+  </div>
+</div>

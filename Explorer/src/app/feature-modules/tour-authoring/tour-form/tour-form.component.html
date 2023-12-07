@@ -18,10 +18,6 @@
             <mat-label>Difficulty</mat-label>
             <input matInput formControlName="difficulty" type="number">
         </mat-form-field>
-        <mat-form-field>
-            <mat-label>Tags</mat-label>
-            <input matInput formControlName="tags" type="text">
-        </mat-form-field>
         <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" (click)="addTour()">Done</button>
         <button *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateTour()">Done</button>
     </div>

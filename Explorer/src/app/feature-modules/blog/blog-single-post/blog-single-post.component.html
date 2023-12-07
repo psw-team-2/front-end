@@ -12,6 +12,39 @@
   <div class="blog-text">
     {{ blogPost?.description }}
   </div>
+  <label *ngIf="blogPost.tourReport">
+    Traveled Distance: {{ touristDistance }}m
+  </label>
+  <div *ngIf="blogPost.tourReport">
+    <h3>Visited Checkpoints</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Checkpoint Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let checkpoint of checkpoints">
+          <td>{{ checkpoint.name }}</td>
+        </tr> 
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="blogPost.tourReport">
+    <h3>Equipment Used</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Equipment Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let equip of equipment">
+          <td>{{ equip.name }}</td>
+        </tr>
+      </tbody>
+    </table>                              
+  </div>
   <div class="blog-info">
     <p>Author: {{ blogPost?.username }}</p>
     <p>Created: {{ blogPost?.creationTime | date:'medium' }}</p>
@@ -33,6 +66,20 @@
   <div>
     <xp-comments-review [comments]="comments"></xp-comments-review>
   </div>
+  <div class="you-might-like-section">
+    <h3 class="title-card">You Might Also Like</h3>
+    <div class="similar-blogs" *ngIf="similarBlogs as similarBlogs">
+      <div class="similar-blog" *ngFor="let similarBlog of similarBlogs">
+        <div class="similar-blog-card">
+          <img [src]="similarBlog.image" alt="Blog Image" class="blog-image">
+          <div class="blog-details">
+            <h3 class="similar-blog-title">{{ similarBlog.title }}</h3>
+          </div>
+          <button class="read-more-button" (click)="onReadMoreClicked(similarBlog.id || 0)" >Read More</button>
+        </div>
+      </div>
+    </div>
+  </div>  
 </div>
  
 

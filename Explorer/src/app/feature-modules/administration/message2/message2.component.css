@@ -1,0 +1,98 @@
+/* chat.component.css */
+.chat-container {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    max-width: 300px;
+    background-color: white; /* Updated to white */
+    border-radius: 8px;
+    font-family: 'Arial', sans-serif;
+    color: rgb(56, 28, 117); /* Updated color */
+    font-size: 14px;
+    padding: 20px;
+    margin-bottom: 6vw;
+    width: 20vw;
+    box-shadow: 0 0 10px rgba(56, 28, 117, 1); /* Added box-shadow */
+}
+
+.message-table {
+    width: 100%;
+    margin-top: 16px;
+    border-spacing: 8px;
+}
+
+td {
+    padding: 12px; /* Adjusted padding */
+    border-radius: 8px;
+}
+
+.sender-name {
+    font-weight: bold;
+    font-size: 17px;
+    font-family: 'Arial', sans-serif;
+    color: rgb(56, 28, 117);
+}
+
+.message-text {
+    margin-top: 8px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    color: rgb(56, 28, 117);
+}
+
+.close-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: rgb(56, 28, 117); /* Updated color */
+    font-size: 20px;
+}
+
+.open-chat-button {
+    position: fixed;
+    bottom: 20px; /* Adjusted position */
+    right: 20px; /* Adjusted position */
+    background-color: rgb(56, 28, 117); /* Updated color */
+    color: white;
+    padding: 12px; /* Adjusted padding */
+    border: none;
+    border-radius: 8px; /* Adjusted border-radius */
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px; /* Added margin */
+}
+
+.open-chat-button:hover {
+    background-color: rgb(46, 18, 97); /* Darker color on hover */
+}
+
+/* Add the following CSS rule to ensure the button is always on top */
+.open-chat-button:active {
+    z-index: 1;
+}
+.message-content{
+    margin: 12px;
+}
+.sender-info{
+    margin: 10px;
+}
+
+.action-button {
+    margin-bottom: 20px;
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .action-button:hover {
+    background: white;
+    color: black;
+    border: 1px solid rgb(56, 28, 117);
+  }

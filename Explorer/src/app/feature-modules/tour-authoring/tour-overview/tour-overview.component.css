@@ -1,113 +1,277 @@
-/* tour-details.component.css */
-
-.tour-details-container {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 800px; /* Adjust the maximum width as needed */
-  margin: 20px auto;
-}
-
-.difficulty-stars {
-  color: #ffcd00; /* Star color */
-  font-size: 20px; /* Adjust the font size as needed */
-}
-
-.tour-reviews {
-  flex: 1;
-  max-width: calc(50% - 15px); /* Increased margin for more space between tour-info and tour-reviews */
-  margin-right: 30px; /* Increased right margin for more space */
-}
-
-.tour-info {
-  flex: 1;
-  max-width: calc(40% - 15px); /* Increased maximum width for more space to the left */
-  margin-right: 30px; /* Increased right margin for more space */
-}
-
-.tour-reviews {
-  margin-right: 0; /* No right margin for the last element in the row */
-}
-
-.image-carousel-container {
-  flex: 1;
-  max-width: calc(100% - 30px); /* Increased margin for more space between reviews and image carousel */
-  margin-top: 30px; /* Increased top margin for more space */
+/* General Styles */
+.map-section {
   position: relative;
+  overflow: hidden; /* Hide overflow to prevent unwanted scrolling on the map */
 }
 
-.nav-buttons {
+.section h2 {
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  padding: 10px;
+  margin: 0;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.section-container {
   position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 60%;
+  left: 0;
+  transform: translateY(-60%);
   display: flex;
-  justify-content: space-between;
-  width: calc(100% - 60px);
-  z-index: 2;
+  align-items: center;
+  overflow-x: auto; /* Add horizontal scroll bar if content overflows */
 }
 
-.nav-button {
-  background-color: purple;
+/* Section Styles */
+.section {
+  width: 600px; /* Set a maximum width for the sections */
+  height: 560px;
+  background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(211, 211, 211, 0.8)), white; /* White/light gray gradient background */
+  border: 1px solid black;
+  padding: 15px;
+  overflow-y: auto; /* Add vertical scroll bar if content overflows */
+  border-radius: 15px; /* Add border-radius for rounded corners */
+}
+
+.info-section h2 {
+  margin-bottom: 10px; /* Add margin between header and form */
+}
+
+.edit-button-wrapper {
+  text-align: right; /* Align the button to the right */
+}
+
+.edit-button {
+  background: none;
   border: none;
-  color: #fff;
   cursor: pointer;
-  font-size: 16px;
-  padding: 12px;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: rgb(56, 28, 117);
+}
+.vehicle-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  margin: 10px;
 }
 
-.nav-button:hover {
-  background-color: #69359c; /* Darker shade on hover */
+/* Button Styles */
+.navigation-button {
+  font-size: 50px;
+  padding: 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
-.image-wrapper {
-  position: relative;
-  height: 300px; /* Increased height for a larger image */
-  margin-top: 70px; /* Adjusted margin to position the image a little bit lower */
+.navigation-button i {
+  color: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
 }
 
-.image-carousel-container img {
-  max-width: 100%;
-  height: auto;
+/* Form Styles */
+label {
+  display: block;
+  margin-bottom: 6px; /* Increased margin */
+}
+
+input {
   width: 100%;
-  opacity: 1;
-  transition: opacity 300ms ease-in-out;
+  box-sizing: border-box;
+  height: 30px; /* Adjust the height as needed */
+  margin-bottom: 6px; /* Increased margin */
 }
 
-.image-carousel-container img.fade {
-  opacity: 0;
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  height: 120px; /* Adjust the height as needed */
+  margin-bottom: 6px; /* Increased margin */
+  overflow-x: auto; /* Add horizontal scroll if content overflows */
 }
 
-/* Add these styles to your existing styles or create a new CSS file */
+/* tour-reviews.component.css */
 
-.tour-reviews {
-  display: flex;
-  flex-wrap: wrap;
+.review-section {
+  padding: 20px;
 }
 
-.review-card {
-  border: 1px solid #ddd;
+.review-item {
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
-  margin: 20px; /* Increased margin for more space between review cards */
-  padding: 20px; /* Increased padding for more space */
-  width: 320px; /* Increased width for more space */
+  padding: 15px;
+  margin-bottom: 20px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.review-header {
+.review-item p {
+  margin: 5px 0;
+}
+
+.review-item .rating {
+  margin-bottom: 5px;
+}
+
+.review-item .stars {
+  color: rgb(56, 28, 117);
+}
+
+.review-form .stars {
+  color: rgb(56, 28, 117);
+}
+
+.review-item p.review-date {
+  color: #757575;
+}
+
+.review-form {
+  margin-top: 20px;
+}
+
+.review-form h3 {
+  margin-bottom: 10px;
+}
+
+.review-form form {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
 }
 
-.review-text {
-  margin-top: 15px; /* Increased margin for more space */
+.review-form label {
+  margin-bottom: 8px;
 }
 
-.review-date {
+.review-form input,
+.review-form textarea {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.review-form button {
+  padding: 12px;
+  background-color: #2979ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.review-form button:hover {
+  background-color: #2962ff;
+}
+
+/* Add more styles as needed */
+/* Add this CSS to your component's style file or your global styles */
+
+.object-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 30px;
+}
+
+
+.object-image {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+
+
+.object-details h3 {
+  margin-bottom: 6px;
+  font-size: 18px;
+  color: #333;
+}
+
+.object-details p {
+  margin-bottom: 5px;
+  font-size: 16px;
   color: #666;
+}
+
+.category {
+  font-style: italic;
+  font-size: 16px;
+  color: #888;
+}
+
+.object-item {
+  background-color: #fff; /* Set the background color to white */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 15px;
+  padding: 10px;
+}
+
+
+.object-details {
+  position: relative;
+}
+
+.object-actions {
+  position: absolute;
+  bottom: 8px; /* Adjust this value as needed */
+  right: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.object-actions button {
+  background-color: none;
+  margin-bottom: 5px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Add this CSS to your stylesheet */
+
+/* Equipment Section Styling */
+.equipment-section {
+  text-align: center;
+  padding: 20px;
+}
+
+.equipment-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.equipment-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 10px;
+  width: 200px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.equipment-item h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.equipment-item p {
   font-size: 14px;
-  margin-top: 12px; /* Increased margin for more space */
+  color: #555;
+}
+
+.object-section .restroom-icon,
+.object-section .restaurant-icon,
+.object-section .parking-icon,
+.object-section .other-icon,
+.object-section .edit-button,
+.object-section .delete-button {
+  color: rgb(56, 28, 117);
+
 }

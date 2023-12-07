@@ -23,13 +23,16 @@ table {
 }
 
 thead tr {
-    background-color: #2e003e;
+    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     color: #ffffff;
     text-align: left;
 }
 
 th, td {
     padding: 12px 15px;
+}
+th{
+    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));;
 }
 
 tbody tr {

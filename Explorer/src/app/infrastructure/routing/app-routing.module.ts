@@ -41,6 +41,24 @@ import { ViewPurchasedToursComponent } from 'src/app/feature-modules/tour-author
 import {TourProblemOverviewComponent } from 'src/app/feature-modules/tour-problem/tour-problem-overview/tour-problem-overview.component';
 import { TourProblemResponseComponent } from 'src/app/feature-modules/tour-problem/tour-problem-response/tour-problem-response.component';
 import { TourProblemFormComponent } from 'src/app/feature-modules/tour-problem/tour-problem-form/tour-problem-form.component';
+import { ProfilesComponent } from 'src/app/feature-modules/administration/profiles/profiles.component';
+import { Profiles2Component } from 'src/app/feature-modules/administration/profiles2/profiles2.component';
+import { ComplexTourCreationComponent } from 'src/app/feature-modules/complex-tour/complex-tour-creation/complex-tour-creation.component';
+import { BundleManagementComponent } from 'src/app/feature-modules/tour-authoring/bundle-management/bundle-management.component';
+import { BundleFormComponent } from 'src/app/feature-modules/tour-authoring/bundle-form/bundle-form.component';
+import { WalletsOverviewComponent } from 'src/app/feature-modules/administration/wallets-overview/wallets-overview.component';
+import { BundleOverviewComponent } from 'src/app/feature-modules/tour-authoring/bundle-overview/bundle-overview.component';
+import { PurchaseReportComponent } from 'src/app/feature-modules/tourist/purchase-report/purchase-report.component';
+import { BundleViewComponent } from 'src/app/feature-modules/tour-authoring/bundle-view/bundle-view.component';
+import { BundleUpdateFormComponent } from 'src/app/feature-modules/tour-authoring/bundle-update-form/bundle-update-form.component';
+import { SaleComponent } from 'src/app/feature-modules/marketplace/sale/sale.component';
+import { SaleFormComponent } from 'src/app/feature-modules/marketplace/sale-form/sale-form.component';
+import { EditSaleComponent } from 'src/app/feature-modules/marketplace/edit-sale/edit-sale.component';
+import { ViewComposedTourComponent } from 'src/app/feature-modules/complex-tour/view-composed-tour/view-composed-tour.component';
+import { ComposedTourOverviewComponent } from 'src/app/feature-modules/complex-tour/composed-tour-overview/composed-tour-overview.component';
+import { ActiveEncounterComponent } from 'src/app/feature-modules/challenges/active-encounter/active-encounter.component';
+
+
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -75,21 +93,37 @@ const routes: Routes = [
   {path: 'comments-review', component: CommentsReviewComponent},
   {path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
   {path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
+  {path: 'blog-form/tour-report/:tourId', component: BlogFormComponent, canActivate: [AuthGuard], },
+  {path: 'blog-form/:id/tour-report/:tourId', component: BlogFormComponent, canActivate: [AuthGuard], },
   {path: 'tour/:id', component: TourOverviewComponent},
-
   {path: 'touristposition', component: TouristPositionComponent},
   {path: 'activeTour', component: ActiveTourComponent},
   {path: 'view-tours-author', component: ViewToursAuthorComponent},
   {path: 'view-tours-tourist', component: ViewToursComponent},
-
   {path: 'publicRequests', component: PublicRequestsComponent},
   {path: 'tour-problem/:id', component: TourProblemOverviewComponent},
   {path: 'tour-problem/:problemId/responses', component: TourProblemResponseComponent },
   {path: 'notifications', component: NotificationsOverviewComponent},
   {path: 'tour-problem-form/:id', component: TourProblemFormComponent},
-
   {path: 'shopping-cart', component: ShoppingCartComponent},
-  {path: 'view-purchased-tours', component: ViewPurchasedToursComponent}
+  {path: 'find-people', component: ProfilesComponent},
+  {path: 'find-people-autor', component: Profiles2Component},
+  {path: 'view-purchased-tours', component: ViewPurchasedToursComponent},
+  {path: 'complex-tour-creaton', component: ComplexTourCreationComponent},
+  {path: 'view-complex-tours', component: ViewComposedTourComponent},
+  {path: 'composed-tour/:id', component: ComposedTourOverviewComponent},
+  {path: 'bundle-management', component: BundleManagementComponent},
+  {path: 'bundle-form', component: BundleFormComponent},
+  {path: 'wallets', component: WalletsOverviewComponent},
+  {path: 'bundle-overview', component: BundleOverviewComponent},
+  {path: 'purchase-reports', component: PurchaseReportComponent },
+  {path: 'bundle-update-form/:id', component: BundleUpdateFormComponent},
+  {path: 'bundle-view/:id', component: BundleViewComponent},
+  {path: 'sale', component: SaleComponent},
+  {path: 'addSale', component: SaleFormComponent},
+  {path: 'editSale', component: EditSaleComponent},
+  {path: 'active-encounter', component: ActiveEncounterComponent},
+
 ];
 
 @NgModule({

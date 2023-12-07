@@ -1,14 +1,17 @@
-<h1>Send a message to {{ selectedFollower?.firstName }} {{ selectedFollower?.lastName }}:</h1>
-<form [formGroup] = "messageForm">
-    <div>
-        <mat-form-field>
-            <mat-label>Message:</mat-label>
-            <textarea matInput
-          cdkTextareaAutosize
-          cdkAutosizeMinRows="1"
-          formControlName="messageContent"
-          cdkAutosizeMaxRows="5"></textarea>
-        </mat-form-field>
-        <button mat-raised-button type="submit" color="primary" (click) = "sendMessage()">Send</button>
-    </div>
-</form>
+<!-- xp-message-form.component.html -->
+<div class="message-form-container">
+    <h1 class="form-heading">Send a message to {{ selectedFollower?.firstName }} {{ selectedFollower?.lastName }}:</h1>
+    <form [formGroup]="messageForm">
+        <div class="form-content">
+            <mat-form-field class="message-input">
+                <mat-label>Message:</mat-label>
+                <textarea matInput
+                    cdkTextareaAutosize
+                    cdkAutosizeMinRows="1"
+                    formControlName="messageContent"
+                    cdkAutosizeMaxRows="5"></textarea>
+            </mat-form-field>
+            <button mat-raised-button type="submit" color="primary" (click)="sendMessage()">Send</button>
+        </div>
+    </form>
+</div>

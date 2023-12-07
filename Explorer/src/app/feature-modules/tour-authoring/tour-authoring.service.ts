@@ -13,6 +13,10 @@ import { PublicRequest } from './model/public-request.model';
 import { Object } from './model/object.model';
 import { ShoppingCart } from '../marketplace/model/shopping-cart.model';
 import { OrderItem } from '../marketplace/model/order-item.model';
+import { PaymentNotification } from './model/paymentNotification.model';
+import { Bundle } from './model/bundle.model';
+import { TourBundle } from './model/tour-bundle.model';
+
 
 
 @Injectable({
@@ -25,6 +29,11 @@ export class TourAuthoringService {
   getEquipment(): Observable<PagedResults<Equipment>> {
     return this.http.get<PagedResults<Equipment>>('https://localhost:44333/api/author/equipment?page=0&pageSize=0')
   }
+
+  getEquipmentTourist(): Observable<PagedResults<Equipment>> {
+    return this.http.get<PagedResults<Equipment>>('https://localhost:44333/api/tourist/equipment?page=0&pageSize=0')
+  }
+
 
   getCheckpoints() : Observable<PagedResults<Checkpoint>> {
     return this.http.get<PagedResults<Checkpoint>>('https://localhost:44333/api/addcheckpoint/checkpoint?page=0&pageSize=0');
@@ -44,6 +53,10 @@ export class TourAuthoringService {
     return this.http.delete<Checkpoint>('https://localhost:44333/api/addcheckpoint/checkpoint/' + id);
   }
 
+  getCheckpointsByVisitedCheckpoints(checkpointsVisitedIds:number[]) : Observable<PagedResults<Checkpoint>>{
+    return this.http.put<PagedResults<Checkpoint>>("https://localhost:44333/api/addcheckpoint/checkpoint/visited", checkpointsVisitedIds)  ;
+  }
+
   getObjectById(objectId: Number): Observable<Object> {
     return this.http.get<Object>('https://localhost:44333/api/administration/object/' + objectId);
   }
@@ -51,6 +64,23 @@ export class TourAuthoringService {
   updateObject(object: Object): Observable<Object>{
     return this.http.put<Object>('https://localhost:44333/api/administration/object/' + object.id, object)
   }
+  addObject( object: Object): Observable<Object>
+  {
+    return this.http.post<Object>(environment.apiHost+ 'administration/object',object)
+  }
+
+  uploadObject(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    const req = new HttpRequest('POST', `https://localhost:44333/api/administration/object/UploadFile`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+    return this.http.request(req);
+  }
+    sendPublicRequest(publicRequest: PublicRequest): Observable<PublicRequest> {
+      return this.http.post<PublicRequest>('https://localhost:44333/api/author/tour/publicRequest', publicRequest)
+    }
 
   upload(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
@@ -101,6 +131,7 @@ export class TourAuthoringService {
   }
 
   addTour(tour: Tour) : Observable<Tour>{
+    console.log(tour);
     return this.http.post<Tour>('https://localhost:44333/api/author/tour/' , tour)
   }
 
@@ -143,12 +174,6 @@ export class TourAuthoringService {
     return this.http.get<PagedResults<TourPurchaseToken>>('https://localhost:44333/api/tourist/tourPurchaseToken/getAllTokens?page=0&pageSize=0')
   }
 
-  sendPublicRequest(publicRequest: PublicRequest): Observable<PublicRequest> {
-    return this.http.post<PublicRequest>('https://localhost:44333/api/author/tour/publicRequest', publicRequest)
-  }
-
-
-
   deleteTourAdministrator(id: number): Observable<Tour>{
     return this.http.delete<Tour>('https://localhost:44333/api/administrator/tour/' + id);
   }
@@ -180,7 +205,74 @@ export class TourAuthoringService {
     return this.http.get<PagedResults<OrderItem>>('https://localhost:44333/api/tourist/orderItem/orderItems/' + userId);
   }
 
+  getUnreadPaymentNotifications(userId: number) : Observable<PagedResults<PaymentNotification>>{
+    return this.http.get<PagedResults<PaymentNotification>>('https://localhost:44333/api/administrator/paymentNotification/unread-notifications/' + userId);
+  }
 
+  
+  getAllBundles(): Observable<PagedResults<Bundle>> {
+    return this.http.get<PagedResults<Bundle>>('https://localhost:44333/api/author/bundle?page=0&pageSize=0')
+  }
+
+  getBundleById(id: number): Observable<Bundle> {
+    return this.http.get<Bundle>(`https://localhost:44333/api/author/bundle/`+id);
+    
+  }
+
+  createBundle(bundle: Bundle): Observable<Bundle> {
+    return this.http.post<Bundle>('https://localhost:44333/api/author/bundle', bundle);
+   
+  }
+
+  updateBundle(bundle: Bundle): Observable<Bundle> {
+    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/` + bundle.id, bundle);  
+  }
+
+  deleteBundle(id: number): Observable<Bundle> {
+    return this.http.delete<Bundle>(`https://localhost:44333/api/author/bundle/` + id);
+    
+  }
+
+  archiveBundle(id: number, bundle: Bundle): Observable<Bundle> {
+    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/archive/` + id, bundle);
+    
+  }
+
+  finishCreatingBundle(bundle: Bundle , price: number): Observable<Bundle>{
+    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/finish-creating/${bundle.id}/` + price,  bundle);  
+  }
+
+  getBundlesByAuthorId(userId: number): Observable<Bundle[]> {
+    return this.http.get<Bundle[]>(`https://localhost:44333/api/author/bundle/byAuthor/${userId}`);
+  }
+
+  getToursByAuthorId(userId: number): Observable<TourBundle[]> {
+    return this.http.get<TourBundle[]>(`https://localhost:44333/api/author/tour/byAuthor/${userId}`);
+  }
+
+
+  addTourToBundle(tourId: number, bundle: Bundle): Observable<Bundle> {
+    return this.http.post<Bundle>(`https://localhost:44333/api/author/bundle/addTour/${tourId}`, bundle);
+  }
+
+  removeTourFromBundle(tourId: number, bundle: Bundle): Observable<void> {
+    return this.http.put<void>('https://localhost:44333/api/author/bundle/removeTour/'+ bundle.id + '/' + tourId, null);
+  }
+
+  publishBundle(bundle: Bundle): Observable<Bundle> {
+    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/publish/${bundle.id}`,  bundle);  
+  }
+
+  addBundleToCart(shoppingCart: ShoppingCart, bundle: Bundle) {
+    return this.http.post<ShoppingCart>('https://localhost:44333/api/tourist/shoppingCart/bundleItem/' + shoppingCart.id + '/' + bundle.id,shoppingCart);
+  }
+
+  
+  publishBundle2(bundle: Bundle): Observable<Bundle> {
+    return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/publish/${bundle.id}`, bundle);  
+  }
+  
+  
 }
 
 

@@ -8,6 +8,8 @@ import { Tour } from 'src/app/feature-modules/tour-authoring/model/tour.model';
 import { TourAuthoringService } from 'src/app/feature-modules/tour-authoring/tour-authoring.service';
 import { MapSearchService } from './map-search.service';
 import { Object } from 'src/app/feature-modules/tour-authoring/model/object.model';
+import { Encounter } from 'src/app/feature-modules/challenges/model/encounter.model';
+import { EncounterService } from 'src/app/feature-modules/challenges/encounter.service';
 
 
 @Component({
@@ -27,8 +29,10 @@ export class MapSearchComponent {
   private searchResults: Tour[] = [];
   private checkpointSearchResults: Checkpoint[] = [];
   private objectSearchResults : Object[]=[]; 
+  private encounterSearchResults : Encounter[] = [];
   private routeControls: L.Routing.Control[] = [];
   private isSearchActive: boolean = false;
+  private encounters: Encounter[] = [];
   
   private objects: Object[] = [
     { id:1,
@@ -78,7 +82,8 @@ export class MapSearchComponent {
 
   constructor(
     private mapService: MapSearchService,
-    private checkpointService: TourAuthoringService
+    private checkpointService: TourAuthoringService,
+    private encounterService: EncounterService
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
@@ -88,6 +93,11 @@ export class MapSearchComponent {
   }
   
   private initMap(): void {
+    this.encounterService.getEncounters().subscribe({
+      next: (result) => {
+        this.encounters = result.results;
+      }
+    })
     this.map = L.map('map', {
       center: [45.2396, 19.8227],
       zoom: 13,
@@ -247,7 +257,7 @@ export class MapSearchComponent {
   
     // Create an array of observables for fetching checkpoint data
     const checkpointObservables: Observable<Checkpoint | null>[] = [];
-  
+
     this.tours.forEach((tour: Tour) => {
       tour.checkPoints.forEach((checkpointId) => {
         const checkpointObservable = this.checkpointService.getCheckpointById(checkpointId).pipe(
@@ -304,7 +314,20 @@ export class MapSearchComponent {
           this.addTourToSearchResults(tour);
         }
       });
-      
+
+      this.encounters.forEach((encounter: Encounter) => {
+        
+        const distance = this.calculateDistance(
+          clickedLat,
+          clickedLng,
+          encounter.latitude,
+          encounter.longitude
+        );
+
+        if (distance <= selectedRadius) {
+          this.addEncounterToSearchResults(encounter);
+        }
+      });
 
       this.objects.forEach((object:Object) =>
       {
@@ -359,6 +382,7 @@ export class MapSearchComponent {
     this.routeControls = [];
     this.objectSearchResults=[];
     this.checkpointSearchResults=[];
+    this.encounterSearchResults = [];
     // Clear the search results and any other related data
     //this.searchResults = [];
   }
@@ -497,6 +521,18 @@ export class MapSearchComponent {
     // Check if the tour is not already in the search results
     if (!this.objectSearchResults.some((result) => result.id === object.id)) {
       this.objectSearchResults.push(object);
+    }
+  }
+
+  addEncounterToSearchResults(encounter: Encounter): void {
+    if (!this.encounterSearchResults.some((result) => result.id === encounter.id)) {
+      this.encounterSearchResults.push(encounter);
+
+      const markerIcon = L.Marker.prototype.options.icon;
+  
+      const marker = L.marker([encounter.latitude, encounter.longitude], {
+        icon: markerIcon,
+      }).bindPopup(`Encounter: ${encounter.name}`).addTo(this.map);
     }
   }
 

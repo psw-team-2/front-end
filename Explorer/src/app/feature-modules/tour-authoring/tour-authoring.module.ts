@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CheckpointComponent } from './checkpoint/checkpoint.component';
 import { CheckpointFormComponent } from './checkpoint-form/checkpoint-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,6 +20,13 @@ import { TourOverviewComponent } from './tour-overview/tour-overview.component';
 import { MarketplaceModule } from '../marketplace/marketplace.module';
 import { ShoppingCartComponent } from '../marketplace/shopping-cart/shopping-cart.component';
 import { ViewPurchasedToursComponent } from './view-purchased-tours/view-purchased-tours.component';
+import { EncounterModule } from '../challenges/encounter.module';
+import { BundleManagementComponent } from './bundle-management/bundle-management.component';
+import { BundleFormComponent } from './bundle-form/bundle-form.component';
+import { BundleDataFormComponent } from './bundle-data-form/bundle-data-form.component';
+import { BundleOverviewComponent } from './bundle-overview/bundle-overview.component';
+import { BundleUpdateFormComponent } from './bundle-update-form/bundle-update-form.component';
+import { BundleViewComponent } from './bundle-view/bundle-view.component';
 
 
 
@@ -36,6 +43,12 @@ import { ViewPurchasedToursComponent } from './view-purchased-tours/view-purchas
     ViewToursComponent,
     TourOverviewComponent,
     ViewPurchasedToursComponent,
+    BundleManagementComponent,
+    BundleFormComponent,
+    BundleDataFormComponent,
+    BundleOverviewComponent,
+    BundleUpdateFormComponent,
+    BundleViewComponent,
   ],
   imports: [
     CommonModule,
@@ -46,7 +59,9 @@ import { ViewPurchasedToursComponent } from './view-purchased-tours/view-purchas
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    MarketplaceModule
+    MarketplaceModule,
+    FormsModule,
+    EncounterModule
   ],
   exports: [
     CheckpointComponent,

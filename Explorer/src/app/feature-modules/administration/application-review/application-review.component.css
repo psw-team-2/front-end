@@ -25,7 +25,7 @@ table {
 }
 
 thead {
-    background-color: #3f51b5;
+    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     color: #fff;
 }
 
@@ -35,6 +35,9 @@ th, td {
     border-bottom: 1px solid #ddd;
 }
 
+th{
+    background: (rgb(56, 28, 117), rgb(65, 59, 131));
+}
 tbody tr {
     transition: background-color 0.3s;
 }
@@ -46,5 +49,5 @@ tbody tr:hover {
 tbody tr.active-row {
     background-color: #e3f2fd;
     font-weight: bold;
-    color: #3f51b5;
+    color:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
 }
