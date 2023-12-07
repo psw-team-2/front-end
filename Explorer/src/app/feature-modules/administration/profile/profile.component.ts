@@ -4,6 +4,8 @@ import { Profile } from '../model/profile.model';
 import { HttpClient } from '@angular/common/http';
 import { AdministrationService } from '../administration.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Wallet } from '../model/wallet.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-profile',
@@ -18,6 +20,7 @@ export class ProfileComponent implements OnInit{
   showMessage: boolean = false;
   showProfilePictureForm: boolean = false;
   showEditProfileForm: boolean = false;
+  wallet: Wallet;
   
   toggleEditProfileForm() {
     this.showEditProfileForm = !this.showEditProfileForm;
@@ -27,11 +30,12 @@ export class ProfileComponent implements OnInit{
     this.showProfilePictureForm = !this.showProfilePictureForm;
   }  
   
-  constructor(private service: AdministrationService) { }
+  constructor(private service: AdministrationService , private router: Router) { }
 
   ngOnInit(): void {
     this.getByUserId();
     this.delayedShowMessage();
+    this.getWalletByUserId();
   }
   
   delayedShowMessage() {
@@ -53,6 +57,19 @@ export class ProfileComponent implements OnInit{
     });
   }
 
+  getWalletByUserId(): void {
+    this.service.getWalletByUserId().subscribe({
+      next: (result: Wallet) => {
+        console.log('Result from API:', result);
+        this.wallet = result; // Wrap the result in an array, as it's a single Profile object
+        console.log('Wallet:', this.wallet);
+      },
+      error: (err: any) => {
+        console.log("NE RADI");
+      }
+    });
+  }
+
   onEditClicked(profile: Profile): void {
     this.selectedProfile = profile;
     console.log(this.selectedProfile);   
@@ -63,5 +80,9 @@ export class ProfileComponent implements OnInit{
     this.selectedProfile = profile;
     console.log(this.selectedProfile);
     this.toggleProfilePictureForm();
+  }
+
+  onPurchaseReports(): void {
+    this.router.navigate(['/purchase-reports']);
   }
 }

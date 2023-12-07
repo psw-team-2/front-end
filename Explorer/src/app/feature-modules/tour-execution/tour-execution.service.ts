@@ -50,5 +50,9 @@ export class TourExecutionService {
   updateActiveEncounters(activeEncounter:ActiveEncounter):Observable<PagedResults<ActiveEncounter>>{
     return this.http.put<PagedResults<ActiveEncounter>>('https://localhost:44333/api/activeEncounter',activeEncounter);
   }
+  
+  getTourExecutionByTourAndUser(tourId: number, userId: number): Observable<PagedResults<TourExecution>>{
+    return this.http.get<PagedResults<TourExecution>>('https://localhost:44333/api/tourexecution/'+ tourId +'/' + userId);
+  }
 
 }

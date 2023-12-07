@@ -1,0 +1,40 @@
+<form [formGroup]="bundleDataForm" class="center-class">
+  <div class="form-container">
+    <mat-form-field class="custom-form-field">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" type="text" [value]="selectedBundle?.name" />
+    </mat-form-field>
+
+    <mat-form-field class="custom-form-field">
+      <mat-label>Price</mat-label>
+      <input matInput formControlName="price" type="text" [value]="selectedBundle?.price" />
+    </mat-form-field>
+
+    <div class="table-container">
+      <table class="tours-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tour of tours">
+            <td>{{ tour.name }}</td>
+            <td>{{ tour.price }}</td>
+            <td>
+              <button color="primary" (click)="toggleTour(tour)" mat-raised-button>
+                {{ tour.isAdded ? '-' : '+' }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="button-container">
+      <button color="primary" class="view-button" (click)="updateBundle()" mat-raised-button>Update</button>
+    </div>
+  </div>
+</form>

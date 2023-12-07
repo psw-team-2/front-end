@@ -21,6 +21,12 @@ import { MarketplaceModule } from '../marketplace/marketplace.module';
 import { ShoppingCartComponent } from '../marketplace/shopping-cart/shopping-cart.component';
 import { ViewPurchasedToursComponent } from './view-purchased-tours/view-purchased-tours.component';
 import { EncounterModule } from '../challenges/encounter.module';
+import { BundleManagementComponent } from './bundle-management/bundle-management.component';
+import { BundleFormComponent } from './bundle-form/bundle-form.component';
+import { BundleDataFormComponent } from './bundle-data-form/bundle-data-form.component';
+import { BundleOverviewComponent } from './bundle-overview/bundle-overview.component';
+import { BundleUpdateFormComponent } from './bundle-update-form/bundle-update-form.component';
+import { BundleViewComponent } from './bundle-view/bundle-view.component';
 
 
 
@@ -37,6 +43,12 @@ import { EncounterModule } from '../challenges/encounter.module';
     ViewToursComponent,
     TourOverviewComponent,
     ViewPurchasedToursComponent,
+    BundleManagementComponent,
+    BundleFormComponent,
+    BundleDataFormComponent,
+    BundleOverviewComponent,
+    BundleUpdateFormComponent,
+    BundleViewComponent,
   ],
   imports: [
     CommonModule,

@@ -42,7 +42,6 @@ export class TourFormComponent {
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     difficulty: new FormControl('', [Validators.required]),
-    tags: new FormControl('', [Validators.required]),
     
    
   })
@@ -63,7 +62,8 @@ export class TourFormComponent {
       carTime: 0,
       bicycleTime: 0,
       authorId: this.user.id,
-      publishTime: "",
+      publishTime: new Date().toISOString(),
+      points: 0,
 
     }
   
@@ -94,7 +94,8 @@ export class TourFormComponent {
       carTime: 0,
       bicycleTime: 0,
       authorId: this.user.id,
-      publishTime: "0"
+      publishTime: "0",
+      points: 0,
     }
     tour.id = this.tour.id;
     this.service.updateTour(tour).subscribe({

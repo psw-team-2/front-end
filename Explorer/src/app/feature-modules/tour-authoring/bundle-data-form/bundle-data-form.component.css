@@ -1,0 +1,40 @@
+.form-container {
+  border: 3px solid #2E003D;; /* You can customize the border style, color, and width */
+  padding: 50px; /* Adjust the padding as needed */
+  margin-top: 100px; /* Adjust the margin as needed */
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.table-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+table {
+  width: 100%; /* Ensure the table takes the full width */
+  border-collapse: collapse;
+}
+
+th, td {
+  width: 33%; /* Adjust the width based on your design */
+  text-align: center; /* Center the text within cells */
+}
+
+.custom-form-field {
+  max-width: 150px;
+  margin-top: 50px; /* Adjust the margin as needed for spacing */
+  margin-right: 250px;
+}
+
+.button-container {
+  max-width: 150px;
+  margin-top: -60px; /* Adjust the margin as needed for spacing */
+  margin-right: -330px;
+  background-color: #2E003D
+}
+th {
+  background-color: linear-gradient(rgb(84, 59, 140), rgb(71, 68, 106)); /* Set the background color for table header */
+  color: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131)); /* Set the text color for table header */
+}

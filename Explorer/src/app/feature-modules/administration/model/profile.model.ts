@@ -12,4 +12,5 @@ export interface Profile {
     isActive: boolean;
     follows: Follow[];
     tourPreference: TourPreference;
+    questionnaireDone: boolean;
 }

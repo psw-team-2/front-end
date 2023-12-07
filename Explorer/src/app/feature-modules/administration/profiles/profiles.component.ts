@@ -14,7 +14,7 @@ export class ProfilesComponent implements OnInit {
   loggedInProfile: Profile | null = null; // Store the logged-in user's profile
   follows: Profile[] = [];
   followedProfiles: { [key: number]: boolean } = {};
-  
+
   constructor(private service: AdministrationService) {}
 
   ngOnInit(): void {
@@ -33,18 +33,6 @@ export class ProfilesComponent implements OnInit {
             console.log(err);
           }
         });
-
-        // Get follows after getting the logged-in user's profile
-        
-      this.service.getFollows(this.loggedInProfile).subscribe({
-        next: (result: PagedResults<Profile>) => {
-          this.follows = result.results;
-          console.log(this.follows);
-        },
-        error: (err: any) => {
-          console.error('Error while getting follows:', err);
-        }
-      }); 
       },
       error: (err: any) => {
         console.log(err);
@@ -55,33 +43,36 @@ export class ProfilesComponent implements OnInit {
   }
 
 
-onFollowClicked(profile: Profile) {
-  if (this.loggedInProfile) {
-    // Check if the combination of person's id and logged-in user's id exists in the follows array
-    const alreadyFollows = this.follows.some(follow => 
-      follow.id === profile.id
-    );
-
-    if (alreadyFollows) {
-      // Display an alert if the combination already exists
-      alert(`You already follow ${profile.firstName} ${profile.lastName}`);
-    } else {
-      const follow: Follow = {
-        profileId: profile.id, // Id of the profile to be followed
-        followerId: this.loggedInProfile!.id // Id of the logged-in user
-      };
-
-      this.service.addFollow(follow).subscribe({
-        next: (newFollow: Follow) => {
-          alert(`You have successfully followed ${profile.firstName} ${profile.lastName}`);
-          this.followedProfiles[profile.id!] = true;
+  onFollowClicked(profile: Profile) {
+    if (this.loggedInProfile) {
+      // Check if the logged-in profile already follows the selected profile
+      this.service.alreadyFollows(profile.id!, this.loggedInProfile.id!).subscribe({
+        next: (result: boolean) => {
+          if (result) {
+            // Display an alert if the combination already exists
+            alert(`You already follow ${profile.firstName} ${profile.lastName}`);
+          } else {
+            const follow: Follow = {
+              profileId: profile.id!, // Id of the profile to be followed
+              followerId: this.loggedInProfile!.id // Id of the logged-in user
+            };
+  
+            this.service.addFollow(follow).subscribe({
+              next: (newFollow: Follow) => {
+                alert(`You have successfully followed ${profile.firstName} ${profile.lastName}`);
+                this.followedProfiles[profile.id!] = true;
+              },
+              error: (err: any) => {
+                console.error('Error while following:', err);
+              }
+            });
+          }
         },
         error: (err: any) => {
-          console.error('Error while following:', err);
+          console.error('Error while checking if already follows:', err);
         }
       });
     }
   }
-}
 
 }

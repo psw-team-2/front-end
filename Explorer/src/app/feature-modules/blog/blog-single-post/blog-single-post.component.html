@@ -12,6 +12,39 @@
   <div class="blog-text">
     {{ blogPost?.description }}
   </div>
+  <label *ngIf="blogPost.tourReport">
+    Traveled Distance: {{ touristDistance }}m
+  </label>
+  <div *ngIf="blogPost.tourReport">
+    <h3>Visited Checkpoints</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Checkpoint Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let checkpoint of checkpoints">
+          <td>{{ checkpoint.name }}</td>
+        </tr> 
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="blogPost.tourReport">
+    <h3>Equipment Used</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Equipment Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let equip of equipment">
+          <td>{{ equip.name }}</td>
+        </tr>
+      </tbody>
+    </table>                              
+  </div>
   <div class="blog-info">
     <p>Author: {{ blogPost?.username }}</p>
     <p>Created: {{ blogPost?.creationTime | date:'medium' }}</p>

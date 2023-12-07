@@ -12,6 +12,9 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Object } from '../model/object.model';
 import { Equipment } from '../model/equipment.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { TourExecution } from '../../tour-execution/model/tourexecution.model';
+import { TourExecutionService } from '../../tour-execution/tour-execution.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-tour-overview',
@@ -34,6 +37,10 @@ export class TourOverviewComponent {
   defaultImageUrl = "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg";
   vehicleMode: string = "walk";
   userRole: string;
+  tourExecution: TourExecution | undefined;
+  tourFetched: boolean = false;
+  userFetched: boolean = false;
+  userId: number;
 
   formatDate(date: string): string {
     const options: Intl.DateTimeFormatOptions = {
@@ -69,7 +76,8 @@ export class TourOverviewComponent {
   }
   
   
-  constructor(private tourService: TourAuthoringService, private route: ActivatedRoute, private marketplaceService: MarketplaceService, private fb: FormBuilder, private authService: AuthService) {
+  constructor(private tourService: TourAuthoringService, private route: ActivatedRoute, private marketplaceService: MarketplaceService, 
+    private fb: FormBuilder, private authService: AuthService, private tourExecutionService: TourExecutionService, private router: Router) {
     this.tourInfoForm = this.fb.group({
       name: [''],
       description: [''],
@@ -101,14 +109,17 @@ export class TourOverviewComponent {
               tags: this.tour?.tags.map(tag => `#${tag}`).join(' '), // Add "#" to each tag
               // Update with other properties
             });
-            
-            
+            this.tourFetched = true;
+            this.checkGetTourExecution();
           }
         });
         this.fetchTourReviews();
 
         this.authService.user$.subscribe((user) => {
           this.userRole = user.role;
+          this.userId = user.id;
+          this.userFetched = true;
+          this.checkGetTourExecution();
         });
     
       } else {
@@ -149,7 +160,7 @@ export class TourOverviewComponent {
   private async fetchEquipmentForTour(equipmentIds: number[]): Promise<void> {
     this.objects = undefined; // Set to undefined before fetching
   
-    const allEquipment$: Observable<PagedResults<Equipment>> = this.tourService.getEquipment();
+    const allEquipment$: Observable<PagedResults<Equipment>> = this.tourService.getEquipmentTourist();
   
     allEquipment$.subscribe(
       (pagedResults: PagedResults<Equipment>) => {
@@ -265,8 +276,38 @@ export class TourOverviewComponent {
   }
 
     // Define the getStarArray method
-    getStarArray(rating: number): number[] {
+  getStarArray(rating: number): number[] {
       // Assuming each star corresponds to a whole number in the rating
       return Array(Math.round(rating)).fill(0).map((x, i) => i);
+  }
+
+  //METHOD TO GET TOUR EXECUTION
+  getTourExecution(){
+      if(this.tour.id !== undefined){
+        console.log("DA LI SE VIDIMO?")
+        if(this.userRole === "tourist" && this.userId === this.tour.authorId){
+            this.tourExecutionService.getTourExecutionByTourAndUser(this.tour.id, this.userId).subscribe({
+            next: (result: PagedResults<TourExecution>) => {
+                if (result && result.results.length > 0){
+                  //WE TAKE 'FirstOf' THE COLLECTION
+                  this.tourExecution = result.results[0];
+                }
+                this.userFetched = false;
+              }
+            })
+        }
+      }
+  }
+
+  checkGetTourExecution(): void {
+    if (this.tourFetched && this.userFetched) {
+      this.getTourExecution();
     }
+  }
+
+  navigateToBlogForm(): void{
+    if(this.tourExecution){
+      this.router.navigate(['blog-form', 'tour-report', this.tourExecution.tourId])
+    }
+  }
 }
