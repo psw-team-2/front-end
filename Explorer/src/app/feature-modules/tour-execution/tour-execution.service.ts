@@ -44,11 +44,11 @@ export class TourExecutionService {
   updateEncounter(encounter: Encounter): Observable<Encounter> {
     return this.http.put<Encounter>('https://localhost:44333/api/administrator/encounter', encounter)
   }
-  postActiveEncounters(activeEncounter:ActiveEncounter):Observable<PagedResults<ActiveEncounter>>{
-    return this.http.post<PagedResults<ActiveEncounter>>('https://localhost:44333/api/activeEncounter',activeEncounter);
+  postActiveEncounters(activeEncounter:ActiveEncounter):Observable<ActiveEncounter>{
+    return this.http.post<ActiveEncounter>('https://localhost:44333/api/activeEncounter',activeEncounter);
   }
-  updateActiveEncounters(activeEncounter:ActiveEncounter):Observable<PagedResults<ActiveEncounter>>{
-    return this.http.put<PagedResults<ActiveEncounter>>('https://localhost:44333/api/activeEncounter',activeEncounter);
+  updateActiveEncounters(activeEncounter:ActiveEncounter):Observable<ActiveEncounter>{
+    return this.http.put<ActiveEncounter>('https://localhost:44333/api/activeEncounter',activeEncounter);
   }
   
   getTourExecutionByTourAndUser(tourId: number, userId: number): Observable<PagedResults<TourExecution>>{
