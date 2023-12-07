@@ -1,0 +1,79 @@
+<div>
+    <div class="Header">
+        <h3 class="Heading">Edit sale</h3>
+    </div>
+    <div id="sale-form">
+        <div id="sale-form-details">
+            <form [formGroup]="saleForm">
+                    <mat-form-field>
+                        <mat-label>Start date</mat-label>
+                        <input matInput  [matDatepicker]="startDatePicker" formControlName="startDate">
+                        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #startDatePicker></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>End Date</mat-label>
+                        <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+                        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #endDatePicker></mat-datepicker>
+                    </mat-form-field>
+            
+
+                    <mat-form-field>
+                        <mat-label>Discount</mat-label>
+                        <input matInput type="number" formControlName="discount" name="discount" id="discount">
+                
+<!--                         <mat-error *ngIf="saleForm.get('discount')?.hasError('required')">
+                            Discount is required.
+                        </mat-error>
+                        <mat-error *ngIf="saleForm.get('discount')?.hasError('min')">
+                            Discount must be at least 1.
+                        </mat-error>
+                        <mat-error *ngIf="saleForm.get('discount')?.hasError('max')">
+                            Discount cannot exceed 100.
+                        </mat-error>
+                        <mat-error *ngIf="saleForm.get('discount')?.hasError('pattern')">
+                            Discount must be a whole number.
+                        </mat-error> -->
+                    </mat-form-field>
+                
+                
+                <div id="tour">
+                    <br>
+                    <div id="tour-details">
+                        <p class="subtitle">Add tours to sale</p>
+                        <div class="tour-card" *ngFor="let t of tours; let i = index">
+                                <div class="tour-info">
+                                    <div>
+                                        <div class="tourName"><strong>{{t.name}}</strong></div>
+                                    </div>
+                                    <p class="tour-description">{{t.description}}</p>
+                                    <p class="tour-price">{{t.price}} RSD</p>
+                                </div>
+                                    <button
+                                    class="buttonPlus"
+                                    (click)="t.id && addToSale(t.id, i)"
+                                    mat-raised-button
+                                    >
+                                    Add ➕
+                                    </button>
+                                    <button
+                                    class="buttonPlus"
+                                    (click)="t.id && removeFromSale(t.id, i)"
+                                    mat-raised-button
+                                    >
+                                    Remove ➖
+                                    </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="buttons">
+                    <button   mat-raised-button type="submit" color="primary" (click)="saleUpdate()">Done</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>

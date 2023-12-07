@@ -1,0 +1,50 @@
+<div >
+    <div class="Header">
+        <h3 class="Heading">All sales</h3>
+
+    </div>
+    <div >
+        <button class="button" *ngIf="isAuthor" mat-raised-button color="primary" (click)="createSale()">Create Sale</button>
+<!--         <input *ngIf="this.user.role == 'tourist'" type="text" [(ngModel)]="tourNameFilter" name="" id="" (ngModelChange)="filterbyName()"> -->
+    </div>
+
+    <div id="tour">
+        <br>
+        <div id="tour-details">
+            
+            <div class="sale-card" *ngFor="let s of sales; let j = index">
+                    <div class="tour-info">
+                        <p class="tour-description">{{s.startDate | date:'dd/MM/yyyy'}} - {{s.endDate | date:'dd/MM/yyyy'}}</p>
+                        <p class="tour-description">{{s.discount}} %</p>
+                    </div>
+                    
+                <div id="tour">
+                        <p class="toursSale">Tours on sale</p>
+                        <div *ngIf="s.id !== undefined" class="priceBox">
+                            <div class="tour-card" *ngFor="let t of saleToursMap[s.id]; let i = index">
+                                <div (click)="openDetails(t)">
+                                    <div class="tour-info">
+                                        <div class="tourName"><strong>{{t.name}}</strong></div>
+                                        <p class="tour-price">
+                                            <span class="original-price">{{t.price}} RSD</span>
+                                            <span class="discounted-price"> {{calculateDiscountedPrice(t.price, s.discount)}} RSD</span>
+                                        </p>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="buttons">
+<!--                     <button class="editButton" *ngIf="isCurrentUserAuthor(s) && user" (click)="editSale(s)" color="primary">
+                        <p class="zbuttons">Edit</p>
+                        <mat-icon>edit</mat-icon>
+                    </button> -->
+                    <button class="deleteButton" *ngIf="isCurrentUserAuthor(s) && user" (click)="deleteSale(s.id!)" color="primary">
+                        <p class="zbuttons">Delete</p>
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

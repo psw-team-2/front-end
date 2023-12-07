@@ -1,0 +1,139 @@
+
+
+  .Header{
+    margin-bottom: 15px;
+    margin: auto;
+    width: 90%;
+    height: 15%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   }
+   .Heading{
+    font-size: 25px;
+    font-weight: 700;
+    color: #2F3841;
+   }
+
+button.editButton {
+  background-color: #ffffff;
+  color: #2e003e;
+  width: 107px;
+  border-radius: 7px;
+  margin: 0.5em;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em;
+  padding-right: 0.7em;
+  cursor: pointer;
+}
+button.deleteButton {
+  background-color: #ffffff;
+  color: #2e003e;
+  width: 107px;
+  border-radius: 7px;
+  margin: 0.5em;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em;
+  padding-right: 0.7em;
+  cursor: pointer;
+}
+.subtitle{
+  line-height: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #909090;
+ }
+  
+.container {
+  width: 70%;
+    height: 85%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0px 25px 40px #1687d933;
+    flex-direction: column; 
+    justify-content: space-between;
+    overflow-y: auto; 
+}
+
+p {
+  margin: 0 auto;
+  font-size: 3vh;
+  color: #3f51b5;
+}
+p.toursSale {
+  margin-top:1em;
+}
+
+div.tourName {
+  margin-top: 1em;
+  color: white;
+}
+.sale-card {
+  background-color: #dadbfb;
+  color: white;
+  text-align: left;
+  border-radius: 8px;
+  width: 253px;
+  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.tours-heading{
+  justify-content: left;
+  font-size: 36px;
+  color:#E67840;
+  font-weight: 600;
+  margin-top: 6vh;
+  margin-left: 2vh;
+  margin-bottom: 1vh;
+}
+
+
+div#buttons {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+}
+
+p.zbuttons {
+  font-size: 2vh;
+}
+
+
+div#tour-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  margin-left: 2em;
+  margin-right: 2em;
+}
+div.priceBox {
+  margin: 0 auto;
+  padding-bottom: 10px;
+  padding-top: 1px;
+  color: white;
+  margin-top: 10px;
+  background-color: #494085;
+  border-radius: 15px;
+  width: 80%;
+  text-align: center;
+}
+
+
+.original-price {
+  text-decoration: line-through;
+  color: #999;  /* Dodajte boju za precrtani tekst (opcionalno) */
+  white-space: nowrap;  /* Dodajte ovo da sprečite prelazak u novi red */
+}
+
+.discounted-price {
+  color: #E67840;  
+  white-space: nowrap;  /* Dodajte ovo da sprečite prelazak u novi red */
+}

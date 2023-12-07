@@ -50,6 +50,9 @@ import { BundleOverviewComponent } from 'src/app/feature-modules/tour-authoring/
 import { PurchaseReportComponent } from 'src/app/feature-modules/tourist/purchase-report/purchase-report.component';
 import { BundleViewComponent } from 'src/app/feature-modules/tour-authoring/bundle-view/bundle-view.component';
 import { BundleUpdateFormComponent } from 'src/app/feature-modules/tour-authoring/bundle-update-form/bundle-update-form.component';
+import { SaleComponent } from 'src/app/feature-modules/marketplace/sale/sale.component';
+import { SaleFormComponent } from 'src/app/feature-modules/marketplace/sale-form/sale-form.component';
+import { EditSaleComponent } from 'src/app/feature-modules/marketplace/edit-sale/edit-sale.component';
 
 
 const routes: Routes = [
@@ -105,7 +108,10 @@ const routes: Routes = [
   {path: 'bundle-overview', component: BundleOverviewComponent},
   {path: 'purchase-reports', component: PurchaseReportComponent },
   {path: 'bundle-update-form/:id', component: BundleUpdateFormComponent},
-  {path: 'bundle-view/:id', component: BundleViewComponent}
+  {path: 'bundle-view/:id', component: BundleViewComponent},
+  {path: 'sale', component: SaleComponent},
+  {path: 'addSale', component: SaleFormComponent},
+  {path: 'editSale', component: EditSaleComponent},
 ];
 
 @NgModule({
