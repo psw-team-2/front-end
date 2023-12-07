@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { Secret } from '../model/secret.model';
 import { Encounter, EncounterMapMaterial, ActiveEncounter } from '../../challenges/model/encounter.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { ActiveEncounterComponent } from '../../challenges/active-encounter/active-encounter.component';
 
 @Component({
   selector: 'xp-active-tour',

@@ -18,7 +18,8 @@ import { ActiveEncounterComponent } from './active-encounter/active-encounter.co
     ReactiveFormsModule,
   ],
   exports: [
-    EncounterFormComponent
+    EncounterFormComponent,
+    ActiveEncounterComponent,
   ]
 })
 export class EncounterModule { }
