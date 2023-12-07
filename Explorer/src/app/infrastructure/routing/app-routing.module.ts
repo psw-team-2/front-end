@@ -53,6 +53,7 @@ import { BundleViewComponent } from 'src/app/feature-modules/tour-authoring/bund
 import { BundleUpdateFormComponent } from 'src/app/feature-modules/tour-authoring/bundle-update-form/bundle-update-form.component';
 import { ViewComposedTourComponent } from 'src/app/feature-modules/complex-tour/view-composed-tour/view-composed-tour.component';
 import { ComposedTourOverviewComponent } from 'src/app/feature-modules/complex-tour/composed-tour-overview/composed-tour-overview.component';
+import { ActiveEncounterComponent } from 'src/app/feature-modules/challenges/active-encounter/active-encounter.component';
 
 
 const routes: Routes = [
@@ -113,7 +114,8 @@ const routes: Routes = [
   {path: 'bundle-overview', component: BundleOverviewComponent},
   {path: 'purchase-reports', component: PurchaseReportComponent },
   {path: 'bundle-update-form/:id', component: BundleUpdateFormComponent},
-  {path: 'bundle-view/:id', component: BundleViewComponent}
+  {path: 'bundle-view/:id', component: BundleViewComponent},
+  {path: 'active-encounter', component: ActiveEncounterComponent},
 ];
 
 @NgModule({

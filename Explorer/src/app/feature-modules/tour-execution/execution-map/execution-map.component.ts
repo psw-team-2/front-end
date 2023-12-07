@@ -9,6 +9,7 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
 import { Tour } from '../../tour-authoring/model/tour.model';
 import { Router } from '@angular/router';
 import { Secret } from '../model/secret.model';
+import { Encounter, EncounterMapMaterial } from '../../challenges/model/encounter.model';
 @Component({
   selector: 'execution-map',
   templateUrl: './execution-map.component.html',
@@ -21,12 +22,16 @@ export class ExecutionMapComponent implements OnInit {
   @Input() tourExecution: TourExecution;
   @Input() activeTour: Tour;
   @Input() secretList:Secret[];
+  @Input() encounters:Encounter[];
+  @Output() activateEncounter = new EventEmitter();
+
   inputList: { lat: number; lng: number }[] = [];
   finishedCheckpoints: { lat: number; lng: number }[] = [];
   marker: L.Marker;
   private routeControlInitial: any;
   distance:any;
   completedCheckpointsDistance: number;
+  @Input() encounterMapMaterials:EncounterMapMaterial[];
 
   constructor(private authService: AuthService, private service : TourExecutionService, private tourService: TourAuthoringService,private router:Router) { }
 
@@ -55,6 +60,11 @@ export class ExecutionMapComponent implements OnInit {
     tiles.addTo(this.map);
 
   }
+  ngOnChanges(changes: SimpleChanges) {
+    this.putToolTips(changes['encounterMapMaterials'].currentValue);
+    
+    
+}
 
   async ngOnInit(): Promise<void> {
     let DefaultIcon = L.icon({
@@ -73,7 +83,6 @@ export class ExecutionMapComponent implements OnInit {
       this.inputList.push({lat,lng})
     }
     this.setRouteInitial(this.inputList)
-    console.log(this.secretList)
     for (let i = 0; i < this.tourExecution.visitedCheckpoints.length; i++) {
       let cp:number = this.tourExecution.visitedCheckpoints[i];
       await this.service.getSecrets(cp).subscribe((value)=>{
@@ -84,10 +93,35 @@ export class ExecutionMapComponent implements OnInit {
           popupAnchor: [0, -25],
         });
         this.markerList[i].setIcon(newIcon)
-        console.log(value.text)
         this.markerList[i].addTo(this.map)
         this.markerList[i].bindPopup("<strong>Tajna je otkljucana</strong><br />"+value.text, {maxWidth: 500});
       })
+    }
+    let tempActivateEncounters: EncounterMapMaterial[] = []
+    for (let i = 0; i < this.encounterMapMaterials.length; i++) {
+      const element = this.encounterMapMaterials[i];
+      if (element.isActive) {
+        var encounterMarker = new L.Marker([element.lat, element.lng], { opacity: 0.01 }); //opacity may be set to zero
+        encounterMarker.bindTooltip(element.activeCount.toString(), {permanent: true, className: "my-label", offset: [0, 0] });
+        encounterMarker.addTo(this.map);
+      }
+      else {
+        var encounterMarker = new L.Marker([element.lat, element.lng], { opacity: 0.01, });
+        encounterMarker.bindTooltip('Aktiviraj izazov!', {direction:'top',permanent: true, className: "aktiviraj", offset: [5, -30]},);
+        encounterMarker.addTo(this.map);
+        tempActivateEncounters.push(element)
+      }
+    }
+    let docs:HTMLCollectionOf<Element> = document.getElementsByClassName('aktiviraj');
+    for (let k = 0; k < docs.length; k++) {
+      const element = docs[k] as HTMLDivElement;
+      element.style.pointerEvents = 'auto'
+      element.style.cursor = 'pointer'
+      element.addEventListener('click', (event)=> {
+        element.remove()
+        this.activateEncounter.emit(this.encounterMapMaterials[k]);
+        //aktiviraj turu
+     });
     }
     window.setInterval(()=>{
       if (this.router.url !== '/activeTour') {
@@ -144,7 +178,39 @@ export class ExecutionMapComponent implements OnInit {
 
     }, 10000)
   }
+  putToolTips(encounterMapMaterials:EncounterMapMaterial[]) {
+    if (encounterMapMaterials.length !== 0) {
+      let tempActivateEncounters: EncounterMapMaterial[] = []
+      for (let i = 0; i < encounterMapMaterials.length; i++) {
+        const element = encounterMapMaterials[i];
+        if (element.isActive) {
+          var encounterMarker = new L.Marker([element.lat, element.lng], { opacity: 0.01 }); //opacity may be set to zero
+          encounterMarker.bindTooltip(element.activeCount.toString(), {permanent: true, className: "my-label", offset: [0, 0] });
+          encounterMarker.addTo(this.map);
+        }
+        else {
+          var encounterMarker = new L.Marker([element.lat, element.lng], { opacity: 0.01, });
+          encounterMarker.bindTooltip('Aktiviraj izazov!', {direction:'top',permanent: true, className: "aktiviraj", offset: [5, -30]},);
+          encounterMarker.addTo(this.map);
+          tempActivateEncounters.push(element)
+        }
+      }
+      let docs:HTMLCollectionOf<Element> = document.getElementsByClassName('aktiviraj');
+      for (let k = 0; k < docs.length; k++) {
+        const element = docs[k] as HTMLDivElement;
+        element.style.pointerEvents = 'auto'
+        element.style.cursor = 'pointer'
+        element.addEventListener('click', (event)=> {
+          element.remove()
+          this.activateEncounter.emit(encounterMapMaterials[k]);
+          //aktiviraj turu
+       });
+      }
+      this.map.invalidateSize(); 
+    }
 
+
+  }
 /*   addMarkers(list: any) {
     const markerGroup = L.layerGroup();
     for (let i = 0; i < list.length; i++) {
