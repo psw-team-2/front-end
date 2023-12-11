@@ -4,30 +4,34 @@ import { ClubsOverviewComponent } from './clubs-overview/clubs-overview.componen
 import { ClubOverviewComponent } from './club-overview/club-overview.component';
 import { RouterModule } from '@angular/router';
 import { ClubFormComponent } from './club-form/club-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ClubRequestComponent } from './club-request/club-request.component';
 import { AdministrationModule } from '../administration/administration.module';
+import { InviteMembersToTourComponent } from './invite-members-to-tour/invite-members-to-tour.component';
 
 @NgModule({
   declarations: [
     ClubsOverviewComponent,
     ClubOverviewComponent,
     ClubFormComponent,
-    ClubRequestComponent
+    ClubRequestComponent,
+    InviteMembersToTourComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     MaterialModule,
     ReactiveFormsModule,
-    AdministrationModule 
+    AdministrationModule,
+    FormsModule
   ],
   exports: [
     ClubsOverviewComponent,
     ClubOverviewComponent,
     ClubFormComponent,
-    ClubRequestComponent
+    ClubRequestComponent,
+    InviteMembersToTourComponent
   ]
 })
 export class ClubModule {}

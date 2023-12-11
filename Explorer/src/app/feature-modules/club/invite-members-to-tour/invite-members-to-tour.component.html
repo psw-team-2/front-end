@@ -1,0 +1,25 @@
+<div>
+    <h2>Invite Members to Tour</h2>
+    <form (ngSubmit)="inviteMembersToTour()" class="invite-form">
+      <div class="form-group">
+        <label for="tourId">Tour ID:</label>
+        <div class="input-group">
+          <input type="number" id="tourId" [(ngModel)]="tourId" name="tourId" required (ngModelChange)="getTourById()">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Invited Members:</label>
+        <div *ngFor="let memberId of clubMembers" class="checkbox-label">
+          <input type="checkbox" [checked]="invitedMemberIds.includes(memberId)" (change)="toggleMember(memberId)" name="invitedMembers" />
+          {{ memberId }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button type="submit">Invite Members</button>
+      </div>
+
+    </form>
+
+</div>
