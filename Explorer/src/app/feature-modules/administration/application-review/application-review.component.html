@@ -1,22 +1,23 @@
 <div id="applicationReview">
-    <p>Application reviews</p>
-    <hr>
+    <div class="title-section">
+        <h1 class="title">Application reviews</h1>
+    </div>
     <div id="applicationReview-details">
-    <div>
-        <table>
+    <div class="table-container">
+        <table class="reviews-table">
             <thead>
                 <tr>
                     <th>Username</th>
                     <th>Grade</th>
                     <th>Comment</th>
-                    <th></th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let ar of applicationReview">
                     <td>{{ getUserName(ar.userId) }}</td>
-                    <td>{{ ar.grade }}</td>
+                    <td>
+                        <span *ngFor="let _ of getStars(ar.grade)">&#9733;</span>
+                    </td>
                     <td>{{ ar.comment }}</td>                   
                 </tr>               
             </tbody>

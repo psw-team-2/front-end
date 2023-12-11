@@ -38,7 +38,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 @NgModule({
   declarations: [
     AppComponent,
-    SaleComponent,
+    SaleComponent
   ],
   imports: [
     BrowserModule,
