@@ -1,5 +1,5 @@
 div {
-    width: 400px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -36,6 +36,9 @@ mat-form-field {
     border-radius: 0.375vw;
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s;
+    width: 100px;
+    text-align: center;
+    margin: auto;
   }
 
   .button:hover {
@@ -43,3 +46,78 @@ mat-form-field {
     color: #ffffff;
   }
 
+  .star-rating {
+    font-size: 40px; /* Adjust the size as needed */
+    cursor: pointer;
+    display: flex;
+    flex-direction: row; /* Dodajte ovu liniju kako biste postavili redosled elemenata u vrstu */
+    padding-top: -10px;
+  }
+  
+  .star {
+    color: #ddd;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .star:hover,
+  .star.active {
+    color: #f39c12; /* Adjust the color for the active state */
+  }
+
+  .review-title {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    padding-bottom: 2px;
+    margin-top: -10px;
+  }
+
+  .star-image {
+    width: 100px; /* Prilagodite veličinu slike prema potrebi */
+    margin: 10px auto; /* Centrirajte sliku i dodajte određeni razmak */
+  }
+
+/* Dugme za slanje forme */
+button.mat-raised-button {
+    color: #ffffff;
+    background-color: #2e003e;
+    transition: background-color 0.3s, color 0.3s;
+    padding: 0.5vw;
+    width: 100%;
+    margin: 1vw;
+  }
+  
+  button.mat-raised-button:hover {
+    color: #2e003e;
+    background-color: #ffffff;
+  }
+  
+  
+  /* Dugme sa ikonicom */
+  mat-icon-button {
+    color: #ffffff;
+    background-color: #2e003e;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 0.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  mat-icon-button:hover {
+    color: #2e003e;
+    background-color: #ffffff;
+  }
+  
+  .review-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    color: black;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 25vw;
+  }
+  
