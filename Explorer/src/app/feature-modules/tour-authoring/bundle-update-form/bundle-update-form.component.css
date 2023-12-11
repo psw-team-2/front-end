@@ -1,33 +1,210 @@
-/* Centriranje forme */
+.user-title-section {
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-title {
+  color: rgb(56, 28, 117);
+  margin-bottom: 30px;
+  margin-top: 50px;
+}
+
+
 .form-container {
-    max-width: 600px; /* Maksimalna širina forme */
-    margin: 0 auto; /* Centriranje forme na stranici */
-    padding: 20px; /* Razmak oko sadržaja forme */
-    border: 1px solid #ccc; /* Dodavanje ivice oko forme */
-    border-radius: 8px; /* Zaobljeni ivični radijus */
-  }
+  max-width: 60%;
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: auto; /* Add this line to enable scrolling */
+}
+
+.custom-form-field {
+  width: 50%;
+  margin-bottom: 15px;
+}
+
+.table-container {
+  margin-bottom: 20px;
+}
+
+.tours-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tours-table th,
+.tours-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.button-container {
+  text-align: center;
+}
+
+.tour-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  overflow: auto; /* Add this line to enable scrolling */
+  max-height: 500px; /* Adjust the max-height as needed */
+}
+.tour-item {
+  margin: 10px;
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+  width: 200px; /* Adjust the width as needed */
+  height: 300px; /* Adjust the height as needed */
+}
+
+.tour-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.tour-actions button {
+  font-size: 19px; /* Adjust the font size as needed */
+  width: 20px; /* Set the width to your desired size */
+  height: 20px; /* Set the height to your desired size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.tour-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.tour-item {
+  margin: 10px;
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+  width: 200px; /* Adjust the width as needed */
+  height: 230px; /* Adjust the height as needed */
+}
+
+.tour-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Adjust this line to space the description and price properly */
+}
+
+.tour-description h3,
+.tour-price p {
+  margin: 0;
+}
+
+.action-button-ng {
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131)) !important;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  padding: auto;
+  margin-right: 100px;
+}
+
+.action-button-ng:hover {
+  background: white;
+  color: black;
+  border: 1px solid rgb(56, 28, 117);
+}
+.action-button-file{
   
-  .custom-form-field {
-    width: 100%; /* Širina polja forme */
-    margin-bottom: 15px; /* Razmak između polja forme */
-  }
-  
-  .table-container {
-    margin-bottom: 20px; /* Razmak između tabele i ostalog sadržaja */
-  }
-  
-  .tours-table {
-    width: 100%; /* Širina tabele */
-    border-collapse: collapse; /* Spajanje ivica tabele */
-  }
-  
-  .tours-table th,
-  .tours-table td {
-    border: 1px solid #ddd; /* Dodavanje ivice oko ćelija tabele */
-    padding: 8px; /* Razmak unutar ćelija tabele */
-  }
-  
-  .button-container {
-    text-align: center; /* Centriranje dugmeta */
-  }
-  
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  padding: auto;
+  margin-top: 230px;
+}
+.action-button-file:hover {
+  background: white;
+  color: black;
+  border: 1px solid rgb(56, 28, 117);
+}
+
+.action-button-return {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  padding: auto;
+  margin-left: 50px; 
+}
+
+.action-button-return:hover {
+  background: white;
+  color: black;
+  border: 1px solid rgb(56, 28, 117);
+}
+
+.action-button-update {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  padding: auto;
+  margin-left: 630px; 
+}
+
+.action-button-update:hover {
+  background: white;
+  color: black;
+  border: 1px solid rgb(56, 28, 117);
+}
+
+.thumbnail {
+  width: 150px; /* Adjust the width to your desired size */
+  height: 150px; /* Adjust the height to your desired size */
+}
+.thumbnail img {
+  width: 100%; /* Ensure the image fills the cell */
+  height: auto; 
+}

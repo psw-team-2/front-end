@@ -95,6 +95,19 @@ export class TourAuthoringService {
     return this.http.request(req);
   }
 
+  uploadImage(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST', `https://localhost:44333/api/author/tour/uploadTourImage`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
+  }
+
   getToursWithAuth(user:User | undefined) : Observable<PagedResults<Tour>> {
 
     if(user){
@@ -132,7 +145,7 @@ export class TourAuthoringService {
 
   addTour(tour: Tour) : Observable<Tour>{
     console.log(tour);
-    return this.http.post<Tour>('https://localhost:44333/api/author/tour/' , tour)
+    return this.http.post<Tour>('https://localhost:44333/api/author/tour' , tour)
   }
 
 

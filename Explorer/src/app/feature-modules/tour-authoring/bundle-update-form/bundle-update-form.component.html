@@ -1,40 +1,44 @@
-<form [formGroup]="bundleDataForm" class="center-class">
-  <div class="form-container">
+<div class="user-title-section">
+  <h1 class="user-title">Edit your bundle</h1>
+</div>
+<form [formGroup]="bundleDataForm" class="form-container">
+
+    <div class="tour-container">
+      <div *ngFor="let tour of tours" class="tour-item">
+        <div class="image-container">
+          <!-- Use the image source property accordingly -->
+          <img [src]="tour.image" alt="Tour Image" class="tour-image" />
+          <div class="overlay">
+            <div class="tour-description">
+              <h3>{{ tour.name }}</h3>
+            </div>
+            <br>
+            <div class="tour-price">
+              <p>Price: {{ tour.price }}AC</p>
+            </div>
+          </div>
+        </div>
+        <div class="tour-actions">
+          <button color="primary" style="color: rgb(56, 28, 117);" (click)="toggleTour(tour)" mat-raised-button>
+            {{ tour.isAdded ? '-' : '+' }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
     <mat-form-field class="custom-form-field">
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" type="text" [value]="selectedBundle?.name" />
     </mat-form-field>
-
+  
     <mat-form-field class="custom-form-field">
       <mat-label>Price</mat-label>
       <input matInput formControlName="price" type="text" [value]="selectedBundle?.price" />
     </mat-form-field>
-
-    <div class="table-container">
-      <table class="tours-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let tour of tours">
-            <td>{{ tour.name }}</td>
-            <td>{{ tour.price }}</td>
-            <td>
-              <button color="primary" (click)="toggleTour(tour)" mat-raised-button>
-                {{ tour.isAdded ? '-' : '+' }}
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    
 
     <div class="button-container">
-      <button color="primary" class="view-button" (click)="updateBundle()" mat-raised-button>Update</button>
+      <a class="action-button-ng" color="primary" class="view-button" (click)="updateBundle()" mat-raised-button>Update</a>
     </div>
-  </div>
 </form>

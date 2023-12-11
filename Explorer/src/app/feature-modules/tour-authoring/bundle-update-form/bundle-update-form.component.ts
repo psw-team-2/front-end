@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Bundle, BundleStatus } from '../model/bundle.model';
 import { Tour } from '../model/tour.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { AccountStatus, TourBundle } from '../model/tour-bundle.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
@@ -21,12 +21,14 @@ export class BundleUpdateFormComponent implements OnInit {
   bundledTour: TourBundle;
   tours2: TourBundle[] = [];
   price: number;
- 
-
+  showTours = false;
+  currentFile: File | null = null;
+  currentFileURL: string | ArrayBuffer | null = null;
   constructor(
     private formBuilder: FormBuilder,private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private service: TourAuthoringService,
+    private router: Router
     
   ) {
     this.bundleDataForm = this.formBuilder.group({
@@ -126,10 +128,12 @@ export class BundleUpdateFormComponent implements OnInit {
         // Optional: Redirect to another page or perform other actions after successful publishing
         console.log('Bundle published:', publishedBundle);
         // Add your redirect logic or additional actions here
+        this.router.navigate(['/bundle-management']);
       }, (error) => {
         // Handle error while publishing bundle
         console.error('Error publishing bundle:', error);
-        // Add error handling logic here
+        
+
       });
     }, (error) => {
       // Handle error while updating bundle
@@ -138,7 +142,28 @@ export class BundleUpdateFormComponent implements OnInit {
     });
   }
   
-  
+  nextStep(){
+    this.showTours = true;
+  }
+  goBack(){
+    this.showTours = false;
+  }
+
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.currentFile = file;
+      this.previewImage(file);
+    }
+  }
+
+  previewImage(file: File): void {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.currentFileURL = reader.result;
+    };
+  }
 
 /*updateBundle(): void {
   this.selectedBundle.name = this.bundleDataForm.value.name;

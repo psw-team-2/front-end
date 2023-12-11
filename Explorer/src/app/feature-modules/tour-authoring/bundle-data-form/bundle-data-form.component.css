@@ -1,15 +1,27 @@
+
+
 .form-container {
-  border: 3px solid #2E003D;; /* You can customize the border style, color, and width */
-  padding: 50px; /* Adjust the padding as needed */
-  margin-top: 100px; /* Adjust the margin as needed */
-  max-width: 400px;
+  max-width: 60%;
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: auto;
   margin-left: auto;
   margin-right: auto;
+  overflow: auto; /* Add this line to enable scrolling */
 }
+
 .table-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: auto; /* Add this line to enable scrolling */
 }
 
 table {
@@ -25,16 +37,125 @@ th, td {
 .custom-form-field {
   max-width: 150px;
   margin-top: 50px; /* Adjust the margin as needed for spacing */
-  margin-right: 250px;
+  margin-right: auto;
+  margin-left: 600px;
 }
 
 .button-container {
   max-width: 150px;
   margin-top: -60px; /* Adjust the margin as needed for spacing */
-  margin-right: -330px;
-  background-color: #2E003D
+  margin-left: 800px;
+  margin-right: auto;
+  
 }
 th {
   background-color: linear-gradient(rgb(84, 59, 140), rgb(71, 68, 106)); /* Set the background color for table header */
   color: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131)); /* Set the text color for table header */
+}
+.tour-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  overflow: auto; /* Add this line to enable scrolling */
+  max-height: 500px; /* Adjust the max-height as needed */
+}
+.tour-item {
+  margin: 10px;
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+  width: 200px; /* Adjust the width as needed */
+  height: 300px; /* Adjust the height as needed */
+}
+
+.tour-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+}
+
+.tour-description h3,
+.tour-price p {
+  margin: 0;
+}
+
+.tour-actions button {
+  font-size: 19px; /* Adjust the font size as needed */
+  width: 20px; /* Set the width to your desired size */
+  height: 20px; /* Set the height to your desired size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+
+/* Add other styles as needed */
+.tour-item {
+  margin: 10px;
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+  width: 200px; /* Adjust the width as needed */
+  height: 230px;  /* Adjust the height as needed */
+}
+
+.tour-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Adjust this line to space the description and price properly */
+}
+
+.tour-description h3,
+.tour-price p {
+  margin: 0;
+}
+
+.tour-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.action-button-ng {
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  padding: auto;
+}
+
+.action-button-ng:hover {
+  background: white;
+  color: black;
+  border: 1px solid rgb(56, 28, 117);
 }

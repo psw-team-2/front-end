@@ -28,14 +28,14 @@
     margin-bottom: 20px;
     background: url('https://blog.wego.com/wp-content/uploads/skorea_mcjl4i.jpg') no-repeat center center;
     background-size: cover;
-    border: 3px solid #B855D4;
+    border: 3px solid rgb(56, 28, 117);;
   }
   
   .bundle .details {
     color: white;
-    box-shadow: 0 3px 10px #B855D4;
+    box-shadow: 0 3px 10px  rgb(56, 28, 117);;
     width: 100%;
-    background-color: #B855D4;
+    background-color:  rgb(56, 28, 117);;
     position: absolute;
     bottom: 0;
     height: 3.1em;
