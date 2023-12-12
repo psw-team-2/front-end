@@ -12,7 +12,7 @@ body{
     height: 85%;
     background-color: #ffffff;
     border-radius: 20px;
-    box-shadow: 0px 25px 40px #1687d933;
+    /*box-shadow: 0px 25px 40px #1687d933;*/
     flex-direction: column; 
     justify-content: space-between;
     overflow-y: auto; /* vertikalni scroll */
@@ -145,9 +145,9 @@ body{
     border: none;
    }
    hr{
-    width: 90%;
+    width: 92%;
     float: right;
-    margin-right: 5%;
+    margin-right: 3%;
    }
    .total {
     width: 100%;
@@ -200,6 +200,7 @@ body{
     border-radius: 0.375vw;
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s;
+    margin-top: 20px;
   }
 
   .button:hover {
@@ -207,4 +208,45 @@ body{
     color: #ffffff;
   }
 
-  
+  .Center-Content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+}
+
+.Empty-Cart-Image {
+    max-width: 100%;
+    max-height: 200px; /* Adjust the height as needed */
+    margin-bottom: 10px;
+}
+
+.Center-Content p {
+  margin-bottom: -5px; /* Adjust the value to your preference */
+}
+
+.wishlist i.fa-heart {
+  font-size: 14px;
+  position: relative;
+  display: inline-block;
+  content: '\2661'; /* Unicode character for an empty heart */
+}
+
+.wishlist i.fa-heart.liked {
+  content: '\2665'; /* Unicode karakter za puno srce */
+  color: #2E003D; /* Boja srca kada je lajkovano */
+  border-color: #2E003D; /* Ivica srca kada je lajkovano */
+}
+
+.wishlist{
+  padding-top: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+ }
+
+
+

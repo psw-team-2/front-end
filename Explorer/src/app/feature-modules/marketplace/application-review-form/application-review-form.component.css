@@ -61,7 +61,7 @@ mat-form-field {
   
   .star:hover,
   .star.active {
-    color: #f39c12; /* Adjust the color for the active state */
+    color: gold; /* Adjust the color for the active state */
   }
 
   .review-title {

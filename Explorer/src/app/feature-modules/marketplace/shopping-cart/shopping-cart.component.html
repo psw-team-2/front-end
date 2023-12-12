@@ -8,6 +8,16 @@
             </button></h5>          
             
         </div>
+        <div *ngIf="numberOfItems === 0" class="Empty-Cart-Content">
+            <div class="Center-Content">
+                <!-- Your image goes here -->
+                <img src="assets/images/empty-shopping-cart.jpg" alt="Your Cart Is Empty Image" class="Empty-Cart-Image">
+                
+                <p><b>Your Cart is Empty</b></p>
+                <p>Looks like you haven't added anything to your cart yet.</p>
+                <button class="button" (click)="shopNow()">Shop Now</button>
+            </div>
+        </div>
         <div class="Cart-Items" *ngFor="let oi of orderItems">
             <div class="image-box">
                 <!-- Add content for image box if needed -->
@@ -22,7 +32,11 @@
                 <div class="btn">-</div>
             </div>-->
             <div class="prices">
-                <div class="amount"> {{ oi.price }}&nbsp;€</div>
+                <div class="amount"> {{ oi.price }}&nbsp;AC</div>
+                <button class="wishlist" (click)="addToWishlist(oi)" [ngClass]="{'liked': isLiked(oi)}">
+                    <i class="fas fa-heart"></i>&nbsp;
+                    Add to wish list
+                </button>
                 <button class="remove" *ngIf="oi.id" (click)="onRemoveClicked(oi.id)">
                     <i class="fas fa-trash-alt"></i>&nbsp;
                     Remove
@@ -33,10 +47,10 @@
         <hr>
         <div class="total">
             <div>
-                <div class="Subtotal">Sub-Total</div>
+                <div class="Subtotal">Subtotal</div>
                 <div class="items">{{ numberOfItems }} items</div>
             </div>
-            <div class="total-amount">{{ totalPrice }}&nbsp;€</div>
+            <div class="total-amount">{{ totalPrice }}&nbsp;AC</div>
         </div>
         <div class="checkout">
             <button class="button" (click)="onCheckoutClicked()">Checkout</button>
