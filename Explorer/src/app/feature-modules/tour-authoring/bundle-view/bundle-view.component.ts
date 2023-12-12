@@ -8,6 +8,9 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { ShoppingCart } from '../../marketplace/model/shopping-cart.model';
+import { OrderItem } from '../../marketplace/model/order-item.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'xp-bundle-view',
   templateUrl: './bundle-view.component.html',
@@ -16,13 +19,19 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 export class BundleViewComponent implements OnInit{
   bundleId: number;
   bundle: Bundle;
-  bundles: Bundle[] = [];
   toursList: any[] = [];
-  userNames: { [key: number]: string } = {};
+  shoppingCartId: Number;
+  shoppingCart: ShoppingCart;
+  numberOfItems: number;
+  isLogged: boolean;
+  orderItems: OrderItem[];
+  userId: Number;
   constructor(
     private route: ActivatedRoute,
     private service: TourAuthoringService,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackBar: MatSnackBar
+
   ) { }
 
   ngOnInit(): void {
@@ -40,26 +49,26 @@ export class BundleViewComponent implements OnInit{
         // Obrada grešaka ako je potrebno
       }
     });
-  }
-  getUserName(userId: number): string {
-    if (this.userNames[userId]) {
-      return this.userNames[userId];
+    if (this.authService.user$.value) {
+      this.isLogged = true;
+      this.userId = this.authService.user$.value.id;
+      this.shoppingCartId = this.userId;      
+      this.service.getOrderItemsByShoppingCart(this.userId as number).subscribe({
+        next: (result: OrderItem[]) => {
+          this.orderItems = result;
+          this.numberOfItems = this.orderItems.length;
+        },
+        error: () => {
+        }
+      })
     }
-    return 'Nepoznato';
-  }
-  loadUserNames(): void {
-    if (!this.bundle) {
-      return;
+    else{
+      this.isLogged = false;
     }
-
-    const userObservables: Observable<User>[] = this.bundles.map((bundle: Bundle) =>
-      this.authService.getUserById(bundle.userId)
-    );
-
-    forkJoin(userObservables).subscribe((users: User[]) => {
-      users.forEach((user, index) => {
-        this.userNames[(this.bundles[index] as Bundle).userId] = user.username;
-      });
+  }
+  showSuccessNotification(message: string): void {
+    this.snackBar.open(message, 'OK', {
+      duration: 3000, // Set the duration for which the notification should be visible (in milliseconds)
     });
   }
 
@@ -102,5 +111,26 @@ export class BundleViewComponent implements OnInit{
       default:
         return 'Unknown';
     }
+  }
+
+  onAddClicked(bundle: Bundle): void {
+    if (!this.authService.user$.value) {
+      console.error('User is not logged in. Please log in before adding to the cart.');
+      return;
+    }
+    this.service.getShoppingCartById(this.shoppingCartId).subscribe({
+      next: (result: ShoppingCart) => {
+        this.shoppingCart = result;
+        this.service.addBundleToCart(this.shoppingCart, bundle).subscribe({
+          next: () => {
+            this.numberOfItems += 1;
+            this.showSuccessNotification('Bundle Added to cart');
+          },
+          error: () => {
+          }
+          
+        })
+      }
+    })
   }
 }
