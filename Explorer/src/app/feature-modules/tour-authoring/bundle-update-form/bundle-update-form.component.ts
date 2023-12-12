@@ -7,6 +7,10 @@ import { TourAuthoringService } from '../tour-authoring.service';
 import { AccountStatus, TourBundle } from '../model/tour-bundle.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+
 
 @Component({
   selector: 'xp-bundle-update-form',
@@ -28,8 +32,8 @@ export class BundleUpdateFormComponent implements OnInit {
     private formBuilder: FormBuilder,private authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private service: TourAuthoringService,
-    private router: Router
-    
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.bundleDataForm = this.formBuilder.group({
       name: [''],
@@ -126,7 +130,10 @@ export class BundleUpdateFormComponent implements OnInit {
        // Consider passing the updated price here or use any desired price value
       this.service.publishBundle(updatedBundle).subscribe((publishedBundle) => {
         // Optional: Redirect to another page or perform other actions after successful publishing
+        
+        this.showSuccessNotification('Bundle successfully updated!');
         console.log('Bundle published:', publishedBundle);
+
         // Add your redirect logic or additional actions here
         this.router.navigate(['/bundle-management']);
       }, (error) => {
@@ -141,14 +148,13 @@ export class BundleUpdateFormComponent implements OnInit {
       // Add error handling logic here
     });
   }
-  
-  nextStep(){
-    this.showTours = true;
-  }
-  goBack(){
-    this.showTours = false;
-  }
 
+  showSuccessNotification(message: string): void {
+    this.snackBar.open(message, '', {
+      duration: 3500, // Set the duration for which the notification should be visible (in milliseconds)
+    });
+  }
+  
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
     if (file) {

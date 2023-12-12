@@ -4,7 +4,10 @@ import { TourAuthoringService } from '../tour-authoring.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, forkJoin, map, switchMap } from 'rxjs';
 import { Tour } from '../model/tour.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
+
+import { User } from 'src/app/infrastructure/auth/model/user.model';
 @Component({
   selector: 'xp-bundle-view',
   templateUrl: './bundle-view.component.html',
@@ -13,11 +16,13 @@ import { Tour } from '../model/tour.model';
 export class BundleViewComponent implements OnInit{
   bundleId: number;
   bundle: Bundle;
+  bundles: Bundle[] = [];
   toursList: any[] = [];
-
+  userNames: { [key: number]: string } = {};
   constructor(
     private route: ActivatedRoute,
-    private service: TourAuthoringService
+    private service: TourAuthoringService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +39,27 @@ export class BundleViewComponent implements OnInit{
       error: () => {
         // Obrada grešaka ako je potrebno
       }
+    });
+  }
+  getUserName(userId: number): string {
+    if (this.userNames[userId]) {
+      return this.userNames[userId];
+    }
+    return 'Nepoznato';
+  }
+  loadUserNames(): void {
+    if (!this.bundle) {
+      return;
+    }
+
+    const userObservables: Observable<User>[] = this.bundles.map((bundle: Bundle) =>
+      this.authService.getUserById(bundle.userId)
+    );
+
+    forkJoin(userObservables).subscribe((users: User[]) => {
+      users.forEach((user, index) => {
+        this.userNames[(this.bundles[index] as Bundle).userId] = user.username;
+      });
     });
   }
 

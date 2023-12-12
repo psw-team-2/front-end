@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { TourBundle } from '../model/tour-bundle.model';
 import { Bundle } from '../model/bundle.model';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'xp-bundle-data-form',
@@ -20,7 +21,8 @@ export class BundleDataFormComponent implements OnInit{
   @Input() selectedBundle : Bundle;
   userId = this.authService.user$.value.id;
   price : number;
-  constructor(private service: TourAuthoringService,private authService: AuthService,  private router: Router) {}
+  constructor(private service: TourAuthoringService,private authService: AuthService,  private router: Router, 
+    private snackBar: MatSnackBar) {}
 
   
   bundleDataForm = new FormGroup({
@@ -60,9 +62,16 @@ export class BundleDataFormComponent implements OnInit{
   
     this.service.finishCreatingBundle(bundle, numericPrice).subscribe(response => {
       this.selectedBundle = response;  
+      this.showSuccessNotification('Bundle successfully created!');
      this.router.navigate(['/bundle-management']);
     }, error => {
       alert("Not created");
+    });
+  }
+
+  showSuccessNotification(message: string): void {
+    this.snackBar.open(message, '', {
+      duration: 3500, // Set the duration for which the notification should be visible (in milliseconds)
     });
   }
 
