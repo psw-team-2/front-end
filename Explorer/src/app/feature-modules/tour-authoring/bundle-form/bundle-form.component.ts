@@ -3,7 +3,7 @@ import { Bundle, BundleStatus } from '../model/bundle.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TourBundle } from '../model/tour-bundle.model';
 
 @Component({
@@ -22,8 +22,10 @@ export class BundleFormComponent {
   selectedTours: any[] = [];
   availableTours: any[] = []; 
   selectedBundle: Bundle;
+  currentFile: File;
+  currentFileURL: string | null = null;
 
-  constructor(private service: TourAuthoringService, private authService: AuthService, private route: ActivatedRoute) {
+  constructor(private service: TourAuthoringService, private authService: AuthService, private route: ActivatedRoute, private router: Router) {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       this.bundleId = id ? +id : null;
@@ -70,6 +72,7 @@ export class BundleFormComponent {
     name: new FormControl('', [Validators.required]),
     price: new FormControl('', [Validators.required]),
     tours: new FormControl([]), 
+    image: new FormControl('', [Validators.required]),
     });
   }
   
@@ -81,6 +84,11 @@ export class BundleFormComponent {
   }
 
   async addBundle(): Promise<void> {
+    if(this.bundleForm.value.name == '' ){
+      console.log('name not added')
+      return;
+    }
+    
     this.shouldRender = true;
     const userId = this.authService.user$.value.id;
     const bundle: Bundle = {
@@ -88,9 +96,18 @@ export class BundleFormComponent {
       price: 0,
       userId: userId,
       status: BundleStatus.Draft,
-      tours: []
+      tours: [],
+      image: 'https://localhost:44333/Images/' + this.currentFile.name,
     };
-  
+    await this.authService.upload(this.currentFile).subscribe({
+      next: (value) => {
+
+      },
+      error: (value) => {
+
+      }, complete: () => {
+      },
+    });
     // Poziv servisa kako biste dodali novi bundle
     this.service.createBundle(bundle).subscribe({
       next: (createdBundle) => {
@@ -104,7 +121,16 @@ export class BundleFormComponent {
     });
     
   }
-  
+  onFileSelected(event: any) {
+    this.currentFile = event.target.files[0];
+    if (this.currentFile) {
+      // Create a URL for the selected file
+      this.currentFileURL = window.URL.createObjectURL(this.currentFile);
+    }
+  }
+  viewAllBundles(){
+    this.router.navigate(['/bundle-management']);
+  }
 
     
 }

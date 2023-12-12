@@ -18,6 +18,10 @@
             <mat-label>Difficulty</mat-label>
             <input matInput formControlName="difficulty" type="number">
         </mat-form-field>
+        <img *ngIf="currentFile" [src]="currentFileURL" alt="Selected Image" class="thumbnail" />
+            <mat-label>Images</mat-label>
+            <button mat-raised-button color="primary" (click)="fileInput.click()">Upload File</button>
+            <input hidden #fileInput type="file" (change)="onFileSelected($event)">
         <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" (click)="addTour()">Done</button>
         <button *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateTour()">Done</button>
     </div>

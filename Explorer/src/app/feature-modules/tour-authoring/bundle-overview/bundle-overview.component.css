@@ -26,29 +26,31 @@
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     position: relative;
     margin-bottom: 20px;
-    background: url('https://blog.wego.com/wp-content/uploads/skorea_mcjl4i.jpg') no-repeat center center;
     background-size: cover;
-    border: 3px solid #B855D4;
+    border-radius: 10px;
   }
   
   .bundle .details {
     color: white;
-    box-shadow: 0 3px 10px #B855D4;
     width: 100%;
-    background-color: #B855D4;
     position: absolute;
     bottom: 0;
-    height: 3.1em;
+    height: 3.5em;
     transition: height 0.5s ease-in-out;
     padding: 0.6em;
     overflow: hidden;
     box-sizing: border-box;
+    border-radius: 10px;
+    backdrop-filter: blur(19px); /* Adjust the blur value as needed */
   }
+ 
+  
   
   .bundle .details > label {
     font-weight: bold;
   }
-  
+
+
   .bundle .details > p {
     font-size: 0.8em;
     margin-top: 0.5em;

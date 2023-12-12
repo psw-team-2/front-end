@@ -27,7 +27,8 @@ import { BundleDataFormComponent } from './bundle-data-form/bundle-data-form.com
 import { BundleOverviewComponent } from './bundle-overview/bundle-overview.component';
 import { BundleUpdateFormComponent } from './bundle-update-form/bundle-update-form.component';
 import { BundleViewComponent } from './bundle-view/bundle-view.component';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -61,7 +62,9 @@ import { BundleViewComponent } from './bundle-view/bundle-view.component';
     MatButtonModule,
     MarketplaceModule,
     FormsModule,
-    EncounterModule
+    EncounterModule,
+    MatTooltipModule,
+    MatSnackBarModule,
   ],
   exports: [
     CheckpointComponent,
