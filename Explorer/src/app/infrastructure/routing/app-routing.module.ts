@@ -58,6 +58,7 @@ import { ViewComposedTourComponent } from 'src/app/feature-modules/complex-tour/
 import { ComposedTourOverviewComponent } from 'src/app/feature-modules/complex-tour/composed-tour-overview/composed-tour-overview.component';
 import { ActiveEncounterComponent } from 'src/app/feature-modules/challenges/active-encounter/active-encounter.component';
 import { InviteMembersToTourComponent } from 'src/app/feature-modules/club/invite-members-to-tour/invite-members-to-tour.component';
+import { VerificationComponent } from 'src/app/feature-modules/administration/user-account-administration/verification/verification.component';
 
 
 
@@ -125,6 +126,7 @@ const routes: Routes = [
   {path: 'editSale', component: EditSaleComponent},
   {path: 'active-encounter', component: ActiveEncounterComponent},
   { path: 'clubs/:clubId/inviteMembersToTour', component: InviteMembersToTourComponent },
+  {path: 'verify/:token', component: VerificationComponent},
 ];
 
 @NgModule({
