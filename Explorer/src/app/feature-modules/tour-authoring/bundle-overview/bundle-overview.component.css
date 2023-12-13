@@ -26,9 +26,13 @@
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     position: relative;
     margin-bottom: 20px;
-    background-size: cover;
+    background-size: cover; /* Set background-size to cover */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent background image from repeating */
     border-radius: 10px;
   }
+  
+  
   
   .bundle .details {
     color: white;

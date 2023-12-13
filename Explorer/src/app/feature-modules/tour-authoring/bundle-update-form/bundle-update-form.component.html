@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="tour-actions">
-          <button color="primary" style="color: rgb(56, 28, 117);" (click)="toggleTour(tour)" mat-raised-button>
+          <button style="color: rgb(56, 28, 117);" (click)="toggleTour(tour)" mat-raised-button>
             {{ tour.isAdded ? '-' : '+' }}
           </button>
         </div>
@@ -39,6 +39,6 @@
     
 
     <div class="button-container">
-      <a class="action-button-ng" color="primary" class="view-button" (click)="updateBundle()" mat-raised-button>Update</a>
+      <a class="create-button" color="primary"  (click)="updateBundle()" mat-raised-button>Update</a>
     </div>
 </form>

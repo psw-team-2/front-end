@@ -98,6 +98,7 @@
 .bundle-image img {
     max-width: 100%;
     max-height: auto; /* Adjust the height as needed */
+    border-radius: 10px;
 }
 
 
