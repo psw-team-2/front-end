@@ -33,6 +33,8 @@ import { TouristPosts2Component } from './tourist-posts2/tourist-posts2.componen
 import { WalletsOverviewComponent } from './wallets-overview/wallets-overview.component';
 import { AcFormComponent } from './ac-form/ac-form.component';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
+import { ClubsComponent } from './clubs/clubs.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -62,6 +64,7 @@ import { QuestionnaireComponent } from './questionnaire/questionnaire.component'
     WalletsOverviewComponent,
     AcFormComponent,
     QuestionnaireComponent,
+    ClubsComponent,
   ],
   imports: [
     CommonModule,
@@ -73,6 +76,7 @@ import { QuestionnaireComponent } from './questionnaire/questionnaire.component'
     FormsModule,
     MatDialogModule,
     MatButtonModule,
+    RouterModule,
   ],
   exports: [
     EquipmentComponent,
