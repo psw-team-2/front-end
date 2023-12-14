@@ -22,43 +22,16 @@
     </div>      
   </div>
 </div>
-
-<div *ngFor="let individualProfile of profile" class="center-class-preferences">
-
-  <table class="rating-table">
-    <tr>
-      <td>Difficulty:</td>
-      <td>Walking Rating:</td>
-      <td>Bicycle Rating:</td>
-      <td>Car Rating:</td>
-      <td>Boat Rating:</td>
-    </tr>
-    <tr>
-      <td>{{ individualProfile.tourPreference.difficulty }}</td>
-      <td>{{ individualProfile.tourPreference.walkingRating }}</td>
-      <td>{{ individualProfile.tourPreference.bicycleRating }}</td>
-      <td>{{ individualProfile.tourPreference.carRating }}</td>
-      <td>{{ individualProfile.tourPreference.boatRating }}</td>
-    </tr>
-    <tr>
-      <td colspan="5">Tags:</td>
-    </tr>
-    <tr>
-      <td colspan="4">
-        <div class="tag-list">
-          <div *ngFor="let tag of individualProfile.tourPreference.tags" class="tag-box">
-            <span>{{ tag }}</span>
-          </div>
-        </div>
-      </td>
-      <td colspan="1">
-        <mat-icon class="picture-icon" (click)="onEditClicked(individualProfile)">edit</mat-icon>
-      </td>
-    </tr>
-  </table>
+<div class="center-class">
+  <div class="preferences-container">
+    <button (click)="toggleForm()" class="toggle-button">
+      <span class="toggle-text emphasized">Tour Preferences {{ formState === 'collapsed' ? '&#9660;' : '&#9650;' }}</span>
+    </button>
+    <div *ngIf="formState ==='expanded'">
+      <xp-tour-preference-field></xp-tour-preference-field>
+    </div>
+  </div>
 </div>
-
-
 <div class="center-class">
   <table class="split-table">
     <tr>

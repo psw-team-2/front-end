@@ -10,7 +10,7 @@
 
     <div class="settings-content">
       <xp-profile-form *ngIf="selectedProfile && showEditProfileForm" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-profile-form>
-      <xp-tour-preference-field *ngIf="showProfilePreferences"></xp-tour-preference-field>
+      <xp-tour-preference-settings *ngIf="showProfilePreferences"></xp-tour-preference-settings>
       <xp-purchase-report *ngIf="showPurchase"></xp-purchase-report>
     </div>
   </div>

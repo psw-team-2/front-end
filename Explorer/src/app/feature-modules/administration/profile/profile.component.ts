@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit{
   showProfilePictureForm: boolean = false;
   showEditProfileForm: boolean = false;
   wallet: Wallet;
+  formState: 'collapsed' | 'expanded' = 'collapsed';
   
   toggleEditProfileForm() {
     this.showEditProfileForm = !this.showEditProfileForm;
@@ -83,5 +84,9 @@ export class ProfileComponent implements OnInit{
 
   onPurchaseReports(): void {
     this.router.navigate(['/purchase-reports']);
+  }
+
+  toggleForm() {
+    this.formState = this.formState === 'expanded' ? 'collapsed' : 'expanded';
   }
 }

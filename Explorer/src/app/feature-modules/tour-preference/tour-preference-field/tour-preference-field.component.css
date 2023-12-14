@@ -68,7 +68,7 @@
   box-sizing: border-box;
 }
 
-.add-tag-button,
+
 .remove-tag-button {
   background: none;
   border: none;
@@ -76,6 +76,13 @@
   color: white;
 }
 
+.add-tag-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding-bottom: 10px;
+}
 .tag-list {
   display: flex;
   flex-wrap: wrap;
