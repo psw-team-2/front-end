@@ -33,6 +33,11 @@ import { TouristPosts2Component } from './tourist-posts2/tourist-posts2.componen
 import { WalletsOverviewComponent } from './wallets-overview/wallets-overview.component';
 import { AcFormComponent } from './ac-form/ac-form.component';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
+import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
+import { AppUserProfileComponent } from './app-user-profile/app-user-profile.component';
+import { RouterModule } from '@angular/router';
+import { PurchaseReportComponent } from '../tourist/purchase-report/purchase-report.component';
+import { TouristModule } from '../tourist/tourist.module';
 
 
 @NgModule({
@@ -62,6 +67,8 @@ import { QuestionnaireComponent } from './questionnaire/questionnaire.component'
     WalletsOverviewComponent,
     AcFormComponent,
     QuestionnaireComponent,
+    ProfileSettingsComponent,
+    AppUserProfileComponent
   ],
   imports: [
     CommonModule,
@@ -73,6 +80,8 @@ import { QuestionnaireComponent } from './questionnaire/questionnaire.component'
     FormsModule,
     MatDialogModule,
     MatButtonModule,
+    RouterModule,
+    TouristModule
   ],
   exports: [
     EquipmentComponent,
@@ -84,7 +93,8 @@ import { QuestionnaireComponent } from './questionnaire/questionnaire.component'
     PublicRequestsComponent,
     ProfilesComponent,
     Profiles2Component,
-    TouristPostsComponent
+    TouristPostsComponent,
+    ProfileSettingsComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 

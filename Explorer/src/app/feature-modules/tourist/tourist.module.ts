@@ -14,7 +14,8 @@ import { PurchaseReportComponent } from './purchase-report/purchase-report.compo
     CommonModule
   ],
   exports: [
-    TouristSelectedEquipmentComponent
+    TouristSelectedEquipmentComponent,
+    PurchaseReportComponent
   ]
 })
 export class TouristModule { }

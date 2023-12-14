@@ -1,19 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Equipment } from '../model/equipment.model';
+import { Component } from '@angular/core';
 import { Profile } from '../model/profile.model';
-import { HttpClient } from '@angular/common/http';
-import { AdministrationService } from '../administration.service';
-import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Wallet } from '../model/wallet.model';
+import { AdministrationService } from '../administration.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'xp-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'xp-app-user-profile',
+  templateUrl: './app-user-profile.component.html',
+  styleUrls: ['./app-user-profile.component.css']
 })
-export class ProfileComponent implements OnInit{
-  profile: Profile[] = [];
+export class AppUserProfileComponent {
+  profile: Profile;
   selectedProfile: Profile;
   showProfileForm: boolean = false;
   showPictureForm: boolean = false;
@@ -21,7 +18,7 @@ export class ProfileComponent implements OnInit{
   showProfilePictureForm: boolean = false;
   showEditProfileForm: boolean = false;
   wallet: Wallet;
-  
+
   toggleEditProfileForm() {
     this.showEditProfileForm = !this.showEditProfileForm;
   }
@@ -34,21 +31,14 @@ export class ProfileComponent implements OnInit{
 
   ngOnInit(): void {
     this.getByUserId();
-    this.delayedShowMessage();
     this.getWalletByUserId();
   }
-  
-  delayedShowMessage() {
-    setTimeout(() => {
-      this.showMessage = true;
-    }, 1000);
-  }
-  
+
   getByUserId(): void {
     this.service.getByUserId().subscribe({
       next: (result: Profile) => {
         console.log('Result from API:', result);
-        this.profile = [result]; // Wrap the result in an array, as it's a single Profile object
+        this.profile = result; // Wrap the result in an array, as it's a single Profile object
         console.log('Profile data in component:', this.profile);
       },
       error: (err: any) => {
@@ -69,10 +59,10 @@ export class ProfileComponent implements OnInit{
       }
     });
   }
-
   onEditClicked(profile: Profile): void {
     this.selectedProfile = profile;
-    this.router.navigate(['/profile-settings']);
+    console.log(this.selectedProfile);   
+    this.toggleEditProfileForm();
   }
 
   onChangeClicked(profile: Profile): void {

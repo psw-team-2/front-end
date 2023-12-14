@@ -1,55 +1,68 @@
-import { Component, OnInit } from '@angular/core';
-import { Equipment } from '../model/equipment.model';
+import { Component } from '@angular/core';
 import { Profile } from '../model/profile.model';
-import { HttpClient } from '@angular/common/http';
-import { AdministrationService } from '../administration.service';
-import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Wallet } from '../model/wallet.model';
+import { AdministrationService } from '../administration.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'xp-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'xp-profile-settings',
+  templateUrl: './profile-settings.component.html',
+  styleUrls: ['./profile-settings.component.css']
 })
-export class ProfileComponent implements OnInit{
-  profile: Profile[] = [];
+export class ProfileSettingsComponent {
+
+  profile: Profile;
   selectedProfile: Profile;
   showProfileForm: boolean = false;
   showPictureForm: boolean = false;
   showMessage: boolean = false;
   showProfilePictureForm: boolean = false;
   showEditProfileForm: boolean = false;
+  showProfilePreferences: boolean = false;
+  showPurchase: boolean = false;
   wallet: Wallet;
-  
+
   toggleEditProfileForm() {
     this.showEditProfileForm = !this.showEditProfileForm;
+    this.showProfilePictureForm = false;
+    this.showProfilePreferences = false;
+    this.showPurchase = false;
   }
 
   toggleProfilePictureForm() {
     this.showProfilePictureForm = !this.showProfilePictureForm;
+    this.showEditProfileForm = false;
+    this.showProfilePreferences = false;
+    this.showPurchase = false;
   }  
+
+  togglePreferencesForm() {
+    this.showProfilePreferences = !this.showProfilePreferences;
+    this.showEditProfileForm = false;
+    this.showProfilePictureForm = false;
+    this.showPurchase = false;
+  }
   
+  togglePurchaseForm() {
+    this.showPurchase = !this.showPurchase;
+    this.showEditProfileForm = false;
+    this.showProfilePictureForm = false;
+    this.showProfilePreferences = false;
+  }
   constructor(private service: AdministrationService , private router: Router) { }
 
   ngOnInit(): void {
     this.getByUserId();
-    this.delayedShowMessage();
     this.getWalletByUserId();
   }
-  
-  delayedShowMessage() {
-    setTimeout(() => {
-      this.showMessage = true;
-    }, 1000);
-  }
-  
+
   getByUserId(): void {
     this.service.getByUserId().subscribe({
       next: (result: Profile) => {
         console.log('Result from API:', result);
-        this.profile = [result]; // Wrap the result in an array, as it's a single Profile object
+        this.profile = result; // Wrap the result in an array, as it's a single Profile object
         console.log('Profile data in component:', this.profile);
+        this.onEditClicked(this.profile)
       },
       error: (err: any) => {
         console.log(err);
@@ -69,10 +82,10 @@ export class ProfileComponent implements OnInit{
       }
     });
   }
-
   onEditClicked(profile: Profile): void {
     this.selectedProfile = profile;
-    this.router.navigate(['/profile-settings']);
+    console.log(this.selectedProfile);   
+    this.toggleEditProfileForm();
   }
 
   onChangeClicked(profile: Profile): void {
@@ -80,8 +93,11 @@ export class ProfileComponent implements OnInit{
     console.log(this.selectedProfile);
     this.toggleProfilePictureForm();
   }
+  onTourPreferencesClicked() {
+    this.togglePreferencesForm();
+  }
 
-  onPurchaseReports(): void {
-    this.router.navigate(['/purchase-reports']);
+  onPurchaseReportsClicked() {
+    this.togglePurchaseForm();
   }
 }

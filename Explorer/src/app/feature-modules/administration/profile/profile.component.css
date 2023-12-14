@@ -63,7 +63,9 @@
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end; /* Align items to the right side */
+  justify-content: flex-start; /* Align items to the top */
+  align-self: flex-end; /* Align the container to the right */
 }
 
 .action-button {
@@ -121,4 +123,22 @@
 .messages{
   bottom: 0;
   right: 0;
+}
+
+.action-button-settings {
+  background-color: transparent; /* Set button background to transparent */
+  border: none; /* Remove button border */
+  box-shadow: none !important; /* Remove button box shadow */
+}
+
+.action-button-settings mat-icon {
+  color: rgb(56, 28, 117);
+  margin: 0;
+  padding: 0;
+}
+
+.center-class-preferences{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

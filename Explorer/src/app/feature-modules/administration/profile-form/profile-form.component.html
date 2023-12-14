@@ -1,34 +1,44 @@
 <!-- profile-form.component.html -->
-<div class="form-container">
-    <h1>Profile Update:</h1>
-    <form [formGroup]="profileForm">
+<xp-picture-form *ngIf="changeImage" [profile]="profile"></xp-picture-form>
+<div class="form-container" *ngIf="!changeImage">
+    <h1>Update Profile</h1>
+    <div class="img-cont" (click)="onImageClick()">
+        <div class="overlay">
+            <mat-icon class="picture-icon">edit</mat-icon>
+        </div>
+        <img class="profile-picture" src="{{ profile.profilePicture }}" alt="">
+    </div>
+    
+    <form [formGroup]="profileForm">        
         <div class="form-field">
-        <mat-form-field>
-            <mat-label>First Name:</mat-label>
+        <mat-form-field class="form-field">
+            <mat-label>First Name</mat-label>
             <input matInput type="text" formControlName="firstName">
         </mat-form-field>
         </div>
         <div class="form-field">
-        <mat-form-field>
-            <mat-label>Last Name:</mat-label>
+        <mat-form-field class="form-field">
+            <mat-label>Last Name</mat-label>
             <input matInput type="text" formControlName="lastName">
         </mat-form-field>
         </div>
         <div class="form-field">
-        <mat-form-field>
-            <mat-label>Biography:</mat-label>
+        <mat-form-field class="form-field">
+            <mat-label>Biography</mat-label>
             <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" formControlName="biography" cdkAutosizeMaxRows="5"></textarea>
         </mat-form-field>
         </div>
         <div class="form-field">
-        <mat-form-field>
-            <mat-label>Motto:</mat-label>
+        <mat-form-field class="form-field">
+            <mat-label>Motto</mat-label>
             <input matInput type="text" formControlName="motto">
         </mat-form-field>
         </div>
         <div class="profile-actions">
-            <button class="action-button" mat-raised-button type="submit" color="primary" (click)="updateProfile()">Change Profile Info</button>
+            <button class="action-button" mat-raised-button type="submit" color="primary" (click)="updateProfile()">Save</button>
         </div>
     </form>
 </div>
+
+
   

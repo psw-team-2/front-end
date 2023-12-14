@@ -57,6 +57,8 @@ import { EditSaleComponent } from 'src/app/feature-modules/marketplace/edit-sale
 import { ViewComposedTourComponent } from 'src/app/feature-modules/complex-tour/view-composed-tour/view-composed-tour.component';
 import { ComposedTourOverviewComponent } from 'src/app/feature-modules/complex-tour/composed-tour-overview/composed-tour-overview.component';
 import { ActiveEncounterComponent } from 'src/app/feature-modules/challenges/active-encounter/active-encounter.component';
+import { ProfileSettingsComponent } from 'src/app/feature-modules/administration/profile-settings/profile-settings.component';
+import { AppUserProfileComponent } from 'src/app/feature-modules/administration/app-user-profile/app-user-profile.component';
 
 
 
@@ -123,7 +125,9 @@ const routes: Routes = [
   {path: 'addSale', component: SaleFormComponent},
   {path: 'editSale', component: EditSaleComponent},
   {path: 'active-encounter', component: ActiveEncounterComponent},
-
+  {path: 'profile-settings', component: ProfileSettingsComponent},
+  {path: 'app-user-profile/:id', component: AppUserProfileComponent},
+  
 ];
 
 @NgModule({

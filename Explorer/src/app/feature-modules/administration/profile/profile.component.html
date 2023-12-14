@@ -1,6 +1,11 @@
 <!-- profile.component.html TOURIST-->
 <div class="profile-container">
   <div class="profile-card" *ngFor="let individualProfile of profile">
+    <div class="profile-actions">
+      <button class="action-button-settings" mat-raised-button (click)="onEditClicked(individualProfile)">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </div>
     <div class="label">TOURIST</div>
     <img class="profile-picture" src="{{ individualProfile.profilePicture }}" alt="">
     <div class="profile-details">
@@ -14,22 +19,51 @@
       <div class="motto emphasized">{{ individualProfile.motto }}</div>
       <label class="label">Wallet balance:</label>
       <div class="wallet emphasized">{{ wallet.ac }} AC</div>
-    </div>    
-    <div class="profile-actions">
-      <button class="action-button" mat-raised-button (click)="onEditClicked(individualProfile)">Edit Profile Info</button>
-      <button class="action-button" mat-raised-button (click)="onChangeClicked(individualProfile)">Change Profile Picture</button>
-      <button class="action-button" mat-raised-button (click)="onPurchaseReports()">Purchase reports</button>
-    </div>    
-    <xp-profile-form *ngIf="selectedProfile && showEditProfileForm" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-profile-form>
-    <xp-picture-form *ngIf="selectedProfile && showProfilePictureForm" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-picture-form>
+    </div>      
   </div>
 </div>
-<xp-tour-preference-field></xp-tour-preference-field>
+
+<div *ngFor="let individualProfile of profile" class="center-class-preferences">
+
+  <table class="rating-table">
+    <tr>
+      <td>Difficulty:</td>
+      <td>Walking Rating:</td>
+      <td>Bicycle Rating:</td>
+      <td>Car Rating:</td>
+      <td>Boat Rating:</td>
+    </tr>
+    <tr>
+      <td>{{ individualProfile.tourPreference.difficulty }}</td>
+      <td>{{ individualProfile.tourPreference.walkingRating }}</td>
+      <td>{{ individualProfile.tourPreference.bicycleRating }}</td>
+      <td>{{ individualProfile.tourPreference.carRating }}</td>
+      <td>{{ individualProfile.tourPreference.boatRating }}</td>
+    </tr>
+    <tr>
+      <td colspan="5">Tags:</td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <div class="tag-list">
+          <div *ngFor="let tag of individualProfile.tourPreference.tags" class="tag-box">
+            <span>{{ tag }}</span>
+          </div>
+        </div>
+      </td>
+      <td colspan="1">
+        <mat-icon class="picture-icon" (click)="onEditClicked(individualProfile)">edit</mat-icon>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
 <div class="center-class">
   <table class="split-table">
     <tr>
       <td class="left-side">
-        <div class="upper-start">            
+        <div class="upper-start">         
           <xp-followers></xp-followers>
         </div>
       </td>
