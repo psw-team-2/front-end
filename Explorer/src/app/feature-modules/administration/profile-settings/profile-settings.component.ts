@@ -23,28 +23,28 @@ export class ProfileSettingsComponent {
   wallet: Wallet;
 
   toggleEditProfileForm() {
-    this.showEditProfileForm = !this.showEditProfileForm;
+    this.showEditProfileForm =  true;
     this.showProfilePictureForm = false;
     this.showProfilePreferences = false;
     this.showPurchase = false;
   }
 
   toggleProfilePictureForm() {
-    this.showProfilePictureForm = !this.showProfilePictureForm;
+    this.showProfilePictureForm =  true;;
     this.showEditProfileForm = false;
     this.showProfilePreferences = false;
     this.showPurchase = false;
   }  
 
   togglePreferencesForm() {
-    this.showProfilePreferences = !this.showProfilePreferences;
+    this.showProfilePreferences = true;
     this.showEditProfileForm = false;
     this.showProfilePictureForm = false;
     this.showPurchase = false;
   }
   
   togglePurchaseForm() {
-    this.showPurchase = !this.showPurchase;
+    this.showPurchase =  true;
     this.showEditProfileForm = false;
     this.showProfilePictureForm = false;
     this.showProfilePreferences = false;

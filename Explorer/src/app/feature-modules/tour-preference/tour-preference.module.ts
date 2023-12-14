@@ -4,6 +4,7 @@ import { TourPreferenceFieldComponent } from './tour-preference-field/tour-prefe
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TourPreferenceSettingsComponent } from './tour-preference-settings/tour-preference-settings.component';
+import { RouterLink } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { TourPreferenceSettingsComponent } from './tour-preference-settings/tour
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ],
   exports: [
     TourPreferenceFieldComponent,

@@ -128,6 +128,7 @@ const routes: Routes = [
   {path: 'profile-settings', component: ProfileSettingsComponent},
   {path: 'app-user-profile/:id', component: AppUserProfileComponent},
   
+  
 ];
 
 @NgModule({

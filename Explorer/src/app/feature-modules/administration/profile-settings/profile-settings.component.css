@@ -10,8 +10,9 @@
   .settings-buttons {
     display: flex;
     flex-direction: column;
-    width: 20vw;
+    width: 24vw;
     min-height: 100vh;
+    
     height: auto;
     background-color: rgb(236, 236, 236);
   }
@@ -38,6 +39,7 @@
     flex: 1;
     padding: 16px;
     width: 60vw;
+  padding-bottom: 100px;
   }
 
 
@@ -47,7 +49,7 @@
     cursor: pointer;
     text-align: left;
     padding: 20px;
-    font-size: 2vw;
+    font-size: 1.8vw;
     display: flex;
     align-items: center; /* Vertically center text */
   }
@@ -64,3 +66,26 @@
     opacity: 1;
     font-size: 1.52vw;
   }
+
+  .has-margin-bottom{
+    padding-bottom: 60px;
+  }
+
+  
+.class-h1{
+  color: rgb(56, 28, 117);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  padding: 20px;
+  font-size: 2vw;
+  display: flex;
+  align-items: center; /* Vertically center text */
+  justify-content: center;
+}
+
+.center-class {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

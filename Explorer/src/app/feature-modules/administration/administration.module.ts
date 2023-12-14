@@ -68,7 +68,7 @@ import { TouristModule } from '../tourist/tourist.module';
     AcFormComponent,
     QuestionnaireComponent,
     ProfileSettingsComponent,
-    AppUserProfileComponent
+    AppUserProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -85,6 +85,7 @@ import { TouristModule } from '../tourist/tourist.module';
   ],
   exports: [
     EquipmentComponent,
+    QuestionnaireComponent,
     EquipmentFormComponent,
     ApplicationReviewComponent,
     ProfileComponent,

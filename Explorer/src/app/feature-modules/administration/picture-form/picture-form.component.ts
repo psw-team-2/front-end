@@ -13,7 +13,6 @@ export class PictureFormComponent {
   @Input() profile: Profile;
 
   currentFile: File;
-
   constructor(private service: AdministrationService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
