@@ -9,6 +9,7 @@ import { Login } from './model/login.model';
 import { AuthenticationResponse } from './model/authentication-response.model';
 import { User } from './model/user.model';
 import { Registration } from './model/registration.model';
+import { Token } from './model/token.model';
 
 
 @Injectable({
@@ -78,4 +79,15 @@ export class AuthService {
     return this.http.get<User>(`${environment.apiHost}users/${userId}`);
   }
 
+  getUserByEmail(email: string): Observable<User> {
+    return this.http.get<User>(`${environment.apiHost}users/getByEmail/${email}`);
+  }
+
+  createToken(token: Token, email: string): Observable<Token> {
+    return this.http.post<Token>('https://localhost:44333/api/administrator/token/' + email, token);
+  }
+
+  getToken(value: string): Observable<Token> {
+    return this.http.get<Token>('https://localhost:44333/api/administrator/token/' + value);
+  }
 }
