@@ -13,4 +13,6 @@ export interface Profile {
     follows: Follow[];
     tourPreference: TourPreference;
     questionnaireDone: boolean;
+    numberOfCompletedTours: number;
+    requestSent: boolean;
 }

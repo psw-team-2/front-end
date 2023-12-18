@@ -44,7 +44,9 @@ export class PictureForm2Component {
       isActive: true,
       follows: this.profile.follows,
       tourPreference: this.profile.tourPreference,
-      questionnaireDone: this.profile.questionnaireDone
+      questionnaireDone: this.profile.questionnaireDone,
+      numberOfCompletedTours: this.profile.numberOfCompletedTours,
+      requestSent: this.profile.requestSent
     }
     profile.id = this.profile.id;
     profile.userId = this.profile.userId;
