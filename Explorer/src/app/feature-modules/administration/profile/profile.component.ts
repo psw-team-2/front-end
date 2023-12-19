@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit{
   showProfilePictureForm: boolean = false;
   showEditProfileForm: boolean = false;
   wallet: Wallet;
+  shouldRender: boolean = false;
   
   toggleEditProfileForm() {
     this.showEditProfileForm = !this.showEditProfileForm;
@@ -33,9 +34,13 @@ export class ProfileComponent implements OnInit{
   constructor(private service: AdministrationService , private router: Router) { }
 
   ngOnInit(): void {
+    
     this.getByUserId();
     this.delayedShowMessage();
     this.getWalletByUserId();
+
+    console.log("SELECTED PROFILE U KLASI PROFIL");
+    console.log(this.selectedProfile);
   }
   
   delayedShowMessage() {
@@ -50,6 +55,7 @@ export class ProfileComponent implements OnInit{
         console.log('Result from API:', result);
         this.profile = [result]; // Wrap the result in an array, as it's a single Profile object
         console.log('Profile data in component:', this.profile);
+        this.shouldRender = true;
       },
       error: (err: any) => {
         console.log(err);

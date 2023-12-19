@@ -35,7 +35,7 @@
         </div>
       </td>
       <td class="right-side">
-        <xp-tourist-posts></xp-tourist-posts>            
+        <xp-tourist-posts *ngIf="shouldRender" [selectedProfile]="profile[0]"></xp-tourist-posts>            
       </td>
     </tr>
   </table>
