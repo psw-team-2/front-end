@@ -11,6 +11,7 @@ import { PublicRequest } from '../tour-authoring/model/public-request.model';
 import { Follow} from './model/follow.model';
 import { Message } from './model/message.model';
 import { Wallet } from './model/wallet.model';
+import { Request } from './model/request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -213,5 +214,10 @@ export class AdministrationService {
 
   addAC(wallet: Wallet): Observable<Wallet> {
     return this.http.put<Wallet>('https://localhost:44333/api/administrator/wallet/' + wallet.id , wallet);
+  }
+
+  // REQUEST
+  addRequest(request: Request): Observable<Request> {
+    return this.http.post<Request>(environment.apiHost + 'administration/authorRequest', request);
   }
 }
