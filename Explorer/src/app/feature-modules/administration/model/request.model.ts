@@ -4,7 +4,7 @@ export interface Request {
     status: RequestStatus
 }
 
-enum RequestStatus
+export enum RequestStatus
 {
     UnderReview,
     Approved,

@@ -41,6 +41,8 @@
         <a class="register-button" href="https://docs.google.com/spreadsheets/d/1KkbXt9BpE99bzZ7EKKnOr1XYZpgu0sKh58FXY_Eplhg/edit?usp=sharing">App Data Tracking Sheet</a>
       </button>
 
+      <button mat-menu-item color="primary" [routerLink]="['author-requests-overview']" *ngIf="user && user.role === 'administrator'">Author Requests Overview</button>
+
     </mat-menu>
   </div>
 

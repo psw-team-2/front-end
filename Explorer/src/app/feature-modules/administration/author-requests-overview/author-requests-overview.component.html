@@ -1,0 +1,16 @@
+<H1 style="text-align: center;">Author Requests Overview</H1>
+<table style="margin: auto; margin-top: 50px; width: 400px;">
+  <tr>
+    <th>Request ID:</th>
+    <th>Profile ID:</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let request of requests">
+    <td>{{ request.id }}</td>
+    <td>{{ request.profileId }}</td>
+    <td>
+      <button>Accept</button>
+      <button>Decline</button>
+    </td>
+  </tr>
+</table>

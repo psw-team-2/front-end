@@ -220,4 +220,8 @@ export class AdministrationService {
   addRequest(request: Request): Observable<Request> {
     return this.http.post<Request>(environment.apiHost + 'administration/authorRequest', request);
   }
+
+  getAllRequests(): Observable<PagedResults<Request>> {
+    return this.http.get<PagedResults<Request>>(environment.apiHost + 'administration/authorRequest/all-author-requests');
+  }
 }
