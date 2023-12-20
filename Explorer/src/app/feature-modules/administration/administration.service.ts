@@ -224,4 +224,8 @@ export class AdministrationService {
   getAllRequests(): Observable<PagedResults<Request>> {
     return this.http.get<PagedResults<Request>>(environment.apiHost + 'administration/authorRequest/all-author-requests');
   }
+
+  getAllUnderReviewRequests(): Observable<PagedResults<Request>> {
+    return this.http.get<PagedResults<Request>>(environment.apiHost + 'administration/authorRequest/all-under-review');
+  }
 }

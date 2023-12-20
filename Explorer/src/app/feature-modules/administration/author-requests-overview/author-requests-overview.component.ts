@@ -17,7 +17,7 @@ export class AuthorRequestsOverviewComponent implements OnInit {
   constructor(private service: AdministrationService, private router: Router) {}
 
   ngOnInit(): void {
-    this.service.getAllRequests().subscribe({
+    this.service.getAllUnderReviewRequests().subscribe({
       next: (result: PagedResults<Request>) => {
         this.requests = result.results;
         console.log("REQUESTS:");
