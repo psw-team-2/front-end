@@ -1,13 +1,17 @@
 <H1 style="text-align: center;">Author Requests Overview</H1>
-<table style="margin: auto; margin-top: 50px; width: 400px;">
+<table style="margin: auto; margin-top: 50px; width: 1000px;">
   <tr>
     <th>Request ID:</th>
-    <th>Profile ID:</th>
-    <th>Actions</th>
+    <th>First Name:</th>
+    <th>Last Name:</th>
+    <th>Number of tours completed:</th>
+    <th>Actions:</th>
   </tr>
-  <tr *ngFor="let request of requests">
+  <tr *ngFor="let request of requests; let i = index">
     <td>{{ request.id }}</td>
-    <td>{{ request.profileId }}</td>
+    <td>{{ profiles[i]?.firstName }}</td>
+    <td>{{ profiles[i]?.lastName }}</td>
+    <td>{{ profiles[i]?.numberOfCompletedTours }}</td>
     <td>
       <button>Accept</button>
       <button>Decline</button>
