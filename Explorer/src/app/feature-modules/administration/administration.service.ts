@@ -228,4 +228,8 @@ export class AdministrationService {
   getAllUnderReviewRequests(): Observable<PagedResults<Request>> {
     return this.http.get<PagedResults<Request>>(environment.apiHost + 'administration/authorRequest/all-under-review');
   }
+
+  updateRequest(request: Request): Observable<Request> {
+    return this.http.put<Request>(environment.apiHost + 'administration/authorRequest/' + request.id + '/' + request.profileId + '/' + request.status, request);
+  }
 }

@@ -14,7 +14,7 @@
     <td>{{ profiles[i]?.numberOfCompletedTours }}</td>
     <td>
       <button>Accept</button>
-      <button>Decline</button>
+      <button (click)="onDeclineClicked(request)">Decline</button>
     </td>
   </tr>
 </table>

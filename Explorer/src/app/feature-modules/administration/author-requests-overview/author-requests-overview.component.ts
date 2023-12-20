@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdministrationService } from '../administration.service';
 import { Router } from '@angular/router';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import { Request, RequestStatus } from '../model/request.model';
+import { Request } from '../model/request.model';
 import { Profile } from '../model/profile.model'; // Import the Profile model
 
 @Component({
@@ -49,4 +49,21 @@ export class AuthorRequestsOverviewComponent implements OnInit {
     });
   }
   
+  onDeclineClicked(request: Request) {
+    const updatedRequest : Request = {
+      id: request.id,
+      profileId: request.profileId,
+      status: 2
+    }
+
+    this.service.updateRequest(updatedRequest).subscribe({
+      next: (_) => {
+        alert("Update successful")
+        console.log(updatedRequest);
+      },
+      error: (error) => {
+        console.error('Error updating request:', error);
+      }
+    });
+  }
 }
