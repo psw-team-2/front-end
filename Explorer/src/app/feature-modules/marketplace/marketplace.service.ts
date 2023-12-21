@@ -106,8 +106,8 @@ export class MarketplaceService {
   }
  
   
-  createTokens(orderItems: OrderItem[], userId: number): Observable<OrderItem[]> {
-    return this.http.post<OrderItem[]>(`https://localhost:44333/api/tourist/tourPurchaseToken/createTokens/${userId}`, orderItems);
+  createTokens(orderItems: OrderItem[], userId: number,discount:number): Observable<OrderItem[]> {
+    return this.http.post<OrderItem[]>(`https://localhost:44333/api/tourist/tourPurchaseToken/createTokens/${userId}/`+discount, orderItems);
   }
 
   removeAllItems(shoppingCartId: number): Observable<ShoppingCart> {

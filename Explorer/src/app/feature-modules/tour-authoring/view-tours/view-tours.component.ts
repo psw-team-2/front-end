@@ -229,7 +229,7 @@ export class ViewToursComponent implements OnInit {
     this.service.getShoppingCartById(this.shoppingCartId).subscribe({
       next: (result: ShoppingCart) => {
         this.shoppingCart = result;
-        this.service.addToCart(this.shoppingCart, tour).subscribe({
+        this.service.addToCart(this.shoppingCart, tour,tour.price).subscribe({
           next: () => {
             this.numberOfItems += 1;
           },

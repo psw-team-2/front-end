@@ -191,8 +191,8 @@ export class TourAuthoringService {
     return this.http.get<ShoppingCart>('https://localhost:44333/api/tourist/shoppingCart/' + id);
   }
 
-  addToCart(shoppingCart: ShoppingCart, tour: Tour) {
-    return this.http.post<ShoppingCart>('https://localhost:44333/api/tourist/shoppingCart/shoppingItem/' + shoppingCart.id + '/' + tour.id,shoppingCart);
+  addToCart(shoppingCart: ShoppingCart, tour: Tour,newPrice:number) {
+    return this.http.post<ShoppingCart>('https://localhost:44333/api/tourist/shoppingCart/shoppingItem/' + shoppingCart.id + '/' + tour.id, newPrice);
   }
 
   getOrderItemsByShoppingCart(userId: number): Observable<OrderItem[]> {

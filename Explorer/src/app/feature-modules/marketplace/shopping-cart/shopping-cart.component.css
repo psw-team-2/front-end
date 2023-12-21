@@ -18,6 +18,11 @@ body{
     overflow-y: auto; /* vertikalni scroll */
    }
 
+h4.discount {
+  margin: 0;
+  margin-right: 3em;
+  margin-bottom: 1em;
+}
 
 .Cart-Container::-webkit-scrollbar {
   width: 12px; 

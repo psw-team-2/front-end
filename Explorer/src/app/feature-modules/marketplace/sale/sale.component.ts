@@ -72,7 +72,7 @@ import { OrderItem } from '../model/order-item.model';
         this.tourAuthoringService.getShoppingCartByUserId(this.user.id).subscribe({
             next: (result: ShoppingCart) => {
               this.shoppingCart = result;
-              let list:any = [];
+              let list:Tour[] = [];
               for (let i = 0; i < sale.tourIds.length; i++) {
                 const tourid = sale.tourIds[i];
                 list = this.tours.filter((tour)=>{
@@ -83,8 +83,9 @@ import { OrderItem } from '../model/order-item.model';
                 })
               }
               for (let j = 0; j < list.length; j++) {
-                const element = list[j];
-                this.tourAuthoringService.addToCart(this.shoppingCart,element ).subscribe({
+                const element:Tour = list[j];
+                let newPrice = this.calculateDiscountedPrice(element.price,sale.discount)
+                this.tourAuthoringService.addToCart(this.shoppingCart,element,newPrice ).subscribe({
                     next: () => {
                         this.router.navigate(['shopping-cart'])
                     },

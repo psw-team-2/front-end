@@ -32,6 +32,8 @@
         </div>
         <hr>
         <div class="total">
+            <h4 class="discount" *ngIf="firstPurchaseDiscount > 0">Your discount is {{firstPurchaseDiscount}}%, because of first purchase.</h4>
+            <h4 class="discount" *ngIf="discount > 0">Your discount is {{discount}}%, because of your {{profile.xp}} XP.</h4>
             <div>
                 <div class="Subtotal">Sub-Total</div>
                 <div class="items">{{ numberOfItems }} items</div>
