@@ -58,7 +58,7 @@ export class AuthorRequestsOverviewComponent implements OnInit {
 
     this.service.updateRequest(updatedRequest).subscribe({
       next: (_) => {
-        alert("Update successful")
+        window.location.reload();
         console.log(updatedRequest);
       },
       error: (error) => {
@@ -66,4 +66,57 @@ export class AuthorRequestsOverviewComponent implements OnInit {
       }
     });
   }
+
+  onAcceptClicked(request: Request) {
+    const updatedRequest: Request = {
+      id: request.id,
+      profileId: request.profileId,
+      status: 1
+    };
+  
+    if (updatedRequest.profileId !== undefined) {
+      this.service.updateRequest(updatedRequest).subscribe({
+        next: (_) => {
+          if (typeof updatedRequest.profileId === 'number') {
+            this.service.getByProfileUserId(updatedRequest.profileId).subscribe({
+              next: (profile) => {
+                console.log('Retrieved Profile:', profile);
+  
+                // Fetch the user based on profile's UserId
+                if (profile.userId !== undefined) {
+                  this.service.getUserById(profile.userId).subscribe({
+                    next: (user) => {
+                      console.log('Retrieved User role:', user);
+                      user.role = 1;
+                      console.log("User pre slanja: ", user)
+                      this.service.updateUserAccount(user);
+                    },
+                    error: (error) => {
+                      console.error('Error fetching user:', error);
+                    }
+                  });
+                } else {
+                  console.error('User ID is undefined in the profile.');
+                }
+              },
+              error: (error) => {
+                console.error('Error fetching profile:', error);
+              }
+            });
+          }
+    
+          //window.location.reload();
+          console.log(updatedRequest);
+        },
+        error: (error) => {
+          console.error('Error updating request:', error);
+        }
+      });
+    } else {
+      console.error('Profile ID is undefined.');
+    }
+  }
+  
+  
+  
 }

@@ -73,6 +73,7 @@ export class AdministrationService {
     return this.http.get<User>(environment.apiHost + 'administration/userAccounts/' + id);
   }
   updateUserAccount(user: User): Observable<User> {
+    console.log("User koji je dobijen: ", user)
     const url = `${environment.apiHost}administration/userAccounts/${user.id}`;
     return this.http.put<User>(url, user);
   }
@@ -231,5 +232,10 @@ export class AdministrationService {
 
   updateRequest(request: Request): Observable<Request> {
     return this.http.put<Request>(environment.apiHost + 'administration/authorRequest/' + request.id + '/' + request.profileId + '/' + request.status, request);
+  }
+
+  // USER
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>('https://localhost:44333/api/users/whole/' + id);
   }
 }

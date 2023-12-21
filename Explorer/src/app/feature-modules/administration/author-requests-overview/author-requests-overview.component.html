@@ -13,7 +13,7 @@
     <td>{{ profiles[i]?.lastName }}</td>
     <td>{{ profiles[i]?.numberOfCompletedTours }}</td>
     <td>
-      <button>Accept</button>
+      <button (click)="onAcceptClicked(request)">Accept</button>
       <button (click)="onDeclineClicked(request)">Decline</button>
     </td>
   </tr>
