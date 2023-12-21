@@ -101,7 +101,6 @@ import { OrderItem } from '../model/order-item.model';
     getAllSales() {
         this.service.getAllSales().subscribe(
             (result) => {
-                console.log(this.sales)
                 this.sales = result.results;
                 this.filteredSales =result.results
                 for (const sale of this.sales) {

@@ -25,16 +25,17 @@ export class ShoppingCartComponent implements OnInit{
         private route: ActivatedRoute, 
         private authService: AuthService) { }
 
-      ngOnInit() {
+      async ngOnInit() {
         if (this.authService.user$.value) {
 
           this.userId = this.authService.user$.value.id;
           this.shoppingCartId = this.userId;
 
-        this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
+        await this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
           next: (result) => {console.log(result)
             this.orderItems = result;
             this.numberOfItems = this.orderItems.length;
+            console.log(this.orderItems)
           },
           error: () => {
           }

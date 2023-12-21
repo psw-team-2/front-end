@@ -65,7 +65,8 @@ export class ComposedTourOverviewComponent {
       carTime: composedTour.carTime,
       authorId: composedTour.authorId,
       publishTime: composedTour.publishTime,
-      points: 0
+      points: 0,
+      price: 0
     };
   }
   nextSection() {

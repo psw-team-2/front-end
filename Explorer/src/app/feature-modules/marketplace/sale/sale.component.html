@@ -6,7 +6,7 @@
     <div >
         <button class="button" *ngIf="isAuthor" mat-raised-button color="primary" (click)="createSale()">Create Sale</button>
         <input *ngIf="this.user.role == 'tourist'" placeholder="Filter by name" type="text" [(ngModel)]="tourNameFilter" name="" id="tourName" (ngModelChange)="filterSalesByTourName()">
-        <select #myselect (change)="sortSalesByDiscount(myselect.value)">
+        <select *ngIf="this.user.role == 'tourist'" #myselect (change)="sortSalesByDiscount(myselect.value)">
             <option value="" selected disabled>Sort by discount</option>
             <option
             [value]="true">Ascending</option>
@@ -46,10 +46,10 @@
                         <p class="zbuttons">Edit</p>
                         <mat-icon>edit</mat-icon>
                     </button> -->
-<!--                     <button *ngIf="!isAuthor" class="buyButton" (click)="buyTour(s)" color="primary">
+                    <button *ngIf="!isAuthor" class="buyButton" (click)="buyTour(s)" color="primary">
                         <p class="zbuttons">Purchase tour</p>
                         <mat-icon>shoppingcart</mat-icon>
-                    </button> -->
+                    </button>
                     <button class="deleteButton" *ngIf="isCurrentUserAuthor(s) && user" (click)="deleteSale(s.id!)" color="primary">
                         <p class="zbuttons">Delete</p>
                         <mat-icon>delete</mat-icon>
