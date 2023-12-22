@@ -3,7 +3,10 @@ import { AdministrationService } from '../administration.service';
 import { Router } from '@angular/router';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Request } from '../model/request.model';
-import { Profile } from '../model/profile.model'; // Import the Profile model
+import { Profile } from '../model/profile.model';
+import { User, UserRole } from '../model/user-account.model';
+import { finalize, switchMap, catchError } from 'rxjs/operators';
+import { forkJoin, throwError } from 'rxjs';
 
 @Component({
   selector: 'xp-author-requests-overview',
@@ -12,7 +15,7 @@ import { Profile } from '../model/profile.model'; // Import the Profile model
 })
 export class AuthorRequestsOverviewComponent implements OnInit {
   requests: Request[];
-  profiles: Profile[] = []; // Add a profiles array to store fetched profiles
+  profiles: Profile[] = [];
 
   constructor(private service: AdministrationService, private router: Router) {}
 
@@ -20,10 +23,6 @@ export class AuthorRequestsOverviewComponent implements OnInit {
     this.service.getAllUnderReviewRequests().subscribe({
       next: (result: PagedResults<Request>) => {
         this.requests = result.results;
-        console.log("REQUESTS:");
-        console.log(this.requests);
-
-        // Fetch profiles based on profileIds in the requests
         this.fetchProfiles();
       },
       error: (err: any) => {
@@ -34,32 +33,45 @@ export class AuthorRequestsOverviewComponent implements OnInit {
 
   fetchProfiles(): void {
     const profileIds: number[] = this.requests
-      .map(request => request.profileId)
-      .filter(id => id !== undefined) as number[]; // Filter out undefined values
-  
-    profileIds.forEach(id => {
-      this.service.getByProfileUserId(id).subscribe({
-        next: (profile: Profile) => {
-          this.profiles.push(profile);
-        },
-        error: (err: any) => {
-          console.error(`Error while fetching profile ${id}:`, err);
-        }
-      });
+      .filter(request => request.profileId !== undefined)
+      .map(request => request.profileId!) as number[];
+
+    const profileRequests = profileIds.map(id => this.service.getByProfileUserId(id));
+
+    forkJoin(profileRequests).pipe(
+      catchError(error => {
+        console.error('Error fetching profiles:', error);
+        return throwError(error);
+      }),
+      finalize(() => {
+        console.log('All profiles fetched:', this.profiles);
+      })
+    ).subscribe((profiles: Profile[]) => {
+      this.profiles = profiles;
     });
   }
-  
+
   onDeclineClicked(request: Request) {
-    const updatedRequest : Request = {
-      id: request.id,
-      profileId: request.profileId,
-      status: 2
-    }
+    this.updateRequestStatus(request, 2);
+    alert("You have declined this request!");
+  }
+
+  onAcceptClicked(request: Request) {
+    this.updateRequestStatus(request, 1);
+    this.updateUserRole(request);
+    alert("You have accepted this request!");
+  }
+
+  updateRequestStatus(request: Request, status: number): void {
+    const updatedRequest: Request = {
+      ...request,
+      status: status
+    };
 
     this.service.updateRequest(updatedRequest).subscribe({
       next: (_) => {
-        window.location.reload();
-        console.log(updatedRequest);
+        console.log('Request updated:', updatedRequest);
+        // window.location.reload();
       },
       error: (error) => {
         console.error('Error updating request:', error);
@@ -67,56 +79,27 @@ export class AuthorRequestsOverviewComponent implements OnInit {
     });
   }
 
-  onAcceptClicked(request: Request) {
-    const updatedRequest: Request = {
-      id: request.id,
-      profileId: request.profileId,
-      status: 1
-    };
-  
-    if (updatedRequest.profileId !== undefined) {
-      this.service.updateRequest(updatedRequest).subscribe({
-        next: (_) => {
-          if (typeof updatedRequest.profileId === 'number') {
-            this.service.getByProfileUserId(updatedRequest.profileId).subscribe({
-              next: (profile) => {
-                console.log('Retrieved Profile:', profile);
-  
-                // Fetch the user based on profile's UserId
-                if (profile.userId !== undefined) {
-                  this.service.getUserById(profile.userId).subscribe({
-                    next: (user) => {
-                      console.log('Retrieved User role:', user);
-                      user.role = 1;
-                      console.log("User pre slanja: ", user)
-                      this.service.updateUserAccount(user);
-                    },
-                    error: (error) => {
-                      console.error('Error fetching user:', error);
-                    }
-                  });
-                } else {
-                  console.error('User ID is undefined in the profile.');
-                }
-              },
-              error: (error) => {
-                console.error('Error fetching profile:', error);
-              }
-            });
-          }
-    
-          //window.location.reload();
-          console.log(updatedRequest);
-        },
-        error: (error) => {
-          console.error('Error updating request:', error);
-        }
+  updateUserRole(request: Request): void {
+    const profile = this.profiles.find(profile => profile.id === request.profileId);
+
+    if (profile && profile.userId) {
+      this.service.getUserById(profile.userId).pipe(
+        switchMap((user: User) => {
+          user.id = profile.userId!;
+          user.role = UserRole.Author;
+          console.log("User koji se salje", user)
+          return this.service.updateUser(user);
+        }),
+        catchError(error => {
+          console.error('Error updating user role:', error);
+          return throwError(error);
+        })
+      ).subscribe(() => {
+        console.log('User role updated successfully.');
+        // Additional logic after user role update if needed
       });
     } else {
-      console.error('Profile ID is undefined.');
+      console.error('Profile or UserID is undefined.');
     }
   }
-  
-  
-  
 }

@@ -10,7 +10,7 @@ export interface User {
     tourPreference: TourPreference
 }
 
-enum UserRole
+export enum UserRole
 {
     Administrator,
     Author,
