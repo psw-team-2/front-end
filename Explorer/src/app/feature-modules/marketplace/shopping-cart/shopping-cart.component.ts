@@ -7,6 +7,8 @@ import { AuthService } from '../../../infrastructure/auth/auth.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Wallet } from '../../administration/model/wallet.model';
+import { AdministrationService } from '../../administration/administration.service';
 
 @Component({
   selector: 'xp-shopping-cart',
@@ -20,35 +22,39 @@ export class ShoppingCartComponent implements OnInit{
       orderItemIds: number[] = [];
       userId: number;
       numberOfItems: number;
+      wallet: Wallet;
 
       constructor(
         private service: MarketplaceService, 
         private route: ActivatedRoute, 
         private authService: AuthService,
         private router: Router,
-        private snackBar: MatSnackBar) { }
+        private snackBar: MatSnackBar,
+        private administratorService: AdministrationService) { }
 
       ngOnInit() {
         if (this.authService.user$.value) {
 
           this.userId = this.authService.user$.value.id;
           this.shoppingCartId = this.userId;
+          this.getWalletByUserId();
 
-        this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
-          next: (result) => {console.log(result)
-            this.orderItems = result;
-            this.numberOfItems = this.orderItems.length;
-          },
-          error: () => {
-          }
+          this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
+            next: (result) => {console.log(result)
+              this.orderItems = result;
+              this.numberOfItems = this.orderItems.length;
+              
+            },
+            error: () => {
+            }
         })
 
-        this.service.getTotalPriceByUserId(this.userId).subscribe({
-          next: (result: number) => {
-            this.totalPrice = result;
-          }
-        })
-        
+          this.service.getTotalPriceByUserId(this.userId).subscribe({
+            next: (result: number) => {
+              this.totalPrice = result;
+            }
+          })
+          
       }
     }
 
@@ -144,4 +150,18 @@ export class ShoppingCartComponent implements OnInit{
     // Na primer, možete koristiti neki servis za upravljanje listom želja
     return orderItem.isLiked; // Podesite prema vašoj implementaciji
   }
+
+  getWalletByUserId(): void {
+    this.administratorService.getWalletByUserId().subscribe({
+      next: (result: Wallet) => {
+        console.log('Result from API:', result);
+        this.wallet = result; 
+        console.log('Wallet:', this.wallet);
+      },
+      error: (err: any) => {
+        console.log("NE RADI");
+      }
+    });
+  }
+
 }

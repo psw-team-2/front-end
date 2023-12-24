@@ -132,4 +132,5 @@ export class MarketplaceService {
   deleteSale(saleId:number):Observable<PagedResults<Sale>>{
     return this.http.delete<PagedResults<Sale>>(environment.apiHost + 'author/toursale/'+saleId)
   }
+
 }
