@@ -1,4 +1,4 @@
-import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Checkpoint } from './model/checkpoint.model';
@@ -285,7 +285,20 @@ export class TourAuthoringService {
     return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/publish/${bundle.id}`, bundle);  
   }
   
+  getActiveTours(tourIds: (number | undefined)[]): Observable<PagedResults<Tour>> {
+    // Filter out undefined values and convert to string array
+    const validTourIds = tourIds.filter(id => typeof id === 'number').map(String);
   
+    // Create an instance of HttpParams to set the query parameters
+    let params = new HttpParams();
+  
+    // If valid tourIds exist, set them as a query parameter
+    if (validTourIds.length > 0) {
+      params = params.set('tourIds', validTourIds.join(','));
+    }
+  
+    return this.http.get<PagedResults<Tour>>('https://localhost:44333/api/author/active-tours', { params });
+  }
 }
 
 

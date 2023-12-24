@@ -57,6 +57,7 @@ export class ViewToursComponent implements OnInit {
     boatRating: -1,
     tags: [],
   };
+  isActiveTourSearchActive: boolean = false;
 
   constructor(
     private service: TourAuthoringService,
@@ -255,6 +256,11 @@ export class ViewToursComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  ActiveTourSearchClickec(){
+    console.log("ACTIVE TOUR SEARCH CLICKED")
+    this.isActiveTourSearchActive = !this.isActiveTourSearchActive;
   }
 
 }
