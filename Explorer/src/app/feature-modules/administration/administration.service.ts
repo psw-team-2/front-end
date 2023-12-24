@@ -11,6 +11,7 @@ import { PublicRequest } from '../tour-authoring/model/public-request.model';
 import { Follow} from './model/follow.model';
 import { Message } from './model/message.model';
 import { Wallet } from './model/wallet.model';
+import { Question } from './model/question.model';
 
 @Injectable({
   providedIn: 'root'
@@ -213,5 +214,9 @@ export class AdministrationService {
 
   addAC(wallet: Wallet): Observable<Wallet> {
     return this.http.put<Wallet>('https://localhost:44333/api/administrator/wallet/' + wallet.id , wallet);
+  }
+
+  getQuestions(): Observable<PagedResults<Question>> {
+    return this.http.get<PagedResults<Question>>(environment.apiHost + 'question/unanswered');
   }
 }

@@ -1,0 +1,37 @@
+<div id="questions" >
+    <div class="questions-title-section">
+        <h1 class="questions-title">Questions</h1>
+    </div>
+
+    <div class="table-container">
+        
+                <table class="questions-table">
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let question of questions">
+                            <!--<tr [ngClass]="{'tr-tour-problem-5d-old': isFiveDaysOld(problem) && user.role === 'administrator'}" >-->
+                                <td>{{question.text}}</td>
+                                <td>    
+                                    <button  (click)="onAnswer(question)" >
+                                        <i class="fas fa-warning"></i>
+                                        Answer
+                                    </button>                                
+                                </td>
+                            <!--</tr>   -->
+                        </ng-container>
+                    </tbody>
+                </table>
+        
+    </div>
+</div>
+<!--<div *ngIf="shouldRenderAddCommentForm" class="message-form-wrapper">
+    <button mat-icon-button class="close-button" (click)="onCloseFormClicked()">
+        <mat-icon>close</mat-icon>
+    </button>
+    <xp-tp-comment-form [problem]="selectedProblemForComment"  (problemUpdated)="getTourProblems()" [shouldRender]="shouldRenderAddCommentForm" (shouldRenderUpdated)="onCloseFormClicked()"></xp-tp-comment-form>     
+</div>-->

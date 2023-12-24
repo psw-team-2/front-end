@@ -57,6 +57,8 @@ import { EditSaleComponent } from 'src/app/feature-modules/marketplace/edit-sale
 import { ViewComposedTourComponent } from 'src/app/feature-modules/complex-tour/view-composed-tour/view-composed-tour.component';
 import { ComposedTourOverviewComponent } from 'src/app/feature-modules/complex-tour/composed-tour-overview/composed-tour-overview.component';
 import { ActiveEncounterComponent } from 'src/app/feature-modules/challenges/active-encounter/active-encounter.component';
+import { QuestionnaireComponent } from 'src/app/feature-modules/administration/questionnaire/questionnaire.component';
+import { QuestionsOverviewComponent } from 'src/app/feature-modules/administration/questions-overview/questions-overview.component';
 
 
 
@@ -123,6 +125,7 @@ const routes: Routes = [
   {path: 'addSale', component: SaleFormComponent},
   {path: 'editSale', component: EditSaleComponent},
   {path: 'active-encounter', component: ActiveEncounterComponent},
+  {path: 'questions-overview', component: QuestionsOverviewComponent}
 
 ];
 

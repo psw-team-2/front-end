@@ -33,6 +33,7 @@ import { TouristPosts2Component } from './tourist-posts2/tourist-posts2.componen
 import { WalletsOverviewComponent } from './wallets-overview/wallets-overview.component';
 import { AcFormComponent } from './ac-form/ac-form.component';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
+import { QuestionsOverviewComponent } from './questions-overview/questions-overview.component';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { QuestionnaireComponent } from './questionnaire/questionnaire.component'
     WalletsOverviewComponent,
     AcFormComponent,
     QuestionnaireComponent,
+    QuestionsOverviewComponent,
   ],
   imports: [
     CommonModule,
