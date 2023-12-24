@@ -17,6 +17,9 @@ import { AdministrationService } from '../../administration/administration.servi
 import { Profile } from '../../administration/model/profile.model';
 import { TourPreference } from '../../tour-preference/model/tour-preference.model';
 import { FormGroup } from '@angular/forms';
+import { Observable, catchError, map, of, switchMap } from 'rxjs';
+import { Wishlist } from '../model/wishlist.model';
+import { FavouriteItem } from '../model/favourite-item.model';
 @Component({
   selector: 'xp-view-tours',
   templateUrl: './view-tours.component.html',
@@ -57,6 +60,9 @@ export class ViewToursComponent implements OnInit {
     boatRating: -1,
     tags: [],
   };
+  favoriteItems: FavouriteItem[] = [];
+  wishlistId: Number;
+  wishlist: Wishlist;
 
   constructor(
     private service: TourAuthoringService,
@@ -78,7 +84,9 @@ export class ViewToursComponent implements OnInit {
     if (this.authService.user$.value) {
       this.isLogged = true;
       this.userId = this.authService.user$.value.id;
-      this.shoppingCartId = this.userId;      
+      this.shoppingCartId = this.userId;
+      this.wishlistId = this.userId; //loadWishlistForUser  
+       
       this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
       next: (result: OrderItem[]) => {
           this.orderItems = result;
@@ -256,5 +264,26 @@ export class ViewToursComponent implements OnInit {
     }
     return false;
   }
+
+  addToWishlist(tour: Tour): void {
+    if (!this.authService.user$.value) {
+      console.error('User is not logged in. Please log in before adding to the cart.');
+      return;
+    }
+    this.service.getWishlist(this.wishlistId).subscribe({
+      next: (result: Wishlist) => {
+        this.wishlist = result;
+        this.service.addWishlistItem(this.wishlistId, tour).subscribe({
+         
+          error: () => {
+          }
+          
+        })
+      }
+    })
+  }
+   
+
+  
 
 }

@@ -71,3 +71,7 @@ a {
   font-weight: 400;
   text-decoration: none; /* Remove underline for anchor tags */
 }
+
+.favorite-button {
+  margin-right: -35px;
+}

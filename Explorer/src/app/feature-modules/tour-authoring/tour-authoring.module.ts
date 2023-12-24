@@ -27,6 +27,7 @@ import { BundleDataFormComponent } from './bundle-data-form/bundle-data-form.com
 import { BundleOverviewComponent } from './bundle-overview/bundle-overview.component';
 import { BundleUpdateFormComponent } from './bundle-update-form/bundle-update-form.component';
 import { BundleViewComponent } from './bundle-view/bundle-view.component';
+import { WishlistOverviewComponent } from './wishlist-overview/wishlist-overview.component';
 
 
 
@@ -49,6 +50,7 @@ import { BundleViewComponent } from './bundle-view/bundle-view.component';
     BundleOverviewComponent,
     BundleUpdateFormComponent,
     BundleViewComponent,
+    WishlistOverviewComponent,
   ],
   imports: [
     CommonModule,
