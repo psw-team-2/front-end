@@ -36,6 +36,9 @@ import { ComplexTourModule } from './feature-modules/complex-tour/complex-tour.m
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +71,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ComplexTourModule,
     DragDropModule,
     MatTooltipModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ScrollingModule
+
   ],
   providers: [
     {

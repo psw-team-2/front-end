@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Blog, BlogCategory, BlogStatus, BlogCategoryValues } from '../model/blog.model';
 import { BlogService } from '../blog.service';
 import { AuthService } from '../../../infrastructure/auth/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { TourExecution } from '../../tour-execution/model/tourexecution.model';
 import { TourExecutionService } from '../../tour-execution/tour-execution.service';
@@ -13,6 +13,7 @@ import { Equipment } from '../../tour-authoring/model/equipment.model';
 import { AdministrationService } from '../../administration/administration.service';
 import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'xp-blog-form',
@@ -42,7 +43,7 @@ export class BlogFormComponent {
 
   constructor(private service: BlogService, private authService: AuthService, private route: ActivatedRoute, 
     private tourExecutionService : TourExecutionService, private equipmentService : AdministrationService,
-    private tourService: TourAuthoringService) {
+    private tourService: TourAuthoringService, private router: Router, private viewportScroller: ViewportScroller) {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       const tourId = params.get('tourId')
@@ -185,6 +186,7 @@ export class BlogFormComponent {
         next: (_) => {
           this.blogUpdated.emit();
           this.equipmentTourReport = [];
+          this.router.navigate(['/blog-review']);
         }
       });
 
@@ -212,6 +214,7 @@ export class BlogFormComponent {
         next: (_) => {
           this.blogUpdated.emit();
           this.equipmentTourReport = [];
+          this.router.navigate(['/blog-review']);
         }
       });
 
@@ -253,7 +256,8 @@ export class BlogFormComponent {
         },
       });
       this.service.addBlog(blog).subscribe({
-        next: (_) => { this.blogUpdated.emit() }
+        next: (_) => { this.blogUpdated.emit(), this.router.navigate(['/blog-review']);}
+        
     });}
     }
   }
@@ -287,6 +291,10 @@ async updateBlog(): Promise<void> {
       this.service.updateBlog(blog).subscribe({
         next: (_) => {
           this.blogUpdated.emit();
+          this.router.navigate(['/blog-single-post', blog.id]).then(() => {
+            // Scroll na vrh stranice nakon navigacije
+            this.viewportScroller.scrollToPosition([0, 0]);
+          });
         }
       });
     } else {
@@ -311,7 +319,10 @@ async updateBlog(): Promise<void> {
         },
       });
       this.service.updateBlog(blog).subscribe({
-        next: (_) => { this.blogUpdated.emit() }
+        next: (_) => { this.blogUpdated.emit(), this.router.navigate(['/blog-single-post', blog.id]).then(() => {
+          // Scroll na vrh stranice nakon navigacije
+          this.viewportScroller.scrollToPosition([0, 0]);
+        });}
       });}
     
   }

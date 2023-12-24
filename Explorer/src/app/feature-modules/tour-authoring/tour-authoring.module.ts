@@ -29,6 +29,9 @@ import { BundleUpdateFormComponent } from './bundle-update-form/bundle-update-fo
 import { BundleViewComponent } from './bundle-view/bundle-view.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { TpFormComponent } from '../tour-problem/tp-form/tp-form.component';
+import { TourProblemModule } from '../tour-problem/tour-problem.module';
+
 
 
 @NgModule({
@@ -50,6 +53,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     BundleOverviewComponent,
     BundleUpdateFormComponent,
     BundleViewComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -65,6 +69,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     EncounterModule,
     MatTooltipModule,
     MatSnackBarModule,
+    TourProblemModule
   ],
   exports: [
     CheckpointComponent,
