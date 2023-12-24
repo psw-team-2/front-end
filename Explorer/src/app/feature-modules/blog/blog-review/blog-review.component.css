@@ -111,8 +111,8 @@
 }
 
 .read-more-button:hover {
-    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
-}
+    background: linear-gradient(rgb(31, 15, 65), rgb(65, 59, 131));
+  }
 
 .row {
     display: flex;

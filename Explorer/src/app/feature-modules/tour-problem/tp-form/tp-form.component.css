@@ -1,0 +1,67 @@
+.div {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px; 
+}
+
+.problem-title-section {
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.problem-title {
+    color: rgb(56, 28, 117);
+    margin-bottom: 30px;
+    margin-top: 10px;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.center-class {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.done-button {
+    font-size: medium;
+    font-family: 'Open Sans', sans-serif; 
+    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131)); 
+    color: white; 
+    display: block;
+    margin: 0 auto;
+    padding: 8px 16px; 
+    border: none; 
+    cursor: pointer;
+    border-radius: 5px;
+}
+.done-button:hover {
+    background: white;
+    color: black;
+    border: 1px solid rgb(56, 28, 117);
+}
+
+.limited-description {
+    max-height: 100px; /* Set a maximum height to limit the description's height */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+.success-deadline-save-message {
+    background-color: #c5d6b2;
+    padding: 10px; /* Add padding for spacing */
+    margin-bottom: 10px;
+   /* border: 1px solid green; /* Add a border for separation */
+  }
+  
+  .tour-problem-description {
+    margin: 0 20px; /* Adjust the margin as needed */
+    max-width: 40vw; /* Adjust the max width as needed */
+    white-space: pre-wrap; /* Allow line breaks */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add ellipsis for overflow */
+    display: block;
+}

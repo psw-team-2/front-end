@@ -59,6 +59,10 @@
     <i><strong>Last published:</strong> {{ tour?.publishTime | date:'medium' }}</i>
   </label>
 
+  <button class="report-button" (click)="onReportClicked(tour)">
+    <i  class="report-button"  class="fas fa-warning"></i> Report
+  </button>
+
 </form>
 
       <!-- Form End -->
@@ -178,11 +182,22 @@
   </div>
 </div>
 
-        
+  <div>      
     <!-- Navigation Buttons (Right) -->
     <button class="navigation-button" (click)="nextSection()">
       <i class="fas fa-chevron-right"></i> <!-- FontAwesome right arrow icon -->
     </button>
 
   </div>
+  
 </div>
+
+<div  *ngIf="shouldRenderTpForm" class="message-form-wrapper">
+  <button mat-icon-button class="close-button" (click)="onCloseClicked()">
+      <mat-icon>close</mat-icon>
+  </button>
+      <xp-tp-form [shouldRender]="shouldRenderTpForm" (shouldRenderUpdated)="onCloseClicked()"></xp-tp-form>
+</div>
+
+
+

@@ -34,6 +34,9 @@ import { EditSaleComponent } from './feature-modules/marketplace/edit-sale/edit-
 import { ComplexTourCreationComponent } from './feature-modules/complex-tour/complex-tour-creation/complex-tour-creation.component';
 import { ComplexTourModule } from './feature-modules/complex-tour/complex-tour.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+
 
 @NgModule({
   declarations: [
@@ -66,6 +69,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     NotificationsModule,
     ComplexTourModule,
     DragDropModule,
+    MatTooltipModule,
+    ScrollingModule
+
   ],
   providers: [
     {
