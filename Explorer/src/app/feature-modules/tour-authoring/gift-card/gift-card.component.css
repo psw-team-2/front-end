@@ -1,0 +1,12 @@
+.tour-image {
+    width: 50%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .tour-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    height: 100px; /* Adjust the max-height as needed */
+  }

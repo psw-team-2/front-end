@@ -16,6 +16,7 @@ import { OrderItem } from '../marketplace/model/order-item.model';
 import { PaymentNotification } from './model/paymentNotification.model';
 import { Bundle } from './model/bundle.model';
 import { TourBundle } from './model/tour-bundle.model';
+import { GiftCard } from './model/gift-card.model';
 
 
 
@@ -285,7 +286,9 @@ export class TourAuthoringService {
     return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/publish/${bundle.id}`, bundle);  
   }
   
-  
+  sendGift(giftCard: GiftCard): Observable<GiftCard> {
+    return this.http.post<GiftCard>(`https://localhost:44333/api/tourist/giftCard`, giftCard);  
+  }
 }
 
 
