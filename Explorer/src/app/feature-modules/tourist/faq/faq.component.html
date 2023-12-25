@@ -1,0 +1,171 @@
+<div class="user-title-section">
+    <h1 class="user-title">Frequently asked questions</h1>
+</div>
+
+<div class="bundle-container ">
+    <div class="bundle-list">
+
+        <div class="bundle-item support" (click)="handleSupportClick()">
+            <div class="image-container">
+                <div class="overlay">
+                    <div class="bundle-description">
+                        <br>
+                        <img src="../../../../assets/icons/support.png" alt="Custom Icon"
+                        style="width: 28px; height: 28px; position: absolute; top: 20px; left: 15px;">
+                        <br>
+
+                    </div>
+                    <div class="bundle-description">
+                        <br>
+                        <h3>Technical support</h3>
+                    </div>
+                    <br>
+                    <div class="bundle-price">
+                        <p>Do you aspire to become an author? Do you have issues with your account? Click here. </p> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="bundle-item tour" (click)="handleTourClick()">
+            <div class="image-container">
+                <div class="overlay">
+                    <div class="bundle-description">
+                        <br>
+                        <img src="../../../../assets/icons/dest.png" alt="Custom Icon"
+                        style="width: 28px; height: 28px; position: absolute; top: 20px; left: 15px;">
+                        <br>
+
+                    </div>
+                    <div class="bundle-description">
+                        <br>
+                        <h3>Tours</h3>
+                    </div>
+                    <br>
+                    <div class="bundle-price">
+                        <p>Do you want to explore exciting tours? Find answers to common questions. Click here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="bundle-item payments"  (click)="handlePaymentsClick()">
+            <div class="image-container">
+                <div class="overlay">
+                    <div class="bundle-description">
+                        <br>
+                        <img src="../../../../assets/icons/payment.png" alt="Custom Icon"
+                        style="width: 28px; height: 28px; position: absolute; top: 20px; left: 15px;">
+                        <br>
+                    </div>
+                    <div class="bundle-description">
+                        <br>
+                        <h3>Payments</h3>
+                    </div>
+                    <br>
+                    <div class="bundle-price">
+                        <p>Do you want to explore your wallet balance or learn how to gift a card? Click here.</p> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+        <div class="bundle-item other" (click)="handleOtherClick()">
+            <div class="image-container">
+                <div class="overlay">
+                    <div class="bundle-description">
+                        <img src="../../../../assets/icons/other.png" alt="Custom Icon"
+                        style="width: 28px; height: 28px; position: absolute; top: 20px; left: 15px;">
+                        <br>
+                        <br>
+                    </div>
+                    <div class="bundle-description">
+                        <br>
+                        <h3>Other</h3>
+                    </div>
+                    <br>
+                    <div class="bundle-price">
+                        <p>Can't find what you are looking for? Click here. </p> 
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+    </div>
+</div>
+
+
+
+
+<div *ngIf="selectedContainer === 'payments'" class="scroll-container">
+    <div *ngFor="let answer of answers" class="bundle-item tour">
+        <div class="tour-container">
+            <div class="overlay">
+                <div class="bundle-description">
+                    <h3>{{ answer.questionText }}</h3>
+                </div>
+                <br>
+                <div class="bundle-price">
+                    <p>{{ answer.text }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="selectedContainer === 'other'">
+    <div class="bundle-item tour">
+        <div class="tour-container">
+            <div class="overlay">
+                <div *ngFor="let answer of answers" >
+                    <div class="bundle-description">
+                        <h3>{{ answer.questionText }}</h3>
+                    </div>
+                      <br>
+                    <div class="bundle-price">
+                        <p> {{answer.text }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="selectedContainer === 'support'">
+    <div class="bundle-item tour">
+        <div class="tour-container">
+            <div class="overlay">
+                <div *ngFor="let answer of answers" >
+                    <div class="bundle-description">
+                        <h3>{{ answer.questionText }}</h3>
+                    </div>
+                      <br>
+                    <div class="bundle-price">
+                        <p> {{answer.text }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="selectedContainer === 'tour'"> 
+    <div class="bundle-item tour">
+        <div class="tour-container">
+            <div class="overlay">
+                <div *ngFor="let answer of answers" >
+                    <div class="bundle-description">
+                        <h3>{{ answer.questionText }}</h3>
+                    </div>
+                      <br>
+                    <div class="bundle-price">
+                        <p> {{answer.text }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
