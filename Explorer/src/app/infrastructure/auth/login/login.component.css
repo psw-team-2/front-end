@@ -1,15 +1,47 @@
 form {
-    margin-top:150px;
+    margin-top: 150px;
     display: flex;
     justify-content: center;
-}
-
-div {
+    min-height: 100vh;
+  }
+  
+  div {
     width: 400px;
-    display:flex;
+    display: flex;
     flex-direction: column;
-}
-
-p {
+  }
+  
+  p {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .error-message {
+    color: red;
     margin-top: 10px;
-}
+    margin-bottom: 20px;
+  }
+  
+  .action-button {
+    margin-top: 20px;
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .action-button:hover {
+    background: white;
+    color: black;
+    border: 1px solid rgb(56, 28, 117);
+  }
+
+  .center-class {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-direction: column;
+  }

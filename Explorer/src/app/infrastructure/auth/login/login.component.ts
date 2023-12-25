@@ -21,6 +21,8 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required]),
   });
 
+  loginError: string | null = null;
+
   login(): void {
     const login: Login = {
       username: this.loginForm.value.username || "",
@@ -32,7 +34,13 @@ export class LoginComponent {
         next: () => {
           this.router.navigate(['/']);
         },
+        error: (err) => {
+          this.loginError = 'Invalid username or password. Please try again.';
+        }
       });
+    } else {
+      // Mark all form controls as touched to trigger validation messages
+      this.loginForm.markAllAsTouched();
     }
   }
 }
