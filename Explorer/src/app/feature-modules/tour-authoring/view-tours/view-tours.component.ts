@@ -17,6 +17,7 @@ import { AdministrationService } from '../../administration/administration.servi
 import { Profile } from '../../administration/model/profile.model';
 import { TourPreference } from '../../tour-preference/model/tour-preference.model';
 import { FormGroup } from '@angular/forms';
+import { Observable, forkJoin } from 'rxjs';
 @Component({
   selector: 'xp-view-tours',
   templateUrl: './view-tours.component.html',
@@ -127,7 +128,61 @@ export class ViewToursComponent implements OnInit {
     this.tours.sort((a, b) => b.points - a.points);
   }
 
-
+  sortActiveTours(): void {
+    const observables: Observable<any>[] = [];
+    
+    const tourWithRankings = this.tours.map(tour => {
+      let number = 0;
+    
+      console.log(tour)
+    
+      if (tour.id !== undefined) {
+        const averageGrade$ = this.service.getAverageWeeklyGrade(tour.id);
+        const reviews$ = this.marketService.getTourReviewByTourId(tour.id);
+        const purchaseTokens$ = this.marketService.getWeeklyTokensByTourId(tour.id);
+  
+        observables.push(averageGrade$, reviews$, purchaseTokens$);
+    
+        console.log(observables)
+    
+        return { tour, number };
+      }
+      return null; // Or handle undefined case as needed
+    }).filter(Boolean); // Remove null/undefined items
+    
+    forkJoin(observables).subscribe(
+      (results: any[]) => {
+        results.forEach((result, index) => {
+          const tourIndex = Math.floor(index / 3); 
+          const tourToUpdate = tourWithRankings[tourIndex];
+          
+          if (index % 3 === 0 && tourToUpdate) { // Handling averageGrade request
+            tourToUpdate.number = (tourToUpdate.number || 0) + (result.averageGrade || 0) * 1.2;
+          } else if (index % 3 === 1 && tourToUpdate) { // Handling reviews request
+            tourToUpdate.number = (tourToUpdate.number || 0) + (result?.length || 0) * 0.2;
+          } else if (tourToUpdate) { // Handling purchase tokens request
+            console.log(result?.results?.length);            
+            tourToUpdate.number = (tourToUpdate.number || 0) + (result?.results?.length || 0) * 0.3; // Adjust the factor as needed
+          }
+          console.log(tourToUpdate);
+        });
+        this.updateTours(tourWithRankings.filter(Boolean));
+      },
+      error => {
+        console.error('Error fetching data:', error);
+      }
+    );
+  }
+  
+  updateTours(tourWithRankings: any[]): void {
+    tourWithRankings.forEach(item => {
+      item.number = item.number || 0; // Ensure number is defined
+    });
+    tourWithRankings.sort((a, b) => b.number - a.number);
+    this.tours = tourWithRankings.map(item => item.tour);
+  }
+  
+  
   async getTours(): Promise<void> {
     try {
       const result: PagedResults<Tour> | undefined = await this.service.getTours().toPromise();
@@ -153,6 +208,10 @@ export class ViewToursComponent implements OnInit {
     if (searchActive) {
       // Display search results when search is active
       this.tours = data.tours;
+      console.log("SEARCH ACTIVE")
+      if(this.isActiveTourSearchActive){
+        this.sortActiveTours()
+      }
     } else {
       // Display all tours when search is not active
       this.getTours(); // Refresh the tours to display all of them

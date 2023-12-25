@@ -325,15 +325,10 @@ export class MapSearchComponent {
       if (this.isActiveTourSearchActive) {
         const tourIds: (number | undefined)[] = this.searchResults.map((tour: Tour) => tour.id);
         
-        if (tourIds.every(id => id !== undefined)) {
+        if (tourIds.every(Boolean)) {
           this.tourService.getActiveTours(tourIds).subscribe(
             (pagedResults: PagedResults<Tour>) => {
-              this.searchResults = []
-              const results: Tour[] = pagedResults.results; 
-      
-              for (const tour of results) {
-                this.searchResults.push(tour);
-              }
+              this.searchResults = pagedResults.results; 
             },
             error => {
               console.error('Error:', error);
@@ -341,6 +336,7 @@ export class MapSearchComponent {
           );
         } 
       }
+      
       
 
       

@@ -180,6 +180,11 @@ export class TourAuthoringService {
   getAverageGrade(tourId: number):Observable<any>{
     return this.http.get<number>(environment.apiHost + 'author/tour/average-grade/'+tourId)
   }
+
+  getAverageWeeklyGrade(tourId: number):Observable<any>{
+    return this.http.get<number>(environment.apiHost + 'author/tour/average-weekly-grade/'+tourId)
+  }
+
   startTour(tourExecution: TourExecution) : Observable<TourExecution> {
     return this.http.post<TourExecution>('https://localhost:44333/api/tourexecution/start', tourExecution);
   } 
@@ -286,19 +291,15 @@ export class TourAuthoringService {
   }
   
   getActiveTours(tourIds: (number | undefined)[]): Observable<PagedResults<Tour>> {
-    // Filter out undefined values and convert to string array
-    const validTourIds = tourIds.filter(id => typeof id === 'number').map(String);
-  
-    // Create an instance of HttpParams to set the query parameters
-    let params = new HttpParams();
-  
-    // If valid tourIds exist, set them as a query parameter
-    if (validTourIds.length > 0) {
-      params = params.set('tourIds', validTourIds.join(','));
-    }
-  
-    return this.http.get<PagedResults<Tour>>('https://localhost:44333/api/author/active-tours', { params });
+    const validTourIds = tourIds.filter(id => typeof id === 'number') as number[];
+
+    return this.http.put<PagedResults<Tour>>('https://localhost:44333/api/author/tour/active-tours', validTourIds, {
+      headers: { 'Content-Type': 'application/json' } // Ensure JSON content type
+    });
   }
+  
+  
+  
 }
 
 
