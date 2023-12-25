@@ -8,7 +8,7 @@
         <div class="overlay">
             <mat-icon class="picture-icon">add</mat-icon>
         </div>
-        <img class="profile-picture" *ngIf="profile.profilePicture==='/'" src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg" alt="">
+        <img class="profile-picture" *ngIf="!currentFile && profile.profilePicture==='/'" src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg" alt="">
         <img *ngIf="currentFile " src="https://localhost:44333/Images/{{currentFile.name}}" alt="Selected Image" class="thumbnail"/>
         <img *ngIf="!currentFile && profile.profilePicture!=='/'" src="{{profile.profilePicture}}" class="thumbnail"/>
       </div>

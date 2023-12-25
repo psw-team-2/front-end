@@ -1,0 +1,27 @@
+
+<div class="center-class">  
+    <div class="followers-container">
+      <h1>Followers:</h1>
+      <div *ngIf="profileFollowed" class="container">
+        <div [ngClass]="{'red-text': alreadyFollow, 'black-text': !alreadyFollow}">
+          {{ profileFollowed }}
+        </div>
+        <div class="center-button">
+          <button mat-raised-button class="white-button" (click)=" onFollowOKClicked()">OK</button>
+        </div>
+      </div>
+      <div class="follower-list">
+        <div *ngFor="let individualFollower of followers" class="follower-card"> 
+          <a [routerLink]="['/app-user-profile/'+individualFollower.id]" class="profile-link">
+            <img class="profile-picture" src="{{ individualFollower.profilePicture }}" alt="">
+            <div class="follower-details">
+              <div class="name">{{ individualFollower.firstName }} {{ individualFollower.lastName }}</div>
+            </div>
+          </a>        
+          <div class="follower-details">
+            <button class="message-button" (click)=" onFollowClicked(individualFollower)">Follow</button>
+          </div>
+        </div>
+      </div>
+    </div>  
+</div>

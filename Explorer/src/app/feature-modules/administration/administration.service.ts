@@ -92,6 +92,10 @@ export class AdministrationService {
     return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-user');
   }
 
+  getProfileByUserId(id: number): Observable<Profile> {
+    return this.http.get<Profile>('https://localhost:44333/api/administration/profile/get-profile-by-user'+ id);
+  }
+
   getByUserId2(): Observable<Profile> {
     return this.http.get<Profile>('https://localhost:44333/api/administration/profile2/by-user');
   }

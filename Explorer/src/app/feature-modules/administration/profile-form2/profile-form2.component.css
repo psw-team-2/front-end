@@ -1,39 +1,94 @@
 /* profile-form.component.css */
 .form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: white;
-    color: black;
-    padding: 20px;
-  }
-  
-  .form-field {
-    width: 100%;
-    margin-bottom: 15px;
-  }
-  
-  .profile-actions {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .action-button {
-    margin-top: 20px;
-    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .action-button:hover {
-    background: white;
-    color: black;
-    border: 1px solid rgb(56, 28, 117);
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  color: black;
+  width: 100%;
+}
+
+.form-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.profile-actions {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.action-button {
+  margin-top: 20px;
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.action-button:hover {
+  background: white;
+  color: black;
+  border: 1px solid rgb(56, 28, 117);
+}
+
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+form{
+  width: 60%;
+  margin-top: 5vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-field{
+  width: 100%;
+}
+h1{
+  color: rgb(56, 28, 117);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  padding: 20px;
+  font-size: 2vw;
+  display: flex;
+  align-items: center; /* Vertically center text */
+}
+
+.img-cont {
+  position: relative;
+  overflow: hidden;
+  height: 150px;
+}
+
+.overlay {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.7);
+display: flex;
+align-items: center;
+justify-content: center;
+opacity: 0; /* Initially hidden */
+transition: opacity 0.3s ease; /* Smooth transition on hover */
+border-radius: 50%; /* Match the border-radius of the image */
+}
+
+.img-cont:hover .overlay {
+  opacity: 1; /* Show the overlay on hover */
+}
+
+.picture-icon {
+  color: white;
+}

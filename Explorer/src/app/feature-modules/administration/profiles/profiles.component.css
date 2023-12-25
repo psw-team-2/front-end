@@ -11,6 +11,8 @@
     border-radius: 8px;
     box-shadow: none;
     width: 80vw;
+    min-height: 100vh;
+    padding-bottom: 40px;
   }
   .center-class {
     display: flex;
@@ -113,6 +115,28 @@
   }
   
 
-
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .red-text {
+    color: red;
+    font-size: 18px;
+    margin-bottom: 20px; /* Optional: Add margin for spacing between the text and the button */
+  }
+  
+  .black-text {
+    color: black;
+    font-size: 18px;
+    margin-bottom: 20px; /* Optional: Add margin for spacing between the text and the button */
+  }
+  
+  .center-button {
+    text-align: center;
+    border-color: white;
+  }
 
   

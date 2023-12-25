@@ -59,6 +59,7 @@ import { ComposedTourOverviewComponent } from 'src/app/feature-modules/complex-t
 import { ActiveEncounterComponent } from 'src/app/feature-modules/challenges/active-encounter/active-encounter.component';
 import { ProfileSettingsComponent } from 'src/app/feature-modules/administration/profile-settings/profile-settings.component';
 import { AppUserProfileComponent } from 'src/app/feature-modules/administration/app-user-profile/app-user-profile.component';
+import { ProfileSettings2Component } from 'src/app/feature-modules/administration/profile-settings2/profile-settings2.component';
 
 
 
@@ -126,6 +127,7 @@ const routes: Routes = [
   {path: 'editSale', component: EditSaleComponent},
   {path: 'active-encounter', component: ActiveEncounterComponent},
   {path: 'profile-settings', component: ProfileSettingsComponent},
+  {path: 'profile-settings2', component: ProfileSettings2Component},
   {path: 'app-user-profile/:id', component: AppUserProfileComponent},
   
   

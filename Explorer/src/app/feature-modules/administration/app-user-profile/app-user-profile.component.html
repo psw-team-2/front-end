@@ -1,3 +1,41 @@
-<p>Sta treba da ima sto user nema: da zaprati korisnika i da mu posalje poruku, da posalje zahtev za pracenje umesto poruke njegovim pratiocima </p>
 
-<p>Sta ne da ima sto user ima: find new people, settings, question</p>
+<!-- profile.component.html TOURIST-->
+<div class="profile-container">
+    <div class="profile-card" *ngFor="let individualProfile of profile">
+      <div class="label-role">TOURIST</div>
+  
+      <div class="img-cont">
+        <img class="profile-picture" *ngIf="individualProfile.profilePicture!=='/'" src="{{individualProfile.profilePicture}}" alt="">
+        <img class="profile-picture" *ngIf="individualProfile.profilePicture==='/'" src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg" alt="">
+      </div>
+  
+      <div class="profile-details">
+        <div class="name">
+          <span class="first-name">{{ individualProfile.firstName }} </span>
+          <span class="last-name">{{ individualProfile.lastName }}</span>
+        </div>
+        <div class="label">Biography:</div>
+        <div class="biography emphasized">{{ individualProfile.biography }}</div>
+        <div class="label">Motto:</div>
+        <div class="motto emphasized">{{ individualProfile.motto }}</div>
+      </div>      
+    </div>
+  </div>
+  
+  <div class="center-class">
+    <table class="split-table">
+      <tr>
+        <td class="left-side">
+          <div class="upper-start">         
+            <xp-app-user-followers></xp-app-user-followers>
+          </div>
+        </td>
+        <td class="right-side">
+          <xp-tourist-posts></xp-tourist-posts>            
+        </td>
+      </tr>
+    </table>
+  </div>  
+  <div class="has-margin-bottom">
+    
+  </div>

@@ -38,6 +38,9 @@ import { AppUserProfileComponent } from './app-user-profile/app-user-profile.com
 import { RouterModule } from '@angular/router';
 import { PurchaseReportComponent } from '../tourist/purchase-report/purchase-report.component';
 import { TouristModule } from '../tourist/tourist.module';
+import { AppUserPostsComponent } from './app-user-posts/app-user-posts.component';
+import { AppUserFollowersComponent } from './app-user-followers/app-user-followers.component';
+import { ProfileSettings2Component } from './profile-settings2/profile-settings2.component';
 
 
 @NgModule({
@@ -69,6 +72,9 @@ import { TouristModule } from '../tourist/tourist.module';
     QuestionnaireComponent,
     ProfileSettingsComponent,
     AppUserProfileComponent,
+    AppUserPostsComponent,
+    AppUserFollowersComponent,
+    ProfileSettings2Component,
   ],
   imports: [
     CommonModule,
