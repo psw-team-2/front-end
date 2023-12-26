@@ -20,8 +20,8 @@ export class AuthorReviewService {
     return this.http.post<AuthorReview>(environment.apiHost + 'tourist/authorReview/' + touristId, authorReview);
   }
 
-  getAuthorReviews(authorId:number) : Observable<AuthorReview>{
-    return this.http.get<AuthorReview>(environment.apiHost + 'tourist/authorReview' + authorId);
+  getAuthorReviews(authorId:number) : Observable<PagedResults<AuthorReview>>{
+    return this.http.get<PagedResults<AuthorReview>>(environment.apiHost + 'tourist/authorReview/' + authorId);
   } 
 
 }
