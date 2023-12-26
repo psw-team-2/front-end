@@ -7,15 +7,15 @@
                 <div class="div-table">
                     <table class="request-table">
                         <tr>
-                            <td class="column-label">Title:</td>
+                            <td class="column-label">Title</td>
                             <td class="column-content">{{bl.title}}</td>
                         </tr>
                         <tr>
-                            <td class="column-label">Creation date:</td>
-                            <td class="column-content">{{ bl.creationTime }}</td>
+                            <td class="column-label">Creation date</td>
+                            <td class="column-content">{{ bl.creationTime | date:'short'}}</td>
                         </tr>
                         <tr>
-                            <td class="column-label">Status:</td>
+                            <td class="column-label">Status</td>
                             <td class="column-content" *ngIf="bl.status === 1">Published</td>
                             <td class="column-content" *ngIf="bl.status === 2">Closed</td>
                         </tr>
@@ -38,7 +38,11 @@
                         </ng-template>
                       </ng-template>
                   </div> 
+                  
                   <div class="edit-buttons">
+                    <div class="thumbnail">
+                      <img [src]="bl.image" alt="Image">
+                     </div>
                       <button class="action-button" color="accent" (click)="deleteBlog(bl.id || 0)" mat-icon-button>
                         <mat-icon>delete</mat-icon>
                       </button>

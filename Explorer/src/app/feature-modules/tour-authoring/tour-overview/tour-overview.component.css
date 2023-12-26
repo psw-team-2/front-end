@@ -275,3 +275,74 @@ textarea {
   color: rgb(56, 28, 117);
 
 }
+
+.message-form-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35vw;
+  height: 25vw;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.message-form-wrapper2 {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40vw;
+  height: 40vw;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.close-button {
+  position: absolute;
+  top: 0; /* Adjusted position */
+  right: 0; /* Adjusted position */
+  margin: 10px; /* Added margin for better spacing */
+  color: rgb(56, 28, 117); /* Updated color */
+  cursor: pointer; /* Added cursor style */
+}
+
+.report-button {
+  position: absolute;
+  right: 100px;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  color: rgb(56, 28, 117);
+  background-color: linear-gradient(rgba(255, 255, 255, 0.8), rgba(211, 211, 211, 0.8)), white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+
+.report-button:hover {
+  background-color: rgb(56, 28, 117);
+  color: #ffffff;
+}
+
+
+.gift-button {
+  padding: 10px;
+  font-size: 16px;
+  color: rgb(56, 28, 117);
+  background-color: linear-gradient(rgba(255, 255, 255, 0.8), rgba(211, 211, 211, 0.8)), white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+
+.gift-button:hover {
+  background-color: rgb(56, 28, 117);
+  color: #ffffff;
+}

@@ -29,6 +29,10 @@ import { BundleUpdateFormComponent } from './bundle-update-form/bundle-update-fo
 import { BundleViewComponent } from './bundle-view/bundle-view.component';
 import { WishlistOverviewComponent } from './wishlist-overview/wishlist-overview.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TpFormComponent } from '../tour-problem/tp-form/tp-form.component';
+import { TourProblemModule } from '../tour-problem/tour-problem.module';
+import { GiftCardComponent } from './gift-card/gift-card.component';
 
 
 
@@ -52,6 +56,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     BundleUpdateFormComponent,
     BundleViewComponent,
     WishlistOverviewComponent,
+    GiftCardComponent,
+
   ],
   imports: [
     CommonModule,
@@ -65,7 +71,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MarketplaceModule,
     FormsModule,
     EncounterModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule,
+    TourProblemModule
   ],
   exports: [
     CheckpointComponent,

@@ -1,17 +1,23 @@
 <form [formGroup]="applicationReviewForm">
-    <div>
-        <mat-form-field>
-            <mat-label>Grade (1-5):</mat-label>
-            <input matInput formControlName="grade" type="number" required min="1" max="5"/>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Comment:</mat-label>
-          <textarea matInput
-          cdkTextareaAutosize
-          cdkAutosizeMinRows="1"
-          formControlName="comment"
-          cdkAutosizeMaxRows="5"></textarea>
-        </mat-form-field>
-        <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addApplicationReview()" mat-raised-button>Submit</button>  
+    <div class="review-card">
+      <img [src]="getStarImage()" alt="Star Image" class="star-image" />
+
+      <h2 class="review-title">How was your experience with us?</h2>  
+
+      <div class="star-rating">
+        <span *ngFor="let star of [1, 2, 3, 4, 5]" class="star" (click)="setRating(star)" [ngClass]="{ 'active': star <= selectedStars }">
+          ★
+        </span>
+      </div>
+  
+      <mat-form-field>
+        <mat-label>Comment (optional)</mat-label>
+        <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" formControlName="comment" cdkAutosizeMaxRows="5"></textarea>
+      </mat-form-field>
+  
+      <button *ngIf="!shouldEdit" color="primary" class="button" type="submit" (click)="addApplicationReview()" mat-raised-button>
+        Submit
+      </button>
     </div>
-</form>
+  </form>
+  

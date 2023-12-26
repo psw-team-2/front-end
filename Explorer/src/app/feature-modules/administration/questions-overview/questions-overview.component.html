@@ -1,0 +1,33 @@
+<div id="questions">
+    <div class="questions-title-section">
+        <h1 class="questions-title">Questions</h1>
+    </div>
+
+    <div class="table-container">
+        <table class="questions-table">
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let question of questions">
+                    <td>{{question?.text}}</td>
+                    <td>
+                        <button (click)="onReply(question)">
+                            <i class="fas fa-reply"></i> Reply
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div *ngIf="shouldRenderAnswerForm" class="message-form-wrapper">
+    <button mat-icon-button class="close-button" (click)="onCloseFormClicked()">
+        <mat-icon>close</mat-icon>
+    </button>
+    <xp-tp-answer-form [question]="selectedQuestionForAnswer" [shouldRender]="shouldRenderAnswerForm"></xp-tp-answer-form>
+</div>

@@ -1,0 +1,22 @@
+<div class="user-title-section">
+    <h1 class="user-title">Contact us</h1>
+  </div>
+  <form [formGroup]="questionForm" class="center-class">
+    <div class="form-container">
+      <div class="center-content">
+        <div class="header-text">
+        <br>
+          <p>Hi, we’re happy to help you.</p>
+          <br>
+        </div>
+        <mat-form-field class="custom-form-field1">
+          <mat-label>...</mat-label>
+          <input matInput formControlName="text" type="text" [required]="false"/>
+        </mat-form-field>
+        <div>
+          <button class="action-button-ng" mat-raised-button color="primary" (click)="addQuestion()" >Send</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  

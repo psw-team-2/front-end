@@ -58,6 +58,12 @@ import { ViewComposedTourComponent } from 'src/app/feature-modules/complex-tour/
 import { ComposedTourOverviewComponent } from 'src/app/feature-modules/complex-tour/composed-tour-overview/composed-tour-overview.component';
 import { ActiveEncounterComponent } from 'src/app/feature-modules/challenges/active-encounter/active-encounter.component';
 import { WishlistOverviewComponent } from 'src/app/feature-modules/tour-authoring/wishlist-overview/wishlist-overview.component';
+import { GiftCardComponent } from 'src/app/feature-modules/tour-authoring/gift-card/gift-card.component';
+import { QuestionnaireComponent } from 'src/app/feature-modules/administration/questionnaire/questionnaire.component';
+import { QuestionsOverviewComponent } from 'src/app/feature-modules/administration/questions-overview/questions-overview.component';
+import { CreateQuestionComponent } from 'src/app/feature-modules/tourist/create-question/create-question.component';
+import { FaqComponent } from 'src/app/feature-modules/tourist/faq/faq.component';
+
 
 
 
@@ -125,6 +131,11 @@ const routes: Routes = [
   {path: 'editSale', component: EditSaleComponent},
   {path: 'active-encounter', component: ActiveEncounterComponent},
   {path: 'wishlist-overview', component: WishlistOverviewComponent},
+  {path: 'gift-card', component: GiftCardComponent},
+  {path: 'questions-overview', component: QuestionsOverviewComponent},
+  {path: 'create-question', component: CreateQuestionComponent},
+  {path: 'faq', component: FaqComponent}
+
 ];
 
 @NgModule({

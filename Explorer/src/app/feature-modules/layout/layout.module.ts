@@ -9,6 +9,7 @@ import { WhyusComponent } from './whyus/whyus.component';
 import { HeroComponent } from './hero/hero.component';
 import { StartYourJourneyComponent } from './start-your-journey/start-your-journey.component';
 import { FooterComponent } from './footer/footer.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { FooterComponent } from './footer/footer.component';
   imports: [
     CommonModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
+    MatMenuModule
   ],
   exports: [
     NavbarComponent,

@@ -5,6 +5,7 @@ export interface Bundle {
     price: number;
     status: BundleStatus;
     tours: number[];
+    image: string
   }
   
   export enum BundleStatus {

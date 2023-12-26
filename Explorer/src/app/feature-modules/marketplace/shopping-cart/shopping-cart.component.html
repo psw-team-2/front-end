@@ -1,45 +1,84 @@
 <body>
     <div class="Cart-Container">
-        <div class="Header">
-            <h3 class="Heading">Shopping Cart</h3>            
-            <h5><button class="Action" (click)="onRemoveAllClicked()">
-                <i class="fas fa-trash-alt"></i>&nbsp;
-                Remove all
-            </button></h5>          
-            
-        </div>
-        <div class="Cart-Items" *ngFor="let oi of orderItems">
-            <div class="image-box">
-                <!-- Add content for image box if needed -->
-            </div>
-            
-            <div class="about">
-                <h1 class="title">{{ oi.itemName }}</h1>
-            </div>
-            <!--<div class="counter">
-                <div class="btn">+</div>
-                <div class="count">2</div>
-                <div class="btn">-</div>
-            </div>-->
-            <div class="prices">
-                <div class="amount"> {{ oi.price }}&nbsp;€</div>
-                <button class="remove" *ngIf="oi.id" (click)="onRemoveClicked(oi.id)">
+        <div class="left">
+            <div class="Header">
+                <h3 class="Heading">
+                    <i class="fas fa-shopping-cart"></i>&nbsp;
+                    Shopping Cart
+                </h3>            
+                <h5><button class="Action" (click)="onRemoveAllClicked()">
                     <i class="fas fa-trash-alt"></i>&nbsp;
-                    Remove
-                </button>
+                    Remove all
+                </button></h5>          
+                
             </div>
-                        
-        </div>
-        <hr>
-        <div class="total">
-            <div>
-                <div class="Subtotal">Sub-Total</div>
-                <div class="items">{{ numberOfItems }} items</div>
+            <div *ngIf="numberOfItems === 0" class="Empty-Cart-Content">
+                <div class="Center-Content">
+                    <img src="assets/images/empty-shopping-cart.jpg" alt="Your Cart Is Empty Image" class="Empty-Cart-Image">
+                    
+                    <p><b>Your Cart is Empty</b></p>
+                    <p>Looks like you haven't added anything to your cart yet.</p>
+                    <button class="shop-button" (click)="shopNow()">Shop Now</button>
+                </div>
             </div>
-            <div class="total-amount">{{ totalPrice }}&nbsp;€</div>
+            <div class="Cart-Items" *ngFor="let oi of orderItems">
+                <div class="image-container">
+                    <img [src]="oi.image" alt="Item Image" />
+                </div>
+                
+                <div class="about">
+                    <h1 class="title">{{ oi.itemName }}</h1>
+                </div>
+                <!--<div class="counter">
+                    <div class="btn">+</div>
+                    <div class="count">2</div>
+                    <div class="btn">-</div>
+                </div>-->
+                <div class="prices">
+                    <div class="amount"> {{ oi.price }}&nbsp;AC</div>
+                    <!--<button class="wishlist" (click)="addToWishlist(oi)" [ngClass]="{'liked': isLiked(oi)}">
+                        <i class="fas fa-heart"></i>&nbsp;
+                        Add to wish list
+                    </button>-->
+                    <button class="remove" *ngIf="oi.id" (click)="onRemoveClicked(oi.id)">
+                        <i class="fas fa-trash-alt"></i>&nbsp;
+                        Remove
+                    </button>
+                </div>
+                            
+            </div>
+    
         </div>
-        <div class="checkout">
-            <button class="button" (click)="onCheckoutClicked()">Checkout</button>
+       
+
+        <div class="right">
+            <div class="payment">
+                <p class = "payment-title">PAYMENT</p>
+                <div class="wallet-balance">
+                    Wallet Balance
+                    <div class="wallet">{{ wallet.ac }} AC</div>
+                </div>
+                <div class="apply-coupon">
+                    <p>Apply coupon</p>
+                    <div class="coupon-input-container">
+                        <textarea class="coupon-textarea" placeholder="Enter coupon code"></textarea>
+                        <button class="apply-button">Apply</button>
+                    </div>
+                </div>  
+                <div class="total-row">
+                    <div class="total">
+                        <div class="Subtotal">Total</div>
+                        <div class="items">{{ numberOfItems }} items</div>                       
+                    </div> 
+                    <div class="total-amount">{{ totalPrice }}&nbsp;AC</div>
+                </div>                       
+                <div class="checkout">
+                    <button class="button" (click)="onCheckoutClicked()">Checkout</button>
+                </div>          
+            </div> 
         </div>
+
+
+
     </div>
 </body>

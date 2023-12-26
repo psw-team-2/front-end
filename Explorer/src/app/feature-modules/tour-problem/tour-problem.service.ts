@@ -5,6 +5,7 @@ import { TourProblemResponse } from './model/tour-problem-response.model';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Tour } from '../tour-authoring/model/tour.model';
 
 @Injectable({
   providedIn: 'root'
@@ -119,6 +120,10 @@ export class TourProblemService {
   // getTourProblemResponsesForUser(id: number): Observable<PagedResults<TourProblemResponse>>{
   //   return this.http.get<PagedResults<TourProblemResponse>>(environment.apiHost + 'user/' + id + '/responses');
   // }
+
+  getTour(id: Number): Observable<Tour> {
+    return this.http.get<Tour>('https://localhost:44333/api/author/tour/' + id);
+  }
 }
 
 
