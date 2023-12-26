@@ -48,7 +48,8 @@ export class TpAnswerFormComponent {
         text: answerText,
         category: this.selectedCategory, 
         visability: true, 
-        questionId: this.question?.id || 0
+        questionId: this.question?.id || 0,
+        questionText: ''
       };
 
       this.service.createAnswer(newAnswer).subscribe(

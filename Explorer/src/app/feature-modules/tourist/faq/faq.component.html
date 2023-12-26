@@ -118,17 +118,15 @@
 
 
 <div *ngIf="selectedContainer === 'other'">
-    <div class="bundle-item tour">
+    <div  *ngFor="let answer of answers" class="bundle-item tour">
         <div class="tour-container">
             <div class="overlay">
-                <div *ngFor="let answer of answers" >
-                    <div class="bundle-description">
-                        <h3>{{ answer.questionText }}</h3>
-                    </div>
-                      <br>
-                    <div class="bundle-price">
-                        <p> {{answer.text }}</p>
-                    </div>
+                <div class="bundle-description">
+                    <h3>{{ answer.questionText }}</h3>
+                </div>
+                <br>
+                <div class="bundle-price">
+                    <p>{{ answer.text }}</p>
                 </div>
             </div>
         </div>
@@ -136,34 +134,30 @@
 </div>
 
 <div *ngIf="selectedContainer === 'support'">
-    <div class="bundle-item tour">
+    <div  *ngFor="let answer of answers" class="bundle-item tour">
         <div class="tour-container">
             <div class="overlay">
-                <div *ngFor="let answer of answers" >
-                    <div class="bundle-description">
-                        <h3>{{ answer.questionText }}</h3>
-                    </div>
-                      <br>
-                    <div class="bundle-price">
-                        <p> {{answer.text }}</p>
-                    </div>
+                <div class="bundle-description">
+                    <h3>{{ answer.questionText }}</h3>
+                </div>
+                <br>
+                <div class="bundle-price">
+                    <p>{{ answer.text }}</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <div *ngIf="selectedContainer === 'tour'"> 
-    <div class="bundle-item tour">
+    <div  *ngFor="let answer of answers" class="bundle-item tour">
         <div class="tour-container">
             <div class="overlay">
-                <div *ngFor="let answer of answers" >
-                    <div class="bundle-description">
-                        <h3>{{ answer.questionText }}</h3>
-                    </div>
-                      <br>
-                    <div class="bundle-price">
-                        <p> {{answer.text }}</p>
-                    </div>
+                <div class="bundle-description">
+                    <h3>{{ answer.questionText }}</h3>
+                </div>
+                <br>
+                <div class="bundle-price">
+                    <p>{{ answer.text }}</p>
                 </div>
             </div>
         </div>
