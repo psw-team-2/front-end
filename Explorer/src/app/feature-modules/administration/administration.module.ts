@@ -41,6 +41,7 @@ import { TouristModule } from '../tourist/tourist.module';
 import { AppUserPostsComponent } from './app-user-posts/app-user-posts.component';
 import { AppUserFollowersComponent } from './app-user-followers/app-user-followers.component';
 import { ProfileSettings2Component } from './profile-settings2/profile-settings2.component';
+import { ClubsComponent } from './clubs/clubs.component';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { ProfileSettings2Component } from './profile-settings2/profile-settings2
     AppUserPostsComponent,
     AppUserFollowersComponent,
     ProfileSettings2Component,
+    ClubsComponent,
   ],
   imports: [
     CommonModule,
