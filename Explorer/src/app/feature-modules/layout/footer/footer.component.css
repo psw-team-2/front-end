@@ -14,7 +14,7 @@ footer {
     display: flex; /* Use flex display to align items in a row */
     justify-content: space-between; /* Space between items in the row */
     align-items: center; /* Vertically align content */
-    z-index: -5;
+    z-index: 0;
   }
 
 /* Styling for the title (bigger font) */
@@ -42,4 +42,13 @@ footer .contact-info-title {
     text-align: left; /* Left-align <p> elements */
     font-weight: normal;
     margin-bottom: 2vw;
+}
+footer a {
+    color: #fff; 
+    text-decoration: none; 
+}
+
+
+footer a:hover {
+    color: #ccc; 
 }
