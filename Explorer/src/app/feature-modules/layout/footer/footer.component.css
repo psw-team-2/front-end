@@ -14,7 +14,7 @@ footer {
     display: flex; /* Use flex display to align items in a row */
     justify-content: space-between; /* Space between items in the row */
     align-items: center; /* Vertically align content */
-    z-index: 0;
+    z-index: -5;
   }
 
 /* Styling for the title (bigger font) */
@@ -46,9 +46,11 @@ footer .contact-info-title {
 footer a {
     color: #fff; 
     text-decoration: none; 
+    position: relative; /* Enable relative positioning for links */
+    z-index: 0 !important; /* Set z-index for the links */
 }
-
 
 footer a:hover {
     color: #ccc; 
 }
+

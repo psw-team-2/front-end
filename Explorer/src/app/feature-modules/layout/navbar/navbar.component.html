@@ -5,18 +5,19 @@
       <button mat-menu-item color="primary" [routerLink]="['home']">Home</button>
       <button mat-menu-item *ngIf="user && user.role === 'administrator'" color="primary" [routerLink]="['equipment']">Manage equipment</button> 
       <!-- New dropdown for "Tour" button -->
-      <button mat-menu-item color="primary" *ngIf="user && user.role !== 'administrator'" [matMenuTriggerFor]="tourMenu">
+      <button mat-menu-item color="primary" *ngIf="user && (user.role === 'author' || user.role === 'tourist')" [matMenuTriggerFor]="tourMenu">
         Tour
       </button>
       <mat-menu #tourMenu="matMenu">
         <button mat-menu-item *ngIf="user && user.role === 'author'"color="primary" [routerLink]="['tour']" routerLinkActive="active">Manage tour</button>
         <button mat-menu-item *ngIf="user && user.role === 'author'" color="primary" [routerLink]="['object']">Add Object</button>
         <button mat-menu-item *ngIf="user && (user.role === 'administrator' || user.role === 'tourist' || user.role === 'author')"color="primary" [routerLink]="['tour-problems']">Tour Problems</button>
-        <button mat-menu-item color="primary" [routerLink]="['sale']" *ngIf="user && user.role !== 'administrator'">Sale</button>
+        <button mat-menu-item color="primary" [routerLink]="['sale']" *ngIf="user && (user.role === 'author' || user.role === 'tourist')">Sale</button>
         <button mat-menu-item color="primary" [routerLink]="['view-tours-author']" *ngIf="user && user.role === 'author'" routerLinkActive="active-link">View Tours</button>
         <button mat-menu-item color="primary" [routerLink]="['view-tours-tourist']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">View Tours</button>
         <button mat-menu-item color="primary" [routerLink]="['view-complex-tours']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">View Complex Tours</button>
         <button mat-menu-item color="primary" [routerLink]="['complex-tour-creaton']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">Create Complex Tours</button>
+         <button mat-menu-item color="primary" [routerLink]="['complex-tour-creaton']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">Create Complex Tours</button>
       </mat-menu>
 
       <button mat-menu-item color="primary"  *ngIf="user && user.role === 'administrator'" [matMenuTriggerFor]="adminMenu">
@@ -35,7 +36,7 @@
       </mat-menu>
       
       <!-- New dropdown for "Bundle" button -->
-      <button mat-menu-item color="primary" *ngIf="user && user.role !== 'administrator'" [matMenuTriggerFor]="bundleMenu">
+      <button mat-menu-item color="primary" *ngIf="user && (user.role === 'author' || user.role === 'tourist')" [matMenuTriggerFor]="bundleMenu">
         Bundle
       </button>
       <mat-menu #bundleMenu="matMenu">
@@ -44,13 +45,13 @@
       </mat-menu>
 
       
-      <button mat-menu-item color="primary" [routerLink]="['clubs']" *ngIf="user && user.role !== 'administrator'">Clubs</button>
+      <button mat-menu-item color="primary" [routerLink]="['clubs']" *ngIf="user && (user.role === 'author' || user.role === 'tourist')">Clubs</button>
       <button mat-menu-item color="primary" [routerLink]="['clubRequest']" *ngIf="user && user.role === 'tourist'">Manage club request</button>
       <button mat-menu-item color="primary" [routerLink]="['publicRequests']" *ngIf="user && user.role === 'administrator'">Public Requests</button>
       <button mat-menu-item color="primary" [routerLink]="['profile']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">Profile</button>
       <button mat-menu-item color="primary" [routerLink]="['profile2']" *ngIf="user && user.role === 'author'" routerLinkActive="active-link">Profile</button>
       <button mat-menu-item color="primary" [routerLink]="['blog-review']" *ngIf="user && (user.role === 'author' || user.role === 'tourist')">Blog</button>
-
+      <button mat-menu-item color="primary" [routerLink]="['faq']" *ngIf="user && (user.role === 'author' || user.role === 'tourist')">Q&A</button>
       <button mat-menu-item color="primary" *ngIf="user && user.role === 'administrator'">
         <a class="register-button" href="https://docs.google.com/spreadsheets/d/1KkbXt9BpE99bzZ7EKKnOr1XYZpgu0sKh58FXY_Eplhg/edit?usp=sharing">App Data Tracking Sheet</a>
       </button>

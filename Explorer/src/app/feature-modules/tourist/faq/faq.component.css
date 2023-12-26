@@ -100,22 +100,45 @@
   .white-text {
     color: white;
   }
-  
 
-
-  
   
   .user-title-section {
     color: white;
     text-align: center;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .user-title {
+    flex-direction: row;
+    justify-content: center; /* Centriraj horizontalno */
+    align-items: center; /* Centriraj vertikalno */
+}
+
+.user-title {
     color: rgb(56, 28, 117);
     margin-bottom: 30px;
     margin-top: 50px;
+}
+
+.create-button {
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 1160px; /* Dodajte margine prema potrebi */
+    margin-top: 40px;
+    z-index: 0;
+}
+
+.paragraf {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 600px; /* Prilagodite vrednost prema potrebi */
+    font-size: medium; /* Prilagodite vrednost prema potrebi */
+    line-height: 20;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: -100px;
   }
-  
+  .create-button:hover {
+    background: white;
+    color: black;
+    border: 1px solid rgb(56, 28, 117);
+  }

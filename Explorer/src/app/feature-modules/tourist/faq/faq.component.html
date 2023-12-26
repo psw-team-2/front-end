@@ -1,7 +1,6 @@
 <div class="user-title-section">
     <h1 class="user-title">Frequently asked questions</h1>
 </div>
-
 <div class="bundle-container ">
     <div class="bundle-list">
 
@@ -97,9 +96,11 @@
     </div>
 </div>
 
-
-
-
+<button class="create-button" (click)="askUs()">Ask us</button>
+<div *ngIf="answers.length === 0 && (selectedContainer === 'payments' || selectedContainer === 'tour' || selectedContainer === 'other' || selectedContainer === 'support'); else showBlogs">
+    <p class="paragraf">No content to show right now.</p>
+</div>
+<ng-template #showBlogs>
 <div *ngIf="selectedContainer === 'payments'" class="scroll-container">
     <div *ngFor="let answer of answers" class="bundle-item tour">
         <div class="tour-container">
@@ -163,3 +164,4 @@
         </div>
     </div>
 </div>
+</ng-template>

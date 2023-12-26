@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Answer, AnswerCategory } from '../model/answer.model';
 import { TouristService } from '../tourist.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-faq',
@@ -16,7 +17,7 @@ export class FaqComponent {
   selectedQuestionId: number | null = null;
 questionText: string | null = null;
   constructor(
-    private service: TouristService
+    private service: TouristService, private router: Router
   ) {}
 
   handleTourClick() {
@@ -60,5 +61,10 @@ questionText: string | null = null;
 
   getQuestionTextByQuestionId(questionId: number): Observable<string> {
     return this.service.getQuestionTextByQuestionId(questionId);
+  }
+
+  
+  askUs(): void {
+    this.router.navigate(['/create-question']);
   }
 }
