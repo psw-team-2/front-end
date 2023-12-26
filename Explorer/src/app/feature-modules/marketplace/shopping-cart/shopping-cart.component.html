@@ -2,7 +2,10 @@
     <div class="Cart-Container">
         <div class="left">
             <div class="Header">
-                <h3 class="Heading">Shopping Cart</h3>            
+                <h3 class="Heading">
+                    <i class="fas fa-shopping-cart"></i>&nbsp;
+                    Shopping Cart
+                </h3>            
                 <h5><button class="Action" (click)="onRemoveAllClicked()">
                     <i class="fas fa-trash-alt"></i>&nbsp;
                     Remove all
@@ -33,10 +36,10 @@
                 </div>-->
                 <div class="prices">
                     <div class="amount"> {{ oi.price }}&nbsp;AC</div>
-                    <button class="wishlist" (click)="addToWishlist(oi)" [ngClass]="{'liked': isLiked(oi)}">
+                    <!--<button class="wishlist" (click)="addToWishlist(oi)" [ngClass]="{'liked': isLiked(oi)}">
                         <i class="fas fa-heart"></i>&nbsp;
                         Add to wish list
-                    </button>
+                    </button>-->
                     <button class="remove" *ngIf="oi.id" (click)="onRemoveClicked(oi.id)">
                         <i class="fas fa-trash-alt"></i>&nbsp;
                         Remove
@@ -50,6 +53,7 @@
 
         <div class="right">
             <div class="payment">
+                <p class = "payment-title">PAYMENT</p>
                 <div class="wallet-balance">
                     Wallet Balance
                     <div class="wallet">{{ wallet.ac }} AC</div>
