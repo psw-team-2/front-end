@@ -82,6 +82,19 @@
   text-transform: uppercase; /* Convert text to uppercase if desired */
 }
 
+.header-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px; /* Add margin between buttons and cart */
+}
+
+.action-button {
+  margin-top: 5px; /* Add some spacing between the buttons */
+  margin-right: 8px; /* Adjust margin to start buttons at the same x-coordinate */
+  font-size: 14px; /* Adjust the font size */
+  padding: 8px 12px; /* Adjust padding for the buttons */
+}
+
 .tour-list {
   position: absolute;
   top: 0;

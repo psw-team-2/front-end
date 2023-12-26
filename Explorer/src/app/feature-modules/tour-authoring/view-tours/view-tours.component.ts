@@ -6,7 +6,6 @@ import { MarketplaceService } from '../../marketplace/marketplace.service';
 import { ShoppingCart } from '../../marketplace/model/shopping-cart.model';
 import { AuthService } from '../../../infrastructure/auth/auth.service'; 
 import { OrderItem } from '../../marketplace/model/order-item.model';
-
 import { TourExecution } from '../../tour-execution/model/tourexecution.model';
 import { Checkpoint } from '../model/checkpoint.model';
 import { Router } from '@angular/router';
@@ -17,7 +16,8 @@ import { AdministrationService } from '../../administration/administration.servi
 import { Profile } from '../../administration/model/profile.model';
 import { TourPreference } from '../../tour-preference/model/tour-preference.model';
 import { FormGroup } from '@angular/forms';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, catchError, forkJoin, of } from 'rxjs';
+import { TouristPosition } from '../../tour-execution/model/touristposition.model';
 @Component({
   selector: 'xp-view-tours',
   templateUrl: './view-tours.component.html',
@@ -39,6 +39,7 @@ export class ViewToursComponent implements OnInit {
   boughtTours: Tour[] = [];
   boughtTourTokens: TourPurchaseToken[] = [];
   allTours: Tour[] = [];
+  searchResults: Tour[] = [];
   selectedTour: Tour | null = null; // Store the selected tour
   tourAverageGrades: { [tourId: number]: number } = {};
   shoppingCartId: Number;
@@ -59,6 +60,8 @@ export class ViewToursComponent implements OnInit {
     tags: [],
   };
   isActiveTourSearchActive: boolean = false;
+  isNearbyTourSearchActive: boolean = false;
+  touristPosition: TouristPosition;
 
   constructor(
     private service: TourAuthoringService,
@@ -111,6 +114,10 @@ export class ViewToursComponent implements OnInit {
       }
     });
 
+    window.setInterval(()=>{
+      let touristPositionRaw = localStorage.getItem(this.userId.toString()) || '';
+      this.touristPosition = JSON.parse(touristPositionRaw);
+      }, 5000)
   }
 
   updateFormWithPreference() {
@@ -320,6 +327,126 @@ export class ViewToursComponent implements OnInit {
   ActiveTourSearchClickec(){
     console.log("ACTIVE TOUR SEARCH CLICKED")
     this.isActiveTourSearchActive = !this.isActiveTourSearchActive;
+  }
+
+  NearbyTourSearchClickec(){
+    this.isNearbyTourSearchActive = !this.isNearbyTourSearchActive;
+
+    if (this.isNearbyTourSearchActive) {
+      this.handleSearchButtonClick();
+    } else {
+      this.getTours();
+    }
+  }
+
+  handleSearchButtonClick(): void {
+    const markerLatLng = this.touristPosition;
+    const clickedLat = markerLatLng.latitude;
+    const clickedLng = markerLatLng.longitude;
+
+    const selectedRadius = 40000;
+
+    this.searchResults = [];
+
+    const checkpointObservables: Observable<Checkpoint | null>[] = [];
+
+    this.tours.forEach((tour: Tour) => {
+      tour.checkPoints.forEach((checkpointId) => {
+        const checkpointObservable = this.service.getCheckpointById(checkpointId).pipe(
+          catchError((error: any) => {
+            console.error('Error fetching checkpoint:', error);
+            return of(null);
+          })
+        );
+        checkpointObservables.push(checkpointObservable);
+      });
+    });
+
+    forkJoin(checkpointObservables).subscribe((checkpointData: (Checkpoint | null)[]) => {
+      let checkpointIndex = 0;
+      let hasNearbyTours = false;
+  
+      this.tours.forEach((tour: Tour) => {
+        let tourHasMatchingCheckpoint = false;
+  
+        tour.checkPoints.forEach((checkpointId) => {
+          const checkpoint = checkpointData[checkpointIndex];
+  
+          if (checkpoint) {
+            const distance = this.calculateDistance(
+              clickedLat,
+              clickedLng,
+              checkpoint.latitude,
+              checkpoint.longitude
+            );
+  
+            if (distance <= selectedRadius) {
+              tourHasMatchingCheckpoint = true;
+              hasNearbyTours = true;
+            }
+          }
+  
+          checkpointIndex++;
+        });
+
+        if (!hasNearbyTours) {
+          this.tours = []; // Clear the search results if no tours are nearby
+        }
+  
+        if (tourHasMatchingCheckpoint) {
+          this.addTourToSearchResults(tour);
+        }
+      });
+
+      if (this.isActiveTourSearchActive) {
+        const tourIds: (number | undefined)[] = this.searchResults.map((tour: Tour) => tour.id);
+        
+        if (tourIds.every(Boolean)) {
+          this.service.getActiveTours(tourIds).subscribe(
+            (pagedResults: PagedResults<Tour>) => {
+              this.searchResults = pagedResults.results; 
+            },
+            error => {
+              console.error('Error:', error);
+            }
+          );
+        } 
+      }
+    });
+  }
+
+  addTourToSearchResults(tour: Tour): void {
+    if (!this.searchResults.some((result) => result.id === tour.id)) {
+      this.searchResults.push(tour);
+      this.tours = this.searchResults;
+    }
+  }
+
+  calculateDistance(
+    lat1: number,
+    lng1: number,
+    lat2: number,
+    lng2: number
+  ): number {
+    const earthRadiusKm = 6371;
+
+    const lat1Rad = this.degreesToRadians(lat1);
+    const lat2Rad = this.degreesToRadians(lat2);
+    const latDiff = this.degreesToRadians(lat2 - lat1);
+    const lngDiff = this.degreesToRadians(lng2 - lng1);
+
+    const a =
+      Math.sin(latDiff / 2) * Math.sin(latDiff / 2) +
+      Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+      Math.sin(lngDiff / 2) * Math.sin(lngDiff / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    return earthRadiusKm * c * 1000;
+  }
+
+  degreesToRadians(degrees: number): number {
+    return degrees * (Math.PI / 180);
   }
 
 }
