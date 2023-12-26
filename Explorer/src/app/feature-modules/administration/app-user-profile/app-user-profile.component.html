@@ -28,10 +28,11 @@
         <td class="left-side">
           <div class="upper-start">         
             <xp-app-user-followers></xp-app-user-followers>
+            <xp-app-user-clubs *ngIf="shouldRender" [selectedProfile]="profile[0]"></xp-app-user-clubs>
           </div>
         </td>
         <td class="right-side">
-          <xp-tourist-posts></xp-tourist-posts>            
+          <xp-app-user-posts *ngIf="shouldRender" [selectedProfile]="profile[0]"></xp-app-user-posts>           
         </td>
       </tr>
     </table>

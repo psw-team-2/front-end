@@ -1,0 +1,16 @@
+<!-- club.component.html -->
+<div class="center-class">  
+    <div class="followers-container">
+      <h1>User Clubs:</h1>
+      <div class="follower-list">
+        <div *ngFor="let individualClub of clubs" class="follower-card">
+          <img class="profile-picture" src="{{ individualClub.imageUrl }}" alt="">
+          <div class="follower-details">
+            <div class="name">{{ individualClub.name }}</div>
+            <button class="message-button" [routerLink]="['/clubs', individualClub.id]">More</button>
+            <!-- <button class="follow-button" color="primary" [routerLink]="['/clubs', club.id]">More</button>    -->
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>

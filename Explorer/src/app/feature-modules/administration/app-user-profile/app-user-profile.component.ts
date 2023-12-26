@@ -17,6 +17,7 @@ export class AppUserProfileComponent {
   wallet: Wallet;
   formState: 'collapsed' | 'expanded' = 'collapsed';
   userId: number;  
+  shouldRender: boolean = false;
   
   constructor(private service: AdministrationService , private router: Router,private route: ActivatedRoute) { }
 
@@ -42,6 +43,7 @@ export class AppUserProfileComponent {
         console.log('Result from API:', result);
         this.profile = [result]; // Wrap the result in an array, as it's a single Profile object
         console.log('Profile data in component:', this.profile);
+        this.shouldRender = true;
       },
       error: (err: any) => {
         console.log(err);

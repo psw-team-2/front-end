@@ -42,6 +42,8 @@ import { AppUserPostsComponent } from './app-user-posts/app-user-posts.component
 import { AppUserFollowersComponent } from './app-user-followers/app-user-followers.component';
 import { ProfileSettings2Component } from './profile-settings2/profile-settings2.component';
 import { ClubsComponent } from './clubs/clubs.component';
+import { Clubs2Component } from './clubs2/clubs2.component';
+import { AppUserClubsComponent } from './app-user-clubs/app-user-clubs.component';
 
 
 @NgModule({
@@ -77,6 +79,8 @@ import { ClubsComponent } from './clubs/clubs.component';
     AppUserFollowersComponent,
     ProfileSettings2Component,
     ClubsComponent,
+    Clubs2Component,
+    AppUserClubsComponent,
   ],
   imports: [
     CommonModule,
