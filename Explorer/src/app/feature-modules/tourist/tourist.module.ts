@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FaqComponent } from './faq/faq.component';
+import { AuthorReviewComponent } from './author-review/author-review.component';
 
 
 
@@ -20,7 +21,8 @@ import { FaqComponent } from './faq/faq.component';
     TouristSelectedEquipmentComponent,
     PurchaseReportComponent,
     CreateQuestionComponent,
-    FaqComponent
+    FaqComponent,
+    AuthorReviewComponent
   ],
   imports: [
     CommonModule,

@@ -9,6 +9,7 @@ import { Login } from './model/login.model';
 import { AuthenticationResponse } from './model/authentication-response.model';
 import { User } from './model/user.model';
 import { Registration } from './model/registration.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 
 @Injectable({
@@ -95,5 +96,9 @@ export class AuthService {
     });
 
     return this.http.request(req);
+  }
+
+  getAuthors(): Observable<PagedResults<User>> {
+    return this.http.get<PagedResults<User>>(environment.apiHost + 'users/authors');
   }
 }

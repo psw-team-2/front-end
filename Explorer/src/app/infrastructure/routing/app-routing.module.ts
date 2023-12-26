@@ -61,6 +61,7 @@ import { QuestionnaireComponent } from 'src/app/feature-modules/administration/q
 import { QuestionsOverviewComponent } from 'src/app/feature-modules/administration/questions-overview/questions-overview.component';
 import { CreateQuestionComponent } from 'src/app/feature-modules/tourist/create-question/create-question.component';
 import { FaqComponent } from 'src/app/feature-modules/tourist/faq/faq.component';
+import { AuthorReviewComponent } from 'src/app/feature-modules/tourist/author-review/author-review.component';
 
 
 
@@ -129,7 +130,8 @@ const routes: Routes = [
   {path: 'active-encounter', component: ActiveEncounterComponent},
   {path: 'questions-overview', component: QuestionsOverviewComponent},
   {path: 'create-question', component: CreateQuestionComponent},
-  {path: 'faq', component: FaqComponent}
+  {path: 'faq', component: FaqComponent},
+  {path: 'authorReview', component: AuthorReviewComponent}
 ];
 
 @NgModule({
