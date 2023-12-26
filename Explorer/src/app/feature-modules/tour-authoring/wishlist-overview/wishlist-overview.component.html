@@ -18,8 +18,11 @@
                 <div class="prices">
                     <div class="amount">
                         <div class="button-container">
-                        <button class="add-to-cart" >
-                            Add to Cart
+                        <button class="add-to-cart" (click)="navigateToTourDetails(favItem.itemId)">
+                            See more
+                        </button>
+                        <button class="add-to-cart" (click)="removeFromWishlist(favItem.id!)">
+                            Remove
                         </button>
                         </div>
                     </div>

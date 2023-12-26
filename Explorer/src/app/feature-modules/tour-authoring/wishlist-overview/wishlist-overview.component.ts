@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Wishlist } from '../model/wishlist.model';
 import { forkJoin, switchMap } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'xp-wishlist-overview',
@@ -18,7 +20,7 @@ export class WishlistOverviewComponent implements OnInit {
   wishlist: Wishlist;
   numberOfItems: number;
 
-  constructor(private service: TourAuthoringService, private authService: AuthService) { }
+  constructor(private service: TourAuthoringService, private authService: AuthService, private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     // Pozovite funkciju za dobavljanje favourite items
@@ -107,6 +109,32 @@ export class WishlistOverviewComponent implements OnInit {
     }
   }
   
+
+removeFromWishlist(itemId: number): void {
+  // Odmah uklonite stavku iz liste favouriteItems
+  this.favouriteItems = this.favouriteItems.filter(item => item.id !== itemId);
+
+  // Sada pozovite servis ili API da izbriše stavku iz wishlist-e
+  this.service.removeWishlistItem(this.wishlist.id!, itemId).subscribe({
+      next: () => {
+          console.log('Item removed from wishlist successfully.');
+          this.showSnackbar('Item removed from wishlist successfully!');
+      },
+      error: (err) => {
+          console.error('Error removing item from wishlist:', err);
+      }
+  });
+}
   
+navigateToTourDetails(tourId: number): void {
+  this.router.navigate(['/tour', tourId]); // Prilagodite putanju prema vašim potrebama
+}
+
+showSnackbar(message: string): void {
+  this.snackBar.open(message, 'Close', {
+    duration: 3000, // Vreme trajanja snackbar-a (u milisekundama)
+  });
+}
+
   
 }

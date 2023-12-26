@@ -23,15 +23,15 @@
     margin-bottom: 20px;
     background: url('https://blog.wego.com/wp-content/uploads/skorea_mcjl4i.jpg') no-repeat center center;
     background-size: cover;
-    border: 3px solid #B855D4;
+    border: 3px solid rgb(56, 28, 117);
     overflow: hidden;
 }
 
 .Favourite-Items .Favourite-Item .about {
     color: white;
-    box-shadow: 0 3px 10px #B855D4;
+    box-shadow: 0 3px 10px rgb(56, 28, 117);
     width: 100%;
-    background-color: #B855D4;
+    background-color: rgb(56, 28, 117);
     position: absolute;
     bottom: 0;
     height: 23%; /* Dodajte visinu 0 kako bi se inicijalno sakrile informacije */
@@ -71,10 +71,10 @@
 
 .add-to-cart {
     display: inline-block;
-    padding: 10px;
+    padding: 9px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 13px;
     color: #2E003D;
     background-color: #ffffff;
     border: 0.2vw solid #2E003D;
@@ -82,6 +82,7 @@
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s;
     cursor: pointer;
+    height: 35px;
 }
 
 .add-to-cart:hover {

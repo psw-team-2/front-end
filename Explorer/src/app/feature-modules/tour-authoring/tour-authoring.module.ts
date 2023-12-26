@@ -28,6 +28,7 @@ import { BundleOverviewComponent } from './bundle-overview/bundle-overview.compo
 import { BundleUpdateFormComponent } from './bundle-update-form/bundle-update-form.component';
 import { BundleViewComponent } from './bundle-view/bundle-view.component';
 import { WishlistOverviewComponent } from './wishlist-overview/wishlist-overview.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -63,7 +64,8 @@ import { WishlistOverviewComponent } from './wishlist-overview/wishlist-overview
     MatButtonModule,
     MarketplaceModule,
     FormsModule,
-    EncounterModule
+    EncounterModule,
+    MatSnackBarModule
   ],
   exports: [
     CheckpointComponent,

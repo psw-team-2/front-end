@@ -20,6 +20,7 @@ import { FormGroup } from '@angular/forms';
 import { Observable, catchError, map, of, switchMap } from 'rxjs';
 import { Wishlist } from '../model/wishlist.model';
 import { FavouriteItem } from '../model/favourite-item.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'xp-view-tours',
   templateUrl: './view-tours.component.html',
@@ -64,13 +65,14 @@ export class ViewToursComponent implements OnInit {
   wishlistId: Number;
   wishlist: Wishlist;
   isAddedToWishlist: boolean = false; 
+  
 
   constructor(
     private service: TourAuthoringService,
     private marketService: MarketplaceService,
     private authService: AuthService,
     private router: Router,
-    private adminService: AdministrationService
+    private adminService: AdministrationService, private snackBar: MatSnackBar
     
   ) {}
 
@@ -276,18 +278,19 @@ export class ViewToursComponent implements OnInit {
       next: (result: Wishlist) => {
         this.wishlist = result;
         this.service.addWishlistItem2(this.wishlist, tour.id!).subscribe({
+          next: () => {
+            // Uspesno dodavanje u wishlist
+            this.showSnackbar('Tour added to wishlist!');
+          },
          
           error: () => {
+            this.showSnackbar("Tour already exists in wishlist.");
           }
           
         })
       }
     })
   }
-   
-
-
-  
   loadWishlist(): void {
     if (this.authService.user$ && this.authService.user$.value) {
       this.userId = this.authService.user$.value.id;
@@ -303,6 +306,13 @@ export class ViewToursComponent implements OnInit {
       console.error('AuthService user$ or value is not defined.');
     }
   }
+
+  
+showSnackbar(message: string): void {
+  this.snackBar.open(message, 'Close', {
+    duration: 3000, // Vreme trajanja snackbar-a (u milisekundama)
+  });
+}
   
 
 }
