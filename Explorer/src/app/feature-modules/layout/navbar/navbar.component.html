@@ -61,12 +61,20 @@
 
   <p class="explorer">Explorer</p>
 
+   <!-- <div class="navbar-right">
+      
+      <button class="notificationsButton" *ngIf="user && user.role === 'tourist' || user && user.role === 'author'" mat-icon-button [routerLink]="['notifications']"><mat-icon>notifications</mat-icon></button>
+      <button class="logButton" *ngIf="user && user.username === ''" mat-button [routerLink]="['login']">Log In</button>
+      <button class="logButton" *ngIf="user && user.username !== ''" mat-button (click)="onLogout()">Logout</button>-->
+
   <div class="navbar-right">
+    <button class="favorite-button" *ngIf="user && user.role === 'tourist'" mat-icon-button [routerLink]="['wishlist-overview']"><mat-icon>favorite</mat-icon></button>
     <div class="header-container">   
       <a class="cart-button" *ngIf="user && user.role === 'tourist'" [routerLink]="isLogged ? '/shopping-cart/' : '/login'">
         <i class="fas fa-shopping-cart"></i> 
         <span id="numberOfItems" class="numberOfItems">{{ numberOfItems }}</span>
       </a>
+
     </div>
     <button class="notificationsButton" *ngIf="user && (user.role === 'tourist' || user.role === 'author')" mat-icon-button [routerLink]="['notifications']"><mat-icon>notifications</mat-icon></button>
     <button class="logButton" *ngIf="user && user.username === ''" mat-button [routerLink]="['login']">Log In</button>
