@@ -35,6 +35,7 @@ import { AcFormComponent } from './ac-form/ac-form.component';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { QuestionsOverviewComponent } from './questions-overview/questions-overview.component';
 import { TpAnswerFormComponent } from './tp-answer-form/tp-answer-form.component';
+import { StarComponent } from './star/star.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { TpAnswerFormComponent } from './tp-answer-form/tp-answer-form.component
     QuestionnaireComponent,
     QuestionsOverviewComponent,
     TpAnswerFormComponent,
+    StarComponent,
   ],
   imports: [
     CommonModule,
