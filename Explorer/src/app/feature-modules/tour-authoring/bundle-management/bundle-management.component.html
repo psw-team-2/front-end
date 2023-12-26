@@ -1,39 +1,50 @@
+<div class="user-title-section">
+  <h1 class="user-title">All your bundles</h1>
+</div>
 <button routerLink="/bundle-form" class="create-button">Create</button>
-<table class="bundle-table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Status</th>
-      <th>Edit</th>
-      <th>Modify</th>
-      <th>Publish</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let bundle of bundles">
-      <td>{{ bundle.name }}</td>
-      <td>{{ bundle.price }}</td>
-      <td>
-          <ng-container *ngIf="bundle.status === 1">
-            Published
-          </ng-container>
-          <ng-container *ngIf="bundle.status === 0">
-            Draft
-          </ng-container>
-          <ng-container *ngIf="bundle.status === 2">
-            Archived
-          </ng-container>
-      </td>     
-      <td><button (click)="editBundle(bundle)">Edit</button></td>
-      <td>
-        <button *ngIf="bundle.status === 1" (click)="archiveBundle(bundle.id, bundle)">Archive</button>
-        <button *ngIf="bundle.status === 2 || bundle.status === 0" (click)="deleteBundle(bundle.id)">Delete</button>
-      </td>
-      <td>
-        <button *ngIf="bundle.status === 2 || bundle.status === 0" (click)="publishBundle(bundle)">Publish</button>
-      </td>
-    </tr>
-  </tbody>
-  
-</table>
+<div class="bundle-container">
+  <div class="bundle-list">
+    <div *ngFor="let bundle of bundles" class="bundle-item">
+      <div class="image-container">
+        <!-- Use the image source property accordingly -->
+        <img [src]="bundle.image" alt="Bundle Image" class="bundle-image" />
+        <div class="overlay">
+          <div class="bundle-description">
+            <h3>{{ bundle.name }}</h3>
+          </div>
+          <br>
+          <div class="bundle-price">
+            <p>Price: {{ bundle.price }}AC</p>
+          </div>
+          <div class="bundle-status">
+            <p>Status:
+              <ng-container *ngIf="bundle.status === 1">
+                Published
+              </ng-container>
+              <ng-container *ngIf="bundle.status === 0">
+                Draft
+              </ng-container>
+              <ng-container *ngIf="bundle.status === 2">
+                Archived
+              </ng-container>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="bundle-actions">
+        <button mat-icon-button color="primary" class="action-button"  (click)="editBundle(bundle)" matTooltip="Edit">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button *ngIf="bundle.status === 1" mat-icon-button color="warn" class="action-button" (click)="archiveBundle(bundle.id, bundle)" matTooltip="Archive">
+          <mat-icon>archive</mat-icon>
+        </button>
+        <button *ngIf="bundle.status === 2 || bundle.status === 0" mat-icon-button color="warn" class="action-button"  (click)="deleteBundle(bundle.id)" matTooltip="Delete">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button *ngIf="bundle.status === 2 || bundle.status === 0" mat-icon-button color="primary" class="action-button" (click)="publishBundle(bundle)" matTooltip="Publish">
+          <mat-icon>publish</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

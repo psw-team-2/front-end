@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TokenStorage } from './jwt/token.service';
 import { environment } from 'src/env/environment';
@@ -83,5 +83,17 @@ export class AuthService {
   getUserById(userId: number): Observable<User> {
     return this.http.get<User>(`${environment.apiHost}users/${userId}`);
   }
+  
+  upload(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
 
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST', `https://localhost:44333/api/author/bundle/uploadBundleImage`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
+  }
 }

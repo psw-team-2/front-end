@@ -16,6 +16,7 @@ import { OrderItem } from '../marketplace/model/order-item.model';
 import { PaymentNotification } from './model/paymentNotification.model';
 import { Bundle } from './model/bundle.model';
 import { TourBundle } from './model/tour-bundle.model';
+import { GiftCard } from './model/gift-card.model';
 
 
 
@@ -95,6 +96,19 @@ export class TourAuthoringService {
     return this.http.request(req);
   }
 
+  uploadImage(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST', `https://localhost:44333/api/author/tour/uploadTourImage`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
+  }
+
   getToursWithAuth(user:User | undefined) : Observable<PagedResults<Tour>> {
 
     if(user){
@@ -132,7 +146,7 @@ export class TourAuthoringService {
 
   addTour(tour: Tour) : Observable<Tour>{
     console.log(tour);
-    return this.http.post<Tour>('https://localhost:44333/api/author/tour/' , tour)
+    return this.http.post<Tour>('https://localhost:44333/api/author/tour' , tour)
   }
 
 
@@ -272,7 +286,9 @@ export class TourAuthoringService {
     return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/publish/${bundle.id}`, bundle);  
   }
   
-  
+  sendGift(giftCard: GiftCard): Observable<GiftCard> {
+    return this.http.post<GiftCard>(`https://localhost:44333/api/tourist/giftCard`, giftCard);  
+  }
 }
 
 

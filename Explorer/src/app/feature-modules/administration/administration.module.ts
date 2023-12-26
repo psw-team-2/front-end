@@ -35,6 +35,8 @@ import { AcFormComponent } from './ac-form/ac-form.component';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { ClubsComponent } from './clubs/clubs.component';
 import { RouterModule } from '@angular/router';
+import { QuestionsOverviewComponent } from './questions-overview/questions-overview.component';
+import { TpAnswerFormComponent } from './tp-answer-form/tp-answer-form.component';
 
 
 @NgModule({
@@ -65,6 +67,8 @@ import { RouterModule } from '@angular/router';
     AcFormComponent,
     QuestionnaireComponent,
     ClubsComponent,
+    QuestionsOverviewComponent,
+    TpAnswerFormComponent,
   ],
   imports: [
     CommonModule,

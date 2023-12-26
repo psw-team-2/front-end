@@ -1,0 +1,37 @@
+<form [formGroup]="tpForm" class="center-class">
+    
+        <div class="problem-title-section">
+            <h1 class="problem-title">Report Tour Problem</h1>
+        </div>
+        <div >
+            <mat-form-field>
+            <mat-label>Problem Category</mat-label>
+            <mat-select formControlName="problemCategory">
+                <mat-option value="Organization">Organization</mat-option>
+                <mat-option value="Lack of information">Lack of information</mat-option>
+                <mat-option value="Safety">Safety</mat-option>
+            </mat-select>
+            </mat-form-field>
+        </div>
+        <div >
+            <mat-form-field>
+            <mat-label>Problem Priority</mat-label>
+            <mat-select formControlName="problemPriority">
+                <mat-option value="Urgent">Urgent</mat-option>
+                <mat-option value="Medium urgent">Medium urgent</mat-option>
+                <mat-option value="Not urgent">Not urgent</mat-option>
+            </mat-select>
+            </mat-form-field>
+
+            <div >
+                <mat-form-field>
+                <mat-label>Description</mat-label>
+                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" formControlName="description" cdkAutosizeMaxRows="5"></textarea>
+                </mat-form-field>
+            </div>
+        
+        
+        <button class="done-button"  (click)="addTourProblem()">Report</button>
+    
+    </div>
+</form>

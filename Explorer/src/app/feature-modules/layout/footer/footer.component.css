@@ -43,3 +43,14 @@ footer .contact-info-title {
     font-weight: normal;
     margin-bottom: 2vw;
 }
+footer a {
+    color: #fff; 
+    text-decoration: none; 
+    position: relative; /* Enable relative positioning for links */
+    z-index: 0 !important; /* Set z-index for the links */
+}
+
+footer a:hover {
+    color: #ccc; 
+}
+

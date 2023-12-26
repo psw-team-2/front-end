@@ -4,6 +4,13 @@
     align-items: center;
     flex-direction: column;
   }
+
+  h1{
+    color: rgb(56, 28, 117);
+    margin-bottom: 30px;
+    margin-top: 50px;
+  }
+  
 div {
     width: 60vw;
     margin: 30px auto 0 auto;

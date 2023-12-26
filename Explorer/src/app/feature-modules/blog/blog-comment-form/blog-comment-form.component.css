@@ -41,11 +41,13 @@ mat-form-field {
     transition: background-color 0.3s;
     padding: 10px 20px;
     max-width: 250px;
+    border-radius: 5px;
     
 }
   
 .comment-button:hover {
-    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    background: linear-gradient(rgb(31, 15, 65), rgb(65, 59, 131));
+    cursor: pointer;
 }
 
 .comment-form {
@@ -71,9 +73,8 @@ mat-form-field {
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
+    border-radius: 5px;
   }
-  .message-button:hover {
-    background: white;
-    color: black;
-    border: 1px solid rgb(56, 28, 117);
-  }
+.message-button:hover {
+    background: linear-gradient(rgb(31, 15, 65), rgb(65, 59, 131));
+}

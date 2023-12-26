@@ -51,3 +51,11 @@ tbody tr:last-of-type {
     font-weight: bold;
     color: #3f51b5;
 }
+.thumbnail {
+    width: 80px; /* Adjust the width to your desired size */
+    height: 80px; /* Adjust the height to your desired size */
+  }
+.thumbnail img {
+    width: 80%; /* Ensure the image fills the cell */
+    height: 80%; 
+  }

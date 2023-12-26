@@ -2,12 +2,12 @@ export interface Tour {
     id?: number,
     name: string,
     description: string,
+    status: Number,
     difficulty: number,
     tags: string[],
     checkPoints: number[],
     equipment: number[],
     objects: number[],
-    status: Number,
     totalLength: number,
     footTime: Number,
     bicycleTime: Number,
@@ -15,5 +15,6 @@ export interface Tour {
     authorId: number,
     publishTime: string
     price:number,
-    points: number
+    points: number,
+    image: string
 }

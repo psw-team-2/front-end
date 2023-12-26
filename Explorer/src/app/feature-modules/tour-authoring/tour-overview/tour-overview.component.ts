@@ -15,6 +15,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { TourExecution } from '../../tour-execution/model/tourexecution.model';
 import { TourExecutionService } from '../../tour-execution/tour-execution.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'xp-tour-overview',
@@ -41,6 +42,8 @@ export class TourOverviewComponent {
   tourFetched: boolean = false;
   userFetched: boolean = false;
   userId: number;
+  shouldRenderTpForm: boolean = false;
+  shouldRenderGiftForm: boolean = false;
 
   formatDate(date: string): string {
     const options: Intl.DateTimeFormatOptions = {
@@ -77,7 +80,7 @@ export class TourOverviewComponent {
   
   
   constructor(private tourService: TourAuthoringService, private route: ActivatedRoute, private marketplaceService: MarketplaceService, 
-    private fb: FormBuilder, private authService: AuthService, private tourExecutionService: TourExecutionService, private router: Router) {
+    private fb: FormBuilder, private authService: AuthService, private tourExecutionService: TourExecutionService, private router: Router, private snackBar: MatSnackBar) {
     this.tourInfoForm = this.fb.group({
       name: [''],
       description: [''],
@@ -309,5 +312,39 @@ export class TourOverviewComponent {
     if(this.tourExecution){
       this.router.navigate(['blog-form', 'tour-report', this.tourExecution.tourId])
     }
+  }
+
+ showNotification(message: string): void {
+    this.snackBar.open(message, 'OK', {
+      duration: 3000, 
+    });
+  } 
+
+  onReportClicked(tour: Tour): void{
+    if (!this.userId) {
+      this.showNotification('User is not logged in. Pleease log in befor report tour');
+      return;
+    }else {
+      this.shouldRenderTpForm = !this.shouldRenderTpForm;
+    }
+    
+  }
+
+  onSendClicked(tour: Tour): void{
+    if (!this.userId) {
+      this.showNotification('User is not logged in. Pleease log in before gifting tour');
+      return;
+    }else {
+      this.shouldRenderGiftForm = !this.shouldRenderGiftForm;
+    }
+    
+  }
+
+  onCloseClicked(): void {
+    this.shouldRenderTpForm = !this.shouldRenderTpForm;
+  }
+
+  onCloseGiftClicked(): void {
+    this.shouldRenderGiftForm = !this.shouldRenderGiftForm;
   }
 }
