@@ -11,7 +11,7 @@ body{
     display: grid;
     grid-template-columns: 1fr 1fr; /* Podela na dve kolone */
     gap: 20px; /* Odstupanje između kolona */
-    width: 80%;
+    width: 65%;
     height: 85%;
     background-color: #ffffff;
     border-radius: 8px;
@@ -221,7 +221,7 @@ body{
   flex-direction: column;
   align-items: flex-start;
   margin-top:-100px;
-  margin-left: 100px;  
+  margin-left: 80px;  
   height: 100%;
 }
 
