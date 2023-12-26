@@ -232,3 +232,8 @@ i {
 .favorite-heart i.active {
   color: red; /* Boja srca kada je kliknuto */
 }
+
+.active-heart {
+  color: red; /* Promenite boju u željenu boju */
+}
+

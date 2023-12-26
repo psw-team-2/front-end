@@ -63,6 +63,7 @@ export class ViewToursComponent implements OnInit {
   favoriteItems: FavouriteItem[] = [];
   wishlistId: Number;
   wishlist: Wishlist;
+  isAddedToWishlist: boolean = false; 
 
   constructor(
     private service: TourAuthoringService,
@@ -81,11 +82,12 @@ export class ViewToursComponent implements OnInit {
     await this.getTours();
     this.calculateAverageGrades();
     this.calculateTourPoints();
+    this.loadWishlist();
     if (this.authService.user$.value) {
       this.isLogged = true;
       this.userId = this.authService.user$.value.id;
       this.shoppingCartId = this.userId;
-      this.wishlistId = this.userId; //loadWishlistForUser  
+       //loadWishlistForUser  
        
       this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
       next: (result: OrderItem[]) => {
@@ -270,10 +272,10 @@ export class ViewToursComponent implements OnInit {
       console.error('User is not logged in. Please log in before adding to the cart.');
       return;
     }
-    this.service.getWishlist(this.wishlistId).subscribe({
+    this.service.getWishlist(this.userId).subscribe({
       next: (result: Wishlist) => {
         this.wishlist = result;
-        this.service.addWishlistItem(this.wishlistId, tour).subscribe({
+        this.service.addWishlistItem2(this.wishlist, tour.id!).subscribe({
          
           error: () => {
           }
@@ -284,6 +286,23 @@ export class ViewToursComponent implements OnInit {
   }
    
 
+
+  
+  loadWishlist(): void {
+    if (this.authService.user$ && this.authService.user$.value) {
+      this.userId = this.authService.user$.value.id;
+      this.service.getWishlist(this.userId).subscribe({
+        next: (wishlist: Wishlist) => {
+          this.wishlist = wishlist; // Assign wishlist value when retrieved
+        },
+        error: (error) => {
+          console.error('Error fetching wishlist:', error);
+        }
+      });
+    } else {
+      console.error('AuthService user$ or value is not defined.');
+    }
+  }
   
 
 }

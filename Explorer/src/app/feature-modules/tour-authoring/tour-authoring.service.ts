@@ -298,13 +298,17 @@ export class TourAuthoringService {
     return this.http.put<Wishlist>(`https://localhost:44333/api/tourist/wishlist/removeAllItems/${wishlistId}`, {});
   }
 
-  getFavouriteItems(userId: number): Observable<PagedResults<FavouriteItem>> {
-    const encodedUserId = encodeURIComponent(userId.toString());
-    return this.http.get<PagedResults<FavouriteItem>>(`https://localhost:44333/api/tourist/favouriteItem/favouriteItems/${encodedUserId}`);
+  getFavouriteItems(wishlistId: number): Observable<PagedResults<FavouriteItem>> {
+    
+    return this.http.get<PagedResults<FavouriteItem>>(`https://localhost:44333/api/tourist/favouriteItem/favouriteItems/${wishlistId}`);
   }
 
   updateFavouriteItem(favouriteItem: FavouriteItem): Observable<FavouriteItem> {
     return this.http.put<FavouriteItem>(`https://localhost:44333/api/tourist/favouriteItem/update/${favouriteItem.id}`, favouriteItem);
+  }
+
+  addWishlistItem2(wishlist: Wishlist, tourId: Number) {
+    return this.http.post<Wishlist>(`https://localhost:44333/api/tourist/wishlist/wishlistItem/${wishlist.id}/${tourId}`,wishlist);
   }
 }
 

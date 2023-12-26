@@ -3,6 +3,8 @@ import { FavouriteItem } from '../model/favourite-item.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Wishlist } from '../model/wishlist.model';
+import { forkJoin, switchMap } from 'rxjs';
 
 @Component({
   selector: 'xp-wishlist-overview',
@@ -13,21 +15,24 @@ export class WishlistOverviewComponent implements OnInit {
   favouriteItems: FavouriteItem[] = [];
   userId: number;
   wishlistId: number;
+  wishlist: Wishlist;
   numberOfItems: number;
 
   constructor(private service: TourAuthoringService, private authService: AuthService) { }
 
   ngOnInit(): void {
     // Pozovite funkciju za dobavljanje favourite items
-    this.getFavouriteItems();
+    //this.getFavouriteItems();
+    //this.loadWishlist();
+    this.loadWishlistAndFavourites();
   }
 
-  getFavouriteItems(): void {
+  /*getFavouriteItems(): void {
     if (this.authService.user$ && this.authService.user$.value) {
       this.userId = this.authService.user$.value.id;
-      this.wishlistId = this.userId;
+      
   
-      this.service.getFavouriteItems(this.userId).subscribe({
+      this.service.getFavouriteItems(this.wishlist.id!).subscribe({
         next: (result: any) => {
           console.log('Result:', result);
   
@@ -49,6 +54,58 @@ export class WishlistOverviewComponent implements OnInit {
     }
   }
   
+  loadWishlist(): void {
+    if (this.authService.user$ && this.authService.user$.value) {
+      this.userId = this.authService.user$.value.id;
+      this.service.getWishlist(this.userId).subscribe({
+        next: (wishlist: Wishlist) => {
+          this.wishlist = wishlist; // Assign wishlist value when retrieved
+        },
+        error: (error) => {
+          console.error('Error fetching wishlist:', error);
+        }
+      });
+    } else {
+      console.error('AuthService user$ or value is not defined.');
+    }
+  }*/
+
+
+  loadWishlistAndFavourites(): void {
+    if (this.authService.user$ && this.authService.user$.value) {
+      this.userId = this.authService.user$.value.id;
+  
+      const wishlist$ = this.service.getWishlist(this.userId);
+      const favouriteItems$ = wishlist$.pipe(
+        switchMap((wishlist: Wishlist) => {
+          this.wishlist = wishlist; // Assign wishlist value when retrieved
+          return this.service.getFavouriteItems(this.wishlist.id!);
+        })
+      );
+  
+      forkJoin({ wishlist: wishlist$, favouriteItems: favouriteItems$ }).subscribe({
+        next: (results: { wishlist: Wishlist, favouriteItems: any }) => {
+          // Handle wishlist and favourite items once both are fetched
+          console.log('Wishlist:', results.wishlist);
+          console.log('Favourite items:', results.favouriteItems);
+  
+          // Process the fetched data
+          if (Array.isArray(results.favouriteItems) && results.favouriteItems.length > 0) {
+            this.favouriteItems = results.favouriteItems;
+            this.numberOfItems = this.favouriteItems.length;
+            console.log('Favourite items:', this.favouriteItems);
+          } else {
+            console.log('No favourite items found in results.');
+          }
+        },
+        error: (error) => {
+          console.error('Error fetching wishlist or favourite items:', error);
+        }
+      });
+    } else {
+      console.error('AuthService user$ or value is not defined.');
+    }
+  }
   
   
   

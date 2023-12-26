@@ -19,7 +19,7 @@
     <div *ngFor="let tour of tours" class="card" (click)="selectTour(tour)" [ngClass]="{'selected-card': tour === selectedTour}">
       <div class="favorite-heart" (click)="addToWishlist(tour)" >
         <i class="fas fa-heart"></i>
-     </div>
+      </div>
       <div class="remove-when-use">
       </div>
       <div class="details">
