@@ -73,6 +73,9 @@ export class AdministrationService {
   getUserAccountById(id: number): Observable<User> {
     return this.http.get<User>(environment.apiHost + 'administration/userAccounts/' + id);
   }
+  getUserAccountByToken(token: string): Observable<User> {
+    return this.http.get<User>(environment.apiHost + 'administration/userAccounts/token/' + token);
+  }
   updateUserAccount(user: User): Observable<User> {
     const url = `${environment.apiHost}administration/userAccounts/${user.id}`;
     return this.http.put<User>(url, user);

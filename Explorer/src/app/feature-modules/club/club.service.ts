@@ -1,4 +1,4 @@
-import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Club } from './model/club.model';
 import { environment } from 'src/env/environment';
@@ -61,5 +61,17 @@ export class ClubService {
 
   addClubMessage(clubMessage: ClubMessage): Observable<ClubMessage> {
     return this.http.post<ClubMessage>('https://localhost:44333/api/club', clubMessage);
+  }
+
+  getAllMembers(clubId: number): Observable<Array<number>> {
+    return this.http.get<Array<number>>(environment.apiHost + 'clubs/' + clubId + '/allMembers');
+  }
+
+  inviteMembersToTour(clubId: number, senderId: number, tourId: number, invitedMemberIds: number[]): Observable<boolean> {
+    const params = new HttpParams()
+    .set('senderId', senderId.toString())
+    .set('tourId', tourId.toString());
+
+    return this.http.post<boolean>(environment.apiHost + `clubs/${clubId}/inviteMembersToTour`, invitedMemberIds, { params: params });
   }
 }
