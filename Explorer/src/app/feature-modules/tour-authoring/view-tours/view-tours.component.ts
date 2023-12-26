@@ -17,6 +17,8 @@ import { AdministrationService } from '../../administration/administration.servi
 import { Profile } from '../../administration/model/profile.model';
 import { TourPreference } from '../../tour-preference/model/tour-preference.model';
 import { FormGroup } from '@angular/forms';
+import { TourReview } from '../../marketplace/model/tour-review.model';
+import { TourExecutionService } from '../../tour-execution/tour-execution.service';
 @Component({
   selector: 'xp-view-tours',
   templateUrl: './view-tours.component.html',
@@ -57,28 +59,33 @@ export class ViewToursComponent implements OnInit {
     boatRating: -1,
     tags: [],
   };
+  tourReviews: TourReview[];
+  tourExecutions: TourExecution[];
+
 
   constructor(
     private service: TourAuthoringService,
     private marketService: MarketplaceService,
     private authService: AuthService,
     private router: Router,
-    private adminService: AdministrationService
+    private adminService: AdministrationService,
+    private executionService: TourExecutionService,
     
   ) {}
 
   toggleSlider() {
     this.sliderState = (this.sliderState === 'small') ? 'large' : 'small';
   }
- // selectedTour: Tour;
+// selectedTour: Tour;
   async ngOnInit(): Promise<void> {
     await this.getTours();
+    this.getTourReviews();
     this.calculateAverageGrades();
     this.calculateTourPoints();
     if (this.authService.user$.value) {
       this.isLogged = true;
       this.userId = this.authService.user$.value.id;
-      this.shoppingCartId = this.userId;      
+      this.shoppingCartId = this.userId;   
       this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
       next: (result: OrderItem[]) => {
           this.orderItems = result;
@@ -106,6 +113,7 @@ export class ViewToursComponent implements OnInit {
             console.error('Error fetching profile:', error);
           }
         );
+      
       }
     });
 
@@ -172,22 +180,92 @@ export class ViewToursComponent implements OnInit {
     }
   }
 
-  calculateTourPoints(): void { 
+ 
+
+//da dobavi sve toruReviewove za sve ture
+ /* getTourReviews():void {
     for (const tour of this.tours) {
-      if(tour.difficulty == this.preference.difficulty) {
-        tour.points+=3;
-      }
-      for(const tag of tour.tags) {
-        if(this.preference.tags.includes(tag)) {
-          tour.points+=1;
-        }
-       }
+      if (tour.id !== undefined) {
+        this.marketService.getTourReviewByTourId(tour.id).subscribe((tourReview) => {
+          if (tour.id !== undefined) {
+            this.tourReviews[tour.id] = tourReview.results;   ///////!!!!!!!!!!!!!!!!!!!!!!!!
+          } 
+        });
       }
     }
+  }*/
+
+
+
+
+
+  getTourReviews(): void {
+    for (const tour of this.tours) {
+      if (tour.id !== undefined) {
+        this.marketService.getTourReviewByTourId(tour.id).subscribe((pagedResult) => {
+          if (pagedResult.results && Array.isArray(pagedResult.results)) {
+            // Assuming you want to store each TourReview separately
+            for (const tourReview of pagedResult.results) {
+              // Handle each TourReview individually
+              if(tourReview.id!==undefined)
+              this.tourReviews[tourReview.id] = tourReview;
+            }
+          } 
+        });
+      }
+    }
+  }
+  
+  //broji koliko review-ova je bilo na konkretnu odredjenu turu
+  coutnTourReviewForTour(id : number) : number {
+    let tourNumber = 0
+    for(const tourReview of this.tourReviews) {
+      if (id == tourReview.tourId) {
+          tourNumber++;
+      }
+    }
+    return tourNumber
+  }
+
+getTourExecutions(tourId: number) : void {
+  this.executionService.getTourExecutionByTourAndUser(tourId, this.userId).subscribe((result) => {
+    this.tourExecutions = result.results;
+   });
+  }
+
+
+  async calculateTourPoints(): Promise<void> { 
+
+    for (const tour of this.tours) {
+      if (tour.id !== undefined) {
+       this.executionService.getTourExecutionByTourAndUser(tour.id, this.userId).subscribe((result) => {
+       this.tourExecutions = result.results;   });
+       }
+      if (this.coutnTourReviewForTour(tour.id ?? 0) > 50  && this.tourAverageGrades[tour.id ?? 0] > 4) {
+          if(tour.difficulty == this.preference.difficulty) {
+            tour.points+=3;
+          }
+          for(const tag of tour.tags) {
+            if(this.preference.tags.includes(tag)) {
+              tour.points+=1;
+            }
+          }
+          for (const tourExecution of this.tourExecutions) {
+            if (tourExecution.Completed) {
+              for(const tag of tour.tags) {
+                if(this.preference.tags.includes(tag)) {
+                  tour.points+=2;
+                }
+              }
+            }
+          }
+       }
+    }
+  }
+    
   
 
  
-
   async startTour(tour: Tour) {
     let tourExecution: TourExecution = {
       tourId: tour.id!,
