@@ -16,6 +16,9 @@ import { OrderItem } from '../marketplace/model/order-item.model';
 import { PaymentNotification } from './model/paymentNotification.model';
 import { Bundle } from './model/bundle.model';
 import { TourBundle } from './model/tour-bundle.model';
+import { Wishlist } from './model/wishlist.model';
+import { FavouriteItem } from './model/favourite-item.model';
+import { GiftCard } from './model/gift-card.model';
 
 
 
@@ -95,6 +98,19 @@ export class TourAuthoringService {
     return this.http.request(req);
   }
 
+  uploadImage(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    formData.append('file', file);
+
+    const req = new HttpRequest('POST', `https://localhost:44333/api/author/tour/uploadTourImage`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
+  }
+
   getToursWithAuth(user:User | undefined) : Observable<PagedResults<Tour>> {
 
     if(user){
@@ -132,7 +148,7 @@ export class TourAuthoringService {
 
   addTour(tour: Tour) : Observable<Tour>{
     console.log(tour);
-    return this.http.post<Tour>('https://localhost:44333/api/author/tour/' , tour)
+    return this.http.post<Tour>('https://localhost:44333/api/author/tour' , tour)
   }
 
 
@@ -271,8 +287,48 @@ export class TourAuthoringService {
   publishBundle2(bundle: Bundle): Observable<Bundle> {
     return this.http.put<Bundle>(`https://localhost:44333/api/author/bundle/publish/${bundle.id}`, bundle);  
   }
+
+  /*getWishlist(userId: number): Observable<PagedResults<Wishlist>> {
+    return this.http.get<PagedResults<Wishlist>>(`https://localhost:44333/api/tourist/wishlist/user/${userId}`);
+  }*/
+
+  /*addWishlistItem(wishlistId: number, tourId: number): Observable<Wishlist> {
+    return this.http.post<Wishlist>(`https://localhost:44333/api/tourist/wishlist/wishlistItem/${wishlistId}/${tourId}`, {});
+  }*/
+
+  getWishlist(id: Number): Observable<Wishlist> {
+    return this.http.get<Wishlist>(`https://localhost:44333/api/tourist/wishlist/user/` + id);
+  }
+
+  addWishlistItem(wishlistId: Number, tour: Tour) {
+    return this.http.post<Wishlist>(`https://localhost:44333/api/tourist/wishlist/wishlistItem/${wishlistId}/${tour.id}`,{});
+  }
   
-  
+
+  removeWishlistItem(wishlistId: number, itemId: number): Observable<Wishlist> {
+    return this.http.put<Wishlist>(`https://localhost:44333/api/tourist/wishlist/removeItem/${wishlistId}/${itemId}`, {});
+  }
+
+  removeAllWishlistItems(wishlistId: number): Observable<Wishlist> {
+    return this.http.put<Wishlist>(`https://localhost:44333/api/tourist/wishlist/removeAllItems/${wishlistId}`, {});
+  }
+
+  getFavouriteItems(wishlistId: number): Observable<PagedResults<FavouriteItem>> {
+    
+    return this.http.get<PagedResults<FavouriteItem>>(`https://localhost:44333/api/tourist/favouriteItem/favouriteItems/${wishlistId}`);
+  }
+
+  updateFavouriteItem(favouriteItem: FavouriteItem): Observable<FavouriteItem> {
+    return this.http.put<FavouriteItem>(`https://localhost:44333/api/tourist/favouriteItem/update/${favouriteItem.id}`, favouriteItem);
+  }
+
+  addWishlistItem2(wishlist: Wishlist, tourId: Number) {
+    return this.http.post<Wishlist>(`https://localhost:44333/api/tourist/wishlist/wishlistItem/${wishlist.id}/${tourId}`,wishlist);
+  }
+
+  sendGift(giftCard: GiftCard): Observable<GiftCard> {
+    return this.http.post<GiftCard>(`https://localhost:44333/api/tourist/giftCard`, giftCard);  
+  }
 }
 
 

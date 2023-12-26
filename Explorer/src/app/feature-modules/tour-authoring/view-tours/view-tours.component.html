@@ -17,6 +17,9 @@
   
 <div class="card-container">    
     <div *ngFor="let tour of tours" class="card" (click)="selectTour(tour)" [ngClass]="{'selected-card': tour === selectedTour}">
+      <div class="favorite-heart" (click)="addToWishlist(tour)" >
+        <i class="fas fa-heart"></i>
+      </div>
       <div class="remove-when-use">
       </div>
       <div class="details">
@@ -30,9 +33,8 @@
       <!--  <a *ngIf="boughtTours.includes(tour)" class="view-button" (click)="startTour(tour)">Start tour</a>-->
         <a class="view-button" (click)="startTour(tour)">Start  tour</a>
         <a class="view-button" *ngIf="isCreatedByTourist(tour)" (click)="startTour(tour)">Start  tour (as creator)</a>
-        <a class="view-button" *ngIf="!isCreatedByTourist(tour)">Add to cart (not as creator)</a>
+        <!--<a class="view-button" *ngIf="!isCreatedByTourist(tour)">Add to cart (not as creator)</a>-->
         <a class="view-button" (click)="onAddClicked(tour)">Add to cart</a>
-        <a class="view-button" (click)="onReportClicked(tour)">Report tour</a>
       
       </div>
     </div>

@@ -1,17 +1,58 @@
-<div *ngIf="bundle" class="bundle-container">
-    <h1 class="bundle-name">{{ bundle.name }}</h1>
-    <p class="bundle-price">Price: {{ bundle.price }} AC</p>
-    <p class="bundle-status">Status: {{ getStatusText(bundle.status) }}</p>
-    <p class="bundle-userId">Created by User ID: {{ bundle.userId }}</p>
-  
-    <h2>Tours included:</h2>
-    <ul class="tour-list">
-      <li *ngFor="let tour of toursList" class="tour-item">
-        <p>{{ tour.name }}</p>
-      </li>
-    </ul>
+<div class="blog-post">
+  <div class="bundle-image">
+    <img [src]="bundle?.image" alt="Blog Image">
+  </div>
+  <div class="content-container">
+    <h2 >
+      {{ bundle?.name }}
+    </h2>
+    <div class="blog-price">
+      🌟 Discover the Ultimate Adventure Bundle! 🌍🏞️
+Embark on a journey like never before with our exclusive Adventure Bundle! Immerse yourself in a world of excitement and exploration as you enjoy a curated selection of thrilling tours. 🚀🌄
+    </div>
+    <br>
+    <div class="blog-price">
+      You have access to the tours bellow 🔽
+    </div>
+    <br>
+    <div class="blog-price">
+      <strong>Price: {{ bundle?.price }} AC </strong>
+    </div>
+    <div>
+      <a class="view-button" (click)="onAddClicked(bundle)">
+        <i class="fas  fa-cart-plus"></i>
+      </a>
+    </div>
+  </div>
 </div>
+<br>
+<div class="centered-h2-container">
+  <h2 class="centered-h2">Tours included</h2>
+</div>
+<br>
+<div class="form-container1">
+  <div class="tour-container">
+    <div *ngFor="let tour of toursList" class="tour-item">
+      <div class="image1-container">
+        <a  class="view-button-cart"  [routerLink]="'/tour/' + tour.id">
+          <i class="fas fa-arrow-right"></i>
+        </a>
+        
+        <!-- Use the image source property accordingly -->
+        <img [src]="tour.image" alt="Tour Image" class="tour-image" />
+        <div class="overlay">
+          <div class="tour-description">
+            <h3>{{ tour.name }}</h3>
+          </div>
+          <div class="tour-price">
+            <p>Price: {{ tour.price }} AC</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<div *ngIf="!bundle" class="bundle-container">
+  <div *ngIf="!bundle" class="bundle-container">
     <p class="loading-text">Loading...</p>
+  </div>
 </div>

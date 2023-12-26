@@ -61,6 +61,12 @@ import { InviteMembersToTourComponent } from 'src/app/feature-modules/club/invit
 import { VerificationComponent } from 'src/app/feature-modules/administration/user-account-administration/verification/verification.component';
 import { PasswordRecoveryComponent } from '../auth/password-recovery/password-recovery.component';
 import { RecoverComponent } from '../auth/recover/recover.component';
+import { WishlistOverviewComponent } from 'src/app/feature-modules/tour-authoring/wishlist-overview/wishlist-overview.component';
+import { GiftCardComponent } from 'src/app/feature-modules/tour-authoring/gift-card/gift-card.component';
+import { QuestionnaireComponent } from 'src/app/feature-modules/administration/questionnaire/questionnaire.component';
+import { QuestionsOverviewComponent } from 'src/app/feature-modules/administration/questions-overview/questions-overview.component';
+import { CreateQuestionComponent } from 'src/app/feature-modules/tourist/create-question/create-question.component';
+import { FaqComponent } from 'src/app/feature-modules/tourist/faq/faq.component';
 
 
 
@@ -131,6 +137,11 @@ const routes: Routes = [
   {path: 'active-encounter', component: ActiveEncounterComponent},
   {path: 'clubs/:clubId/inviteMembersToTour', component: InviteMembersToTourComponent},
   {path: 'verify/:token', component: VerificationComponent},
+  {path: 'wishlist-overview', component: WishlistOverviewComponent},
+  {path: 'gift-card', component: GiftCardComponent},
+  {path: 'questions-overview', component: QuestionsOverviewComponent},
+  {path: 'create-question', component: CreateQuestionComponent},
+  {path: 'faq', component: FaqComponent}
 ];
 
 @NgModule({

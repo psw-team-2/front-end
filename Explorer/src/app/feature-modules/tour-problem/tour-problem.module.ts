@@ -12,13 +12,18 @@ import { AppRoutingModule } from 'src/app/infrastructure/routing/app-routing.mod
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { TourProblemResponseComponent } from './tour-problem-response/tour-problem-response.component';
+import { TpFormComponent } from './tp-form/tp-form.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { TpCommentFormComponent } from './tp-comment-form/tp-comment-form.component';
 
 @NgModule({
   declarations: [
     TourProblemFormComponent,
     TourProblemsComponent,
     TourProblemOverviewComponent,
-    TourProblemResponseComponent
+    TourProblemResponseComponent,
+    TpFormComponent,
+    TpCommentFormComponent
   ],
   imports: [
     CommonModule,
@@ -29,13 +34,15 @@ import { TourProblemResponseComponent } from './tour-problem-response/tour-probl
     MatDatepickerModule,
     AppRoutingModule,
     MatNativeDateModule,
-    DatePipe
+    DatePipe,
+    MatSnackBarModule
   ],
   exports: [
     TourProblemsComponent,
     TourProblemFormComponent,
     TourProblemOverviewComponent,
-    TourProblemResponseComponent
+    TourProblemResponseComponent,
+    TpFormComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

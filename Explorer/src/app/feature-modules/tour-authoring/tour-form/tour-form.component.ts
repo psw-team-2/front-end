@@ -16,8 +16,9 @@ export class TourFormComponent {
   @Input() shouldEdit: boolean = false;
   
   user: User;
-  
   currentFile: File;
+  currentFileURL: string | null = null;
+
    constructor(private service: TourAuthoringService, private authService: AuthService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -32,6 +33,7 @@ export class TourFormComponent {
       this.tourForm.patchValue({
         name: this.tour.name || null,
         description: this.tour.description || null,
+        image: this.tour.image || null,
         difficulty: String(this.tour.difficulty) || null,
        
       });
@@ -42,7 +44,7 @@ export class TourFormComponent {
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     difficulty: new FormControl('', [Validators.required]),
-    
+    image: new FormControl('', [Validators.required]),
    
   })
 
@@ -62,13 +64,21 @@ export class TourFormComponent {
       carTime: 0,
       bicycleTime: 0,
       authorId: this.user.id,
-      publishTime: (new Date()).toString(),
+      publishTime: (new Date()).toISOString(),
       price:0,
       points: 0,
-    }
-  
+      image: 'https://localhost:44333/Images/' + this.currentFile.name,
+    };
+    await this.service.uploadImage(this.currentFile).subscribe({
+      next: (value) => {
 
-    
+      },
+      error: (value) => {
+        
+      }, complete: () => {
+      },
+    });
+  
     this.service.addTour(tour).subscribe({
       next: (_) => {
         this.tourUpdated.emit()
@@ -77,6 +87,10 @@ export class TourFormComponent {
 
   onFileSelected(event: any) {
     this.currentFile = event.target.files[0];
+    if (this.currentFile) {
+      // Create a URL for the selected file
+      this.currentFileURL = window.URL.createObjectURL(this.currentFile);
+    }
   }
 
   updateTour(): void {
@@ -97,6 +111,7 @@ export class TourFormComponent {
       publishTime: (new Date()).toString(),
       price:0,
       points: 0,
+      image: this.tourForm.value.image || "",
     }
     tour.id = this.tour.id;
     this.service.updateTour(tour).subscribe({

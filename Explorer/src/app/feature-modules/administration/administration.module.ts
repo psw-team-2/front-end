@@ -34,7 +34,9 @@ import { WalletsOverviewComponent } from './wallets-overview/wallets-overview.co
 import { AcFormComponent } from './ac-form/ac-form.component';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { VerificationComponent } from './user-account-administration/verification/verification.component';
-
+import { QuestionsOverviewComponent } from './questions-overview/questions-overview.component';
+import { TpAnswerFormComponent } from './tp-answer-form/tp-answer-form.component';
+import { StarComponent } from './star/star.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +66,9 @@ import { VerificationComponent } from './user-account-administration/verificatio
     AcFormComponent,
     QuestionnaireComponent,
     VerificationComponent,
+    QuestionsOverviewComponent,
+    TpAnswerFormComponent,
+    StarComponent,
   ],
   imports: [
     CommonModule,

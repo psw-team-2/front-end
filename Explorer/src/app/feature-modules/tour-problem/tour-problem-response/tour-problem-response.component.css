@@ -1,39 +1,30 @@
-.message-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 20px 520px;
-}
+
 
 .tour-problem-response-title {
   font-weight: bold;
   font-size: 25px;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 }
 
-.message {
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  padding: 10px;
-  margin-bottom: 10px;
-  max-width: 80%;
-  align-self: center;
-}
-
-.message-content {
-  margin-bottom: 5px;
-  word-wrap: break-word;
-}
-
-.message-metadata {
+/* Centrirajte komentare */
+.message-container {
+  margin-top: 30px;
   display: flex;
-  justify-content: space-between;
-  font-size: 16px;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
 }
 
-.timestamp,
-.tourist {
-  margin-right: 10px;
-  color: #888;
+
+
+/* Stil za sve komentare */
+.message {
+  margin-bottom: 30px; /* Dodajte razmak između komentara */
+  background-color: #f5f5f5; /* Boja pozadine komentara */
+  padding: 10px;
+  border-radius: 5px; /* Zaobljeni uglovi komentara */
+  width: 80%; /* Podesite širinu na 80% ili prema potrebama */
+  margin: 0 auto; 
+  border: 1px solid #ddd;
+  position: relative;
 }
