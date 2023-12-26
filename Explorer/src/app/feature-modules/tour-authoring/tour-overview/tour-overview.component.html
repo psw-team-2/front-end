@@ -59,6 +59,9 @@
     <i><strong>Last published:</strong> {{ tour?.publishTime | date:'medium' }}</i>
   </label>
 
+  <button class="gift-button" (click)="onSendClicked(tour)">
+    <i  class="gift-button"  class="fas fa-gift"></i> 
+  </button>
   <button class="report-button" (click)="onReportClicked(tour)">
     <i  class="report-button"  class="fas fa-warning"></i> Report
   </button>
@@ -197,6 +200,13 @@
       <mat-icon>close</mat-icon>
   </button>
       <xp-tp-form [shouldRender]="shouldRenderTpForm" (shouldRenderUpdated)="onCloseClicked()"></xp-tp-form>
+</div>
+
+<div  *ngIf="shouldRenderGiftForm" class="message-form-wrapper2">
+  <button mat-icon-button class="close-button" (click)="onCloseGiftClicked()">
+      <mat-icon>close</mat-icon>
+  </button>
+      <xp-gift-card [shouldRender]="shouldRenderGiftForm" (shouldRenderUpdated)="onCloseGiftClicked()"></xp-gift-card>
 </div>
 
 

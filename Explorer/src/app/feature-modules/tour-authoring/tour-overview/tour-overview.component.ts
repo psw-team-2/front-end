@@ -43,6 +43,7 @@ export class TourOverviewComponent {
   userFetched: boolean = false;
   userId: number;
   shouldRenderTpForm: boolean = false;
+  shouldRenderGiftForm: boolean = false;
 
   formatDate(date: string): string {
     const options: Intl.DateTimeFormatOptions = {
@@ -329,7 +330,21 @@ export class TourOverviewComponent {
     
   }
 
+  onSendClicked(tour: Tour): void{
+    if (!this.userId) {
+      this.showNotification('User is not logged in. Pleease log in before gifting tour');
+      return;
+    }else {
+      this.shouldRenderGiftForm = !this.shouldRenderGiftForm;
+    }
+    
+  }
+
   onCloseClicked(): void {
     this.shouldRenderTpForm = !this.shouldRenderTpForm;
+  }
+
+  onCloseGiftClicked(): void {
+    this.shouldRenderGiftForm = !this.shouldRenderGiftForm;
   }
 }
