@@ -12,6 +12,7 @@ import { Follow} from './model/follow.model';
 import { Message } from './model/message.model';
 import { Wallet } from './model/wallet.model';
 import { Question } from './model/question.model';
+import { Answer } from '../tourist/model/answer.model';
 
 @Injectable({
   providedIn: 'root'
@@ -216,7 +217,15 @@ export class AdministrationService {
     return this.http.put<Wallet>('https://localhost:44333/api/administrator/wallet/' + wallet.id , wallet);
   }
 
-  getQuestions(): Observable<PagedResults<Question>> {
-    return this.http.get<PagedResults<Question>>(environment.apiHost + 'question/unanswered');
+  /*getQuestions(): Observable<PagedResults<Question>> {
+    return this.http.get<PagedResults<Question>>('https://localhost:44333/api/question/unanswered');
+  }*/
+
+  getQuestions(): Observable<Question[]> {
+    return this.http.get<Question[]>(`https://localhost:44333/api/question/unanswered`);
+  } 
+  
+  createAnswer(answer: Answer): Observable<Answer> {
+    return this.http.post<Answer>('https://localhost:44333/api/answer/createAnswer', answer);
   }
 }

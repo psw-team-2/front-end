@@ -1,0 +1,25 @@
+<form [formGroup]="addAnswerForm" class="center-class">
+    <div class="answer-title-section">
+      <h1 class="answer-title">Assist our users</h1>
+    </div>
+    <mat-form-field>
+      <input matInput type="text" placeholder="Enter your answer..." formControlName="answer">
+    </mat-form-field>
+
+    <mat-form-field class="custom-form-field">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="answerCategory" [(value)]="selectedCategory">
+        <mat-option [value]="AnswerCategory.Payment">Payment</mat-option>
+        <mat-option [value]="AnswerCategory.Tour">Tour</mat-option>
+        <mat-option [value]="AnswerCategory.TechnicalSupport">TechnicalSupport</mat-option>
+        <mat-option [value]="AnswerCategory.Other">Other</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--<mat-form-field>
+      <mat-checkbox formControlName="visibility">Visible to all</mat-checkbox>
+    </mat-form-field>  -->
+
+    <button class="done-button" (click)="onDone()">Done</button>
+  </form>
+  

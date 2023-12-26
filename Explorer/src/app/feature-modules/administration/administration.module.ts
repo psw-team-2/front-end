@@ -34,6 +34,7 @@ import { WalletsOverviewComponent } from './wallets-overview/wallets-overview.co
 import { AcFormComponent } from './ac-form/ac-form.component';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { QuestionsOverviewComponent } from './questions-overview/questions-overview.component';
+import { TpAnswerFormComponent } from './tp-answer-form/tp-answer-form.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { QuestionsOverviewComponent } from './questions-overview/questions-overv
     AcFormComponent,
     QuestionnaireComponent,
     QuestionsOverviewComponent,
+    TpAnswerFormComponent,
   ],
   imports: [
     CommonModule,

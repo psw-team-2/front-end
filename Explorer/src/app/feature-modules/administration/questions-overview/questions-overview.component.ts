@@ -12,7 +12,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
   styleUrls: ['./questions-overview.component.css']
 })
 export class QuestionsOverviewComponent {
-  questions: Question[];
+  questions: Question[] = [];
   selectedQuestionForAnswer: Question;
   shouldRenderAnswerForm = false;
 
@@ -23,20 +23,24 @@ export class QuestionsOverviewComponent {
     this.getQuestions();
   }
 
-  onAnswer(selectedQuestion: Question): void {
+  onReply(selectedQuestion: Question): void {
     this.selectedQuestionForAnswer = selectedQuestion;
     this.shouldRenderAnswerForm = true;
   }
 
   getQuestions(): void {
       this.administratorService.getQuestions().subscribe({
-        next: (result: PagedResults<Question>) => {
-            this.questions = result.results;        
+        next: (result) => {console.log(result)
+          this.questions = result;
         },
         error: () => {
         }
-      });
+      })
 
+  }
+
+  onCloseFormClicked(): void {
+    this.shouldRenderAnswerForm = !this.shouldRenderAnswerForm;
   }
   
 }
