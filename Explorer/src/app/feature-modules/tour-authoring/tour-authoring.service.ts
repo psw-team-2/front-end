@@ -1,4 +1,4 @@
-import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Checkpoint } from './model/checkpoint.model';
@@ -183,6 +183,11 @@ export class TourAuthoringService {
   getAverageGrade(tourId: number):Observable<any>{
     return this.http.get<number>(environment.apiHost + 'author/tour/average-grade/'+tourId)
   }
+
+  getAverageWeeklyGrade(tourId: number):Observable<any>{
+    return this.http.get<number>(environment.apiHost + 'author/tour/average-weekly-grade/'+tourId)
+  }
+
   startTour(tourExecution: TourExecution) : Observable<TourExecution> {
     return this.http.post<TourExecution>('https://localhost:44333/api/tourexecution/start', tourExecution);
   } 
@@ -304,6 +309,14 @@ export class TourAuthoringService {
     return this.http.post<Wishlist>(`https://localhost:44333/api/tourist/wishlist/wishlistItem/${wishlistId}/${tour.id}`,{});
   }
   
+
+  getActiveTours(tourIds: (number | undefined)[]): Observable<PagedResults<Tour>> {
+    const validTourIds = tourIds.filter(id => typeof id === 'number') as number[];
+
+    return this.http.put<PagedResults<Tour>>('https://localhost:44333/api/author/tour/active-tours', validTourIds, {
+      headers: { 'Content-Type': 'application/json' } // Ensure JSON content type
+    });
+  }
 
   removeWishlistItem(wishlistId: number, itemId: number): Observable<Wishlist> {
     return this.http.put<Wishlist>(`https://localhost:44333/api/tourist/wishlist/removeItem/${wishlistId}/${itemId}`, {});
