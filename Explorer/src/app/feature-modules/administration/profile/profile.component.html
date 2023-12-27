@@ -41,6 +41,76 @@
     <div *ngIf="formState ==='expanded'">
       <xp-tour-preference-field></xp-tour-preference-field>
     </div>
+  </div>
+</div>
+<div class="center-class">
+  <table class="split-table">
+    <tr>
+      <td class="left-side">
+        <div class="upper-start">         
+          <xp-followers></xp-followers>
+          <xp-clubs></xp-clubs>
+        </div>
+      </td>
+      <td class="right-side">
+        <xp-tourist-posts *ngIf="shouldRender" [selectedProfile]="profile[0]"></xp-tourist-posts>            
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="messages">
+  <xp-message *ngIf="showMessage" class="notification"></xp-message>
+</div>
+
+<div class="has-margin-bottom">
+  
+</div>
+
+
+
+<!-- profile.component.html TOURIST
+<div class="profile-container">
+  <div class="profile-card" *ngFor="let individualProfile of profile">
+    <div class="profile-actions">
+      <button class="action-button-settings" mat-raised-button (click)="onEditClicked(individualProfile)">
+        <mat-icon>info</mat-icon>
+      </button>
+      <button class="action-button-settings" mat-raised-button (click)="onEditClicked(individualProfile)">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </div>
+    <div class="label-role">TOURIST</div>
+
+    <div class="img-cont" (click)="onEditClicked(individualProfile)">
+      <div class="overlay">
+          <mat-icon class="picture-icon">edit</mat-icon>
+      </div>
+      <img class="profile-picture" *ngIf="individualProfile.profilePicture!=='/'" src="{{individualProfile.profilePicture}}" alt="">
+      <img class="profile-picture" *ngIf="individualProfile.profilePicture==='/'" src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg" alt="">
+    </div>
+
+    <div class="profile-details">
+      <div class="name">
+        <span class="first-name">{{ individualProfile.firstName }} </span>
+        <span class="last-name">{{ individualProfile.lastName }}</span>
+      </div>
+      <div class="label">Biography:</div>
+      <div class="biography emphasized">{{ individualProfile.biography }}</div>
+      <div class="label">Motto:</div>
+      <div class="motto emphasized">{{ individualProfile.motto }}</div>
+      <div class="label">Wallet balance:</div>
+      <div class="wallet emphasized">{{ wallet.ac }} AC</div>
+    </div>      
+   </div> 
+</div>
+<div class="center-class">
+  <div class="preferences-container">
+    <button (click)="toggleForm()" class="toggle-button">
+      <span class="toggle-text emphasized">Tour Preferences {{ formState === 'collapsed' ? '&#9660;' : '&#9650;' }}</span>
+    </button>
+    <div *ngIf="formState ==='expanded'">
+      <xp-tour-preference-field></xp-tour-preference-field>
+    </div>
     </div>    
     <div class="profile-actions">
       <button class="action-button" mat-raised-button (click)="onEditClicked(individualProfile)">Edit Profile Info</button>
@@ -76,4 +146,4 @@
 
 <div class="has-margin-bottom">
   
-</div>
+</div> -->
