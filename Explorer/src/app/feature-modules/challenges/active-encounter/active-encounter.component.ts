@@ -76,10 +76,10 @@ export class ActiveEncounterComponent implements OnInit {
         if (this.shouldCreateActiveEncounter) {
           this.shouldCreateActiveEncounter = false;
           this.tourExecutionService.postActiveEncounters({
-            encounterId: encounter.id!.toString(),
+            encounterId: encounter.id!,
             end: (new Date()),
             state: 1,
-            touristId: this.userId.toString()
+            touristId: this.userId
           }).subscribe({
             next: (result) => {console.log(result);
               this.number = result.id!;
@@ -114,10 +114,10 @@ export class ActiveEncounterComponent implements OnInit {
         if (this.shouldCreateActiveEncounter) {
           this.shouldCreateActiveEncounter = false;
           this.tourExecutionService.postActiveEncounters({
-            encounterId: encounter.id!.toString(),
+            encounterId: encounter.id!,
             end: (new Date()),
             state: 1,
-            touristId: this.userId.toString()
+            touristId: this.userId
           }).subscribe({
             next: (result) => {console.log(result);
               this.number = result.id!;
@@ -140,10 +140,10 @@ export class ActiveEncounterComponent implements OnInit {
   MiscEncounterFinished() {
     this.tourExecutionService.updateActiveEncounters({
       id: this.number,
-      encounterId: this.currentEncoutner!.id!.toString(),
+      encounterId: this.currentEncoutner!.id!,
       end: (new Date()),
       state: 0,
-      touristId: this.userId.toString()
+      touristId: this.userId
     }).subscribe();
     this.currentEncoutner = null;
     this.shouldCreateActiveEncounter = true;
@@ -161,10 +161,10 @@ export class ActiveEncounterComponent implements OnInit {
     if (distance <= 15) {
       this.tourExecutionService.updateActiveEncounters({
         id: this.number,
-        encounterId: this.currentEncoutner!.id!.toString(),
+        encounterId: this.currentEncoutner!.id!,
         end: (new Date()),
         state: 0,
-        touristId: this.userId.toString()
+        touristId: this.userId
       }).subscribe();
       this.currentEncoutner = null;
       this.shouldCreateActiveEncounter = true;
