@@ -22,9 +22,10 @@ export class VerificationComponent {
         (user: User) => {
           // Modify the isActive property
           user.isActive = true;
+          console.log("BRUHHH", user);
 
           // Call the updateUserAccount method to save changes
-          this.service.updateUserAccount(user).subscribe(
+          this.service.updateUser(user).subscribe(
             updatedUser => {
               // Handle the updated user data as needed
               console.log('User updated:', updatedUser);

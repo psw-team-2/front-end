@@ -78,8 +78,8 @@ export class AdministrationService {
     return this.http.get<User>(environment.apiHost + 'administration/userAccounts/token/' + token);
   }
   updateUserAccount(user: User): Observable<User> {
-    //console.log("User koji je dobijen: ", user);
-    return this.http.put<User>('https://localhost:44333/api/administration/userAccounts/' + user.id, user);
+    const url = `${environment.apiHost}administration/userAccounts/${user.id}`;
+    return this.http.put<User>(url, user);
   }
   // PROFILE
   getByProfileUserId(id: number): Observable<Profile> {

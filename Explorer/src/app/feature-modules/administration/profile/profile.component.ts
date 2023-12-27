@@ -123,6 +123,8 @@ export class ProfileComponent implements OnInit{
       questionnaireDone: this.profile[0].questionnaireDone,
       numberOfCompletedTours: this.profile[0].numberOfCompletedTours,
       requestSent: true,
+      xp: this.profile[0].xp,
+      isFirstPurchased: this.profile[0].isFirstPurchased
     }
 
     this.service.updateProfile(profile).subscribe({

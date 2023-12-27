@@ -87,6 +87,7 @@ export class AuthorRequestsOverviewComponent implements OnInit {
         switchMap((user: User) => {
           user.id = profile.userId!;
           user.role = UserRole.Author;
+          user.token = "iseubfuisf";
           console.log("User koji se salje", user)
           return this.service.updateUser(user);
         }),
