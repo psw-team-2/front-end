@@ -24,4 +24,7 @@ export class AuthorReviewService {
     return this.http.get<PagedResults<AuthorReview>>(environment.apiHost + 'tourist/authorReview/' + authorId);
   } 
 
+  disapproveReview(reviewId: number): Observable<AuthorReview> {
+    return this.http.put<AuthorReview>(environment.apiHost + 'tourist/authorReview/' + reviewId + '/disapproved', null);
+  }
 }

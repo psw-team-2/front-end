@@ -47,12 +47,16 @@
       <tr>
         <th>Grade</th>
         <th>Comment</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let review of authorReviews">
         <td>{{ review.grade }}</td>
         <td>{{ review.comment }}</td>
+        <td>
+          <button class="action-button" mat-raised-button (click)="disapproveReview(review.id)">Disapprove</button>
+        </td>
       </tr>
     </tbody>
   </table>

@@ -5,4 +5,5 @@ export interface AuthorReview {
     authorId: number;
     reviewDate: Date;
     touristId: number;
+    isApproved: boolean;
 }

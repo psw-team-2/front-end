@@ -79,7 +79,7 @@ export class Profile2Component implements OnInit{
   showAuthorReviews() {
     this.authorReviewService.getAuthorReviews(this.currentUser.id).subscribe({
       next: (result: PagedResults<AuthorReview>) => {
-        this.authorReviews = result.results;
+        this.authorReviews = result.results.filter(review => review.isApproved);
         this.authorReviewsVisible = true;
       },
       error: () => {
@@ -89,5 +89,17 @@ export class Profile2Component implements OnInit{
   
   close() {
     this.authorReviewsVisible = false;
+  }
+
+  disapproveReview(reviewId: number): void {
+    this.authorReviewService.disapproveReview(reviewId).subscribe(
+      (result) => {
+        console.log('Review disapproved successfully');
+        this.showAuthorReviews();
+      },
+      (error) => {
+        console.error('Error disapproving review:', error);
+      }
+    );
   }
 }

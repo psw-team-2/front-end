@@ -138,6 +138,6 @@
   }
 
   .reviews-table th {
-    background-color: rgb(56, 28, 117); /* Dodajte ovu liniju za boju pozadine zaglavlja */
-    color: white; /* Dodajte ovu liniju za beli tekst u zaglavlju, ako je potrebno */
+    background-color: rgb(56, 28, 117);
+    color: white;
   }
