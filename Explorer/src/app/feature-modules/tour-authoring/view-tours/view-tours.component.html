@@ -1,5 +1,5 @@
 <div class="map-container">
-  <xp-map-search [tours]="allTours" [selectedTour]="selectedTour" (searchResultsEvent)="handleSearchResults($event)"></xp-map-search>
+  <xp-map-search [tours]="allTours" [selectedTour]="selectedTour" (searchResultsEvent)="handleSearchResults($event)" [isActiveTourSearchActive] = "isActiveTourSearchActive"></xp-map-search>
 </div>
 <div class="tour-list" [@slider]="sliderState">
   <h1 class="header">Available Tours</h1>
@@ -13,6 +13,9 @@
     <i class="fas fa-shopping-cart"></i> Shopping cart
     <span id="numberOfItems" class="numberOfItems">{{ numberOfItems }}</span>
   </a>
+  <br>
+  <button class="action-button" mat-raised-button [class.view-button-activated]="isActiveTourSearchActive" [class.view-button]="!isActiveTourSearchActive" (click)="ActiveTourSearchClicked()">Active Tours</button>
+  <button class="action-button" mat-raised-button [class.view-button-activated]="isNearbyTourSearchActive" [class.view-button]="!isNearbyTourSearchActive" (click)="NearbyTourSearchClicked()" >Nearby Tours</button>
 </div>
   
 <div class="card-container">    
