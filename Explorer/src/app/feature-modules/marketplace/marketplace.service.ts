@@ -11,6 +11,7 @@ import { OrderItem } from './model/order-item.model';
 import { ShoppingCart } from './model/shopping-cart.model';
 import { Sale } from './model/sale.model';
 import { Tour } from '../tour-authoring/model/tour.model';
+import { TourPurchaseToken } from '../tour-authoring/model/tourPurchaseToken.model';
 
 
 @Injectable({
@@ -27,6 +28,7 @@ export class MarketplaceService {
   public setMessage(sale: Sale) {
     return this.saleForEdt.next(sale);
   }
+
 
   getSale(saleId: number) :Observable<any>{
     throw new Error("Method not implemented.");
@@ -105,9 +107,17 @@ export class MarketplaceService {
   }
  
   
-  createTokens(orderItems: OrderItem[], userId: number): Observable<OrderItem[]> {
-    return this.http.post<OrderItem[]>(`https://localhost:44333/api/tourist/tourPurchaseToken/createTokens/${userId}`, orderItems);
+  createTokens(orderItems: OrderItem[], userId: number,discount:number): Observable<OrderItem[]> {
+    return this.http.post<OrderItem[]>(`https://localhost:44333/api/tourist/tourPurchaseToken/createTokens/${userId}/`+discount, orderItems);
   }
+
+  getTokensByTourId(tourId: number): Observable<PagedResults<TourPurchaseToken>>{
+  return this.http.get<PagedResults<TourPurchaseToken>>(environment.apiHost + 'tourist/tourPurchaseToken/by-tour/' + tourId);    
+  }
+
+  getWeeklyTokensByTourId(tourId: number): Observable<PagedResults<TourPurchaseToken>>{
+    return this.http.get<PagedResults<TourPurchaseToken>>(environment.apiHost + 'tourist/tourPurchaseToken/by-tour-weekly/' + tourId);    
+    }
 
   removeAllItems(shoppingCartId: number): Observable<ShoppingCart> {
     return this.http.put<ShoppingCart>(`https://localhost:44333/api/tourist/shoppingCart/removeAllItems/${shoppingCartId}`,shoppingCartId);
@@ -132,4 +142,5 @@ export class MarketplaceService {
   deleteSale(saleId:number):Observable<PagedResults<Sale>>{
     return this.http.delete<PagedResults<Sale>>(environment.apiHost + 'author/toursale/'+saleId)
   }
+
 }

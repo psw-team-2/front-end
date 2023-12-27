@@ -10,7 +10,6 @@ import { AuthGuard } from '../auth/auth.guard';
 import { TourProblemsComponent } from 'src/app/feature-modules/tour-problem/tour-problems/tour-problems.component';
 import { TourEquipmentComponent } from 'src/app/feature-modules/tour-authoring/tour-equipment/tour-equipment.component';
 import { ObjectComponent } from 'src/app/feature-modules/tour-authoring/object-form/object.component';
-import { TouristSelectedEquipmentComponent } from 'src/app/feature-modules/tourist/tourist-selected-equipment/tourist-selected-equipment.component';
 import { TourReviewFormComponent } from 'src/app/feature-modules/marketplace/tour-review-form/tour-review-form.component';
 import { TourReviewComponent } from 'src/app/feature-modules/marketplace/tour-review/tour-review.component';
 import { ClubsOverviewComponent } from 'src/app/feature-modules/club/clubs-overview/clubs-overview.component';
@@ -38,7 +37,7 @@ import { PublicRequestsComponent } from 'src/app/feature-modules/administration/
 import { NotificationsOverviewComponent } from 'src/app/feature-modules/notifications/notifications-overview/notifications-overview.component';
 import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopping-cart/shopping-cart.component';
 import { ViewPurchasedToursComponent } from 'src/app/feature-modules/tour-authoring/view-purchased-tours/view-purchased-tours.component';
-import {TourProblemOverviewComponent } from 'src/app/feature-modules/tour-problem/tour-problem-overview/tour-problem-overview.component';
+import { TourProblemOverviewComponent } from 'src/app/feature-modules/tour-problem/tour-problem-overview/tour-problem-overview.component';
 import { TourProblemResponseComponent } from 'src/app/feature-modules/tour-problem/tour-problem-response/tour-problem-response.component';
 import { TourProblemFormComponent } from 'src/app/feature-modules/tour-problem/tour-problem-form/tour-problem-form.component';
 import { ProfilesComponent } from 'src/app/feature-modules/administration/profiles/profiles.component';
@@ -57,6 +56,11 @@ import { EditSaleComponent } from 'src/app/feature-modules/marketplace/edit-sale
 import { ViewComposedTourComponent } from 'src/app/feature-modules/complex-tour/view-composed-tour/view-composed-tour.component';
 import { ComposedTourOverviewComponent } from 'src/app/feature-modules/complex-tour/composed-tour-overview/composed-tour-overview.component';
 import { ActiveEncounterComponent } from 'src/app/feature-modules/challenges/active-encounter/active-encounter.component';
+import { InviteMembersToTourComponent } from 'src/app/feature-modules/club/invite-members-to-tour/invite-members-to-tour.component';
+import { VerificationComponent } from 'src/app/feature-modules/administration/user-account-administration/verification/verification.component';
+import { PasswordRecoveryComponent } from '../auth/password-recovery/password-recovery.component';
+import { RecoverComponent } from '../auth/recover/recover.component';
+import { WishlistOverviewComponent } from 'src/app/feature-modules/tour-authoring/wishlist-overview/wishlist-overview.component';
 import { GiftCardComponent } from 'src/app/feature-modules/tour-authoring/gift-card/gift-card.component';
 import { QuestionnaireComponent } from 'src/app/feature-modules/administration/questionnaire/questionnaire.component';
 import { QuestionsOverviewComponent } from 'src/app/feature-modules/administration/questions-overview/questions-overview.component';
@@ -66,6 +70,8 @@ import { FaqComponent } from 'src/app/feature-modules/tourist/faq/faq.component'
 import { ProfileSettingsComponent } from 'src/app/feature-modules/administration/profile-settings/profile-settings.component';
 import { AppUserProfileComponent } from 'src/app/feature-modules/administration/app-user-profile/app-user-profile.component';
 import { ProfileSettings2Component } from 'src/app/feature-modules/administration/profile-settings2/profile-settings2.component';
+import { AuthorReviewComponent } from 'src/app/feature-modules/tourist/author-review/author-review.component';
+import { AuthorRequestsOverviewComponent } from 'src/app/feature-modules/administration/author-requests-overview/author-requests-overview.component';
 
 
 
@@ -74,13 +80,14 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
+  {path: 'password-recovery', component: PasswordRecoveryComponent},
+  {path: 'recover/:token', component: RecoverComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
   {path: 'tour-problems', component: TourProblemsComponent, canActivate: [AuthGuard],},
   {path: 'checkpoint/:id', component: CheckpointComponent},
   {path: 'tour', component: TourComponent},
   {path: 'equipment/:id', component: TourEquipmentComponent},
   {path: 'object', component: ObjectComponent},
-  {path: 'touristSelectingEquipment', component: TouristSelectedEquipmentComponent},
   {path: 'tour-review-form', component: TourReviewFormComponent},
   {path: 'tour-review', component: TourReviewComponent},
   {path: 'clubs', component: ClubsOverviewComponent},
@@ -95,9 +102,9 @@ const routes: Routes = [
   {path: 'blog-comments', component: BlogCommentsComponent, canActivate: [AuthGuard],},
   {path: 'post', component: SinglePostComponent},
   {path: 'blog-management', component: BlogManagemetComponent, canActivate: [AuthGuard],},
-  { path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
-  { path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard], },
-  { path: 'blog-single-post/:id', component: BlogSinglePostComponent, },
+  {path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
+  {path: 'blog-form/:id', component: BlogFormComponent, canActivate: [AuthGuard],},
+  {path: 'blog-single-post/:id', component: BlogSinglePostComponent,},
   {path: 'blog-review', component: BlogReviewComponent},
   {path: 'comments-review', component: CommentsReviewComponent},
   {path: 'blog-form', component: BlogFormComponent, canActivate: [AuthGuard],},
@@ -132,6 +139,9 @@ const routes: Routes = [
   {path: 'addSale', component: SaleFormComponent},
   {path: 'editSale', component: EditSaleComponent},
   {path: 'active-encounter', component: ActiveEncounterComponent},
+  {path: 'clubs/:clubId/inviteMembersToTour', component: InviteMembersToTourComponent},
+  {path: 'verify/:token', component: VerificationComponent},
+  {path: 'wishlist-overview', component: WishlistOverviewComponent},
   {path: 'gift-card', component: GiftCardComponent},
   {path: 'questions-overview', component: QuestionsOverviewComponent},
   {path: 'create-question', component: CreateQuestionComponent},
@@ -141,6 +151,8 @@ const routes: Routes = [
   {path: 'app-user-profile/:id', component: AppUserProfileComponent},
   
   
+  {path: 'authorReview', component: AuthorReviewComponent},
+  {path: 'author-requests-overview', component: AuthorRequestsOverviewComponent},
 ];
 
 @NgModule({

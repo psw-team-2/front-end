@@ -7,10 +7,11 @@ export interface User {
     role: UserRole;
     isActive: boolean;
     email: string;
-    tourPreference: TourPreference
+    tourPreference: TourPreference;
+    token: string
 }
 
-enum UserRole
+export enum UserRole
 {
     Administrator,
     Author,

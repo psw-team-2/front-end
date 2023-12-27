@@ -128,7 +128,8 @@ export class BundleUpdateFormComponent implements OnInit {
     this.service.updateBundle(this.selectedBundle).subscribe((updatedBundle) => {
       // Update successful, now call publishBundle method
        // Consider passing the updated price here or use any desired price value
-      this.service.publishBundle(updatedBundle).subscribe((publishedBundle) => {
+      this.service.publishBundle
+      (updatedBundle).subscribe((publishedBundle) => {
         // Optional: Redirect to another page or perform other actions after successful publishing
         
         this.showSuccessNotification('Bundle successfully updated!');

@@ -1,0 +1,12 @@
+<form *ngIf="!tokenExpired" [formGroup]="passwordForm" (ngSubmit)="updatePassword()">
+    <div>
+        <mat-form-field>
+            <mat-label>New Password</mat-label>
+            <input matInput formControlName="password" type="password"/>
+        </mat-form-field>
+    <button color="primary" type="submit" mat-raised-button>Recover Password</button>
+    </div>
+</form>
+<p *ngIf="tokenExpired" class="centered-container">
+    Your password recovery token has expired.
+</p>

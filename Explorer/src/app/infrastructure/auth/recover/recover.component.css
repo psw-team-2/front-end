@@ -1,0 +1,22 @@
+form {
+    margin-top:150px;
+    display: flex;
+    justify-content: center;
+}
+
+div {
+    width: 400px;
+    display:flex;
+    flex-direction: column;
+}
+
+p {
+    margin-top: 10px;
+}
+
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}

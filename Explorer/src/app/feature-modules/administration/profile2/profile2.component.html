@@ -46,6 +46,30 @@
     </tr>
   </table>
 </div>
+
 <div class="messages">
   <xp-message2 *ngIf="showMessage" class="notification"></xp-message2>
+</div>
+
+<button class="action-button" mat-raised-button (click)="showAuthorReviews()">Show reviews</button>
+<div *ngIf="authorReviewsVisible" class="reviews-container">
+  <table class="reviews-table">
+    <thead>
+      <tr>
+        <th>Grade</th>
+        <th>Comment</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let review of authorReviews">
+        <td>{{ review.grade }}</td>
+        <td>{{ review.comment }}</td>
+        <td>
+          <button class="action-button" mat-raised-button (click)="disapproveReview(review.id)">Disapprove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="action-button" mat-raised-button (click)="close()">Close</button>
 </div>

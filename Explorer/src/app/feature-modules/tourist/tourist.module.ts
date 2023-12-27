@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TouristSelectedEquipmentComponent } from './tourist-selected-equipment/tourist-selected-equipment.component';
+//import { TouristSelectedEquipmentComponent } from './tourist-selected-equipment/tourist-selected-equipment.component';
 import { PurchaseReportComponent } from './purchase-report/purchase-report.component';
 import { CreateQuestionComponent } from './create-question/create-question.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
@@ -12,15 +12,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FaqComponent } from './faq/faq.component';
+import { AuthorReviewComponent } from './author-review/author-review.component';
 
 
 
 @NgModule({
   declarations: [
-    TouristSelectedEquipmentComponent,
+    //TouristSelectedEquipmentComponent,
     PurchaseReportComponent,
     CreateQuestionComponent,
-    FaqComponent
+    FaqComponent,
+    AuthorReviewComponent,
+    //TouristSelectedEquipmentComponent,
+    PurchaseReportComponent
   ],
   imports: [
     CommonModule,
@@ -35,9 +39,9 @@ import { FaqComponent } from './faq/faq.component';
     MatSnackBarModule,
   ],
   exports: [
-    TouristSelectedEquipmentComponent,
     CreateQuestionComponent,
     PurchaseReportComponent,
+    //TouristSelectedEquipmentComponent
   ]
 })
 export class TouristModule { }

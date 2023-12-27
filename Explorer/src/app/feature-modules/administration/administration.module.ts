@@ -46,6 +46,11 @@ import { ProfileSettings2Component } from './profile-settings2/profile-settings2
 import { ClubsComponent } from './clubs/clubs.component';
 import { Clubs2Component } from './clubs2/clubs2.component';
 import { AppUserClubsComponent } from './app-user-clubs/app-user-clubs.component';
+import { VerificationComponent } from './user-account-administration/verification/verification.component';
+import { QuestionsOverviewComponent } from './questions-overview/questions-overview.component';
+import { TpAnswerFormComponent } from './tp-answer-form/tp-answer-form.component';
+import { StarComponent } from './star/star.component';
+import { AuthorRequestsOverviewComponent } from './author-requests-overview/author-requests-overview.component';
 
 
 @NgModule({
@@ -85,6 +90,11 @@ import { AppUserClubsComponent } from './app-user-clubs/app-user-clubs.component
     TpAnswerFormComponent,
     Clubs2Component,
     AppUserClubsComponent,
+    VerificationComponent,
+    QuestionsOverviewComponent,
+    TpAnswerFormComponent,
+    StarComponent,
+    AuthorRequestsOverviewComponent,
   ],
   imports: [
     CommonModule,

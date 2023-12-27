@@ -108,17 +108,7 @@ export class ActiveTourComponent implements OnInit {
   }
   
 
-  allStorage() {
-    var values = [],
-      keys = Object.keys(localStorage),
-      i = keys.length;
 
-    while (i--) {
-      values.push(localStorage.getItem(keys[i]));
-    }
-
-    return values;
-  }
 
   ispisEncounters() {
     let tempEncounterMapMaterials: EncounterMapMaterial[] = []

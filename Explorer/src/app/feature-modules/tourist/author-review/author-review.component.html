@@ -1,0 +1,28 @@
+<div class="author-review">
+    <h1>Author review</h1>
+    <div *ngFor="let author of authors" class="author-item">
+      <p>{{ author.username }}</p>
+      <button (click)="onAddRating()">Rate the author</button>
+    </div>
+  
+    <div *ngIf="shouldRenderAddForm" class="add-form-container">
+      <form [formGroup]="addForm" class="form-group">
+        <label for="grade">Grade:</label>
+        <input type="number" id="number" formControlName="grade">
+  
+        <label for="comment">Comment:</label>
+        <input type="text" id="comment" formControlName="comment">
+  
+        <label for="authorId">Author: </label>
+        <input type="number" id="authorId" formControlName="authorId" >
+  
+        <div class="button-container">
+            <button type="button" class="review-button" (click)="addReview()">Add Review</button>
+            <button type="button" class="cancel-button" (click)="cancel()">Cancel</button>
+        </div>
+          
+      </form>
+    </div>
+</div>
+  
+  
