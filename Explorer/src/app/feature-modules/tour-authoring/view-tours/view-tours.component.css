@@ -63,6 +63,20 @@
   transition: background-color 0.3s, color 0.3s;
   cursor: pointer;
 }
+.view-button-activated {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 16;
+  color: #ffffff;
+  background-color: #6C0277;
+  border: 0.2vw solid #2E003D;
+  border-radius: 0.375vw;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+}
+
 .button-container {
   text-align: center;
   margin: 5px;

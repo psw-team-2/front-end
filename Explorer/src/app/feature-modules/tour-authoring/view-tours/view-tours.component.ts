@@ -324,12 +324,12 @@ export class ViewToursComponent implements OnInit {
     return false;
   }
 
-  ActiveTourSearchClickec(){
+  ActiveTourSearchClicked(){
     console.log("ACTIVE TOUR SEARCH CLICKED")
     this.isActiveTourSearchActive = !this.isActiveTourSearchActive;
   }
 
-  NearbyTourSearchClickec(){
+  NearbyTourSearchClicked(){
     this.isNearbyTourSearchActive = !this.isNearbyTourSearchActive;
 
     if (this.isNearbyTourSearchActive) {
