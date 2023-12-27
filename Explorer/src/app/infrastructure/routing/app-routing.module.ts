@@ -67,6 +67,7 @@ import { QuestionsOverviewComponent } from 'src/app/feature-modules/administrati
 import { CreateQuestionComponent } from 'src/app/feature-modules/tourist/create-question/create-question.component';
 import { FaqComponent } from 'src/app/feature-modules/tourist/faq/faq.component';
 import { AuthorReviewComponent } from 'src/app/feature-modules/tourist/author-review/author-review.component';
+import { AuthorRequestsOverviewComponent } from 'src/app/feature-modules/administration/author-requests-overview/author-requests-overview.component';
 
 
 
@@ -141,7 +142,8 @@ const routes: Routes = [
   {path: 'questions-overview', component: QuestionsOverviewComponent},
   {path: 'create-question', component: CreateQuestionComponent},
   {path: 'faq', component: FaqComponent},
-  {path: 'authorReview', component: AuthorReviewComponent}
+  {path: 'authorReview', component: AuthorReviewComponent},
+  {path: 'author-requests-overview', component: AuthorRequestsOverviewComponent},
 ];
 
 @NgModule({

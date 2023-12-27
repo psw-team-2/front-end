@@ -38,7 +38,9 @@ export class ProfileForm2Component implements OnChanges {
       tourPreference: this.profile.tourPreference,
       questionnaireDone: this.profile.questionnaireDone,
       xp:this.profile.xp,
-      isFirstPurchased:false
+      isFirstPurchased:false,
+      numberOfCompletedTours: this.profile.numberOfCompletedTours,
+      requestSent: this.profile.requestSent
     }
     profile.id = this.profile.id;
     profile.userId = this.profile.userId;

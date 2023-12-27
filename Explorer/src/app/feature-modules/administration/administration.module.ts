@@ -37,6 +37,8 @@ import { VerificationComponent } from './user-account-administration/verificatio
 import { QuestionsOverviewComponent } from './questions-overview/questions-overview.component';
 import { TpAnswerFormComponent } from './tp-answer-form/tp-answer-form.component';
 import { StarComponent } from './star/star.component';
+import { AuthorRequestsOverviewComponent } from './author-requests-overview/author-requests-overview.component';
+
 
 @NgModule({
   declarations: [
@@ -69,6 +71,7 @@ import { StarComponent } from './star/star.component';
     QuestionsOverviewComponent,
     TpAnswerFormComponent,
     StarComponent,
+    AuthorRequestsOverviewComponent,
   ],
   imports: [
     CommonModule,

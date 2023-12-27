@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Equipment } from '../model/equipment.model';
 import { Profile } from '../model/profile.model';
+import { Request } from '../model/request.model';
 import { HttpClient } from '@angular/common/http';
 import { AdministrationService } from '../administration.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
@@ -84,5 +85,53 @@ export class ProfileComponent implements OnInit{
 
   onPurchaseReports(): void {
     this.router.navigate(['/purchase-reports']);
+  }
+
+  onSendRequestClick(): void {
+    // Hiding the button immediately
+  this.profile[0].requestSent = true;
+
+  const request: Request = {
+    id: 0,
+    profileId: this.profile[0].id,
+    status: 0
+  }
+
+  this.service.addRequest(request).subscribe({
+    next: (newRequest: Request) => {
+      alert('You have successfully sent a request to become an author!');
+      console.log(request);
+    },
+    error: (err: any) => {
+      console.error('Error while sending a request:', err);
+      // If an error occurs, revert the requestSent flag back to false to display the button again
+      this.profile[0].requestSent = false;
+    }
+  });
+
+    const profile: Profile = {
+      id: this.profile[0].id,
+      firstName: this.profile[0].firstName,
+      lastName: this.profile[0].lastName,
+      profilePicture: this.profile[0].profilePicture,
+      biography: this.profile[0].biography,
+      motto: this.profile[0].motto,
+      userId: this.profile[0].userId,
+      isActive: this.profile[0].isActive,
+      follows: this.profile[0].follows,
+      tourPreference: this.profile[0].tourPreference,
+      questionnaireDone: this.profile[0].questionnaireDone,
+      numberOfCompletedTours: this.profile[0].numberOfCompletedTours,
+      requestSent: true,
+    }
+
+    this.service.updateProfile(profile).subscribe({
+      next: () => {
+        console.log(profile);
+      },
+      error: (err: any) => {
+        console.error('Error while updating profile:', err);
+      }
+    });
   }
 }
