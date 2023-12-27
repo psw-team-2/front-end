@@ -1,20 +1,85 @@
+.div {
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 1px; 
+  
+}
 
-table {
-    width: 70%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    margin: 20px auto;
-    
-  }
+.center-class{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-title-section {
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user-title {
+  color: rgb(56, 28, 117);
+  margin-bottom: 30px;
+  margin-top: 50px;
+}
+
+.table-container {
+  margin-top: 30px;     
+  padding-bottom: 40px;
+  margin: 0 auto;
+  width: 80%;
+}
+
+.user-table {
+  margin-top: 20px; 
+  margin-bottom: 140px;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid black; 
+  color:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+}
+
+.user-table th, .user-table td {
+  padding: 10px;
+  text-align: center; 
+  border: 1px solid black; 
+}
+th{
+  background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+}
+.user-table th {
+  font-size: 18px;
+  font-weight: normal; 
+}
+
+.user-table button {
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif; 
+  background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131)); 
+  color: white; 
+  display: block;
+  margin: 0 auto;
+  padding: 8px 16px; 
+  border: none; 
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.info-text {
+  font-style: italic;
+  color: rgb(125, 125, 125);
+}
+
   
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
+  h1{
+    color: rgb(56, 28, 117);
+    border: none;
+    cursor: pointer;
     text-align: left;
+    padding: 20px;
+    font-size: 2vw;
+    display: flex;
+    align-items: center; /* Vertically center text */
+    justify-content: center;
   }
-  
-  th {
-    background-color: #f2f2f2;
-    color: #8a2be2;
-  }
-  

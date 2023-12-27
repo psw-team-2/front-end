@@ -1,0 +1,31 @@
+
+<div class="settings">
+  <div class="settings-container">
+    <div class="settings-buttons">
+      <h1> <mat-icon class="settings-icon">info</mat-icon>  Profile Information</h1>
+      <button class="settings-button" [ngClass]="{'bold-text': selectedProfile && showEditProfileForm}" (click)="onEditClicked(profile)">👤 Profile</button>
+      <button class="settings-button" [ngClass]="{'bold-text': showProfilePreferences}" (click)="onTourPreferencesClicked()">🌟 Tour Preferences</button>
+      <button class="settings-button" [ngClass]="{'bold-text': showPurchase}" (click)="onPurchaseReportsClicked()">💰 Purchase Reports</button>
+      <button class="settings-button" [ngClass]="{'bold-text': showProfilePictureForm}" (click)="onChangeClicked(profile)">🌍 Questionnaire</button>
+    </div>
+
+    <div class="settings-content">
+      <xp-profile-form *ngIf="selectedProfile && showEditProfileForm" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-profile-form>
+      <xp-tour-preference-settings *ngIf="showProfilePreferences"></xp-tour-preference-settings>
+      <xp-purchase-report *ngIf="showPurchase"></xp-purchase-report>
+      <div  *ngIf="showProfilePictureForm">
+        <!-- Check if questionnaireDone is false -->
+        <div *ngIf="!profile.questionnaireDone">
+          <xp-questionnaire></xp-questionnaire>
+        </div>
+        <!-- If questionnaireDone is true, display a message -->
+        <div *ngIf="profile.questionnaireDone">
+          <h1 class="class-h1">Questionnaire</h1>
+          <div class="center-class">
+            <p class="has-margin-bottom">You have already completed the questionnaire!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

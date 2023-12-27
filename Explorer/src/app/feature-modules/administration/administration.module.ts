@@ -33,10 +33,19 @@ import { TouristPosts2Component } from './tourist-posts2/tourist-posts2.componen
 import { WalletsOverviewComponent } from './wallets-overview/wallets-overview.component';
 import { AcFormComponent } from './ac-form/ac-form.component';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
-import { ClubsComponent } from './clubs/clubs.component';
+import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
+import { AppUserProfileComponent } from './app-user-profile/app-user-profile.component';
 import { RouterModule } from '@angular/router';
 import { QuestionsOverviewComponent } from './questions-overview/questions-overview.component';
 import { TpAnswerFormComponent } from './tp-answer-form/tp-answer-form.component';
+import { PurchaseReportComponent } from '../tourist/purchase-report/purchase-report.component';
+import { TouristModule } from '../tourist/tourist.module';
+import { AppUserPostsComponent } from './app-user-posts/app-user-posts.component';
+import { AppUserFollowersComponent } from './app-user-followers/app-user-followers.component';
+import { ProfileSettings2Component } from './profile-settings2/profile-settings2.component';
+import { ClubsComponent } from './clubs/clubs.component';
+import { Clubs2Component } from './clubs2/clubs2.component';
+import { AppUserClubsComponent } from './app-user-clubs/app-user-clubs.component';
 
 
 @NgModule({
@@ -66,9 +75,16 @@ import { TpAnswerFormComponent } from './tp-answer-form/tp-answer-form.component
     WalletsOverviewComponent,
     AcFormComponent,
     QuestionnaireComponent,
+    ProfileSettingsComponent,
+    AppUserProfileComponent,
+    AppUserPostsComponent,
+    AppUserFollowersComponent,
+    ProfileSettings2Component,
     ClubsComponent,
     QuestionsOverviewComponent,
     TpAnswerFormComponent,
+    Clubs2Component,
+    AppUserClubsComponent,
   ],
   imports: [
     CommonModule,
@@ -81,9 +97,11 @@ import { TpAnswerFormComponent } from './tp-answer-form/tp-answer-form.component
     MatDialogModule,
     MatButtonModule,
     RouterModule,
+    TouristModule
   ],
   exports: [
     EquipmentComponent,
+    QuestionnaireComponent,
     EquipmentFormComponent,
     ApplicationReviewComponent,
     ProfileComponent,
@@ -92,7 +110,8 @@ import { TpAnswerFormComponent } from './tp-answer-form/tp-answer-form.component
     PublicRequestsComponent,
     ProfilesComponent,
     Profiles2Component,
-    TouristPostsComponent
+    TouristPostsComponent,
+    ProfileSettingsComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 

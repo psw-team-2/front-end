@@ -1,8 +1,24 @@
 <!-- profile2.component.html AUTOR-->
 <div class="profile-container">
   <div class="profile-card" *ngFor="let individualProfile of profile">
-    <div class="label">AUTOR</div>
-    <img class="profile-picture" src="{{ individualProfile.profilePicture }}" alt="">
+    <div class="profile-actions">
+      <button class="action-button-settings" mat-raised-button (click)="onEditClicked(individualProfile)">
+        <mat-icon>info</mat-icon>
+      </button>
+      <button class="action-button-settings" mat-raised-button (click)="onEditClicked(individualProfile)">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </div>
+    <div class="label-role">AUTHOR</div>
+
+    <div class="img-cont" (click)="onEditClicked(individualProfile)">
+      <div class="overlay">
+          <mat-icon class="picture-icon">edit</mat-icon>
+      </div>
+      <img class="profile-picture" *ngIf="individualProfile.profilePicture!=='/'" src="{{individualProfile.profilePicture}}" alt="">
+      <img class="profile-picture" *ngIf="individualProfile.profilePicture==='/'" src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg" alt="">
+    </div>
+
     <div class="profile-details">
       <div class="name">
         <span class="first-name">{{ individualProfile.firstName }} </span>
@@ -12,15 +28,10 @@
       <div class="biography emphasized">{{ individualProfile.biography }}</div>
       <div class="label">Motto:</div>
       <div class="motto emphasized">{{ individualProfile.motto }}</div>
-    </div>    
-    <div class="profile-actions">
-      <button class="action-button" mat-raised-button (click)="onEditClicked(individualProfile)">Edit Profile Info</button>
-      <button class="action-button" mat-raised-button (click)="onChangeClicked(individualProfile)">Change Profile Picture</button>
-    </div>    
-    <xp-profile-form2 *ngIf="selectedProfile && showEditProfileForm" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-profile-form2>
-    <xp-picture-form2 *ngIf="selectedProfile && showProfilePictureForm" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-picture-form2>
+    </div>      
   </div>
 </div>
+
 <div class="center-class">
   <table class="split-table">
     <tr>

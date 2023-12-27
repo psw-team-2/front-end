@@ -36,7 +36,8 @@ import { FaqComponent } from './faq/faq.component';
   ],
   exports: [
     TouristSelectedEquipmentComponent,
-    CreateQuestionComponent
+    CreateQuestionComponent,
+    PurchaseReportComponent,
   ]
 })
 export class TouristModule { }

@@ -13,7 +13,6 @@ export class PictureFormComponent {
   @Input() profile: Profile;
 
   currentFile: File;
-
   constructor(private service: AdministrationService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -64,6 +63,7 @@ export class PictureFormComponent {
     this.service.updateProfile(profile).subscribe({
       next: (_) => {
         this.profileUpdated.emit()
+        window.location.reload();
       }
     })
   }

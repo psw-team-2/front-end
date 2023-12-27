@@ -1,0 +1,13 @@
+
+<div class="settings">
+    <div class="settings-container">
+      <div class="settings-buttons">
+        <h1> <mat-icon class="settings-icon">info</mat-icon>  Profile Information</h1>
+        <button class="settings-button" [ngClass]="{'bold-text': selectedProfile && showEditProfileForm}" (click)="onEditClicked(profile)">👤 Profile</button>
+      </div>
+  
+      <div class="settings-content">
+        <xp-profile-form2 *ngIf="selectedProfile && showEditProfileForm" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-profile-form2>
+      </div>
+    </div>
+  </div>

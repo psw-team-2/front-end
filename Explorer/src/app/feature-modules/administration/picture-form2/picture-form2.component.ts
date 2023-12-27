@@ -64,6 +64,8 @@ export class PictureForm2Component {
     this.service.updateProfile2(profile).subscribe({
       next: (_) => {
         this.profileUpdated.emit()
+        
+        window.location.reload();
       }
     })
   }

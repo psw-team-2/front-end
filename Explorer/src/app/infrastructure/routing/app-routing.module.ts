@@ -63,6 +63,9 @@ import { QuestionsOverviewComponent } from 'src/app/feature-modules/administrati
 import { CreateQuestionComponent } from 'src/app/feature-modules/tourist/create-question/create-question.component';
 import { FaqComponent } from 'src/app/feature-modules/tourist/faq/faq.component';
 
+import { ProfileSettingsComponent } from 'src/app/feature-modules/administration/profile-settings/profile-settings.component';
+import { AppUserProfileComponent } from 'src/app/feature-modules/administration/app-user-profile/app-user-profile.component';
+import { ProfileSettings2Component } from 'src/app/feature-modules/administration/profile-settings2/profile-settings2.component';
 
 
 
@@ -132,8 +135,12 @@ const routes: Routes = [
   {path: 'gift-card', component: GiftCardComponent},
   {path: 'questions-overview', component: QuestionsOverviewComponent},
   {path: 'create-question', component: CreateQuestionComponent},
-  {path: 'faq', component: FaqComponent}
-
+  {path: 'faq', component: FaqComponent},
+  {path: 'profile-settings', component: ProfileSettingsComponent},
+  {path: 'profile-settings2', component: ProfileSettings2Component},
+  {path: 'app-user-profile/:id', component: AppUserProfileComponent},
+  
+  
 ];
 
 @NgModule({

@@ -14,6 +14,8 @@ export class ProfilesComponent implements OnInit {
   loggedInProfile: Profile | null = null; // Store the logged-in user's profile
   follows: Profile[] = [];
   followedProfiles: { [key: number]: boolean } = {};
+  profileFollowed="";
+  alreadyFollow: any;
 
   constructor(private service: AdministrationService) {}
 
@@ -50,7 +52,10 @@ export class ProfilesComponent implements OnInit {
         next: (result: boolean) => {
           if (result) {
             // Display an alert if the combination already exists
-            alert(`You already follow ${profile.firstName} ${profile.lastName}`);
+            this.alreadyFollow = true;
+            this.profileFollowed=`You already follow ${profile.firstName} ${profile.lastName}.`
+            
+            // alert(`You already follow ${profile.firstName} ${profile.lastName}`);
           } else {
             const follow: Follow = {
               profileId: profile.id!, // Id of the profile to be followed
@@ -59,7 +64,9 @@ export class ProfilesComponent implements OnInit {
   
             this.service.addFollow(follow).subscribe({
               next: (newFollow: Follow) => {
-                alert(`You have successfully followed ${profile.firstName} ${profile.lastName}`);
+                this.alreadyFollow=false;
+                this.profileFollowed=`You have successfully followed ${profile.firstName} ${profile.lastName}`
+                //alert(`You have successfully followed ${profile.firstName} ${profile.lastName}`);
                 this.followedProfiles[profile.id!] = true;
               },
               error: (err: any) => {
@@ -75,4 +82,7 @@ export class ProfilesComponent implements OnInit {
     }
   }
 
+  onFollowOKClicked() {
+    this.profileFollowed=``
+  }
 }

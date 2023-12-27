@@ -2,6 +2,14 @@
 <div class="center-class">  
   <div class="find-people-container">
     <h1>Discover people you might know:</h1>
+    <div *ngIf="profileFollowed" class="container">
+      <div [ngClass]="{'red-text': alreadyFollow, 'black-text': !alreadyFollow}">
+        {{ profileFollowed }}
+      </div>
+      <div class="center-button">
+        <button mat-raised-button class="white-button" (click)=" onFollowOKClicked()">OK</button>
+      </div>
+    </div>
     <div class="profile-list">
       <div *ngFor="let individualProfile of profiles" class="profile-card">
         <img class="profile-picture" src="{{ individualProfile.profilePicture }}" alt="">

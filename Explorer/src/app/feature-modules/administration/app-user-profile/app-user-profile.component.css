@@ -1,0 +1,259 @@
+/* profile.component.css */
+.center-class {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
+    padding-top: 20px;
+    /* padding-bottom: 20px; */
+    width: 100vw - 20px;
+    min-height: 100vh;
+  }
+  
+  .profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    color: black;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 25vw;
+  }
+  
+  .profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+  
+  .profile-details {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .name {
+    margin-bottom: 10px;
+  }
+  
+  .first-name,
+  .last-name {
+    font-size: 23px;
+    font-weight: bold;
+    color: rgb(56, 28, 117);
+  }
+  
+  .biography,
+  .motto,
+  .wallet {
+    margin-top: 10px;
+    font-size: 20px;
+  }
+  
+  .profile-actions {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .action-button {
+    margin-top: 20px;
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .action-button:hover {
+    background: white;
+    color: black;
+    border: 1px solid rgb(56, 28, 117);
+  }
+  
+  .label {
+    color: gray;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  .label-role {
+    color: gray;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .split-table {
+    width: 90vw;
+    height: 100%;
+    border-collapse: collapse;
+    margin-top: 40px;
+    box-shadow: none;
+  }
+  
+  .left-side {
+    width: 40%;
+    border: none;
+    padding: 0;
+  }
+  
+  .upper-start{
+    height: 100%;
+  }
+  
+  .right-side {
+    width: 100%;
+    border: none;
+    padding: 0;
+    display: flex;
+    justify-content: top;  
+    flex-direction: column;
+    align-items: center;
+    align-items: center;
+  
+  }
+  .messages{
+    bottom: 0;
+    right: 0;
+  }
+  
+  .action-button-settings {
+    background-color: transparent; /* Set button background to transparent */
+    border: none; /* Remove button border */
+    box-shadow: none !important; /* Remove button box shadow */
+  }
+  
+  .class-h1{
+    color: rgb(56, 28, 117);
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 20px;
+    font-size: 2vw;
+    display: flex;
+    align-items: center; /* Vertically center text */
+    justify-content: center;
+  }
+  
+  .has-margin-bottom{
+    padding-bottom: 60px;
+  }
+  
+  .action-button-settings mat-icon {
+    color: rgb(56, 28, 117);
+    margin: 0;
+    padding: 0;
+  }
+  
+  .center-class-preferences{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .center-class {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .preferences-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80vw;
+    margin-top: 40px;
+  }
+  .toggle-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+  }
+  
+  .toggle-text {
+    margin-left: 5px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+  
+  .button-container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .action-button {
+    margin-top: 20px;
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .action-button:hover {
+    background: white;
+    color: black;
+    border: 1px solid rgb(56, 28, 117);
+  }
+  
+  .img-cont {
+    position: relative;
+    overflow: hidden;
+    height: 150px;
+  }
+  
+  .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease; /* Smooth transition on hover */
+  border-radius: 50%; /* Match the border-radius of the image */
+  }
+  
+  .img-cont:hover .overlay {
+    opacity: 1; /* Show the overlay on hover */
+  }
+  
+  .picture-icon {
+    color: white;
+  }
