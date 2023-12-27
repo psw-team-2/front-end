@@ -11,6 +11,7 @@ import { AdministrationService } from '../../administration/administration.servi
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { ClubMessage } from '../model/club-message.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ClubMessageWihtUser } from '../model/club-message-with-user';
 
 @Component({
   selector: 'xp-club-overview',
@@ -36,6 +37,8 @@ export class ClubOverviewComponent {
   nonMembersProfiles: Profile[]=[];
 
   clubMessages: ClubMessage[] = [];
+  senderProfiles: { [senderId: number]: Profile } = {};
+
   newClubMessage : ClubMessage;
   newMessageText : '';
   messageTime : Date;
@@ -49,6 +52,7 @@ export class ClubOverviewComponent {
       this.user = user;
 
       this.clubId = Number(this.route.snapshot.paramMap.get('id'));
+
     });
     
   }
@@ -56,6 +60,9 @@ export class ClubOverviewComponent {
   clubMessageForm = new FormGroup({
     newMessageText: new FormControl('', [Validators.required]),
   });
+
+  
+  
 
   addClubMessage() : void {
          //this.newClubMessage = clubMessage;
@@ -69,6 +76,8 @@ export class ClubOverviewComponent {
             time: this.messageTime,
             text: this.clubMessageForm.value.newMessageText || '',
           };
+
+          
     
           this.service.addClubMessage(clubMessage).subscribe({
             next: () => {
@@ -87,9 +96,24 @@ export class ClubOverviewComponent {
         //@ts-ignore
         this.clubMessages = result.results;
         console.log(this.clubMessages);
+
+        for(let message of this.clubMessages) {
+          this.adminService.getByProfileUserId(message.userId).subscribe({
+            next: (profile: Profile) => {
+              this.senderProfiles[message.userId] = profile;
+            },
+            error: (err: any) => {
+              console.error('Error while getting profile for sender:', err);
+            }
+        });
+      }
       }
     })
+
+    
   }
+
+ 
 
   getClub(clubId: number): void {
     this.service.getClubById(clubId).subscribe({

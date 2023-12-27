@@ -1,3 +1,5 @@
+
+
 export interface Club {
     id?: number;
     name: string;
@@ -6,3 +8,4 @@ export interface Club {
     ownerId: number;
     memberIds: number[];
 }
+
