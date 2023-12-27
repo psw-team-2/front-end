@@ -206,6 +206,25 @@ export class ViewToursComponent implements OnInit {
         this.allTours = result.results.filter(tour => tour.status === 1);
         this.tours = result.results.filter(tour => tour.status === 1);
         this.sortToursByPointsDescending();
+
+        if (!this.isActiveTourSearchActive && this.isNearbyTourSearchActive) {
+          this.handleSearchButtonClick();
+        }
+
+        if (this.isActiveTourSearchActive) {
+          const tourIds: (number | undefined)[] = this.tours.map((tour: Tour) => tour.id);
+          
+          if (tourIds.every(Boolean)) {
+            this.service.getActiveTours(tourIds).subscribe(
+              (pagedResults: PagedResults<Tour>) => {
+                this.tours = pagedResults.results;
+              },
+              error => {
+                console.error('Error:', error);
+              }
+            );
+          }
+        }
       } else {
         // Handle the case where result is undefined
       }
@@ -405,9 +424,32 @@ getTourExecutions(tourId: number) : void {
   ActiveTourSearchClicked(){
     console.log("ACTIVE TOUR SEARCH CLICKED")
     this.isActiveTourSearchActive = !this.isActiveTourSearchActive;
+    if (this.isActiveTourSearchActive && !this.isNearbyTourSearchActive) {
+      const tourIds: (number | undefined)[] = this.tours.map((tour: Tour) => tour.id);
+      
+      if (tourIds.every(Boolean)) {
+        this.service.getActiveTours(tourIds).subscribe(
+          (pagedResults: PagedResults<Tour>) => {
+            this.tours = pagedResults.results;
+          },
+          error => {
+            console.error('Error:', error);
+          }
+        );
+      } 
+    }
+    if (!this.isActiveTourSearchActive && this.isNearbyTourSearchActive) {
+      this.getTours();
+    }
+    if (!this.isActiveTourSearchActive && !this.isNearbyTourSearchActive) {
+      this.getTours();
+    }
+    if (this.isActiveTourSearchActive && this.isNearbyTourSearchActive) {
+      this.handleSearchButtonClick();
+    }
   }
 
-  NearbyTourSearchClicked(){
+  NearbyTourSearchClicked() {
     this.isNearbyTourSearchActive = !this.isNearbyTourSearchActive;
 
     if (this.isNearbyTourSearchActive) {
@@ -427,7 +469,7 @@ getTourExecutions(tourId: number) : void {
     this.searchResults = [];
 
     const checkpointObservables: Observable<Checkpoint | null>[] = [];
-
+    console.log(this.tours + 'OVDE JE DIS TURS')
     this.tours.forEach((tour: Tour) => {
       tour.checkPoints.forEach((checkpointId) => {
         const checkpointObservable = this.service.getCheckpointById(checkpointId).pipe(
@@ -482,7 +524,8 @@ getTourExecutions(tourId: number) : void {
         if (tourIds.every(Boolean)) {
           this.service.getActiveTours(tourIds).subscribe(
             (pagedResults: PagedResults<Tour>) => {
-              this.searchResults = pagedResults.results; 
+              this.searchResults = pagedResults.results;
+              this.tours = this.searchResults;
             },
             error => {
               console.error('Error:', error);
