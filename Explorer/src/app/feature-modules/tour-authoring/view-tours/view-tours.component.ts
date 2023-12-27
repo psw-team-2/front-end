@@ -22,7 +22,6 @@ import { TourExecutionService } from '../../tour-execution/tour-execution.servic
 import { Observable, catchError, forkJoin, of } from 'rxjs';
 import { TouristPosition } from '../../tour-execution/model/touristposition.model';
 
-import { Observable, catchError, map, of, switchMap } from 'rxjs';
 import { Wishlist } from '../model/wishlist.model';
 import { FavouriteItem } from '../model/favourite-item.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
