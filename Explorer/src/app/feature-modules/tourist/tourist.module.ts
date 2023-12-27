@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TouristSelectedEquipmentComponent } from './tourist-selected-equipment/tourist-selected-equipment.component';
+//import { TouristSelectedEquipmentComponent } from './tourist-selected-equipment/tourist-selected-equipment.component';
 import { PurchaseReportComponent } from './purchase-report/purchase-report.component';
 import { CreateQuestionComponent } from './create-question/create-question.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
@@ -18,11 +18,13 @@ import { AuthorReviewComponent } from './author-review/author-review.component';
 
 @NgModule({
   declarations: [
-    TouristSelectedEquipmentComponent,
+    //TouristSelectedEquipmentComponent,
     PurchaseReportComponent,
     CreateQuestionComponent,
     FaqComponent,
-    AuthorReviewComponent
+    AuthorReviewComponent,
+    //TouristSelectedEquipmentComponent,
+    PurchaseReportComponent
   ],
   imports: [
     CommonModule,
@@ -37,8 +39,9 @@ import { AuthorReviewComponent } from './author-review/author-review.component';
     MatSnackBarModule,
   ],
   exports: [
-    TouristSelectedEquipmentComponent,
+    //TouristSelectedEquipmentComponent,
     CreateQuestionComponent
+    //TouristSelectedEquipmentComponent
   ]
 })
 export class TouristModule { }

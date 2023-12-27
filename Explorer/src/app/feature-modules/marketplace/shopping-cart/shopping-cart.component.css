@@ -50,6 +50,11 @@ body{
 
 /* ... Ostatak vašeg CSS-a ostaje nepromenjen ... */
 
+h4.discount {
+  margin: 0;
+  margin-right: 3em;
+  margin-bottom: 1em;
+}
 
 .Cart-Container::-webkit-scrollbar {
   width: 12px; 

@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Wallet } from '../../administration/model/wallet.model';
 import { AdministrationService } from '../../administration/administration.service';
+import { Sale } from '../model/sale.model';
+import { Profile } from '../../administration/model/profile.model';
 
 @Component({
   selector: 'xp-shopping-cart',
@@ -23,6 +25,9 @@ export class ShoppingCartComponent implements OnInit{
       userId: number;
       numberOfItems: number;
       wallet: Wallet;
+      profile:Profile;
+      discount:number;
+      firstPurchaseDiscount:number;
 
       constructor(
         private service: MarketplaceService, 
@@ -30,9 +35,10 @@ export class ShoppingCartComponent implements OnInit{
         private authService: AuthService,
         private router: Router,
         private snackBar: MatSnackBar,
-        private administratorService: AdministrationService) { }
+        private administratorService: AdministrationService,
+        private adminService:AdministrationService) { }
 
-      ngOnInit() {
+      async ngOnInit() {
         if (this.authService.user$.value) {
 
           this.userId = this.authService.user$.value.id;
@@ -49,14 +55,51 @@ export class ShoppingCartComponent implements OnInit{
             }
         })
 
-          this.service.getTotalPriceByUserId(this.userId).subscribe({
-            next: (result: number) => {
-              this.totalPrice = result;
-            }
-          })
+          // this.service.getTotalPriceByUserId(this.userId).subscribe({
+          //   next: (result: number) => {
+          //     this.totalPrice = result;
+          //   }
+          // })
           
+          this.adminService.getByUserId().subscribe((data)=>{
+            this.profile = data;
+            if (this.profile.xp>=100) {
+              this.discount = 20;
+            }
+            else {
+              this.discount = 0;
+            }
+
+
+            if (!this.profile.isFirstPurchased) {
+              this.firstPurchaseDiscount = 10
+            }
+            else {
+              this.firstPurchaseDiscount = 0
+            }
+
+            this.service.getTotalPriceByUserId(this.userId).subscribe({
+              next: (result: number) => {
+                this.totalPrice = this.calculateDiscountedPrice(result,this.firstPurchaseDiscount)
+                this.totalPrice = this.calculateDiscountedPrice(this.totalPrice,this.discount)
+              }
+            })
+          })
+        await this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
+          next: (result) => {console.log(result)
+            this.orderItems = result;
+            this.numberOfItems = this.orderItems.length;
+            console.log(this.orderItems)
+          },
+          error: () => {
+          }
+        })
       }
     }
+    calculateDiscountedPrice(originalPrice: number, discount: number): number {
+      const discountedPrice = originalPrice - (originalPrice * discount / 100);
+      return discountedPrice;
+  }
 
     onRemoveClicked(orderItemId: number): void {
           this.service.removeFromCart(this.shoppingCartId, orderItemId).subscribe({
@@ -67,6 +110,8 @@ export class ShoppingCartComponent implements OnInit{
                 next: (result: number) => {
                   this.totalPrice = result;
                   this.showSuccessNotification('Item removed successfully.');
+                  this.totalPrice = this.calculateDiscountedPrice(result,this.firstPurchaseDiscount)
+                  this.totalPrice = this.calculateDiscountedPrice(this.totalPrice,this.discount)
                 }
               })
               
@@ -95,13 +140,19 @@ export class ShoppingCartComponent implements OnInit{
     
     onCheckoutClicked() : void{
       this.updateOrderItems();
-
-      this.service.createTokens(this.orderItems, this.userId).subscribe({
+      if (!this.profile.isFirstPurchased) {
+        this.profile.isFirstPurchased = true;
+        this.adminService.updateProfile(this.profile).subscribe((data)=>{})
+      }
+      this.service.createTokens(this.orderItems, this.userId,this.discount).subscribe({
         next: () => {
           alert('Checkout successful!');
           this.numberOfItems = 0;
           this.totalPrice = 0;
           this.orderItems = [];
+          this.profile.isFirstPurchased = true;
+          this.firstPurchaseDiscount = 0;
+          this.discount = 0
         },
         error: (error) => {
           alert('You don\'t have enough money to make a purchase.');

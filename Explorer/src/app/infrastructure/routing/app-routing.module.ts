@@ -10,7 +10,6 @@ import { AuthGuard } from '../auth/auth.guard';
 import { TourProblemsComponent } from 'src/app/feature-modules/tour-problem/tour-problems/tour-problems.component';
 import { TourEquipmentComponent } from 'src/app/feature-modules/tour-authoring/tour-equipment/tour-equipment.component';
 import { ObjectComponent } from 'src/app/feature-modules/tour-authoring/object-form/object.component';
-import { TouristSelectedEquipmentComponent } from 'src/app/feature-modules/tourist/tourist-selected-equipment/tourist-selected-equipment.component';
 import { TourReviewFormComponent } from 'src/app/feature-modules/marketplace/tour-review-form/tour-review-form.component';
 import { TourReviewComponent } from 'src/app/feature-modules/marketplace/tour-review/tour-review.component';
 import { ClubsOverviewComponent } from 'src/app/feature-modules/club/clubs-overview/clubs-overview.component';
@@ -84,7 +83,6 @@ const routes: Routes = [
   {path: 'tour', component: TourComponent},
   {path: 'equipment/:id', component: TourEquipmentComponent},
   {path: 'object', component: ObjectComponent},
-  {path: 'touristSelectingEquipment', component: TouristSelectedEquipmentComponent},
   {path: 'tour-review-form', component: TourReviewFormComponent},
   {path: 'tour-review', component: TourReviewComponent},
   {path: 'clubs', component: ClubsOverviewComponent},

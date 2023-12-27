@@ -66,8 +66,7 @@ export class ComposedTourOverviewComponent {
       authorId: composedTour.authorId,
       publishTime: composedTour.publishTime,
       points: 0,
-      price: 0,
-      image: ''
+      price: 0
     };
   }
   nextSection() {
