@@ -6,7 +6,9 @@ import { Tour } from "../../tour-authoring/model/tour.model";
 import { TourAuthoringService } from "../../tour-authoring/tour-authoring.service";
 import { MarketplaceService } from "../marketplace.service";
 import { Sale } from "../model/sale.model";
-
+import { PagedResults } from "src/app/shared/model/paged-results.model";
+import { ShoppingCart } from "../model/shopping-cart.model";
+import { OrderItem } from '../model/order-item.model';
 @Component({
     selector: 'xp-sale',
     templateUrl: './sale.component.html',
@@ -19,7 +21,12 @@ import { Sale } from "../model/sale.model";
     isAuthor: boolean = false;
     saleToursMap: { [saleId: number]: Tour[] } = {};
     sales: Sale[];
+    filteredSales:Sale[];
     tourNameFilter:string;
+    alltoursFromSale:Tour[] = []
+    alltoursFromSale2:Array<Tour[]> = []
+    shoppingCart: ShoppingCart;
+    numberOfItems: number;
     
     constructor(
         private service: MarketplaceService,
@@ -34,36 +41,74 @@ import { Sale } from "../model/sale.model";
                 console.log(this.user.role)
                 this.isAuthor = true
             }
-            this.getAllSales()
+            
         })
-
+        this.getAllSales()
+        this.tourAuthoringService.getTours().subscribe((data:PagedResults<Tour>)=>{
+            this.tours = data.results
+        })
     }
-    filterbyName(){
-        console.log(this.saleToursMap)
-        this.sales = this.sales.filter((sale,index)=>{
-           for (let i = 0; i < this.tours.length; i++) {
-            const tour = this.tours[i];
-            if (tour.name.includes(this.tourNameFilter)) {
-                if (sale.tourIds.includes(tour.id!)) {
-                    return true
-                }
-                return false;
+
+    filterSalesByTourName() {
+        console.log(this.tours)
+        if (this.tourNameFilter !== '') {
+            const tourIds = this.tours.filter((tour:Tour) => tour.name.toLocaleLowerCase().includes(this.tourNameFilter.toLowerCase())).map(tour => tour.id);
+            this.filteredSales =  this.sales.filter(sale => sale.tourIds.some(tourId => tourIds.includes(tourId)));
+        }
+        else {
+            this.filteredSales = this.sales;
+        }
+    }
+
+    sortSalesByDiscount(ascending: any): void {
+        if (ascending == 'true') {
+            this.filteredSales.sort((a, b) => a.discount - b.discount);
+        }
+        else {
+            this.filteredSales.sort((a, b) => b.discount - a.discount);
+        }
+    }
+    buyTour(sale:Sale){
+        this.tourAuthoringService.getShoppingCartByUserId(this.user.id).subscribe({
+            next: (result: ShoppingCart) => {
+              this.shoppingCart = result;
+              let list:Tour[] = [];
+              for (let i = 0; i < sale.tourIds.length; i++) {
+                const tourid = sale.tourIds[i];
+                list = this.tours.filter((tour)=>{
+                    if (tour.id == tourid) {
+                        return true
+                    }
+                    return false;
+                })
+              }
+              for (let j = 0; j < list.length; j++) {
+                const element:Tour = list[j];
+                let newPrice = this.calculateDiscountedPrice(element.price,sale.discount)
+                this.tourAuthoringService.addToCart(this.shoppingCart,element,newPrice ).subscribe({
+                    next: () => {
+                        this.router.navigate(['shopping-cart'])
+                    },
+                    error: () => {
+                    }
+                    
+                  })
+                
+              }
+              
             }
-            return false
-           }
-           return false
-        })
+          })
     }
-
     getAllSales() {
         this.service.getAllSales().subscribe(
             (result) => {
                 this.sales = result.results;
+                this.filteredSales =result.results
                 for (const sale of this.sales) {
                     if (sale.id !== undefined && sale.tourIds.length != 0) {
                         this.service.getAllToursFromSale(sale.id).subscribe(
                             (tours) => {
-                                this.tours = tours;
+                                this.alltoursFromSale2.push(tours)
                                 if (sale.id !== undefined) {
                                 this.saleToursMap[sale.id] = tours;
                                 }
@@ -74,9 +119,6 @@ import { Sale } from "../model/sale.model";
                         );
                     }
                 }
-            },
-            (error) => {
-                console.log('Greska pri ucitavanju svih sales')
             }
         )
     }
@@ -89,9 +131,6 @@ import { Sale } from "../model/sale.model";
         this.router.navigate([`/addSale/`]);
     }
 
-    openDetails(tour: Tour):void{
-        this.router.navigate([`tour-details/${tour.id}`]);
-    }
     
     isCurrentUserAuthor(sale: Sale) {
         return sale.authorId === this.user.id

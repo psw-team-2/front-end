@@ -11,6 +11,8 @@ import { PublicRequest } from '../tour-authoring/model/public-request.model';
 import { Follow} from './model/follow.model';
 import { Message } from './model/message.model';
 import { Wallet } from './model/wallet.model';
+import { Question } from './model/question.model';
+import { Answer } from '../tourist/model/answer.model';
 
 @Injectable({
   providedIn: 'root'
@@ -70,6 +72,9 @@ export class AdministrationService {
 
   getUserAccountById(id: number): Observable<User> {
     return this.http.get<User>(environment.apiHost + 'administration/userAccounts/' + id);
+  }
+  getUserAccountByToken(token: string): Observable<User> {
+    return this.http.get<User>(environment.apiHost + 'administration/userAccounts/token/' + token);
   }
   updateUserAccount(user: User): Observable<User> {
     const url = `${environment.apiHost}administration/userAccounts/${user.id}`;
@@ -213,5 +218,17 @@ export class AdministrationService {
 
   addAC(wallet: Wallet): Observable<Wallet> {
     return this.http.put<Wallet>('https://localhost:44333/api/administrator/wallet/' + wallet.id , wallet);
+  }
+
+  /*getQuestions(): Observable<PagedResults<Question>> {
+    return this.http.get<PagedResults<Question>>('https://localhost:44333/api/question/unanswered');
+  }*/
+
+  getQuestions(): Observable<Question[]> {
+    return this.http.get<Question[]>(`https://localhost:44333/api/question/unanswered`);
+  } 
+  
+  createAnswer(answer: Answer): Observable<Answer> {
+    return this.http.post<Answer>('https://localhost:44333/api/answer/createAnswer', answer);
   }
 }

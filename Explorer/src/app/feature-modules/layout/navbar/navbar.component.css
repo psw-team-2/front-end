@@ -72,6 +72,10 @@ a {
   text-decoration: none; /* Remove underline for anchor tags */
 }
 
+.favorite-button {
+  margin-right: 0px;
+}
+
   .cart-button {
     display: inline-block;
     padding: 10px;
@@ -145,3 +149,4 @@ a {
     font-weight: 500;
     border: 1px solid white;
   }
+

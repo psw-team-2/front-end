@@ -16,10 +16,17 @@ import { AdministrationService } from '../../administration/administration.servi
 import { Profile } from '../../administration/model/profile.model';
 import { TourPreference } from '../../tour-preference/model/tour-preference.model';
 import { FormGroup } from '@angular/forms';
+
 import { TourReview } from '../../marketplace/model/tour-review.model';
 import { TourExecutionService } from '../../tour-execution/tour-execution.service';
 import { Observable, catchError, forkJoin, of } from 'rxjs';
 import { TouristPosition } from '../../tour-execution/model/touristposition.model';
+
+import { Observable, catchError, map, of, switchMap } from 'rxjs';
+import { Wishlist } from '../model/wishlist.model';
+import { FavouriteItem } from '../model/favourite-item.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'xp-view-tours',
   templateUrl: './view-tours.component.html',
@@ -61,6 +68,7 @@ export class ViewToursComponent implements OnInit {
     boatRating: -1,
     tags: [],
   };
+
   tourReviews: TourReview[];
   tourExecutions: TourExecution[];
 
@@ -68,13 +76,20 @@ export class ViewToursComponent implements OnInit {
   isNearbyTourSearchActive: boolean = false;
   touristPosition: TouristPosition;
 
+  favoriteItems: FavouriteItem[] = [];
+  wishlistId: Number;
+  wishlist: Wishlist;
+  isAddedToWishlist: boolean = false; 
+  
+
+
   constructor(
     private service: TourAuthoringService,
     private marketService: MarketplaceService,
     private authService: AuthService,
     private router: Router,
-    private adminService: AdministrationService,
     private executionService: TourExecutionService,
+    private adminService: AdministrationService, private snackBar: MatSnackBar
     
   ) {}
 
@@ -87,10 +102,15 @@ export class ViewToursComponent implements OnInit {
     this.getTourReviews();
     this.calculateAverageGrades();
     this.calculateTourPoints();
+    this.loadWishlist();
     if (this.authService.user$.value) {
       this.isLogged = true;
       this.userId = this.authService.user$.value.id;
-      this.shoppingCartId = this.userId;   
+
+      this.shoppingCartId = this.userId;
+       //loadWishlistForUser  
+       
+
       this.service.getOrderItemsByShoppingCart(this.userId).subscribe({
       next: (result: OrderItem[]) => {
           this.orderItems = result;
@@ -393,7 +413,7 @@ getTourExecutions(tourId: number) : void {
     this.service.getShoppingCartById(this.shoppingCartId).subscribe({
       next: (result: ShoppingCart) => {
         this.shoppingCart = result;
-        this.service.addToCart(this.shoppingCart, tour).subscribe({
+        this.service.addToCart(this.shoppingCart, tour,tour.price).subscribe({
           next: () => {
             this.numberOfItems += 1;
           },
@@ -420,6 +440,7 @@ getTourExecutions(tourId: number) : void {
     }
     return false;
   }
+
 
   ActiveTourSearchClicked(){
     console.log("ACTIVE TOUR SEARCH CLICKED")
@@ -569,5 +590,52 @@ getTourExecutions(tourId: number) : void {
   degreesToRadians(degrees: number): number {
     return degrees * (Math.PI / 180);
   }
+
+  addToWishlist(tour: Tour): void {
+    if (!this.authService.user$.value) {
+      console.error('User is not logged in. Please log in before adding to the cart.');
+      return;
+    }
+    this.service.getWishlist(this.userId).subscribe({
+      next: (result: Wishlist) => {
+        this.wishlist = result;
+        this.service.addWishlistItem2(this.wishlist, tour.id!).subscribe({
+          next: () => {
+            // Uspesno dodavanje u wishlist
+            this.showSnackbar('Tour added to wishlist!');
+          },
+         
+          error: () => {
+            this.showSnackbar("Tour already exists in wishlist.");
+          }
+          
+        })
+      }
+    })
+  }
+  loadWishlist(): void {
+    if (this.authService.user$ && this.authService.user$.value) {
+      this.userId = this.authService.user$.value.id;
+      this.service.getWishlist(this.userId).subscribe({
+        next: (wishlist: Wishlist) => {
+          this.wishlist = wishlist; // Assign wishlist value when retrieved
+        },
+        error: (error) => {
+          console.error('Error fetching wishlist:', error);
+        }
+      });
+    } else {
+      console.error('AuthService user$ or value is not defined.');
+    }
+  }
+
+  
+showSnackbar(message: string): void {
+  this.snackBar.open(message, 'Close', {
+    duration: 3000, // Vreme trajanja snackbar-a (u milisekundama)
+  });
+}
+  
+
 
 }

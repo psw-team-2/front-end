@@ -29,6 +29,7 @@ export class MarketplaceService {
     return this.saleForEdt.next(sale);
   }
 
+
   getSale(saleId: number) :Observable<any>{
     throw new Error("Method not implemented.");
   }
@@ -106,8 +107,8 @@ export class MarketplaceService {
   }
  
   
-  createTokens(orderItems: OrderItem[], userId: number): Observable<OrderItem[]> {
-    return this.http.post<OrderItem[]>(`https://localhost:44333/api/tourist/tourPurchaseToken/createTokens/${userId}`, orderItems);
+  createTokens(orderItems: OrderItem[], userId: number,discount:number): Observable<OrderItem[]> {
+    return this.http.post<OrderItem[]>(`https://localhost:44333/api/tourist/tourPurchaseToken/createTokens/${userId}/`+discount, orderItems);
   }
 
   getTokensByTourId(tourId: number): Observable<PagedResults<TourPurchaseToken>>{
@@ -141,4 +142,5 @@ export class MarketplaceService {
   deleteSale(saleId:number):Observable<PagedResults<Sale>>{
     return this.http.delete<PagedResults<Sale>>(environment.apiHost + 'author/toursale/'+saleId)
   }
+
 }

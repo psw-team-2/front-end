@@ -1,52 +1,65 @@
 <div class="tour-problem-container">
     <div id="entity" class="center-content">
         <div>
-            <h1 id="entity-title-paragraph">Tour Problem</h1>
+            <h1 id="entity-title-paragraph" [routerLink]="['/tour', tour?.id]" class="hover-effect" 
+            (click)="handleTitleClick()" (mouseenter)="showTooltip = true"
+            (mouseleave)="showTooltip = false">{{ tour?.name }} Problem<div *ngIf="showTooltip" class="custom-tooltip">
+                See Tour Info
+              </div></h1>
+
         </div>
         <hr>
         <div id="entity-details" class="two-column-layout">
             <div class="card">
                 <div class="flex-container">
                     <div class="tour-problem-info">
-                        <strong>Problem Category:</strong> {{ tourProblem?.problemCategory }}
+                        <strong>Category </strong> {{ tourProblem?.problemCategory }}
                     </div>
                     <div class="tour-problem-info">
-                        <strong>Problem Priority:</strong> {{ tourProblem?.problemPriority }}
+                        <strong>Priority </strong> {{ tourProblem?.problemPriority }}
                     </div>
                     <div *ngIf="isFiveDaysOld()" class="tour-problem-info-warning">
-                        <strong>Timestamp:</strong> {{ tourProblem?.timeStamp | date: 'medium' }}
+                        <strong>Timestamp </strong> {{ tourProblem?.timeStamp | date: 'medium' }}
                         <br>
                         <p>Tour Problem Report is more than 5 days old!</p>
                     </div>
                     <div *ngIf="!isFiveDaysOld()" class="tour-problem-info">
-                        <strong>Timestamp:</strong> {{ tourProblem?.timeStamp | date: 'medium' }}
+                        <strong>Timestamp </strong> {{ tourProblem?.timeStamp | date: 'medium' }}
                     </div>
                     <div  class="tour-problem-info">
-                        <strong>Resolved:</strong> {{ tourProblem?.isResolved ? 'Yes' : 'No' }}
+                        <strong>Resolved </strong> {{ tourProblem?.isResolved ? 'Yes' : 'No' }}
                     </div>
                     <div *ngIf="tourProblem?.deadlineTimeStamp" class="tour-problem-info">
-                        <strong>Deadline:</strong> {{ tourProblem.deadlineTimeStamp | date: 'medium' }}
+                        <strong>Deadline </strong> {{ tourProblem.deadlineTimeStamp | date: 'medium' }}
                     </div>
                     <div *ngIf="tourProblem?.deadlineTimeStamp && isExpired()" class="tour-problem-info-warning">
-                        <strong>Deadline:</strong> {{ tourProblem.deadlineTimeStamp | date: 'medium' }}
+                        <strong>Deadline </strong> {{ tourProblem.deadlineTimeStamp | date: 'medium' }}
                         <br>
                         <strong>Tour Problem Report Deadline is expired!</strong>
                     </div>
 
                     <div class="problem-info">
-                        <strong>Description:</strong>
-                        <p *ngIf="!shouldRenderSeeMoreDescription" class="tour-problem-description">{{ truncateText(tourProblem?.description,120)}}</p>
-                        <p *ngIf="shouldRenderSeeMoreDescription" class="tour-problem-description">{{ tourProblem?.description }}</p>
+                        <strong>Description </strong><p>{{ tourProblem?.description }}</p>
+                        <!--<p *ngIf="!shouldRenderSeeMoreDescription" class="tour-problem-description">{{ truncateText(tourProblem?.description,120)}}</p>
+                        <p *ngIf="shouldRenderSeeMoreDescription" class="tour-problem-description">{{ tourProblem?.description }}</p>-->
                     </div>
 
                 </div>
-                <button *ngIf="!shouldRenderSeeMoreDescription" color="primary" (click)="onSeeMoreClicked(tourProblem)" mat-raised-button id="entity-icon-button">See More Description</button>
-                <button *ngIf="shouldRenderSeeMoreDescription" color="primary" (click)="onSeeMoreClicked(tourProblem)" mat-raised-button id="entity-icon-button">See Less Description</button>
+                <!--<button *ngIf="!shouldRenderSeeMoreDescription" color="primary" (click)="onSeeMoreClicked(tourProblem)" mat-raised-button id="entity-icon-button">See More Description</button>
+                <button *ngIf="shouldRenderSeeMoreDescription" color="primary" (click)="onSeeMoreClicked(tourProblem)" mat-raised-button id="entity-icon-button">See Less Description</button>-->
             </div>
         </div>
         <br>
-        <button color="primary" *ngIf="isDeadlineAlreadyAdded===false && user.role === 'administrator'" (click)="onAddDeadlineClicked()" mat-raised-button id="entity-icon-button">Add Deadline</button>
-        <div *ngIf="shouldRenderAddDeadlineForm" class="bottom-margin">
+        <button class="deadline-button" *ngIf="isDeadlineAlreadyAdded===false && user.role === 'administrator'" (click)="onAddDeadlineClicked()" >Add Deadline</button>
+        
+        <div *ngIf="shouldRenderAddDeadlineForm" class="message-form-wrapper">
+            <button mat-icon-button class="close-button" (click)="onCloseDeadlineClicked()">
+                <mat-icon>close</mat-icon>
+            </button>
+            <div class="deadline-title-section">
+                <h1 class="deadline-title">Add deadline</h1>
+              </div>
+              
             <form [formGroup]="addDeadlineForm" *ngIf="isDeadlineAlreadyAdded===false">
                 <!-- Datepicker for date selection -->
                 <mat-form-field>
@@ -59,9 +72,8 @@
                 <mat-form-field>
                     <input matInput type="time" formControlName="deadlineTime" placeholder="Select a Time">
                 </mat-form-field>
-                <div class="button-row">
-                    <button (click)="onSaveDeadline()" mat-raised-button id="entity-raised-button">Save</button>
-                    <button (click)="shouldRenderAddDeadlineForm = false" mat-raised-button id="entity-raised-button">Cancel</button>
+                <div >
+                    <button class="save-button" (click)="onSaveDeadline()">Save</button>
                 </div>
             </form>
             <div *ngIf="tourProblem?.deadlineTimeStamp && isDeadlinePreviouslyAdded===true" ><p class="tour-problem-info">Deadline is already added.</p></div>
@@ -69,43 +81,30 @@
         </div>
 
 
-        <button color="primary"  (click)="onAddResponseClicked()" mat-raised-button id="entity-icon-button">Add Response</button>
-        <div *ngIf="shouldRenderAddResponseForm" class="bottom-margin">
-            <form [formGroup]="addResponseForm" (submit)="onSendResponse()">
-                <mat-form-field>
-                    <input matInput type="text" placeholder="Enter your response" formControlName="response" [(ngModel)]="response">
-                </mat-form-field>                  
-                <button type="submit" mat-raised-button id="entity-raised-button">Send</button>
-                <button (click)="onCancelResponse()" mat-raised-button id="entity-raised-button">Cancel</button>
-            </form>     
-        </div>
-
-        <!-- <button [routerLink]="['/tour-problem', tourProblem?.id, 'responses']" color="primary" mat-raised-button id="entity-icon-button">View responses</button> -->
-        <button mat-raised-button id="entity-icon-button" (click)="onViewResponsesClicked()">View Responses</button>
-        <xp-tour-problem-response *ngIf="shouldRenderResponses" [currentProblemId] = "tourProblemId"></xp-tour-problem-response>
+        
         
 
-       <button *ngIf="isExpired() && user.role === 'administrator'" color="primary" (click)="onPenalizeClicked()" mat-raised-button id="entity-raised-button">
+       <button *ngIf="isExpired() && user.role === 'administrator'" class="deadline-button" (click)="onPenalizeClicked()" >
             Penalize Tour
         </button>
-        <div *ngIf="shouldRenderPenalization">
+        <div *ngIf="shouldRenderPenalization" class="message-form-wrapper-admin">
             <td colspan="8">
                 <p>Are you sure you want to penalize this author? (Remove the Tour)</p>
-                <div class="button-row">
-                    <button (click)="onPenalizeConfirmClicked()" id="entity-raised-button" [routerLink]="'/tour-problems'">Yes</button>
-                    <button (click)="shouldRenderPenalization = false" id="entity-raised-button">No</button>
+                <div class="button-container">
+                    <button class="save-button" (click)="onPenalizeConfirmClicked()"  [routerLink]="'/tour-problems'">Yes</button>
+                    <button class="save-button" (click)="shouldRenderPenalization = false">No</button>
                 </div>
             </td>
         </div>         
-        <button *ngIf="isExpired() && user.role === 'administrator'" color="accent" (click)="onCloseClicked()" mat-raised-button id="entity-raised-button">
+        <button *ngIf="isExpired() && user.role === 'administrator'" class="deadline-button" (click)="onCloseClicked()" >
             Close Problem
         </button>
-        <div *ngIf="shouldRenderClosure">
+        <div *ngIf="shouldRenderClosure" class="message-form-wrapper-admin">
             <td colspan="8">
                 <p>Are you sure you want to close this problem?</p>
-                <div class="button-row">
-                    <button (click)="onCloseConfirmClicked()" id="entity-raised-button">Yes</button>
-                    <button (click)="shouldRenderClosure = false" id="entity-raised-button">No</button>
+                <div class="button-container">
+                    <button class="save-button" (click)="onCloseConfirmClicked()" >Yes</button>
+                    <button class="save-button" (click)="shouldRenderClosure = false" >No</button>
                 </div>
             </td>
         </div>
@@ -115,3 +114,23 @@
 
     </div>
 </div>
+
+<!--<button color="primary"  (click)="onAddResponseClicked()" mat-raised-button id="entity-icon-button">Add Response</button>-->
+<div class="addResponse" >
+    
+        <form [formGroup]="addResponseForm" >
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Enter your response" formControlName="response" [(ngModel)]="response">
+                </mat-form-field> 
+               <div>       
+            <button   (click)="onSendResponse()">Send</button>
+            <button   (click)="onCancelResponse()" >Cancel</button>
+       </div>
+        </form>     
+</div>
+
+        <!-- <button [routerLink]="['/tour-problem', tourProblem?.id, 'responses']" color="primary" mat-raised-button id="entity-icon-button">View responses</button> -->
+       <!-- <button mat-raised-button id="entity-icon-button" (click)="onViewResponsesClicked()">View Responses</button>-->
+<div>
+ <xp-tour-problem-response *ngIf="shouldRenderResponses" [currentProblemId] = "tourProblemId"></xp-tour-problem-response>
+ </div>

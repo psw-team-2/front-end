@@ -15,6 +15,18 @@
     color: #2F3841;
    }
 
+   input#tourName {
+    margin-left: 4em;
+   }
+
+select{ 
+  height: 1.7em;
+  margin-left: 2em;
+  cursor: pointer;
+}
+option {
+  cursor: pointer;
+}
 button.editButton {
   background-color: #ffffff;
   color: #2e003e;
@@ -49,7 +61,20 @@ button.deleteButton {
   font-weight: 600;
   color: #909090;
  }
-  
+button.buyButton {
+  background-color: #ffffff;
+  color: #2e003e;
+  width: 153px;
+  border-radius: 7px;
+  margin: 0.5em;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em;
+  cursor: pointer;
+  padding-right: 1em;
+}
 .container {
   width: 70%;
     height: 85%;

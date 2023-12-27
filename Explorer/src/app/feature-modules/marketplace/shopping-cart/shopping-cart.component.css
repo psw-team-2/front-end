@@ -1,23 +1,60 @@
 body{
     margin: 0;
-    padding: 0;
-    background: linear-gradient(to bottom right, #E3F0FF, #FAFCFF);
+    padding: 0;   
+    /*background: linear-gradient(to bottom right, #E3F0FF, #FAFCFF);*/
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
    }
-.Cart-Container{
-    width: 70%;
+   .Cart-Container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Podela na dve kolone */
+    gap: 20px; /* Odstupanje između kolona */
+    width: 65%;
     height: 85%;
     background-color: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0px 25px 40px #1687d933;
+    border-radius: 8px;
     flex-direction: column; 
     justify-content: space-between;
     overflow-y: auto; /* vertikalni scroll */
-   }
+    margin: 0 auto; /* Centriranje */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 
+.Header,
+.Empty-Cart-Content,
+.Cart-Items {
+    grid-column: 1; /* Elementi u prvoj koloni */
+}
+
+.Empty-Cart-Content
+{
+  margin-left: 40px;
+}
+
+.total,
+.checkout,
+.available-balance-label {
+    grid-column: 2; /* Elementi u drugoj koloni */
+    text-align: right; /* Postavljanje teksta na desnu stranu */
+}
+
+/* Dodatak za stilizaciju scrollbar-a u drugoj koloni */
+.Cart-Container .total,
+.Cart-Container .checkout,
+.Cart-Container .available-balance-label {
+    overflow-y: auto;
+    max-height: 90%;
+}
+
+/* ... Ostatak vašeg CSS-a ostaje nepromenjen ... */
+
+h4.discount {
+  margin: 0;
+  margin-right: 3em;
+  margin-bottom: 1em;
+}
 
 .Cart-Container::-webkit-scrollbar {
   width: 12px; 
@@ -41,50 +78,61 @@ body{
 }
 
    .Header{
-    margin-bottom: 15px;
-    margin: auto;
     width: 90%;
     height: 15%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 40px;
+    margin-top: 110px;
+    margin-left: -50px;
    }
    .Heading{
     font-size: 25px;
     font-weight: 700;
     color: #2F3841;
+    font-family: 'Montserrat', sans-serif;
    }
    .Action{
     font-size: 12px;
     font-weight: 500;
-    margin-top: 5px;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 20px;
     color: #E44C4C;
     cursor: pointer;
     border: none;
+    margin-right: -67px;
    }
+
+
    .Cart-Items{
-    margin-left: -70px;
+    margin-left: -50px;
     width: 100%;
     height: 20%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 50px;
    }
-   .image-box{
-    width: 15%;
-    text-align: center;
-   }
+
    .about{
-    margin-left: 55px;
     height: 100%;
-    font-size: 10px;    
+    width: 50%;
+    font-size: 10px;  
+    font-family: 'Montserrat', sans-serif;
    }
    .title{
-    padding-top: 5px;
-    line-height: 10px;
+    line-height: 15px;
     font-size: 19px;
-    font-weight: 800;
+    font-weight: 700;
     color: #202020;
+    margin-left: 50px;
+    margin-top: 45px;
+    font-family: 'Montserrat', sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 190px;
    }
 
    .subtitle{
@@ -92,6 +140,7 @@ body{
     font-size: 18px;
     font-weight: 600;
     color: #909090;
+    font-family: 'Montserrat', sans-serif;
    }
    .counter{
     width: 15%;
@@ -108,7 +157,7 @@ body{
     justify-content: center;
     align-items: center;
     font-size: 20px;
-    font-family: ‘Open Sans’;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 900;
     color: #202020;
     cursor: pointer;
@@ -117,11 +166,14 @@ body{
     font-size: 20px;
     font-weight: 900;
     color: #202020;
+    font-family: 'Montserrat', sans-serif;
    }
    .prices{
     margin-left: auto; 
     height: 100%;
-    text-align: right;    
+    text-align: right;
+    margin-top: 50px;   
+    font-family: 'Montserrat', sans-serif; 
    }
    .amount{
     padding-top: 20px;
@@ -135,58 +187,97 @@ body{
     font-weight: 600;
     color: #1687d9;
     cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
    }
    .remove{
-    padding-top: 5px;
     font-size: 12px;
     font-weight: 500;
     color: #E44C4C;
     cursor: pointer;
     border: none;
+    font-family: 'Montserrat', sans-serif;
+    margin-right: -5px;
    }
    hr{
-    width: 90%;
+    width: 92%;
     float: right;
-    margin-right: 5%;
+    margin-right: 3%;
    }
    .total {
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
+    align-items: flex-start;
+    margin-right: -5px;
+    height: 150px;
+}
+
+.total-row {
+  margin-top: 30px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
+
+.left {
+  width: 580px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top:-100px;
+  margin-left: 80px;  
+  height: 100%;
+}
+
+.right {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 0px;  
+  height: 100%;
+  background-color: #E6E6FA;
+  border-radius: 8px;
+}
+
+
 
 .Subtotal {
-    font-size: 22px;
-    font-weight: 500;
-    color: #202020;
-    margin-right: 200px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #202020;
+  margin-top: 20px;
+  font-family: 'Montserrat', sans-serif;
 }
 
-.total-amount {
-    margin-top: -55px;
-    margin-right: 40px;
-    margin-bottom: 15px;
+.total-amount
+{
     font-size: 22px;
-    font-weight: 900;
+    font-weight: 700;
     color: #202020;
+    margin-bottom: 80px;
+    margin-right: 5px;
+    font-family: 'Montserrat', sans-serif;
 }
+
+.items {
+    font-size: 12px;
+    font-weight: 500;
+    color: #909090;
+    margin-right:35px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
 
 .checkout {
     width: 100%;
     text-align: right;
-    margin-left: -40px;
-    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: -50px;
 }
-   .items{
-    font-size: 12px;
-    font-weight: 500;
-    color: #909090;
-    margin-bottom: 15px;
-   }
+   
    
    .button {
     display: inline-block;
@@ -200,6 +291,7 @@ body{
     border-radius: 0.375vw;
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s;
+    width:240px;
   }
 
   .button:hover {
@@ -207,4 +299,151 @@ body{
     color: #ffffff;
   }
 
-  
+  .shop-button {
+    display: inline-block;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 16;
+    color: #2E003D;
+    background-color: #ffffff;
+    border: 0.2vw solid #2E003D;
+    border-radius: 0.375vw;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    width:100px;
+    margin-top: 20px;
+  }
+
+  .shop-button:hover {
+    background-color: #2E003D;
+    color: #ffffff;
+  }
+
+
+  .Center-Content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+}
+
+.Empty-Cart-Image {
+    max-width: 100%;
+    max-height: 200px; /* Adjust the height as needed */
+    margin-top: -35px;
+}
+
+
+.Center-Content p {
+  margin-bottom: -5px; /* Adjust the value to your preference */
+  font-family: 'Montserrat', sans-serif;
+}
+
+.wishlist i.fa-heart {
+  font-size: 14px;
+  position: relative;
+  display: inline-block;
+  content: '\2661'; /* Unicode character for an empty heart */
+}
+
+.wishlist i.fa-heart.liked {
+  content: '\2665'; /* Unicode karakter za puno srce */
+  color: #2E003D; /* Boja srca kada je lajkovano */
+  border-color: #2E003D; /* Ivica srca kada je lajkovano */
+}
+
+.wishlist{
+  padding-top: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+ }
+
+ .payment-title{
+  margin-bottom: 40px;
+  font-size: 19px; 
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  text-align: center;
+ }
+
+ .wallet-balance {
+  font-size: 15px; 
+  font-family: 'Montserrat', sans-serif;
+}
+
+.wallet {
+  font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: -18px;
+  margin-left: 206px;
+}
+
+.apply-coupon {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.apply-coupon p {
+  font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.coupon-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.coupon-textarea {
+  width: 170px;
+  height: 35px; 
+  resize: none;
+  margin-right: 5px; 
+  border-radius: 0.375vw;
+}
+
+.apply-button {
+  display: inline-block;
+  padding: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 16;
+  color: #2E003D;
+  background-color: #ffffff;
+  border: 0.2vw solid #2E003D;
+  border-radius: 0.375vw;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+
+}
+
+.apply-button:hover{
+  background-color: #2E003D;
+  color: #ffffff;
+}
+
+
+
+.image-container img {
+  width: 200px;
+  max-height: 150px; /* Maksimalna visina slike */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: -10px;
+}
+
+.payment{
+  margin-top: 45px;
+  margin-left: 30px;
+  overflow: hidden;
+}
+
+
+
+

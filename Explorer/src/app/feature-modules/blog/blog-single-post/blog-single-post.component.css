@@ -74,7 +74,7 @@ xp-blog-comment-form {
 
 .read-more-button {
     
-  background-color: #2a2133;
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
   color: white;
   border: none;
   padding: 8px 16px;
@@ -86,7 +86,7 @@ xp-blog-comment-form {
 }
 
 .read-more-button:hover {
-  background-color: #660089; 
+  background: linear-gradient(rgb(31, 15, 65), rgb(65, 59, 131));
 }
 
 .similar-blogs {
@@ -161,7 +161,7 @@ xp-blog-comment-form {
   text-align: center;
   font-size: 1.5rem; /* Prilagodite veličinu fonta prema potrebama */
   font-weight: bold;
-  color: #2a2133; /* Boja teksta */
+  color: rgb(56, 28, 117); /* Boja teksta */
   margin-bottom: 20px; /* Margina ispod naslova */
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 1px;

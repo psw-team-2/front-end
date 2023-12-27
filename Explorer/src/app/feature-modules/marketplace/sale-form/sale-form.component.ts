@@ -58,7 +58,7 @@ saleCreation(): void {
   const sale: Sale = {
     startDate: this.saleForm.value.startDate as Date,
       endDate: this.saleForm.value.endDate as Date,
-      discount: this.saleForm.value.discount || 0,
+      discount: this.saleForm.value.discount!,
       tourIds: this.addedTours,
       authorId: user.id
   }

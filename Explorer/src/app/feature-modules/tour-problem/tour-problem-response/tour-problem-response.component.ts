@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Observable, catchError, map, of } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'xp-tour-problem-response',
@@ -19,7 +20,7 @@ export class TourProblemResponseComponent implements OnInit {
   @Output() responsesUpdated = new EventEmitter<null>();
   mappedUsername: { [key: number]: string } = {};
 
-  constructor(private problemResponseService: TourProblemResponseService, private authService: AuthService, private route: ActivatedRoute) {  
+  constructor(private problemResponseService: TourProblemResponseService, private authService: AuthService, private route: ActivatedRoute, private snackBar: MatSnackBar) {  
 
   }
 
@@ -27,6 +28,8 @@ export class TourProblemResponseComponent implements OnInit {
     this.authService.user$.subscribe((user) => {
       this.currentUser = user;
     });
+
+  
 
     // this.route.paramMap.subscribe(params => {
     //   const problemIdParam = params.get('problemId');
@@ -38,6 +41,12 @@ export class TourProblemResponseComponent implements OnInit {
 
     this.getTourProblemResponses();
     
+  }
+
+  showNotification(message: string): void {
+    this.snackBar.open(message, 'OK', {
+      duration: 3000, 
+    });
   }
 
   getTourProblemResponses(): void {

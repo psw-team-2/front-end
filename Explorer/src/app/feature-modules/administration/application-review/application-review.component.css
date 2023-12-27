@@ -1,53 +1,53 @@
-#applicationReview {
-    margin: 20px;
+.div {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px; 
 }
 
-#applicationReview-details {
+.title-section {
+    color: white;
+    text-align: center;
     display: flex;
-    gap: 50px;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
 }
 
-p {
-    font-size: 20px;
+.title {
+    color: rgb(56, 28, 117);
+    margin-bottom: 30px;
+    margin-top: 50px;
 }
 
-table {
-    border-collapse: collapse;
-    font-size: 1em;
-    font-family: Arial, sans-serif;
+.table-container {
+    margin-top: 30px;     
+    padding-bottom: 40px;
+    margin: 0 auto;
+    width: 80%;
+}
+.reviews-table {
+    margin-top: 20px; 
+    margin-bottom: 140px;
     width: 100%;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    color: #333;
-    border-radius: 8px;
-}
-
-thead {
-    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
-    color: #fff;
-}
-
-th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-th{
-    background: (rgb(56, 28, 117), rgb(65, 59, 131));
-}
-tbody tr {
-    transition: background-color 0.3s;
-}
-
-tbody tr:hover {
-    background-color: #f0f0f0;
-}
-
-tbody tr.active-row {
-    background-color: #e3f2fd;
-    font-weight: bold;
+    border-collapse: collapse;
+    border: 1px solid black; 
     color:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+}
+
+.reviews-table th, .reviews-table td {
+    padding: 10px;
+    text-align: center; 
+    border: 1px solid black; 
+}
+th{
+    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+}
+.reviews-table th {
+    font-size: 18px;
+    font-weight: normal; 
+}
+
+/* Add necessary styles for the stars */
+#applicationReview-details span {
+    font-size: 30px; /* Adjust the size as needed */
+    color: gold; /* Adjust the color as needed */
+    margin-right: 5px; /* Adjust the spacing between stars */
 }

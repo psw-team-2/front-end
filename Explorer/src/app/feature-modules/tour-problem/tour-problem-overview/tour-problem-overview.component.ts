@@ -13,6 +13,8 @@ import { TourProblemResponseService } from '../tour-problem-response.service';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 
 import { TourProblemResponseComponent } from '../tour-problem-response/tour-problem-response.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Tour } from '../../tour-authoring/model/tour.model';
 
 @Component({
     selector: 'xp-tour-problem-overview', 
@@ -22,6 +24,7 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
   export class TourProblemOverviewComponent implements OnInit {
 
     user: User;
+    tour: Tour;
     tourProblemId: number | null;
 
     tourProblem: TourProblem;
@@ -40,21 +43,21 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
     isDeadlinePreviouslyAdded: boolean=false;
   
     //show more description
-    shouldRenderSeeMoreDescription: boolean=false;
+    //shouldRenderSeeMoreDescription: boolean=false;
 
 
-    shouldRenderAddResponseForm = false;
+    shouldRenderAddResponseForm = true;
     addResponseForm: FormGroup;
     response: string;
 
-    shouldRenderResponses: boolean=false;
+    shouldRenderResponses: boolean=true;
 
     @ViewChild(TourProblemResponseComponent, { static: false }) tourProblemResponseComponent: TourProblemResponseComponent;
 
 
 
     constructor(private tourProblemService: TourProblemService, private authService: AuthService, private route: ActivatedRoute,
-      private formBuilder: FormBuilder, private problemResponseService: TourProblemResponseService, private tourAuthService: TourAuthoringService) 
+      private formBuilder: FormBuilder, private problemResponseService: TourProblemResponseService, private tourAuthService: TourAuthoringService, private snackBar: MatSnackBar) 
     { 
 
   
@@ -72,7 +75,7 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
       this.authService.user$.subscribe(user =>{
         this.user = user;
       })
-
+    
 
       this.route.paramMap.subscribe(params =>{
         const id = params.get('id');
@@ -82,6 +85,10 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
             this.tourProblemService.getTourProblemAdministrator(this.tourProblemId).subscribe({
               next: (result: TourProblem) => {
                   this.tourProblem = result;
+                  this.tourProblemService.getTour(this.tourProblem.tourId)
+                    .subscribe((tour) => {
+                      this.tour = tour;
+                    });
                   //fetching for comments should be implemented, once the comments are added
                   if(this.tourProblem.deadlineTimeStamp != null){
                     this.isDeadlineAlreadyAdded = true;
@@ -93,7 +100,10 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
             this.tourProblemService.getTourProblemForAuthor(this.tourProblemId).subscribe({
               next: (result: TourProblem) => {
                   this.tourProblem = result;
-
+                  this.tourProblemService.getTour(this.tourProblem.tourId)
+                  .subscribe((tour) => {
+                    this.tour = tour;
+                  });
                   if(this.tourProblem.deadlineTimeStamp != null){
                     this.isDeadlineAlreadyAdded = true;
                     this.isDeadlinePreviouslyAdded = true;
@@ -104,7 +114,10 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
             this.tourProblemService.getTourProblemTourist(this.tourProblemId).subscribe({
               next: (result: TourProblem) => {
                   this.tourProblem = result;
-
+                  this.tourProblemService.getTour(this.tourProblem.tourId)
+                    .subscribe((tour) => {
+                      this.tour = tour;
+                    });
                   if(this.tourProblem.deadlineTimeStamp != null){
                     this.isDeadlineAlreadyAdded = true;
                     this.isDeadlinePreviouslyAdded = true;
@@ -112,11 +125,16 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
               }
             })
           }
+        
         }
       })
     }
       
-
+    showNotification(message: string): void {
+      this.snackBar.open(message, '', {
+        duration: 3000, 
+      });
+    }
 
     onEditClicked(tourProblem: TourProblem): void {
       this.tourProblem = tourProblem;
@@ -140,7 +158,7 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
   
   
     //See More button clicked
-    onSeeMoreClicked(tourProblem: TourProblem): void{
+    /*onSeeMoreClicked(tourProblem: TourProblem): void{
       this.tourProblem = tourProblem;
       this.shouldRenderSeeMoreDescription = !this.shouldRenderSeeMoreDescription;
     }
@@ -148,7 +166,7 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
     //See less button clicked
     onSeeLessClicked(): void{
       this.shouldRenderSeeMoreDescription = false;
-    }
+    }*/
   
   
     //Add button Deadline button clicked
@@ -197,7 +215,9 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
         let deadlineCombinedDate = new Date(year + '-' + month + '-' + day + 'T' + hours + ':' + minutes + ':00');   
         // Check if the date is valid
         if (isNaN(deadlineCombinedDate.getTime())) {
+          this.showNotification('Invalid date or time input!');
           console.error('Invalid date or time input.');
+          
           return; // Exit the function early
         }    
 
@@ -206,7 +226,9 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
 
         console.log(timeDifference)
         if(timeDifference < 0){
+          this.showNotification('Invalid date or time input!');
           console.error('Invalid date or time input.');
+          
           return; // Exit the function early
         }
 
@@ -244,10 +266,12 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
     onAddResponseClicked() {
       this.shouldRenderAddResponseForm = !this.shouldRenderAddDeadlineForm;
       this.response = '';
+      
     }
   
     onSendResponse() {
       if (this.user && this.user.role === 'author' && this.tourProblem) {
+
         if (this.tourProblem.id !== undefined) {
           const problemResponse: TourProblemResponse = {
             id: undefined,
@@ -259,7 +283,9 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
           this.problemResponseService.authorRespond(this.tourProblem.id, problemResponse).subscribe({
             next: () => {
               console.log("The response has been successfully sent!")
+              this.showNotification('Your response has been successfully sent!');
               this.tourProblemResponseComponent.getTourProblemResponses();
+              this.response = '';
             },
             error: () => {}
           });
@@ -277,7 +303,9 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
           this.problemResponseService.touristRespond(this.tourProblem.id, problemResponse).subscribe({
             next: () => {
               console.log("The response has been successfully sent!")
+              this.showNotification('Your response has been successfully sent!');
               this.tourProblemResponseComponent.getTourProblemResponses();
+              this.response = '';
             },
             error: () => {}
           });
@@ -295,7 +323,9 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
           this.problemResponseService.administratorRespond(this.tourProblem.id, problemResponse).subscribe({
             next: () => {
               console.log("The response has been successfully sent!")
+              this.showNotification('Your response has been successfully sent!');
               this.tourProblemResponseComponent.getTourProblemResponses();
+              this.response = '';
             },
             error: () => {}
           });
@@ -304,7 +334,7 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
     }
   
     onCancelResponse() {
-      this.shouldRenderAddResponseForm = false;
+      //this.shouldRenderAddResponseForm = false;
       this.response = '';
     }
 
@@ -330,6 +360,12 @@ import { TourProblemResponseComponent } from '../tour-problem-response/tour-prob
       }
       return false;
   
+    }
+
+    showTooltip = false;
+
+    handleTitleClick() {
+      console.log('Title clicked!');
     }
 
   }

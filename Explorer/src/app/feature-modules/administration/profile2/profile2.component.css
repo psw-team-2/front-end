@@ -122,3 +122,22 @@
     right: 0;
   }
   
+  .reviews-container {
+    margin-top: 10px; 
+  }
+  
+  .reviews-table {
+    width: 50%;
+    border-collapse: collapse;
+    margin-top: 5px; 
+  }
+  
+  .reviews-table th, .reviews-table td {
+    border: 1px solid rgb(56, 28, 117);
+    padding: 8px;
+  }
+
+  .reviews-table th {
+    background-color: rgb(56, 28, 117);
+    color: white;
+  }
