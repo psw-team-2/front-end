@@ -10,6 +10,8 @@ import { MapSearchService } from './map-search.service';
 import { Object } from 'src/app/feature-modules/tour-authoring/model/object.model';
 import { Encounter } from 'src/app/feature-modules/challenges/model/encounter.model';
 import { EncounterService } from 'src/app/feature-modules/challenges/encounter.service';
+import { TouristService } from 'src/app/feature-modules/tourist/tourist.service';
+import { PagedResults } from '../model/paged-results.model';
 
 
 @Component({
@@ -20,6 +22,7 @@ import { EncounterService } from 'src/app/feature-modules/challenges/encounter.s
 export class MapSearchComponent {
   @Input() tours: Tour[];
   @Output() searchResultsEvent = new EventEmitter<{ tours: Tour[], searchActive: boolean }>();
+  @Input() isActiveTourSearchActive: boolean;
   private map: any;
   private marker: any;
   private radius: any;
@@ -33,6 +36,7 @@ export class MapSearchComponent {
   private routeControls: L.Routing.Control[] = [];
   private isSearchActive: boolean = false;
   private encounters: Encounter[] = [];
+  private activeSearchResult: Tour[] = []
   
   private objects: Object[] = [
     { id:1,
@@ -83,7 +87,8 @@ export class MapSearchComponent {
   constructor(
     private mapService: MapSearchService,
     private checkpointService: TourAuthoringService,
-    private encounterService: EncounterService
+    private encounterService: EncounterService,
+    private tourService: TourAuthoringService
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
@@ -314,6 +319,28 @@ export class MapSearchComponent {
           this.addTourToSearchResults(tour);
         }
       });
+
+
+
+      if (this.isActiveTourSearchActive) {
+        const tourIds: (number | undefined)[] = this.searchResults.map((tour: Tour) => tour.id);
+        
+        if (tourIds.every(Boolean)) {
+          this.tourService.getActiveTours(tourIds).subscribe(
+            (pagedResults: PagedResults<Tour>) => {
+              this.searchResults = pagedResults.results; 
+            },
+            error => {
+              console.error('Error:', error);
+            }
+          );
+        } 
+      }
+      
+      
+
+      
+    
 
       this.encounters.forEach((encounter: Encounter) => {
         
