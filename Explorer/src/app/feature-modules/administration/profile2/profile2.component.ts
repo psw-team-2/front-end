@@ -27,6 +27,7 @@ export class Profile2Component implements OnInit{
   authorReviews: AuthorReview[] = [];
   authorReviewsVisible = false
   currentUser: User;
+  shouldRender: boolean = false;
 
   toggleEditProfileForm() {
     this.showEditProfileForm = !this.showEditProfileForm;
@@ -59,6 +60,7 @@ export class Profile2Component implements OnInit{
         console.log('Result from API:', result);
         this.profile = [result]; // Wrap the result in an array, as it's a single Profile object
         console.log('Profile data in component:', this.profile);
+        this.shouldRender = true;
       },
       error: (err: any) => {
         console.log(err);

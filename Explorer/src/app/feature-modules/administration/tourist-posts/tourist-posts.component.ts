@@ -33,7 +33,7 @@ export class TouristPostsComponent implements OnInit{
       next: (result) => {
         this.blogPosts = result.results;
 
-        const userId = this.selectedProfile?.id;
+        const userId = this.selectedProfile?.userId;
         if (userId === undefined) {
           return;
         }

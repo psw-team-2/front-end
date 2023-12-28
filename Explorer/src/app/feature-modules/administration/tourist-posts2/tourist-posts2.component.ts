@@ -31,13 +31,12 @@ export class TouristPosts2Component {
       next: (result) => {
         this.blogPosts = result.results;
 
-        const userId = this.selectedProfile?.id;
+        const userId = this.selectedProfile?.userId;
         if (userId === undefined) {
           return;
         }
-
         this.blogPosts = this.blogPosts.filter(x => x.userId === userId && x.creationTime !== null);
-
+        
         console.log("BLOG POSTS");
         console.log(this.blogPosts);
 

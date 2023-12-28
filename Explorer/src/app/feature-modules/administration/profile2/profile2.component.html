@@ -38,10 +38,11 @@
       <td class="left-side">
         <div class="upper-start">            
           <xp-followers2></xp-followers2>
+          <xp-clubs2></xp-clubs2>
         </div>
       </td>
       <td class="right-side">
-        <xp-tourist-posts2></xp-tourist-posts2>            
+        <xp-tourist-posts2 *ngIf="shouldRender" [selectedProfile]="profile[0]"></xp-tourist-posts2>            
       </td>
     </tr>
   </table>
