@@ -14,7 +14,9 @@
   margin-right: auto;
   
 }
-
+.all{
+  min-height: 100vh;
+}
 .create-button {
   background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
   color: white;

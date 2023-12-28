@@ -6,7 +6,9 @@
     box-sizing: border-box;
     text-align: center;
   }
-  
+  .all{
+    min-height: 100vh;
+  }
   .bundle-container {
     display: flex;
     flex-wrap: wrap;

@@ -11,7 +11,9 @@
   flex-direction: column;
   justify-content: center;
 }
-
+.all{
+  min-height: 100vh;
+}
 .user-title {
   color: rgb(56, 28, 117);
   margin-bottom: 30px;
