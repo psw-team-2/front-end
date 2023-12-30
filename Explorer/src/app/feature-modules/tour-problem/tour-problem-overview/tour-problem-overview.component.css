@@ -5,10 +5,20 @@
     white-space: nowrap;
 }
 
+
 .tour-problem-container {
+    max-width: 900px; /* Adjust the max-width as needed */
+    width: 100%;
+    margin: 30px auto;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center items horizontally */
+    flex-wrap: wrap;
+    align-items: center; /* Adjust alignment as needed */
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+   letter-spacing: 1px; 
   }
   
 .flex-container {
@@ -16,15 +26,26 @@
     flex-direction: column; /* Arrange items vertically */
 }
 
-.limited-description {
-    max-height: 80px; /* Adjust the max-height as needed for the limited text */
-    overflow: hidden;
-}
 
-.tour-problem-info {
-    margin: 10px 0; /* Add margin to separate information blocks */
-}
+.card {
+    flex: 1;
+    margin: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    background-color: #fff; /* Set a background color */
+  }
+  
+  .tour-problem-info {
+    margin-bottom: 15px;
+  }
 
+  .tour-problem-info strong {
+    display: inline-block;
+    min-width: 120px; /* Set a minimum width for labels */
+    font-weight: bold;
+    margin-right: 10px; /* Add right margin to create space between label and text */
+  }
 .tour-problem-info-warning {
     color: red;
     margin: 10px 0; /* Add margin to separate information blocks */
@@ -39,25 +60,225 @@
 }
 
 .success-deadline-save-message {
-    background-color: #c5d6b2;
     padding: 10px; /* Add padding for spacing */
     margin-bottom: 10px;
+    font-family: sans-serif;
+    margin-top: 60px;
+    margin-left: 45px;
    /* border: 1px solid green; /* Add a border for separation */
   }
   
   .tour-problem-description {
     margin: 0 20px; /* Adjust the margin as needed */
-    max-width: 40vw; /* Adjust the max width as needed */
     white-space: pre-wrap; /* Allow line breaks */
+    word-wrap: break-word; /* Wrap long words to the next line */
     overflow: hidden;
     text-overflow: ellipsis; /* Add ellipsis for overflow */
     display: block;
+  }
+  
+/**/
+
+
+.addResponse {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 100px;
 }
 
-.button-row {
-    display: flex; /* Use flexbox to align buttons horizontally */
-    justify-content: center; /* Center buttons horizontally within the row */
+mat-form-field {
+  width: 700px;
 }
-th{
-    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));;
+
+.addResponseForm mat-form-field {
+
+  width: 100%;
+}
+
+
+
+
+.addResponse button {
+  margin-top: 10px;
+  width: 100px;
+  font-size: medium;
+  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  display: inline;
+  margin: 0 auto;
+  
+}
+
+.addResponse button:not(:last-child) {
+  margin-right: 10px; /* Razmak između dugmica (osim za poslednje dugme) */
+  margin-left: 490px;
+}
+
+.addResponse button:hover {
+  background: white;
+  color: black;
+  border: 1px solid rgb(56, 28, 117);
+}
+
+.message-form-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25vw;
+  height: 20vw;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.message-form-wrapper mat-form-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.message-form-wrapper input-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.message-form-wrapper .save-button {
+    font-size: medium;
+    font-family: 'Open Sans', sans-serif; 
+    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131)); 
+    color: white; 
+    display: block;
+    margin: 0 auto;
+    padding: 8px 16px; 
+    border: none; 
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+.hover-effect:hover {
+  color: rgb(56, 28, 117); /* Promenite boju prema potrebi */
+  cursor: pointer; /* Postavite željeni pokazivač */
+}
+
+.custom-tooltip {
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 10px; /* Povećajte padding za dodatni prostor oko teksta */
+  border-radius: 8px;
+  z-index: 999;
+  font-size: 12px; /* Prilagodite veličinu fonta */
+  max-width: 200px; /* Postavite maksimalnu širinu tooltip-a */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Dodajte senku za bolji izgled */
+}
+
+
+
+.message-form-wrapper .save-button:hover {
+  background: white;
+    color: black;
+    border: 1px solid rgb(56, 28, 117);
+}
+
+.deadline-title-section {
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.deadline-title {
+  color: rgb(56, 28, 117);
+  margin-bottom: 30px;
+  margin-top: 10px;
+  font-size: large;
+}
+
+.message-form-wrapper .close-button {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  cursor: pointer;
+  border: none !important;
+    margin: 2px; /* Added margin for better spacing */
+    cursor: pointer; /* Added cursor style */
+}
+
+.message-form-wrapper .close-button mat-icon {
+  font-size: 22px !important;
+  color: rgb(56, 28, 117) !important;
+}
+
+.deadline-button {
+  margin-top: 10px;
+  width: 150px;
+  font-size: medium;
+  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.message-form-wrapper-admin {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20vw; /* Adjusted width */
+  max-width: 400px; /* Set a maximum width if needed */
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px; /* Adjust the margin between the buttons and the text */
+}
+
+/* Additional styling for buttons */
+.button-container button {
+  flex: 1; /* Each button takes equal width */
+  margin: 0 5px; /* Add margin around buttons */
+  padding: 5px;
+}
+
+.message-form-wrapper-admin .save-button {
+  font-size: medium;
+  font-family: 'Open Sans', sans-serif; 
+  background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131)); 
+  color: white; 
+  display: block;
+  margin: 0 auto;
+  padding: 8px 16px; 
+  border: none; 
+  cursor: pointer;
+  border-radius: 5px;
+  flex: 1; /* Each button takes equal width */
+  margin: 0 5px; /* Add margin around buttons */
+  padding: 5px;
+}
+
+.message-form-wrapper-admin .save-button:hover {
+background: white;
+  color: black;
+  border: 1px solid rgb(56, 28, 117);
 }

@@ -1,0 +1,56 @@
+<!-- tour-preference.component.html -->
+<div class="form-container">    
+    <h1>UPDATE TOUR PREFERENCES</h1>
+<div class="center-class">
+    <div class="preferences-container">
+      <form [formGroup]="tourPreferenceForm" class="custom-form" [@expandForm]="formState">
+        <div class="preference">
+          <table class="input-table">
+            <tr>
+              <td><label for="difficulty">Difficulty:</label></td>
+              <td><label for="walkingRating">Walking Rating:</label></td>
+              <td><label for="bicycleRating">Bicycle Rating:</label></td>
+              <td><label for="carRating">Car Rating:</label></td>
+            </tr>
+            <tr>
+              <td><input type="number" id="difficulty" formControlName="difficulty" class="form-control" [readonly]="!isEditing" min="1" max="5"></td>
+              <td><input type="number" id="walkingRating" formControlName="walkingRating" class="form-control" [readonly]="!isEditing" min="1" max="3"></td>
+              <td><input type="number" id="bicycleRating" formControlName="bicycleRating" class="form-control" [readonly]="!isEditing" min="1" max="3"></td>
+              <td><input type="number" id="carRating" formControlName="carRating" class="form-control" [readonly]="!isEditing" min="1" max="3"></td>
+            </tr>
+            <tr>
+              <td><label for="boatRating">Boat Rating:</label></td>
+              <td colspan="2"><label for="tags">Tags:</label></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><input type="number" id="boatRating" formControlName="boatRating" class="form-control" [readonly]="!isEditing" min="1" max="3"></td>
+              <td colspan="3" class="specialtd">
+                <div class="tag-input-container">
+                  <input type="text" id="tags" formControlName="tagsInput" class="form-control short-input" [readonly]="!isEditing">
+                  <button type="button" class="add-tag-button" (click)="addTag()">Add Tag</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <div class="tag-list">
+                      <div *ngFor="let tag of preference.tags; let i = index" class="tag-box">
+                        <span>{{ tag }}</span>
+                        <button class="remove-tag-button" *ngIf="isEditing" (click)="removeTag(i)">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+            </tr>
+          </table>      
+        </div>
+        <button type="button" mat-raised-button class="edit-button emphasized" [class.save]="isEditing" (click)="toggleEdit()">
+          {{ isEditing ? 'Save' : 'Edit' }}
+        </button>
+      </form>
+    </div>
+  </div>
+  
+</div>

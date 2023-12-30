@@ -70,4 +70,5 @@ export class FollowersComponent implements OnInit {
   findPeople() {
     this.router.navigate(['find-people']);
   }
+
 }

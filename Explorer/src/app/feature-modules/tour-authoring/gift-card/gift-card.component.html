@@ -1,0 +1,45 @@
+<form [formGroup]="giftCardForm" class="center-class">
+  <div class="problem-title-section">
+    <h1 class="problem-title">Send Gift Card</h1>
+  </div>
+
+  <div class="center-class">
+    <div class="container">
+      <mat-form-field>
+        <mat-label>Amount to Send (AC)</mat-label>
+        <input matInput formControlName="amountToSend" type="number">
+      </mat-form-field>
+    </div>
+
+    <div class="container">
+      <mat-form-field>
+        <mat-label>Message</mat-label>
+        <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" formControlName="note" cdkAutosizeMaxRows="5"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="container">
+      <mat-form-field>
+        <mat-label>Select Recipient</mat-label>
+        <mat-select formControlName="recipient">
+          <mat-option *ngFor="let follower of followers" [value]="follower.id">{{ follower.firstName }} {{ follower.lastName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="tour-container">
+      <div class="inner-tour-container">
+        <img [src]="tour.image" alt="Tour Image" class="tour-image" />
+        <div class="overlay">
+          <div class="tour-description">
+            <h3>{{ tour.name }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <button class="done-button" (click)="sendGiftCard()">Send Gift Card</button>
+    </div>
+  </div>
+</form>

@@ -1,26 +1,36 @@
+<div class="all"> 
 <div class="bundle-list">
     <h1 class="header">Available Bundles</h1>
     <div class="header-container">   
+      <!--
       <a class="cart-button" [routerLink]="isLogged ? '/shopping-cart/' : '/login'">
         <i class="fas fa-shopping-cart"></i> Shopping cart
         <span id="numberOfItems" class="numberOfItems">{{ numberOfItems }}</span>
-      </a>
+      </a> -->
     </div>
     <div class="bundle-container">
       <div *ngFor="let bundle of bundles">
         <div class="remove-when-use">
         </div>
-        <div class="bundle" *ngIf="bundle.status === 1">
+        <div class="bundle" *ngIf="bundle.status === 1" [ngStyle]="{'background-image': 'url(' + bundle.image + ')'}">
           <div class="details">
             <label>{{ bundle.name }}</label>
             <p>{{ bundle.price }} AC</p>
             <div class="button-container">
-              <a class="view-button" [routerLink]="'/bundle-view/' + bundle.id">View more</a>
-              <a class="view-button" (click)="onAddClicked(bundle)" >Add to cart</a>
+              <a class="view-button" [routerLink]="'/bundle-view/' + bundle.id">
+                View more
+                <i class="fas fa-arrow-right"></i>
+              </a>
+              <br>
+              <a class="view-button" (click)="onAddClicked(bundle)">
+                <i class="fas  fa-cart-plus"></i>
+              </a>
             </div>
           </div>
         </div>
+        
+        
       </div>
     </div>
 </div>
-  
+</div>

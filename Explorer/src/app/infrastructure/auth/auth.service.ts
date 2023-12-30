@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TokenStorage } from './jwt/token.service';
 import { environment } from 'src/env/environment';
@@ -9,6 +9,8 @@ import { Login } from './model/login.model';
 import { AuthenticationResponse } from './model/authentication-response.model';
 import { User } from './model/user.model';
 import { Registration } from './model/registration.model';
+import { Token } from './model/token.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 
 @Injectable({
@@ -34,13 +36,7 @@ export class AuthService {
 
   register(registration: Registration): Observable<AuthenticationResponse> {
     return this.http
-    .post<AuthenticationResponse>(environment.apiHost + 'users', registration)
-    .pipe(
-      tap((authenticationResponse) => {
-        this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);
-        this.setUser();
-      })
-    );
+    .post<AuthenticationResponse>(environment.apiHost + 'users', registration);
   }
 
   logout(): void {
@@ -83,5 +79,31 @@ export class AuthService {
   getUserById(userId: number): Observable<User> {
     return this.http.get<User>(`${environment.apiHost}users/${userId}`);
   }
+  
+  upload(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
 
+    const req = new HttpRequest('POST', `https://localhost:44333/api/author/bundle/uploadBundleImage`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
+    }
+  getUserByEmail(email: string): Observable<User> {
+    return this.http.get<User>(`${environment.apiHost}users/getByEmail/${email}`);
+  }
+
+  createToken(token: Token, email: string): Observable<Token> {
+    return this.http.post<Token>('https://localhost:44333/api/administrator/token/' + email, token);
+  }
+
+  getToken(value: string): Observable<Token> {
+    return this.http.get<Token>('https://localhost:44333/api/administrator/token/' + value);
+  }
+
+  getAuthors(): Observable<PagedResults<User>> {
+    return this.http.get<PagedResults<User>>(environment.apiHost + 'users/authors');
+  }
 }

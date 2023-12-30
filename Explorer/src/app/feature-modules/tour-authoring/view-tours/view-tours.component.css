@@ -63,6 +63,20 @@
   transition: background-color 0.3s, color 0.3s;
   cursor: pointer;
 }
+.view-button-activated {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 16;
+  color: #ffffff;
+  background-color: #6C0277;
+  border: 0.2vw solid #2E003D;
+  border-radius: 0.375vw;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+}
+
 .button-container {
   text-align: center;
   margin: 5px;
@@ -80,6 +94,19 @@
   margin: 20px; /* Add space below the header */
   font-weight: bold; /* Make the text bold if desired */
   text-transform: uppercase; /* Convert text to uppercase if desired */
+}
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px; /* Add margin between buttons and cart */
+}
+
+.action-button {
+  margin-top: 5px; /* Add some spacing between the buttons */
+  margin-right: 8px; /* Adjust margin to start buttons at the same x-coordinate */
+  font-size: 14px; /* Adjust the font size */
+  padding: 8px 12px; /* Adjust padding for the buttons */
 }
 
 .tour-list {
@@ -214,3 +241,26 @@ i {
   font-weight: 500;
   border: 1px solid white;
 }
+
+.favorite-heart {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1; /* Postavite na veći indeks od ostatka sadržaja kartice da bi bilo iznad */
+}
+
+.favorite-heart i {
+  font-size: 24px;
+  color: white; /* Promenite boju na belu kada nije kliknuto */
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.favorite-heart i.active {
+  color: red; /* Boja srca kada je kliknuto */
+}
+
+.active-heart {
+  color: red; /* Promenite boju u željenu boju */
+}
+

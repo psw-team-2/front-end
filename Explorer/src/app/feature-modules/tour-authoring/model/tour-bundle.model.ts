@@ -11,7 +11,8 @@ export interface TourBundle{
     totalLength: number,
     publishTime: Date,
     authorId: number,
-    isAdded: boolean
+    isAdded: boolean,
+    image: string
 }
 
 export enum AccountStatus {

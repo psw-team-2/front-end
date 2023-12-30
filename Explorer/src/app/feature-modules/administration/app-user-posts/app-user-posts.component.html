@@ -1,0 +1,31 @@
+<div class="posts">
+    <div class="post-list">
+      <div class="post-header" *ngFor="let blogPost of blogPosts, let i = index">
+        <img [src]="blogPost.image" alt="User Avatar" class="user-avatar">
+        <div class="post-info">
+          <p class="user-name">{{blogPost.username}}</p>
+          <span class="post-time">{{blogPost.creationTime | date:'short'}}</span>
+          <p class="post-content">{{blogPost.description}}</p>
+        </div>
+        <div >
+          <div class="votes">
+            <div id="upvote" class="vote-button" >
+              <i>👍</i>
+            </div>
+            <div class="vote-button">
+              {{blogRatings[i]}}
+            </div>
+            <div id="downvote" class="vote-button" >
+              <i >👎</i>
+            </div>
+          </div>
+          
+          <button class="button-div" class="action-button" [routerLink]="['/blog-single-post', blogPost.id]">See more</button>
+        </div>
+        <div >
+          
+        </div>
+      </div>
+    </div>
+    
+  </div>

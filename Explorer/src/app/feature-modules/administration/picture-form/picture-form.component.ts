@@ -13,7 +13,6 @@ export class PictureFormComponent {
   @Input() profile: Profile;
 
   currentFile: File;
-
   constructor(private service: AdministrationService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -44,7 +43,11 @@ export class PictureFormComponent {
       isActive: true,
       follows: this.profile.follows,
       tourPreference: this.profile.tourPreference,
-      questionnaireDone: this.profile.questionnaireDone
+      questionnaireDone: this.profile.questionnaireDone,
+      xp:this.profile.xp,
+      isFirstPurchased:false,
+      numberOfCompletedTours: this.profile.numberOfCompletedTours,
+      requestSent: this.profile.requestSent
     }
     profile.id = this.profile.id;
     profile.userId = this.profile.userId;
@@ -64,6 +67,7 @@ export class PictureFormComponent {
     this.service.updateProfile(profile).subscribe({
       next: (_) => {
         this.profileUpdated.emit()
+        window.location.reload();
       }
     })
   }

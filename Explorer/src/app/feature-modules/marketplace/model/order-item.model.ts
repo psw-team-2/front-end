@@ -8,4 +8,5 @@ export interface OrderItem {
     isBought: boolean;
     isBundle: boolean;
     shoppingCartId: number;
+    image: string;
 }

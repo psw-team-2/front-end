@@ -12,6 +12,7 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
 import { AdministrationService } from '../../administration/administration.service';
 import { Checkpoint } from '../../tour-authoring/model/checkpoint.model';
 import { Equipment } from '../../tour-authoring/model/equipment.model';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'xp-blog-single-post',
@@ -37,7 +38,7 @@ export class BlogSinglePostComponent implements OnInit {
   touristDistance: number=0;
 
 constructor(private blogService: BlogService, private route: ActivatedRoute, private authService: AuthService, 
-  private router: Router, private tourService: TourAuthoringService, private equipmentService: AdministrationService) { }
+  private router: Router, private tourService: TourAuthoringService, private equipmentService: AdministrationService, private viewportScroller: ViewportScroller) { }
 
 
 ngOnInit(): void {
@@ -193,7 +194,10 @@ ngOnInit(): void {
   }
 
   onReadMoreClicked(id: number){
-    this.router.navigate(['blog-single-post', id]);
+    this.router.navigate(['blog-single-post', id]).then(() => {
+      // Scroll na vrh stranice nakon navigacije
+      this.viewportScroller.scrollToPosition([0, 0]);
+    });
   }
 
 }

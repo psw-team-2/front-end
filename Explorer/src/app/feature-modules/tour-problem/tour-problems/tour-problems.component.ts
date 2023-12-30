@@ -11,6 +11,7 @@ import { TourProblemResponseService } from '../tour-problem-response.service';
 
 import { TourProblemOverviewComponent } from '../tour-problem-overview/tour-problem-overview.component';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -45,23 +46,19 @@ export class TourProblemsComponent implements OnInit {
   shouldRenderShowDescription: boolean = false;
 
   shouldRenderAddCommentForm = false;
-  addCommentForm: FormGroup;
   comment: string;
-  selectedProblemForComment: TourProblem | undefined;
+  selectedProblemForComment: TourProblem;
 
   shouldRenderPenalization: boolean=false;
   shouldRenderClosure: boolean=false;
   
   constructor(private tourProblemService: TourProblemService, private authService: AuthService, 
-    private formBuilder: FormBuilder,private problemResponseService: TourProblemResponseService, private tourAuthService: TourAuthoringService) { 
+    private formBuilder: FormBuilder,private problemResponseService: TourProblemResponseService, private tourAuthService: TourAuthoringService, private snackBar: MatSnackBar) { 
 
     this.addDeadlineForm = new FormGroup({
       deadlineDate: new FormControl('', Validators.required),
       deadlineTime: new FormControl('', Validators.required)
-    })
-    this.addCommentForm = this.formBuilder.group({
-      comment: ['', Validators.required] 
-    });  
+    }) 
   }
 
   ngOnInit(): void {
@@ -82,12 +79,19 @@ export class TourProblemsComponent implements OnInit {
     });
   }
 
+  showNotification(message: string): void {
+    this.snackBar.open(message, '', {
+      duration: 3000, 
+    });
+  }
+
   getTourProblems(): void {
     if(this.user?.role === 'administrator'){
       this.tourProblemService.getTourProblemsAdministrator().subscribe({
         next: (result: PagedResults<TourProblem>) => {
           this.tourProblems = result.results;
           this.tourProblems = this.tourProblems.filter((tourProblem) => !tourProblem.isClosed);
+          
         },
         error: () => {
         }
@@ -99,6 +103,7 @@ export class TourProblemsComponent implements OnInit {
         next: (result: PagedResults<TourProblem>) => {
           this.tourProblems = result.results.filter(problem => problem.touristId === this.user?.id);
           this.tourProblems = this.tourProblems.filter((tourProblem) => !tourProblem.isClosed);
+          
         },
         error: () => {
         }
@@ -136,7 +141,11 @@ export class TourProblemsComponent implements OnInit {
     
     this.tourAuthService.deleteTourAdministrator(tourProblem.tourId).subscribe({
 
+      next: () => { this.getTourProblems();} 
+
     })
+    this.showNotification('Author successfully penalized!');
+    this.shouldRenderPenalization = !this.shouldRenderPenalization;
   }
   //Close Tour Problem button clicked
   onCloseClicked(tourProblem: TourProblem): void{
@@ -147,8 +156,11 @@ export class TourProblemsComponent implements OnInit {
     tourProblem.isClosed = true;
     this.tourProblemService.updateTourProblemAdministrator(tourProblem).subscribe({
       // There is currently no TourProblemUpdated emitter implemented
-      // next: () => { this.tourProblemUpdated.emit()} 
+       next: () => { this.getTourProblems();} 
+
     });
+    this.showNotification('Tour Problem successfully closed!');
+    this.shouldRenderClosure = !this.shouldRenderClosure;
   }
 
 
@@ -205,6 +217,7 @@ export class TourProblemsComponent implements OnInit {
       this.tourProblemService.problemSolved(tourProblem).subscribe({
         next: () => {
           console.log("Tour problem has been solved")
+          this.showNotification('Tour Problem successfully solved!');
           this.getTourProblems();
         },
         error: () => {}
@@ -215,7 +228,7 @@ export class TourProblemsComponent implements OnInit {
   onAddCommentClicked(selectedProblem: TourProblem): void {
     this.selectedProblemForComment = selectedProblem;
     this.shouldRenderAddCommentForm = true;
-    this.comment = '';
+    //this.comment = '';
   }
 
   onProblemUnsolved(tourProblem: TourProblem): void {
@@ -226,13 +239,14 @@ export class TourProblemsComponent implements OnInit {
       this.tourProblemService.problemUnsolved(tourProblem).subscribe({
         next: () => {
           console.log("Tour problem has been unsolved")
+          this.showNotification('Tour Problem successfully reported again!');
           this.getTourProblems();
         },
         error: () => {}
       })
 
       if (this.selectedTourProblem.id !== undefined) {
-        const newComment: TourProblemResponse = {
+        /**const newComment: TourProblemResponse = {
           id: undefined,
           response: this.comment,
           timeStamp: new Date(),
@@ -244,19 +258,15 @@ export class TourProblemsComponent implements OnInit {
             console.log("The comment has been successfully added!")
           },
           error: () => {}
-        });
+        });**/
+        this.shouldRenderAddCommentForm = true;
       }
     }
   }
 
-  onCancelComment() {
-    this.shouldRenderAddCommentForm = false;
-    this.comment = '';
-    this.selectedProblemForComment = undefined;
-  }
+  
 
   isExpired(tourProblem: TourProblem): boolean{
-
     if(tourProblem.deadlineTimeStamp){
       const currentTimeStamp = new Date();
       const tourProblemDeadlineTimeStamp = new Date(tourProblem.deadlineTimeStamp);
@@ -284,5 +294,8 @@ export class TourProblemsComponent implements OnInit {
     }
   }
   
+  onCloseFormClicked(): void {
+    this.shouldRenderAddCommentForm = !this.shouldRenderAddCommentForm;
+  }
 
 }

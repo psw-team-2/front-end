@@ -1,16 +1,26 @@
-<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <form class="center-class" [formGroup]="loginForm" (ngSubmit)="login()">
     <div>
-        <mat-form-field>
-            <mat-label>Username</mat-label>
-            <input matInput formControlName="username" type="text"/>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Password</mat-label>
-            <input matInput formControlName="password" type="password"/>
-        </mat-form-field>
-    <button color="primary" type="submit" mat-raised-button>Login</button>
-    <p>Don't have an account yet?<a href="/register">Sign Up</a></p>
+      <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" type="text" />
+        <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+          Username is required
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" />
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+  
+      <button type="submit" class="action-button">Login</button>
+  
+      <p *ngIf="loginError" class="error-message">{{ loginError }}</p>
+  
+      <p>Don't have an account yet?<a href="/register">Sign Up</a></p>
+      <p><a href="/password-recovery">Forgot Password?</a></p>
     </div>
-</form>
-
-
+  </form>

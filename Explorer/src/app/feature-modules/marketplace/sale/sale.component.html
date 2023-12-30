@@ -5,14 +5,21 @@
     </div>
     <div >
         <button class="button" *ngIf="isAuthor" mat-raised-button color="primary" (click)="createSale()">Create Sale</button>
-<!--         <input *ngIf="this.user.role == 'tourist'" type="text" [(ngModel)]="tourNameFilter" name="" id="" (ngModelChange)="filterbyName()"> -->
+        <input *ngIf="this.user.role == 'tourist'" placeholder="Filter by name" type="text" [(ngModel)]="tourNameFilter" name="" id="tourName" (ngModelChange)="filterSalesByTourName()">
+        <select *ngIf="this.user.role == 'tourist'" #myselect (change)="sortSalesByDiscount(myselect.value)">
+            <option value="" selected disabled>Sort by discount</option>
+            <option
+            [value]="true">Ascending</option>
+            <option
+            [value]="false">Descending</option>
+         </select>
     </div>
 
     <div id="tour">
         <br>
         <div id="tour-details">
             
-            <div class="sale-card" *ngFor="let s of sales; let j = index">
+            <div class="sale-card" *ngFor="let s of filteredSales; let j = index">
                     <div class="tour-info">
                         <p class="tour-description">{{s.startDate | date:'dd/MM/yyyy'}} - {{s.endDate | date:'dd/MM/yyyy'}}</p>
                         <p class="tour-description">{{s.discount}} %</p>
@@ -22,12 +29,12 @@
                         <p class="toursSale">Tours on sale</p>
                         <div *ngIf="s.id !== undefined" class="priceBox">
                             <div class="tour-card" *ngFor="let t of saleToursMap[s.id]; let i = index">
-                                <div (click)="openDetails(t)">
+                                <div >
                                     <div class="tour-info">
                                         <div class="tourName"><strong>{{t.name}}</strong></div>
                                         <p class="tour-price">
-                                            <span class="original-price">{{t.price}} RSD</span>
-                                            <span class="discounted-price"> {{calculateDiscountedPrice(t.price, s.discount)}} RSD</span>
+                                            <span class="original-price">{{t.price}} €</span>
+                                            <span class="discounted-price"> {{calculateDiscountedPrice(t.price, s.discount)}} €</span>
                                         </p>
                                     </div>
                                 </div>
@@ -39,6 +46,10 @@
                         <p class="zbuttons">Edit</p>
                         <mat-icon>edit</mat-icon>
                     </button> -->
+                    <button *ngIf="!isAuthor" class="buyButton" (click)="buyTour(s)" color="primary">
+                        <p class="zbuttons">Purchase tour</p>
+                        <mat-icon>shoppingcart</mat-icon>
+                    </button>
                     <button class="deleteButton" *ngIf="isCurrentUserAuthor(s) && user" (click)="deleteSale(s.id!)" color="primary">
                         <p class="zbuttons">Delete</p>
                         <mat-icon>delete</mat-icon>

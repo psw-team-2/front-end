@@ -4,6 +4,7 @@ import { ApplicationReview } from '../../marketplace/model/application-review.mo
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model'; 
+import { StarComponent } from '../star/star.component';
 
 @Component({
   selector: 'xp-application-review',
@@ -20,6 +21,8 @@ export class ApplicationReviewComponent implements OnInit {
   ngOnInit(): void {
     this.getApplicationReview();
   }
+
+  
   
   
   getApplicationReview(): void {
@@ -40,6 +43,10 @@ export class ApplicationReviewComponent implements OnInit {
         this.userNames[applicationReview.userId] = user.username;
       });
     });
+  }
+
+  getStars(grade: number): number[] {
+    return Array(Math.round(grade)).fill(0);
   }
 
   getUserName(userId: number): string {

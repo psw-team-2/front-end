@@ -112,3 +112,10 @@
   cursor: pointer; /* Added cursor style */
 }
 
+.profile-link {
+  text-decoration: none; /* Remove underline */
+}
+
+.profile-link:hover {
+  font-weight: bold;
+}

@@ -47,7 +47,7 @@
                     <h2>Chatroom</h2>
                     <div *ngFor="let message of clubMessages">
                         <p>
-                          <strong>{{ message.userId }}:</strong> "{{ message.text }}"
+                          <strong>{{ senderProfiles[message.userId]?.firstName }} {{ senderProfiles[message.userId]?.lastName }}:</strong> {{ message.text }}
                         </p>
                     </div>
                   </div>

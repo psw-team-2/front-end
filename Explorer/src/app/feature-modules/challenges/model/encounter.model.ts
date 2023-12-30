@@ -27,8 +27,8 @@ export enum encounterType{
 
 export interface ActiveEncounter {
     id?: number;
-    encounterId : string;
-    touristId: string;
+    encounterId : number;
+    touristId: number;
     state:number;
     end: Date
 }

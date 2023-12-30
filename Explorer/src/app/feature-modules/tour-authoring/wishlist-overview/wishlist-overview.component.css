@@ -1,0 +1,91 @@
+/* Stilovi za sekciju omiljenih stavki */
+.Favourites-Container {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.Favourite-Items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 10px;
+    margin-top: 50px;
+}
+
+.Favourite-Items .Favourite-Item {
+    width: 220px;
+    height: 300px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    margin-bottom: 20px;
+    background: url('https://blog.wego.com/wp-content/uploads/skorea_mcjl4i.jpg') no-repeat center center;
+    background-size: cover;
+    border: 3px solid rgb(56, 28, 117);
+    overflow: hidden;
+}
+
+.Favourite-Items .Favourite-Item .about {
+    color: white;
+    box-shadow: 0 3px 10px rgb(56, 28, 117);
+    width: 100%;
+    background-color: rgb(56, 28, 117);
+    position: absolute;
+    bottom: 0;
+    height: 23%; /* Dodajte visinu 0 kako bi se inicijalno sakrile informacije */
+    transition: height 0.5s ease-in-out;
+    padding: 0.6em;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.Favourite-Items .Favourite-Item:hover .about {
+    height: 60%; /* Visina koja će se prikazati na hover */
+}
+
+.Favourite-Items .Favourite-Item .about > h1 {
+    font-weight: bold;
+    font-size: medium;
+    margin-top: -2px;
+}
+
+.Favourite-Items .Favourite-Item .about > p {
+    font-size: 0.8em;
+    margin-top: 0.5em;
+}
+
+.Favourite-Items .Favourite-Item .prices {
+    margin-top: 10px;
+    position: absolute;
+    bottom: -70px; /* Sakrijte dugme "Add to Cart" */
+    left: 50%;
+    transform: translateX(-50%);
+    transition: bottom 0.3s ease;
+}
+
+.Favourite-Items .Favourite-Item:hover .prices {
+    bottom: 10px; /* Prikazuje dugme "Add to Cart" */
+}
+
+.add-to-cart {
+    display: inline-block;
+    padding: 9px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: #2E003D;
+    background-color: #ffffff;
+    border: 0.2vw solid #2E003D;
+    border-radius: 0.375vw;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+    height: 35px;
+}
+
+.add-to-cart:hover {
+    background-color: #2E003D;
+    color: #ffffff;
+}

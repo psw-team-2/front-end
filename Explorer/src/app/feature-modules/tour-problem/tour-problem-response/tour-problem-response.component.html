@@ -1,17 +1,18 @@
-<div id="entity">
+<div >
   <p id="entity-title-paragraph" class="tour-problem-response-title">Tour Problem Responses</p>
-  <div id="entity-details">
+  <div >
     <div *ngIf="currentUser && currentProblemId">
       <div class="card">
         <div class="message-container">
           <div *ngFor="let response of problemResponses" class="message">
+            <p class="tourist">
+              <strong>{{ mappedUsername[response.commenterId] }}</strong>
+              {{ response.timeStamp | date:'medium' }}
+            </p>
             <div class="message-content">
               <p>{{ response.response }}</p>
             </div>
-            <div class="message-metadata">
-              <span class="timestamp">{{ response.timeStamp | date:'medium' }}</span>
-              <span class="tourist"> {{ mappedUsername[response.commenterId] }}</span>
-            </div>
+            
           </div>
         </div>
       </div>

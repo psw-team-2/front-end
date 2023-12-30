@@ -7,7 +7,6 @@ footer {
     left: 0;
     width: 100vw - 20px;
     padding-top: 1vw;
-    margin-top: 10vw;
     background-color: #333; /* Dark grey background */
     color: #fff; /* White text color */
     font-family: 'Montserrat', sans-serif; /* Montserrat font family */
@@ -43,3 +42,14 @@ footer .contact-info-title {
     font-weight: normal;
     margin-bottom: 2vw;
 }
+footer a {
+    color: #fff; 
+    text-decoration: none; 
+    position: relative; /* Enable relative positioning for links */
+    z-index: 0 !important; /* Set z-index for the links */
+}
+
+footer a:hover {
+    color: #ccc; 
+}
+

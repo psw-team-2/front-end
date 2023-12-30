@@ -1,68 +1,36 @@
-<h1>Questionnaire:</h1>
-<form (submit)="onSubmit()">
-    <div>
-        <mat-label><b>1. How much do you prefer historical tours?</b></mat-label><br/>
-        <input type="radio" name="historical" value="strongly-dont-prefer"><span class="red">I strongly don't prefer them</span>
-        <input type="radio" name="historical" value="dont-prefer"><span class="red">I don't prefer them</span>
-        <input type="radio" name="historical" value="dont-mind"><span class="orange">I don't mind them</span>
-        <input type="radio" name="historical" value="prefer"><span class="green">I prefer them</span>
-        <input type="radio" name="historical" value="strongly-prefer"><span class="green">I strongly prefer them</span>
-    </div><br/>
-    <div>
-        <mat-label><b>2. How much do you prefer cultural tours?</b></mat-label><br/>
-        <input type="radio" name="cultural" value="strongly-dont-prefer"><span class="red">I strongly don't prefer them</span>
-        <input type="radio" name="cultural" value="dont-prefer"><span class="red">I don't prefer them</span>
-        <input type="radio" name="cultural" value="dont-mind"><span class="orange">I don't mind them</span>
-        <input type="radio" name="cultural" value="prefer"><span class="green">I prefer them</span>
-        <input type="radio" name="cultural" value="strongly-prefer"><span class="green">I strongly prefer them</span>
-    </div><br/>
-    <div>
-        <mat-label><b>3. How much do you prefer architectural tours?</b></mat-label><br/>
-        <input type="radio" name="architectural" value="strongly-dont-prefer"><span class="red">I strongly don't prefer them</span>
-        <input type="radio" name="architectural" value="dont-prefer"><span class="red">I don't prefer them</span>
-        <input type="radio" name="architectural" value="dont-mind"><span class="orange">I don't mind them</span>
-        <input type="radio" name="architectural" value="prefer"><span class="green">I prefer them</span>
-        <input type="radio" name="architectural" value="strongly-prefer"><span class="green">I strongly prefer them</span>
-    </div><br/>
-    <div>
-        <mat-label><b>4. How much do you prefer modern tours?</b></mat-label><br/>
-        <input type="radio" name="modern" value="strongly-dont-prefer"><span class="red">I strongly don't prefer them</span>
-        <input type="radio" name="modern" value="dont-prefer"><span class="red">I don't prefer them</span>
-        <input type="radio" name="modern" value="dont-mind"><span class="orange">I don't mind them</span>
-        <input type="radio" name="modern" value="prefer"><span class="green">I prefer them</span>
-        <input type="radio" name="modern" value="strongly-prefer"><span class="green">I strongly prefer them</span>
-    </div><br/>
-    <div>
-        <mat-label><b>5. How much do you prefer culinary tours?</b></mat-label><br/>
-        <input type="radio" name="culinary" value="strongly-dont-prefer"><span class="red">I strongly don't prefer them</span>
-        <input type="radio" name="culinary" value="dont-prefer"><span class="red">I don't prefer them</span>
-        <input type="radio" name="culinary" value="dont-mind"><span class="orange">I don't mind them</span>
-        <input type="radio" name="culinary" value="prefer"><span class="green">I prefer them</span>
-        <input type="radio" name="culinary" value="strongly-prefer"><span class="green">I strongly prefer them</span>
-    </div><br/>
-    <div>
-        <mat-label><b>6. How much do you prefer art tours?</b></mat-label><br/>
-        <input type="radio" name="art" value="strongly-dont-prefer"><span class="red">I strongly don't prefer them</span>
-        <input type="radio" name="art" value="dont-prefer"><span class="red">I don't prefer them</span>
-        <input type="radio" name="art" value="dont-mind"><span class="orange">I don't mind them</span>
-        <input type="radio" name="art" value="prefer"><span class="green">I prefer them</span>
-        <input type="radio" name="art" value="strongly-prefer"><span class="green">I strongly prefer them</span>
-    </div><br/>
-    <div>
-        <mat-label><b>7. How much do you prefer nature tours?</b></mat-label><br/>
-        <input type="radio" name="nature" value="strongly-dont-prefer"><span class="red">I strongly don't prefer them</span>
-        <input type="radio" name="nature" value="dont-prefer"><span class="red">I don't prefer them</span>
-        <input type="radio" name="nature" value="dont-mind"><span class="orange">I don't mind them</span>
-        <input type="radio" name="nature" value="prefer"><span class="green">I prefer them</span>
-        <input type="radio" name="nature" value="strongly-prefer"><span class="green">I strongly prefer them</span>
-    </div><br/>
-    <div>
-        <mat-label><b>8. How much do you prefer adventure tours?</b></mat-label><br/>
-        <input type="radio" name="adventure" value="strongly-dont-prefer"><span class="red">I strongly don't prefer them</span>
-        <input type="radio" name="adventure" value="dont-prefer"><span class="red">I don't prefer them</span>
-        <input type="radio" name="adventure" value="dont-mind"><span class="orange">I don't mind them</span>
-        <input type="radio" name="adventure" value="prefer"><span class="green">I prefer them</span>
-        <input type="radio" name="adventure" value="strongly-prefer"><span class="green">I strongly prefer them</span>
+<div class="questionnaire-container" *ngIf="!done">
+  
+  <h1 class="center-class">Questionnaire</h1>
+    <div class="center-class">
+        <form class="form-container">
+          <div class="question-card">
+            <mat-label><div class="centerh"><b>{{ currentQuestion.text }}</b></div></mat-label><br />
+            <div class="center" *ngIf="preferences.length === 0 && showSubmitButton"> In order for questionnaire to be valid you need to prefer at least one type of tour.</div>
+            <div class="option" *ngFor="let option of currentQuestion.options">
+              <input type="radio" [name]="currentQuestion.id" [value]="option.value" id="{{ option.value }}" />
+              <label  for="{{ option.value }}">{{ option.label }}</label>
+            </div>
+          </div>
+          <div class="navigation-buttons" *ngIf="currentQuestionIndex > 0">
+            <button class="action-button" (click)="previousQuestion()" *ngIf="!finished">Previous</button>
+            <button class="action-button" (click)="nextQuestion()" *ngIf="!showSubmitButton && !finished">Next</button>
+            <button (click)="onSubmit()" *ngIf="showSubmitButton" [disabled]="preferences.length === 0 && showSubmitButton"
+                [ngClass]="{'action-button': true, 'disabled-button': preferences.length === 0 && showSubmitButton}">
+                <b>Submit answers</b>
+            </button>
+              </div>
+          <div class="navigation-buttons" *ngIf="currentQuestionIndex == 0">
+            <p><p>
+            <button class="action-button" (click)="nextQuestion()" *ngIf="!showSubmitButton && !finished">Next</button>
+          </div>
+        </form>
     </div>
-    <button type="submit" *ngIf="showSubmitButton" mat-raised-button>Submit answers</button>
-</form>
+  </div>
+
+  <div *ngIf="done">
+    <h1 class="class-h1">Questionnaire</h1>
+    <div class="center-class">
+      <p class="has-margin-bottom">You have already completed the questionnaire!</p>
+    </div>
+  </div>
+  

@@ -1,62 +1,31 @@
-<div class="profile-post">
-    <div class="post-header">
-      <img src="https://img.freepik.com/premium-vector/avatar-icon002_750950-52.jpg" alt="User Avatar" class="user-avatar">
+<div class="posts">
+  <div class="post-list">
+    <div class="post-header" *ngFor="let blogPost of blogPosts, let i = index">
+      <img [src]="blogPost.image" alt="User Avatar" class="user-avatar">
       <div class="post-info">
-        <p class="user-name">John Doe</p>
-        <span class="post-time">2 hours ago</span>
+        <p class="user-name">{{blogPost.username}}</p>
+        <span class="post-time">{{blogPost.creationTime | date:'short'}}</span>
+        <p class="post-content">{{blogPost.description}}</p>
+      </div>
+      <div >
+        <div class="votes">
+          <div id="upvote" class="vote-button" >
+            <i>👍</i>
+          </div>
+          <div class="vote-button">
+            {{blogRatings[i]}}
+          </div>
+          <div id="downvote" class="vote-button" >
+            <i >👎</i>
+          </div>
+        </div>
+        
+        <button class="button-div" class="action-button" [routerLink]="['/blog-single-post', blogPost.id]">See more</button>
+      </div>
+      <div >
+        
       </div>
     </div>
-    <p class="post-content">Enjoying the Italian food...</p>
-    <div class="likes-container">
-      <span class="like-icon">👍</span>
-      <span class="like-count">105</span>
-      <span class="dislike-icon">👎</span>
-      <span class="like-count">26</span>
-    </div>
-    <ul class="comments-list">
-      <li class="comment-item">
-        <img src="https://www.svgrepo.com/show/382095/female-avatar-girl-face-woman-user-4.svg" alt="User Avatar" class="comment-avatar">
-        <span class="comment-details">User 1: Great photo! Loving the vibes. 😍</span>
-      </li>
-      <li class="comment-item">
-        <img src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745" alt="User Avatar" class="comment-avatar">
-        <span class="comment-details">User 2: Incredible! Italy is so vibrant and captivating. 👏</span>
-      </li>
-    </ul>
-    <div class="comment-input">
-      <img src="https://img.freepik.com/premium-vector/avatar-icon002_750950-52.jpg" alt="User Avatar" class="comment-avatar">
-      <input type="text" placeholder="Write a comment..." class="comment-text">
-      <button class="comment-button">Post Comment</button>
-    </div>
-  </div>  
-  <div class="profile-post">
-    <div class="post-header">
-      <img src="https://img.freepik.com/premium-vector/avatar-icon002_750950-52.jpg" alt="User Avatar" class="user-avatar">
-      <div class="post-info">
-        <p class="user-name">John Doe</p>
-        <span class="post-time">1 day ago</span>
-      </div>
-    </div>
-    <p class="post-content">Summer in spain is AMAZING!!!</p>
-    <div class="likes-container">
-      <span class="like-icon">👍</span>
-      <span class="like-count">76</span>
-      <span class="dislike-icon">👎</span>
-      <span class="like-count">3</span>
-    </div>
-    <ul class="comments-list">
-      <li class="comment-item">
-        <img src="https://www.svgrepo.com/show/382095/female-avatar-girl-face-woman-user-4.svg" alt="User Avatar" class="comment-avatar">
-        <span class="comment-details">User 1: Wow! A dream destination. </span>
-      </li>
-      <li class="comment-item">
-        <img src="https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745" alt="User Avatar" class="comment-avatar">
-        <span class="comment-details">User 2: Speechless!</span>
-      </li>
-    </ul>
-    <div class="comment-input">
-      <img src="https://img.freepik.com/premium-vector/avatar-icon002_750950-52.jpg" alt="User Avatar" class="comment-avatar">
-      <input type="text" placeholder="Write a comment..." class="comment-text">
-      <button class="comment-button">Post Comment</button>
-    </div>
+  </div>
+  
 </div>

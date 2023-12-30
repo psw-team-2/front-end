@@ -1,0 +1,34 @@
+<body>
+    <div class="Favourites-Container">
+        <div class="Header">
+            <h3 class="Heading">Wishlist</h3>
+        </div>
+        <div class="Favourite-Items">
+            <div class="Favourite-Item" *ngFor="let favItem of favouriteItems">
+                <div class="image-box">
+                    <!-- Add content for image box if needed -->
+                </div>
+                
+                <div class="about">
+                    <h1 class="title">{{ favItem.itemName }}</h1>
+                    <!-- Add additional details if needed -->
+                    <p>{{ favItem.price }}&nbsp;€</p>
+                </div>
+                
+                <div class="prices">
+                    <div class="amount">
+                        <div class="button-container">
+                        <button class="add-to-cart" (click)="navigateToTourDetails(favItem.itemId)">
+                            See more
+                        </button>
+                        <button class="add-to-cart" (click)="removeFromWishlist(favItem.id!)">
+                            Remove
+                        </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+

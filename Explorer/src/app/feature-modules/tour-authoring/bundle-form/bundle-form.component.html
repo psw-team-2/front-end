@@ -1,17 +1,35 @@
-<form [formGroup]="bundleForm" class="center-class" *ngIf="!shouldRender">
+<div class="all"> 
+<div class="user-title-section">
+  <h1 class="user-title">Create new bundle</h1>
+</div>
+<form [formGroup]="bundleForm" class="center-class" *ngIf="!shouldRender" >
   <div class="form-container">
-    <div class="header-text">
-      <p>Create your new bundle</p>
-    </div>
-
     <div class="center-content">
+      <div clas="header-text">
+        <p>Name your bundle</p>
+      </div>
       <mat-form-field class="custom-form-field1">
         <mat-label>Name</mat-label>
         <input matInput formControlName="name" type="text" />
       </mat-form-field>
-
+      <div clas="header-text">
+        <p>Upload main image</p>
+      </div>
+        <button class="action-button-file" mat-raised-button (click)="fileInput.click()">
+          <ng-container *ngIf="!currentFile">
+            <mat-icon style="color: rgb(56, 28, 117);">image</mat-icon> <!-- Add icon when no image is selected -->
+          </ng-container>
+          <ng-container *ngIf="currentFile">
+            <mat-icon style="color: rgb(56, 28, 117);">edit</mat-icon> <!-- Add icon when an image is selected -->
+          </ng-container>
+        </button>
+        <br>
+      <img *ngIf="currentFile" [src]="currentFileURL" alt="Selected Image" class="thumbnail" />
+      <input hidden #fileInput type="file" (change)="onFileSelected($event)">
+      
       <div>
-        <button mat-raised-button color="primary" (click)="addBundle()">Next</button>
+        <button class="action-button-return" mat-raised-button color="primary" (click)="viewAllBundles()">Bundles</button>
+        <button class="action-button-ng" mat-raised-button color="primary" (click)="addBundle()">Next</button>
       </div>
     </div>
   </div>
@@ -19,4 +37,5 @@
 
 <div *ngIf="shouldRender">
   <xp-bundle-data-form [selectedBundle]="selectedBundle"></xp-bundle-data-form>
+</div>
 </div>

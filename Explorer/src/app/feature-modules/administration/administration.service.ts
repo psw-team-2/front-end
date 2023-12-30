@@ -11,6 +11,9 @@ import { PublicRequest } from '../tour-authoring/model/public-request.model';
 import { Follow} from './model/follow.model';
 import { Message } from './model/message.model';
 import { Wallet } from './model/wallet.model';
+import { Question } from './model/question.model';
+import { Answer } from '../tourist/model/answer.model';
+import { Request } from './model/request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +74,9 @@ export class AdministrationService {
   getUserAccountById(id: number): Observable<User> {
     return this.http.get<User>(environment.apiHost + 'administration/userAccounts/' + id);
   }
+  getUserAccountByToken(token: string): Observable<User> {
+    return this.http.get<User>(environment.apiHost + 'administration/userAccounts/token/' + token);
+  }
   updateUserAccount(user: User): Observable<User> {
     const url = `${environment.apiHost}administration/userAccounts/${user.id}`;
     return this.http.put<User>(url, user);
@@ -90,6 +96,10 @@ export class AdministrationService {
 
   getByUserId(): Observable<Profile> {
     return this.http.get<Profile>('https://localhost:44333/api/administration/profile/by-user');
+  }
+
+  getProfileByUserId(id: number): Observable<Profile> {
+    return this.http.get<Profile>('https://localhost:44333/api/administration/profile/get-profile-by-user'+ id);
   }
 
   getByUserId2(): Observable<Profile> {
@@ -213,5 +223,45 @@ export class AdministrationService {
 
   addAC(wallet: Wallet): Observable<Wallet> {
     return this.http.put<Wallet>('https://localhost:44333/api/administrator/wallet/' + wallet.id , wallet);
+  }
+
+  /*getQuestions(): Observable<PagedResults<Question>> {
+    return this.http.get<PagedResults<Question>>('https://localhost:44333/api/question/unanswered');
+  }*/
+
+  getQuestions(): Observable<Question[]> {
+    return this.http.get<Question[]>(`https://localhost:44333/api/question/unanswered`);
+  } 
+  
+  createAnswer(answer: Answer): Observable<Answer> {
+    return this.http.post<Answer>('https://localhost:44333/api/answer/createAnswer', answer);
+  
+  }
+
+  // REQUEST
+  addRequest(request: Request): Observable<Request> {
+    return this.http.post<Request>(environment.apiHost + 'administration/authorRequest', request);
+  }
+
+  getAllRequests(): Observable<PagedResults<Request>> {
+    return this.http.get<PagedResults<Request>>(environment.apiHost + 'administration/authorRequest/all-author-requests');
+  }
+
+  getAllUnderReviewRequests(): Observable<PagedResults<Request>> {
+    return this.http.get<PagedResults<Request>>(environment.apiHost + 'administration/authorRequest/all-under-review');
+  }
+
+  updateRequest(request: Request): Observable<Request> {
+    return this.http.put<Request>(environment.apiHost + 'administration/authorRequest/' + request.id + '/' + request.profileId + '/' + request.status, request);
+  }
+
+  // USER
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>('https://localhost:44333/api/users/whole/' + id);
+  }
+
+  updateUser(user: User): Observable<User> {
+    console.log("dakle posle ovog: ", user);
+    return this.http.put<User>('https://localhost:44333/api/users/updateUser/' + user.id + "/" + user.role, user);
   }
 }

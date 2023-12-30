@@ -1,0 +1,147 @@
+/* tourist-followers.component.css */
+.followers-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    color: rgb(0, 0, 0);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    box-shadow: none;
+  }
+  .center-class {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-direction: column;
+  }
+  .follower-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(7.95vw, 1fr));
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .follower-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: none;
+    width: 5vw;
+    margin: auto; /* Center horizontally */
+  }
+  
+  .profile-picture {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .follower-details {
+    text-align: center;
+  }
+  
+  .message-button {
+    margin-top: 20px;
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .message-button:hover {
+    background: white;
+    color: black;
+    border: 1px solid rgb(56, 28, 117);
+  }
+  
+  h1{
+    color: rgb(56, 28, 117);
+    margin-bottom: 30px;
+  }
+  
+.find-people-button {
+  margin-top: 30px;
+  background: white;
+  color: black;
+  border: 1px solid rgb(56, 28, 117);
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+  
+.find-people-button:hover {  
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  border: none;
+}
+
+.message-form-wrapper {
+  position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40vw;
+    height: 25vw;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.close-button {
+  position: absolute;
+  top: 0; /* Adjusted position */
+  right: 0; /* Adjusted position */
+  margin: 10px; /* Added margin for better spacing */
+  color: rgb(56, 28, 117); /* Updated color */
+  cursor: pointer; /* Added cursor style */
+}
+
+.profile-link {
+  text-decoration: none; /* Remove underline */
+}
+
+.profile-link:hover {
+  font-weight: bold;
+}
+
+/* styles.css or styles.scss */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.red-text {
+  color: red;
+  font-size: 18px;
+  margin-bottom: 20px; /* Optional: Add margin for spacing between the text and the button */
+}
+
+.black-text {
+  color: black;
+  font-size: 18px;
+  margin-bottom: 20px; /* Optional: Add margin for spacing between the text and the button */
+}
+
+.center-button {
+  text-align: center;
+  border-color: white;
+}

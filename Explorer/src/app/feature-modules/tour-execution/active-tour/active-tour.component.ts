@@ -30,8 +30,10 @@ export class ActiveTourComponent implements OnInit {
   public markerList: Marker[] = [];
   public markersReady: Promise<boolean>;
   public encounters: Encounter[] = []
-  public activeEncounters: any = []
+  public activeEncounters: ActiveEncounter[] = []
+  public activeEncounter:Encounter;
   public encounterMapMaterials: EncounterMapMaterial[] = []
+  public activePeopleList:number[]= []
   public counter:number = 1
   public userIcon = L.icon({
     iconUrl: 'https://cdn-icons-png.flaticon.com/512/3710/3710297.png',
@@ -54,8 +56,9 @@ export class ActiveTourComponent implements OnInit {
       })
     })
     this.getEncounters();
+    this.getActiveEncounters()
     setInterval(async ()=>{
-      this.getActiveEncounters()
+      this.proveraLokacija(this.activeEncounter)
     },10000)
   }
 
@@ -82,32 +85,47 @@ export class ActiveTourComponent implements OnInit {
       if (event.encounterId == encounter.id) {
         encounter.status = 0;
         this.tourExecutionService.updateEncounter(encounter).subscribe();
-        this.tourExecutionService.postActiveEncounters({encounterId:encounter.id!.toString(),end:(new Date()),state:1,touristId:userId.toString()})
+        this.tourExecutionService.postActiveEncounters({encounterId:encounter.id!,end:(new Date()),state:1,touristId:userId})
+        this.activeEncounter = encounter
         this.getEncounters()
       }
     }
   }
+
   proveraLokacija(encounter: Encounter) {
-    const userId = this.authService.user$.value.id;
-    let userInfo = localStorage.getItem(userId.toString());
-    let userInfoParsed = JSON.parse(userInfo!);
-  
-    if (userInfoParsed.substring(0, 2) == '{"') {
-      var start: L.LatLng = new L.LatLng(userInfoParsed.latitude, userInfoParsed.longitude);
-      var end: L.LatLng = new L.LatLng(encounter.latitude, encounter.longitude);
-  
-      // Check if encounter.range is not null before using it
-      if (encounter.range !== null && this.calculateDistance(start, end) < encounter.range) {
-        return true;
-      } else {
-        return false;
+    let allKeys:any = this.allStorage();
+    let activePeopleList = []
+    for (let i = 0; i < allKeys.length; i++) {
+      const element = allKeys[i];
+      if (element!.substring(0, 2) == '{"') {
+        let userInfoParsed = JSON.parse(element!);
+        var start: L.LatLng = new L.LatLng(userInfoParsed.latitude, userInfoParsed.longitude);
+        var end: L.LatLng = new L.LatLng(encounter.latitude, encounter.longitude);
+        if (encounter.range !== null && this.calculateDistance(start, end) < encounter.range) {
+          activePeopleList.push(userInfoParsed.userId)
+        } else {
+          return false;
+        }
+      }
+      return false;
+    }
+    if (encounter!.peopleCount! <= this.activePeopleList.length) {
+      for (let i = 0; i < this.activeEncounters.length; i++) {
+        let element = this.activeEncounters[i];
+        for (let j = 0; j < this.activePeopleList.length; j++) {
+          const userId = this.activePeopleList[j];
+          if (element.encounterId == encounter.id && element.touristId == userId) {
+            element.state = 1
+            this.tourExecutionService.updateActiveEncounters(element).subscribe((data)=>{
+              console.log(data);
+            })
+          }
+        }
       }
     }
-  
-    return false;
+    return true;
   }
   
-
   allStorage() {
     var values = [],
       keys = Object.keys(localStorage),
@@ -120,6 +138,7 @@ export class ActiveTourComponent implements OnInit {
     return values;
   }
 
+
   ispisEncounters() {
     let tempEncounterMapMaterials: EncounterMapMaterial[] = []
     for (let i = 0; i < this.encounters.length; i++) {
@@ -127,11 +146,11 @@ export class ActiveTourComponent implements OnInit {
       let encounter = this.encounters[i];
       for (let i = 0; i < this.activeEncounters.length; i++) {
         const activeEncounter:ActiveEncounter = this.activeEncounters[i];
-        if (encounter.id == parseInt(activeEncounter.encounterId)) {
+        if (encounter.id == activeEncounter.encounterId) {
           isActive = true;
         }
       }
-      let encounterMapMaterial: EncounterMapMaterial = { lat: encounter.latitude, lng: encounter.longitude, activeCount: this.activeEncounters.length, isActive: isActive, encounterId: encounter.id }
+      let encounterMapMaterial: EncounterMapMaterial = { lat: encounter.latitude, lng: encounter.longitude, activeCount: this.activePeopleList.length, isActive: isActive, encounterId: encounter.id }
       tempEncounterMapMaterials.push(encounterMapMaterial)
     }
     this.encounterMapMaterials = tempEncounterMapMaterials;

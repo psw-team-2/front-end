@@ -1,19 +1,24 @@
-<p id="entity-title-paragraph">Purchase reports</p>
-<table class="reports-table">
-  <thead>
-    <tr>
-      <th>Item id</th>
-      <th>Purchase date</th>
-      <th>Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let report of reports">
-      <td>{{ report.id }}</td>
-      <td>{{ report.purchaseDate | date:'dd.MM.yyyy'}}</td>
-      <td>{{ report.adventureCoin }}</td>   
-    </tr>
-  </tbody>
-  
-</table>
+<div class="center-class">
+  <div class="user-title-section">
+    <h1>PURCHASE REPORT</h1>
+  </div>
+  <div class="table-container">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>Item id</th>
+          <th>Purchase date</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of reports">
+          <td>{{ report.id }}</td>
+          <td>{{ report.purchaseDate | date:'dd.MM.yyyy'}}</td>
+          <td>{{ report.adventureCoin }}</td>   
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 

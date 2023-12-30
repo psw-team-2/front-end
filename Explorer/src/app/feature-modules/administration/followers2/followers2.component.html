@@ -3,10 +3,14 @@
   <div class="followers-container">
     <h1>Your Followers:</h1>
     <div class="follower-list">
-      <div *ngFor="let individualFollower of followers" class="follower-card">
-        <img class="profile-picture" src="{{ individualFollower.profilePicture }}" alt="">
+      <div *ngFor="let individualFollower of followers" class="follower-card"> 
+        <a [routerLink]="['/app-user-profile', individualFollower.id]" class="profile-link">
+          <img class="profile-picture" src="{{ individualFollower.profilePicture }}" alt="">
+          <div class="follower-details">
+            <div class="name">{{ individualFollower.firstName }} {{ individualFollower.lastName }}</div>
+          </div>
+        </a>        
         <div class="follower-details">
-          <div class="name">{{ individualFollower.firstName }} {{ individualFollower.lastName }}</div>
           <button class="message-button" (click)="sendMessageTo(individualFollower)">Message</button>
         </div>
       </div>

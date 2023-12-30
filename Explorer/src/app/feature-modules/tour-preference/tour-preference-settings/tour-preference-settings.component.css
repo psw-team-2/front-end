@@ -1,0 +1,173 @@
+/* tour-preference.component.css */
+.center-class {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+  
+  .preferences-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    color: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 70vw;
+    box-shadow: none;
+  }
+  .toggle-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+  }
+  
+  .toggle-text {
+    margin-left: 5px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .custom-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .preference {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  }
+  
+  .input-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: none; /* Remove the shadow around the table */
+    margin-top: 20px;
+  }
+  
+  .input-table td {
+    padding: 10px;
+    border: 0px solid #ccc;
+  }
+  
+  .form-control {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .remove-tag-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+  }
+  .add-tag-button {
+    background: none;
+    padding-bottom: 10px;
+    border: none;
+    cursor: pointer;
+    color: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  }
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .tag-box {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 4px;
+  }
+  
+  
+  .edit-button {
+    margin-top: 20px;
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .save {
+    background: white;
+    color: black;
+    border: 1px solid rgb(56, 28, 117);
+  }
+  
+  td {
+    width: 20vw;
+  }
+  .short-input {
+    width: 80%; /* Adjust the width as needed */
+  }
+  
+  .tag-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .save:hover {
+    margin-top: 20px;
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .edit-button:hover {
+    background: white;
+    color: black;
+    border: 1px solid rgb(56, 28, 117);
+  }
+
+  h1{
+    color: rgb(56, 28, 117);
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 20px;
+    font-size: 2vw;
+    display: flex;
+    align-items: center; /* Vertically center text */
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    color: black;
+  }
+
+  .q-button{
+  margin: 30px;
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  }

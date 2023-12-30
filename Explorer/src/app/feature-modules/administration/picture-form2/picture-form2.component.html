@@ -1,10 +1,22 @@
-<!-- picture-form2.component.html -->
+<!-- picture-form.component.html -->
 <div class="form-container">
-    <form [formGroup]="pictureForm">
-      <div class="button-container">
-        <button class="action-button" mat-raised-button color="primary" (click)="fileInput.click()">Select a New Profile Picture</button>
-        <input hidden #fileInput type="file" (change)="onFileSelected($event)">
-        <button class="action-button" mat-raised-button type="submit" color="primary" (click)="changePicture()">Change Profile Picture</button>
+  <div class="label">Change profile picture</div>
+  <form [formGroup]="pictureForm">
+    <div class="button-container">
+
+      <div class="img-cont" (click)="fileInput.click()">
+        <div class="overlay">
+            <mat-icon class="picture-icon">add</mat-icon>
+        </div>
+        <img class="profile-picture" *ngIf="!currentFile && profile.profilePicture==='/'" src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg" alt="">
+        <img *ngIf="currentFile " src="https://localhost:44333/Images/{{currentFile.name}}" alt="Selected Image" class="thumbnail"/>
+        <img *ngIf="!currentFile && profile.profilePicture!=='/'" src="{{profile.profilePicture}}" class="thumbnail"/>
       </div>
-    </form>
-  </div>
+      <input hidden #fileInput type="file" (change)="onFileSelected($event)">
+      <!-- <button class="action-button" mat-raised-button color="primary" (click)="fileInput.click()">Upload</button> -->
+      
+      <input hidden #fileInput type="file" (change)="onFileSelected($event)">
+      <button *ngIf="currentFile" class="action-button" mat-raised-button type="submit" color="primary" (click)="changePicture()">Confirm</button>
+    </div>
+  </form>
+</div>
