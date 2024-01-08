@@ -200,6 +200,13 @@ ngOnInit(): void {
     });
   }
 
+  isTourReportDefined(blog: Blog | undefined){
+    if(blog && blog.tourReport != undefined){
+      return true;
+    }
+    return false;
+  }
+
 }
 
     
