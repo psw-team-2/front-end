@@ -96,29 +96,6 @@ export class ProfileComponent implements OnInit{
   toggleForm() {
     this.formState = this.formState === 'expanded' ? 'collapsed' : 'expanded';
   }
-
-  onSendRequestClick(): void {
-    // Hiding the button immediately
-  this.profile[0].requestSent = true;
-
-  const request: Request = {
-    id: 0,
-    profileId: this.profile[0].id,
-    status: 0
-  }
-
-  this.service.addRequest(request).subscribe({
-    next: (newRequest: Request) => {
-      alert('You have successfully sent a request to become an author!');
-      console.log(request);
-    },
-    error: (err: any) => {
-      console.error('Error while sending a request:', err);
-      // If an error occurs, revert the requestSent flag back to false to display the button again
-      this.profile[0].requestSent = false;
-    }
-  });
-}
 }
 
 

@@ -10,6 +10,10 @@
     width: 90%;
     box-shadow: none;
   }
+  img{
+    max-width: 25vw;
+  }
+  
   .center-class {
     display: flex;
     justify-content: left;

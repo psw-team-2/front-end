@@ -6,10 +6,12 @@
       <button class="settings-button" [ngClass]="{'bold-text': selectedProfile && showEditProfileForm}" (click)="onEditClicked(profile)">👤 Profile</button>
       <button class="settings-button" [ngClass]="{'bold-text': showProfilePreferences}" (click)="onTourPreferencesClicked()">🌟 Tour Preferences</button>
       <button class="settings-button" [ngClass]="{'bold-text': showPurchase}" (click)="onPurchaseReportsClicked()">💰 Purchase Reports</button>
-      <button class="settings-button" [ngClass]="{'bold-text': showProfilePictureForm}" (click)="onChangeClicked(profile)">🌍 Questionnaire</button>
+      <button class="settings-button" [ngClass]="{'bold-text': showBecomeAnAuthor}" (click)="onAuthorClicked(profile)">🌍 Become an author</button>
+      <button class="settings-button" [ngClass]="{'bold-text': showProfilePictureForm}" (click)="onChangeClicked(profile)">🚀 Questionnaire</button>
     </div>
 
     <div class="settings-content">
+      <xp-tourist-to-author *ngIf="selectedProfile && showBecomeAnAuthor" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-tourist-to-author>
       <xp-profile-form *ngIf="selectedProfile && showEditProfileForm" (profileUpdated)="getByUserId()" [profile]="selectedProfile"></xp-profile-form>
       <xp-tour-preference-settings *ngIf="showProfilePreferences"></xp-tour-preference-settings>
       <xp-purchase-report *ngIf="showPurchase"></xp-purchase-report>
@@ -22,7 +24,10 @@
         <div *ngIf="profile.questionnaireDone">
           <h1 class="class-h1">Questionnaire</h1>
           <div class="center-class">
-            <p class="has-margin-bottom">You have already completed the questionnaire!</p>
+            <p >You have already completed the questionnaire!</p>
+          </div>
+          <div class="center-class">
+            <img src="assets/images/Completed-pana.png">
           </div>
         </div>
       </div>

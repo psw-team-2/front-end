@@ -30,11 +30,7 @@
       <div class="motto emphasized">{{ individualProfile.motto }}</div>
       <div class="label">Wallet balance:</div>
       <div class="wallet emphasized">{{ wallet.ac }} AC</div>
-      <label class="label">Request to become an author:</label>
-      <div *ngIf="(profile.length > 0) && (profile[0].numberOfCompletedTours < 10)">Complete as least 10 tours</div>
-      <button class="action-button" mat-raised-button *ngIf="(profile.length > 0) && (!profile[0].requestSent) && (profile[0].numberOfCompletedTours > 9)" (click)="onSendRequestClick()">Send a request to become an author</button>
-      <div *ngIf="(profile.length > 0) && (profile[0].requestSent)">Your request to become an author is under review</div>
-    </div>      
+      </div>      
   </div>
 </div>
 <div class="center-class">

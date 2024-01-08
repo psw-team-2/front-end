@@ -6,14 +6,14 @@
     <table class="user-table">
       <thead>
         <tr>
-          <th>Item id</th>
+          <th>Item</th>
           <th>Purchase date</th>
           <th>Price</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let report of reports">
-          <td>{{ report.id }}</td>
+          <td>{{ report.tourName }}</td>
           <td>{{ report.purchaseDate | date:'dd.MM.yyyy'}}</td>
           <td>{{ report.adventureCoin }}</td>   
         </tr>

@@ -1,5 +1,5 @@
 
-<div class="center-class">  
+<div *ngIf="!hasFollowers" class="center-class">  
     <div class="followers-container">
       <h1>Followers:</h1>
       <div *ngIf="profileFollowed" class="container">
@@ -24,4 +24,11 @@
         </div>
       </div>
     </div>  
+</div>
+<div *ngIf="hasFollowers" class="center-class">  
+  <div class="followers-container">
+    <h1>Followers:</h1>
+    <p class="no-posts-message"><b>This user doesn't have any followers 🚶‍♂️</b></p>
+    <img src="assets/images/Followers-rafiki.png" alt="Image Description">
+  </div>  
 </div>
