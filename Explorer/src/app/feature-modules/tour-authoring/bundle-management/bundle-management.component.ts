@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Bundle } from '../model/bundle.model';
+import { Bundle, BundleStatus } from '../model/bundle.model';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { TourAuthoringService } from '../tour-authoring.service';
@@ -48,17 +48,24 @@ export class BundleManagementComponent implements OnInit {
 
   publishBundle(bundle: Bundle): void {
     if (bundle !== undefined) {
+      const originalStatus = bundle.status; // Save the original status
+  
       this.service.publishBundle(bundle).subscribe({
         next: () => {
           this.getBundlesByAuthorId(this.userId);
+  
+          // Check if the status has changed
+          if (bundle.status === BundleStatus.Draft) {
+            window.alert('Status has not been changed. Bundle needs 2 tours that are published');
+          } 
         },
       });
     } else {
       // Handle the case where id is undefined (optional)
       console.error('Cannot publish this bundle');
     }
-
   }
+  
 
   deleteBundle(id: number | undefined): void {
     if (id !== undefined) {

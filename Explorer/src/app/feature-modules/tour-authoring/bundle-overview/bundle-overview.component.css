@@ -72,9 +72,9 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 16px;
-    color: #2E003D;
+    color:  rgb(56, 28, 117);
     background-color: #ffffff;
-    border: 0.2vw solid #2E003D;
+    border: 0.2vw solid rgb(56, 28, 117);
     border-radius: 0.375vw;
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s;
@@ -82,7 +82,7 @@
   }
   
   .bundle .view-button:hover {
-    background-color: #2E003D;
+    background-color:  rgb(56, 28, 117);;
     color: #ffffff;
   }
 
@@ -92,7 +92,7 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 16;
-    color: #2E003D;
+    color: rgb(56, 28, 117);
     background-color: #ffffff;
     border: 0.2vw solid #2E003D;
     border-radius: 0.375vw;
@@ -112,7 +112,7 @@
   }
   
   .cart-button:hover {
-    background-color: #2E003D;
+    background-color: rgb(56, 28, 117);;
     color: #ffffff;
   }
   
@@ -120,7 +120,7 @@
     position: absolute;
     bottom: 7px;
     left: 25px;
-    background: #2E003D;
+    background:  rgb(56, 28, 117);;
     color: 2E003D;
     width: 12px;
     height: 12px;
@@ -152,7 +152,7 @@
     position: absolute;
     bottom: 7px;
     left: 25px;
-    background: #2E003D;
+    background:  rgb(56, 28, 117);;
     color: 2E003D;
     width: 12px;
     height: 12px;

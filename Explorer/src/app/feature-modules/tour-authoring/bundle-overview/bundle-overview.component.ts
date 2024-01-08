@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Router } from '@angular/router';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { OrderItem } from '../../marketplace/model/order-item.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'xp-bundle-overview',
@@ -20,7 +21,7 @@ export class BundleOverviewComponent implements OnInit{
   isLogged: boolean;
   userId: Number;
   orderItems: OrderItem[];
-  constructor(private service: TourAuthoringService, private authService: AuthService,private router: Router) { }
+  constructor(private service: TourAuthoringService, private authService: AuthService,private router: Router,  private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getAllBundles();
@@ -65,6 +66,8 @@ export class BundleOverviewComponent implements OnInit{
         this.service.addBundleToCart(this.shoppingCart, bundle).subscribe({
           next: () => {
             this.numberOfItems += 1;
+            this.showSuccessNotification('Bundle Added to cart');
+          
           },
           error: () => {
           }
@@ -72,6 +75,11 @@ export class BundleOverviewComponent implements OnInit{
         })
       }
     })
+  }
+  showSuccessNotification(message: string): void {
+    this.snackBar.open(message, 'OK', {
+      duration: 3000, // Set the duration for which the notification should be visible (in milliseconds)
+    });
   }
 
 }

@@ -83,7 +83,9 @@ form {
   display: flex;
   align-items: center; /* Align buttons vertically in the center */
 }
-
+.all{
+  min-height: 100vh;
+}
 .action-button-ng {
   margin-bottom: 20px;
   margin-top: 20px;

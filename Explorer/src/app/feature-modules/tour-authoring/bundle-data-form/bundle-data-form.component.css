@@ -1,5 +1,7 @@
 
-
+.all{
+  min-height: 100vh;
+}
 .form-container {
   max-width: 60%;
   background: white;

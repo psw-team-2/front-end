@@ -41,7 +41,7 @@ export class CreateQuestionComponent {
     this.touristService.createQuestion(question).subscribe({
       next: (createdQuestion) => {
         this.selectedQuestion = createdQuestion; 
-        this.showSuccessNotification('Question sent successfully!');
+        this.showSuccessNotification('You will receive an email when the question gets answered!');
         this.questionForm.reset();
         this.router.navigate(['/faq']);
       },

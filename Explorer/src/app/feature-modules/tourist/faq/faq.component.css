@@ -13,18 +13,10 @@
     margin-right: auto;
     
   }
-  
-  .create-button {
-    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 15px;
-    padding: 10px 15px;
-    margin-bottom: 20px;
+  .all{
+    min-height: 100vh;
   }
-  
+
   .bundle-list {
     display: flex;
     flex-wrap: wrap;
@@ -118,14 +110,16 @@
 }
 
 .create-button {
-    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    background: rgb(56, 28, 117);
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-left: 1160px; /* Dodajte margine prema potrebi */
-    margin-top: 40px;
-    z-index: 0;
+    font-size: 15px;
+    padding: 10px 15px;
+    margin: auto; /* Set margin to 'auto' for centering and add 200px right margin */
+    display: block;
+
 }
 
 .paragraf {
