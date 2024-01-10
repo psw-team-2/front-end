@@ -23,8 +23,8 @@
   <!-- Right column for Added Tours -->
   <div class="column">
     <h1 class="header">Added Tours</h1>
-    <div *ngIf="addedTours.length >= 2" class="button-container create-button">
-      <button (click)="createComplexTour()">Create</button>
+    <div *ngIf="addedTours.length >= 2" class="button-container">
+      <button (click)="createComplexTour()" class="create-button">Create Tour</button>
     </div>
     <div *ngFor="let tour of addedTours" class="card">
       <div class="details">
