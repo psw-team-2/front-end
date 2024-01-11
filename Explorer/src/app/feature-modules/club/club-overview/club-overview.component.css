@@ -249,16 +249,20 @@ img
   margin-right: 10px;
 }
 
-.new-message button {
-  background-color: #0084ff;
+button {
+  margin-top: 30px;
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 14px;
+  font-family: Roboto, sans-serif;
 }
 
-.new-message button:hover {
-  background-color: #0056b3;
+button:hover {
+  background: white;
+  color: black;
+  border: 1px solid rgb(56, 28, 117);
 }

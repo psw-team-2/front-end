@@ -43,8 +43,8 @@
                 </div>  
             </td>
             <td class="right-side">
+                <h2>Chatroom</h2>
                 <div class="chat-container">
-                    <h2>Chatroom</h2>
                     <div *ngFor="let message of clubMessages">
                         <p>
                           <strong>{{ senderProfiles[message.userId]?.firstName }} {{ senderProfiles[message.userId]?.lastName }}:</strong> {{ message.text }}
@@ -61,4 +61,4 @@
         </table>
         </div>         
     
-</div>    
+</div>

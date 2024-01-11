@@ -84,6 +84,7 @@ export class ClubOverviewComponent {
               console.log("Club message successfully sent!");
               console.log(clubMessage.text);
               this.getClubMessages(this.clubId);
+              this.clubMessageForm.reset();
             }
           });
         }
