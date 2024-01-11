@@ -14,51 +14,54 @@
     <div class="center-class">
         <table class="split-table">
             <tr>
-            <td class="left-side">
-                <div class="upper-start">            
-                    <div class="followers-container">
-                        <h2>Members:</h2>
-                        <div class="follower-list">
-                            <div *ngFor="let individualFollower of allMembersProfiles" class="follower-card">
-                            <img class="profile-picture" src="{{ individualFollower.profilePicture }}" alt="">
-                            <div class="follower-details">
-                                <div class="name">{{ individualFollower.firstName }} {{ individualFollower.lastName }}</div>
-                                <button class="message-button" *ngIf="isOwner && individualFollower.userId !== club?.ownerId" (click)="kickMember(individualFollower.userId)">Kick</button>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="followers-container">
-                    <h2>Invite:</h2>
-                    <div class="follower-list">
-                        <div *ngFor="let individualFollower of nonMembersProfiles" class="follower-card">
-                        <img class="profile-picture" src="{{ individualFollower.profilePicture }}" alt="">
-                        <div class="follower-details">
-                            <div class="name">{{ individualFollower.firstName }} {{ individualFollower.lastName }}</div>
-                            <button class="message-button" (click)="inviteMember(individualFollower.userId)">Invite</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>  
-            </td>
-            <td class="right-side">
+            <td class="center-class">
                 <h2>Chatroom</h2>
                 <div class="chat-container">
                     <div *ngFor="let message of clubMessages">
-                        <p>
-                          <strong>{{ senderProfiles[message.userId]?.firstName }} {{ senderProfiles[message.userId]?.lastName }}:</strong> {{ message.text }}
+                        <p *ngIf="message.userId === user?.id" class="user-message">
+                            {{ message.text }}
                         </p>
+                        <p *ngIf="message.userId !== user?.id">
+                            <strong>{{ senderProfiles[message.userId]?.firstName }} {{ senderProfiles[message.userId]?.lastName }}:</strong> {{ message.text }}
+                          </p>
                     </div>
                   </div>
-
                   <div class="new-message" [formGroup]="clubMessageForm">
                     <input formControlName="newMessageText" placeholder="Type your message..." />
                     <button (click)="addClubMessage()">Send</button>
                   </div>
             </td>
             </tr>
+            <tr>
+                <td class="center-class">
+                    <div class="upper-start">            
+                        <div class="followers-container">
+                            <h2>Members:</h2>
+                            <div class="follower-list">
+                                <div *ngFor="let individualFollower of allMembersProfiles" class="follower-card">
+                                <img class="profile-picture" src="{{ individualFollower.profilePicture }}" alt="">
+                                <div class="follower-details">
+                                    <div class="name">{{ individualFollower.firstName }} {{ individualFollower.lastName }}</div>
+                                    <button class="message-button" *ngIf="isOwner && individualFollower.userId !== club?.ownerId" (click)="kickMember(individualFollower.userId)">Kick</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="followers-container">
+                        <h2>Invite:</h2>
+                        <div class="follower-list">
+                            <div *ngFor="let individualFollower of nonMembersProfiles" class="follower-card">
+                            <img class="profile-picture" src="{{ individualFollower.profilePicture }}" alt="">
+                            <div class="follower-details">
+                                <div class="name">{{ individualFollower.firstName }} {{ individualFollower.lastName }}</div>
+                                <button class="message-button" (click)="inviteMember(individualFollower.userId)">Invite</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>  
+                </td>
+            </tr>
         </table>
-        </div>         
-    
+        </div>
 </div>
