@@ -186,6 +186,8 @@
   .all{
     min-height: 100vh;
     margin-bottom: 35vh;
+    margin-left: 2.5vh;
+    margin-right: 2.5vh;
   }
   .tour-container {
     display: flex;
@@ -457,6 +459,6 @@
     margin-right: 20%;
     text-align: center;
     font-size: 18px; /* You can adjust this value based on your preference */
-}
+  }
 
   

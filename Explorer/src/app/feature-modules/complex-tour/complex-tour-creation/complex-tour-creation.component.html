@@ -82,37 +82,38 @@
 
 </div>
 <!-- Display Checkpoints when the section is active -->
-<div *ngIf="secondSectionActive">
-  <div class="column">
-    <h1 class="user-title">New composed tour</h1>
-    <div class="tour-info-container">
-      <p><b>Total Difficulty:</b> {{ totalDifficulty }}</p>
-      <p><b>Total Distance:</b> {{ totalDistance }}</p>
-      <p><b>Unique Tags:</b> {{ allTags.join(', ') }}</p>
-    </div>
-  </div>
 
-  <div class="column">
-    <h1 class="user-title">Checkpoints</h1>
-    <div *ngFor="let checkpoint of globalCheckpoints">
-      <div class="checkpoint-rectangle">{{ checkpoint.name }}</div>
+  <div *ngIf="secondSectionActive">
+    <div class="column">
+      <h1 class="user-title">New composed tour</h1>
+      <div class="tour-info-container">
+        <p><b>Total Difficulty:</b> {{ totalDifficulty }}</p>
+        <p><b>Total Distance:</b> {{ totalDistance }}</p>
+        <p><b>Unique Tags:</b> {{ allTags.join(', ') }}</p>
+      </div>
     </div>
-    <div *ngIf="globalCheckpoints.length < 1">
-      <img src="../../../../assets/icons/empty.png" alt="No Checkpoints Image" class="icon-empty">
-      <label class="icon-description">There are currently no checkpoints in the composed tour</label>
+
+    <div class="column">
+      <h1 class="user-title">Checkpoints</h1>
+      <div *ngFor="let checkpoint of globalCheckpoints">
+        <div class="checkpoint-rectangle">{{ checkpoint.name }}</div>
+      </div>
+      <div *ngIf="globalCheckpoints.length < 1">
+        <img src="../../../../assets/icons/empty.png" alt="No Checkpoints Image" class="icon-empty">
+        <label class="icon-description">There are currently no checkpoints in the composed tour</label>
+      </div>
     </div>
+    
+    <div class="column">
+      <h1 class="user-title">Equipment</h1>
+      <div *ngFor="let equipment of allEquipment">
+        <div class="checkpoint-rectangle">{{ equipment.name }}</div>
+      </div>
+      <div *ngIf="allEquipment.length < 1">
+        <img src="../../../../assets/icons/empty.png" alt="No Equipment Image" class="icon-empty">
+        <label class="icon-description">There is currently no equipment in the composed tour</label>
+      </div>
+      <button (click)="saveComplexTour()" class="create-button" style="margin-left: 5px; margin-right: auto; margin-top: 4vh; margin-bottom: auto;">Create Composed Tour</button>
+    </div>  
   </div>
-  
-  <div class="column">
-    <h1 class="user-title">Equipment</h1>
-    <div *ngFor="let equipment of allEquipment">
-      <div class="checkpoint-rectangle">{{ equipment.name }}</div>
-    </div>
-    <div *ngIf="allEquipment.length < 1">
-      <img src="../../../../assets/icons/empty.png" alt="No Equipment Image" class="icon-empty">
-      <label class="icon-description">There is currently no equipment in the composed tour</label>
-    </div>
-    <button (click)="saveComplexTour()" class="create-button" style="margin-left: 5px; margin-right: auto; margin-top: auto; margin-bottom: auto;">Create Composed Tour</button>
-  </div>  
-</div>
 </div>
