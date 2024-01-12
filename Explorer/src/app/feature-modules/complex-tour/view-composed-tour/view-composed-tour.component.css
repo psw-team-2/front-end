@@ -1,5 +1,5 @@
 
-  /* Styles for the bundles section */
+  /* Styles for the tours section */
 .tour-list {
     position: relative;
     width: 100%;
@@ -9,6 +9,7 @@
   }
   .all{
     min-height: 100vh;
+    margin-bottom: 35vh;
   }
   .tour-container {
     display: flex;
@@ -107,10 +108,6 @@
     right: 10px; /* Postavlja na desnu stranu stranice */
   }
   
-  .cart-button i.fas.fa-shopping-cart::before {
-    margin-right: 5px; /* Margina sa desne strane ikone */
-    font-size: 20px; /* Veličina ikone korpe */
-  }
   
   .cart-button:hover {
     background-color: #2E003D;
@@ -252,6 +249,7 @@
   .tour-price p,
   .tour-status p {
     margin: 0;
+    text-align: left;
   }
   
   .tour-actions {
@@ -263,7 +261,7 @@
   .tour-actions button {
     font-size: 14px !important; /* Adjust the font size as needed */
     margin-top: 5px;
-    margin-right: 8px;
+    margin-right: 9px;
   }
   
   
@@ -303,7 +301,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-left: 1150px;
+    margin-left: 1025px;
   }
   .create-button:hover {
     background: white;
@@ -321,11 +319,7 @@
     padding: 10px;
     margin-left: 20%;
     margin-right: 20%;
+    text-align: center; /* Added to center all text within the description */
   }
   
-  .description > p {
-    font-size: 0.8em;
-    margin-top: 0.5em;
-    text-align: center; /* Add this line to center the text */
-  }
   
