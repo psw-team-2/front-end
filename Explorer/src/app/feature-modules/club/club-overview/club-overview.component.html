@@ -23,7 +23,7 @@
                         </p>
                         <p *ngIf="message.userId !== user?.id">
                             <strong>{{ senderProfiles[message.userId]?.firstName }} {{ senderProfiles[message.userId]?.lastName }}:</strong> {{ message.text }}
-                          </p>
+                        </p>
                     </div>
                   </div>
                   <div class="new-message" [formGroup]="clubMessageForm">

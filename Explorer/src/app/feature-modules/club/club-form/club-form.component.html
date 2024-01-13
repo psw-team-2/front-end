@@ -1,43 +1,47 @@
-
 <div class="message-form-container">
-    <form [formGroup]="clubForm">
-        <div class="form-content">
-            <div class="tablecontent">
-                <table>
-                    <tr class="left">
-                      <td>
-                        <div class="nameContainer">                            
-                            <label>Name: </label>
-                            <input formControlName="name" type="text" />
-                        </div>
-                      </td>
-                      <td>
-                        <label>Description: </label>
-                        <textarea formControlName="description" rows="4" class="fixed-textarea"></textarea>
-                      </td>
-                    </tr>
-                    <tr class="right">
-                      <td colspan="2">
-                        <div class="file-upload-container">
-                          <label>Image:</label>
-                          <button mat-raised-button color="primary" class="upload-button" (click)="fileInput.click()">Upload File</button>
-                          <div class="fixed-width-container">
-                            <input hidden #fileInput class="fixed-width-input" type="file" (change)="onFileSelected($event)">
-                          </div>
-                        </div>
-                      </td>                      
-                    </tr>
-                  </table>
-            </div>
-            <div class="fixed-width-container">
-                <input hidden #fileInput class="fixed-width-input" type="file" (change)="onFileSelected($event)">
-            </div>
-            <div class="uploaded-file-container" *ngIf="currentFile">
-                <span>{{ currentFile.name }}</span>
-                <button icon-button class="delete-button" (click)="deleteFile()">X</button>
-            </div>
-            <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addClub()" mat-raised-button>Done</button>
-            <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateClub()" mat-raised-button>Done</button>
-        </div>
-    </form>
+  <form [formGroup]="clubForm">
+    <div class="form-content">
+      <div class="tablecontent">
+        <table>
+          <tr class="left">
+            <td>
+              <div class="nameContainer">                            
+                <label>Name: </label>
+                <input formControlName="name" type="text" />
+              </div>
+            </td>
+            <td>
+              <label>Description: </label>
+              <textarea formControlName="description" rows="4" class="fixed-textarea"></textarea>
+            </td>
+          </tr>
+          <tr class="right">
+            <td colspan="2">
+              <div class="file-upload-container">
+                <label>Image:</label>
+                <button class="action-button-file" mat-raised-button (click)="fileInput.click()">
+                  <ng-container *ngIf="!currentFile">
+                    <mat-icon style="color: rgb(56, 28, 117);">image</mat-icon>
+                  </ng-container>
+                  <ng-container *ngIf="currentFile">
+                    <mat-icon style="color: rgb(56, 28, 117);">edit</mat-icon>
+                  </ng-container>
+                </button>
+                <br>
+                <img *ngIf="currentFile" [src]="currentFileURL" alt="Selected Image" class="thumbnail" />
+                <div class="fixed-width-container">
+                  <input hidden #fileInput class="fixed-width-input" type="file" (change)="onFileSelected($event)">
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="fixed-width-container">
+          <input hidden #fileInput class="fixed-width-input" type="file" (change)="onFileSelected($event)">
+      </div>
+      <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addClub()" mat-raised-button class="done-button">Done</button>
+      <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateClub()" mat-raised-button>Done</button>
+    </div>
+  </form>
 </div>
