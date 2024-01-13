@@ -1,47 +1,33 @@
-<div class="message-form-container">
-  <form [formGroup]="clubForm">
-    <div class="form-content">
-      <div class="tablecontent">
-        <table>
-          <tr class="left">
-            <td>
-              <div class="nameContainer">                            
-                <label>Name: </label>
-                <input formControlName="name" type="text" />
-              </div>
-            </td>
-            <td>
-              <label>Description: </label>
-              <textarea formControlName="description" rows="4" class="fixed-textarea"></textarea>
-            </td>
-          </tr>
-          <tr class="right">
-            <td colspan="2">
-              <div class="file-upload-container">
-                <label>Image:</label>
-                <button class="action-button-file" mat-raised-button (click)="fileInput.click()">
-                  <ng-container *ngIf="!currentFile">
-                    <mat-icon style="color: rgb(56, 28, 117);">image</mat-icon>
-                  </ng-container>
-                  <ng-container *ngIf="currentFile">
-                    <mat-icon style="color: rgb(56, 28, 117);">edit</mat-icon>
-                  </ng-container>
-                </button>
-                <br>
-                <img *ngIf="currentFile" [src]="currentFileURL" alt="Selected Image" class="thumbnail" />
-                <div class="fixed-width-container">
-                  <input hidden #fileInput class="fixed-width-input" type="file" (change)="onFileSelected($event)">
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
-      <div class="fixed-width-container">
+<div class="center-class">
+  <form [formGroup]="clubForm" class="form-container">
+    <div>
+      <mat-form-field class="center-class">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" type="text" />
+      </mat-form-field>
+      <mat-form-field class="center-class">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" type="text" rows="4" class="fixed-textarea"></textarea>
+      </mat-form-field>
+      <div class="file-upload-container">
+        <p>Image:</p>
+        <button class="action-button-file" mat-raised-button (click)="fileInput.click()">
+          <ng-container *ngIf="!currentFile">
+            <mat-icon style="color: rgb(56, 28, 117);">image</mat-icon>
+          </ng-container>
+          <ng-container *ngIf="currentFile">
+            <mat-icon style="color: rgb(56, 28, 117);">edit</mat-icon>
+          </ng-container>
+        </button>
+        <br>
+        <img *ngIf="currentFile" [src]="currentFileURL" alt="Selected Image" class="thumbnail" />
+        <img *ngIf="!currentFile" src="https://usercontent.one/wp/www.vocaleurope.eu/wp-content/uploads/no-image.jpg?media=1642546813" alt="" class="thumbnail" />
+        <div class="fixed-width-container">
           <input hidden #fileInput class="fixed-width-input" type="file" (change)="onFileSelected($event)">
+        </div>
       </div>
       <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addClub()" mat-raised-button class="done-button">Done</button>
-      <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateClub()" mat-raised-button>Done</button>
+      <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateClub()" mat-raised-button class="done-button">Done</button>
     </div>
   </form>
 </div>
