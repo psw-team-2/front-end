@@ -17,6 +17,7 @@ export class AppUserClubsComponent {
   @Input() selectedProfile: Profile;
   clubs: Club[] = [];
   selectedClub: Club | null = null; 
+  hasClubs: Boolean = false;
 
   constructor(private service: AdministrationService, private clubService: ClubService, private router: Router) {}
 
@@ -32,6 +33,9 @@ export class AppUserClubsComponent {
         );
         console.log("KLUBOVI");
         console.log(this.clubs);
+        if(this.clubs.length==0){
+          this.hasClubs=true;
+        }
       },
     });
     
@@ -56,6 +60,7 @@ export class AppUserClubsComponent {
         );
         console.log("KLUBOVI");
         console.log(this.clubs);
+
       },
     });
   }

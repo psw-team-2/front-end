@@ -1,16 +1,25 @@
 <!-- club.component.html -->
-<div class="center-class">  
-    <div class="followers-container">
-      <h1>Your Clubs:</h1>
-      <div class="follower-list">
-        <div *ngFor="let individualClub of clubs" class="follower-card">
-          <img class="profile-picture" src="{{ individualClub.imageUrl }}" alt="">
-          <div class="follower-details">
-            <div class="name">{{ individualClub.name }}</div>
-            <button class="message-button" [routerLink]="['/clubs', individualClub.id]">More</button>
-            <!-- <button class="follow-button" color="primary" [routerLink]="['/clubs', club.id]">More</button>    -->
-          </div>
+<div *ngIf="!hasClubs" class="center-class">  
+  <div class="followers-container">
+    <h1>Your Clubs:</h1>
+    <div class="follower-list">
+      <div *ngFor="let individualClub of clubs" class="follower-card">
+        <img class="profile-picture" src="{{ individualClub.imageUrl }}" alt="">
+        <div class="follower-details">
+          <div class="name">{{ individualClub.name }}</div>
+          <button class="message-button" [routerLink]="['/clubs', individualClub.id]">More</button>
+          <!-- <button class="follow-button" color="primary" [routerLink]="['/clubs', club.id]">More</button>    -->
         </div>
       </div>
-    </div>  
-  </div>
+    </div>
+  </div>  
+</div>
+<!-- club.component.html -->
+<div *ngIf="hasClubs" class="center-class">  
+<div class="followers-container">
+  <h1>Clubs:</h1>
+  <p class="no-posts-message"><b>You're not currently in any club 🌐</b></p>
+    <img src="assets/images/Good-team-rafiki.png" alt="Image Description">
+    <router-link [routerLink]="['/clubs']" class="action-button">Join a club</router-link> 
+</div>  
+</div>
