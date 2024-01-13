@@ -27,6 +27,8 @@ export class ClubFormComponent implements OnChanges {
     this.clubForm.reset();
     if(this.shouldEdit) {
       this.clubForm.patchValue(this.club);
+      this.currentFile = new File([], this.club.imageUrl);
+      this.currentFileURL = this.club.imageUrl;
     }
 
     this.authService.user$.subscribe(user => {
