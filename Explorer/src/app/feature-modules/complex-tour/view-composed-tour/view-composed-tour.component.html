@@ -24,17 +24,6 @@
             </div>
             <br>
             <div class="tour-status">
-              <p>Status:
-                <ng-container *ngIf="tour.status === 1">
-                  Published
-                </ng-container>
-                <ng-container *ngIf="tour.status === 0">
-                  Draft
-                </ng-container>
-                <ng-container *ngIf="tour.status === 2">
-                  Archived
-                </ng-container>
-              </p>
             </div>
           </div>
         </div>
@@ -42,14 +31,8 @@
           <button mat-icon-button color="primary" class="action-button" matTooltip="View More" (click)="redirectToComposedTour(tour)">
             <mat-icon>info</mat-icon>
           </button>          
-          <button *ngIf="tour.status === 1" mat-icon-button color="warn" class="action-button" matTooltip="Archive">
-            <mat-icon>archive</mat-icon>
-          </button>
-          <button *ngIf="tour.status === 2 || tour.status === 0" mat-icon-button color="warn" class="action-button" matTooltip="Delete">
+          <button  mat-icon-button color="warn" class="action-button" matTooltip="Delete">
             <mat-icon>delete</mat-icon>
-          </button>
-          <button *ngIf="tour.status === 2 || tour.status === 0" mat-icon-button color="primary" class="action-button" matTooltip="Publish">
-            <mat-icon>publish</mat-icon>
           </button>
         </div>
       </div>
