@@ -1,21 +1,58 @@
-<div>
-    <h1 class="header">Available Tours</h1>
-  <div class="card-container">
-      <div *ngFor="let tour of composedTours" class="card">
-        <div class="remove-when-use">
+<div class="all"> 
+  <div class="user-title-section">
+    <h1 class="user-title">What are composed tours?</h1>
+  </div>
+  <div>
+    <img src="../../../../assets/icons/complex-tours.png" alt="Custom Icon"
+    style="width: 160px; height: 144px; display: block; margin: auto;">
+  </div>
+  <div class="description">
+    As a tourist, you have the ability to create your own campaign of tours. From your collection of purchased tours, you can select at least two to create a composite tour, essentially a tour that combines multiple other tours. The system links the endpoint of one tour with the starting point of another, creating a chain of tours.
+  </div>
+  <div class="user-title-section">
+    <h1 class="user-title">All your composed tours</h1>
+  </div>
+  <button routerLink="/complex-tour-creaton" class="create-button">Create a Composed Tour</button>
+  <div class="tour-container">
+    <div class="tour-list">
+      <div *ngFor="let tour of composedTours" class="tour-item">
+        <div class="image-container">
+          <img [src]="tour && tour.id ? tourImagesMap[tour.id] : ''" alt="Tour Image" class="tour-image" />
+          <div class="overlay">
+            <div class="tour-description">
+              <h3>{{ tour.name }}</h3>
+            </div>
+            <br>
+            <div class="tour-status">
+              <p>Status:
+                <ng-container *ngIf="tour.status === 1">
+                  Published
+                </ng-container>
+                <ng-container *ngIf="tour.status === 0">
+                  Draft
+                </ng-container>
+                <ng-container *ngIf="tour.status === 2">
+                  Archived
+                </ng-container>
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="details">
-          <label>{{ tour.name }}</label>
-          <p>{{ tour.description }}</p>
-          <div class="button-container">
-            <a class="view-button" [routerLink]="'/composed-tour/' + tour.id">
-                <i class="fas fa-info-circle"></i> View more
-            </a>
-        </div>
-          
+        <div class="tour-actions">
+          <button mat-icon-button color="primary" class="action-button" matTooltip="View More" (click)="redirectToComposedTour(tour)">
+            <mat-icon>info</mat-icon>
+          </button>          
+          <button *ngIf="tour.status === 1" mat-icon-button color="warn" class="action-button" matTooltip="Archive">
+            <mat-icon>archive</mat-icon>
+          </button>
+          <button *ngIf="tour.status === 2 || tour.status === 0" mat-icon-button color="warn" class="action-button" matTooltip="Delete">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button *ngIf="tour.status === 2 || tour.status === 0" mat-icon-button color="primary" class="action-button" matTooltip="Publish">
+            <mat-icon>publish</mat-icon>
+          </button>
         </div>
       </div>
-    </div>
+    </div>
   </div>
-
-  
+</div>

@@ -1,68 +1,119 @@
+<div class="all">
 <div class="tour-container" *ngIf="!secondSectionActive">
   <!-- Left column for Displayed Tours -->
   <div class="column">
-    <h1 class="header">Available Tours</h1>
-    <div *ngFor="let tour of displayedTours" class="card">
-      <div class="details">
-        <label>{{ tour.name }}</label>
-        <p>{{ tour.description }}</p>
-        <div class="button-container">
-          <a class="view-button" [routerLink]="'/tour/' + tour.id">
-            <i class="fas fa-info-circle"></i> View more
-          </a>
-        </div>
-        <div class="button-container">
-          <a class="view-button" (click)="addToComplexTour(tour)">
-            <i class="fas fa-add"></i> Add to complex tour
-          </a>
+    <div class="tour-column-container">
+      <div class="user-title-section">
+        <h1 class="user-title">Available Tours</h1>
+      </div>
+      <div class="description">
+        Select which tours you purchased you want to add to the composed tour.
+      </div>  
+      <div  class="button-container">
+        <button (click)="resetAddedTours()" class="create-button">Reset Tours</button>
+      </div>
+      <div class="row-container">
+        <div *ngFor="let tour of displayedTours">
+          <div class="remove-when-use">
+          </div>
+          <div class="tour" *ngIf="tour.status === 1" [ngStyle]="{'background-image': 'url(' + tour.image + ')'}">
+            <div class="details">
+              <label>{{ tour.name }}</label>
+              <p>Difficulty: {{ tour.difficulty }}</p>
+              <div class="button-container">
+                <a class="view-button" [routerLink]="'/tour/' + tour.id">
+                  <i class="fas fa-info-circle"></i> View more
+                </a>
+                <br>
+                <br>
+                <a class="view-button" (click)="addToComplexTour(tour)">
+                  <i class="fas fa-add"></i> Add Tour
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          
         </div>
       </div>
     </div>
   </div>
 
   <!-- Right column for Added Tours -->
-  <div class="column">
-    <h1 class="header">Added Tours</h1>
-    <div *ngIf="addedTours.length >= 2" class="button-container create-button">
-      <button (click)="createComplexTour()">Create</button>
+<div class="column">
+  <div class="tour-column-container">
+    <div class="user-title-section">
+      <h1 class="user-title">Added Tours</h1>
     </div>
-    <div *ngFor="let tour of addedTours" class="card">
-      <div class="details">
-        <label>{{ tour.name }}</label>
-        <p>{{ tour.description }}</p>
-        <div class="button-container">
-          <a class="view-button" [routerLink]="'/tour/' + tour.id">
-            <i class="fas fa-info-circle"></i> View more
-          </a>
+    <div class="description">
+      Continue to the overview of the<br>composed tour.
+    </div>  
+    <div class="button-container">
+      <button [disabled]="addedTours.length < 2" (click)="createComplexTour()" class="create-button">
+        Continue
+      </button>
+    </div>
+    <div class="row-container">
+      <div *ngFor="let tour of addedTours">
+        <div class="remove-when-use">
         </div>
-        <div class="button-container">
-          <a class="view-button" (click)="goBackToDisplayedTours(tour)">
-            <i class="fas fa-minus"></i> Remove from complex tour
-          </a>
+        <div class="tour" *ngIf="tour.status === 1" [ngStyle]="{'background-image': 'url(' + tour.image + ')'}">
+          <div class="details">
+            <label>{{ tour.name }}</label>
+            <p>Difficulty: {{ tour.difficulty }}</p>
+            <div class="button-container">
+              <a class="view-button" [routerLink]="'/tour/' + tour.id">
+                <i class="fas fa-info-circle"></i> View more
+              </a>
+              <br>
+              <br>
+              <a class="view-button" (click)="goBackToDisplayedTours(tour)">
+                <i class="fas fa-minus"></i> Remove Tour
+              </a>
+            </div>
+          </div>
         </div>
+        
+        
       </div>
     </div>
   </div>
 </div>
+
+</div>
 <!-- Display Checkpoints when the section is active -->
-<div *ngIf="secondSectionActive">
-  <div class="column">
-    <h1 class="header">New complex tour</h1>
-    <p>Total Difficulty: {{ totalDifficulty }}</p>
-    <p>Total Distance: {{ totalDistance }}</p>
-    <p>Unique Tags: {{ allTags.join(', ') }}</p>
-  </div>
 
-  <div class="column">
-    <h1 class="header">Checkpoints</h1>
-    <div *ngFor="let checkpoint of globalCheckpoints">
-    <div class = "checkpoint-rectangle">{{ checkpoint.name }}</div>
-  </div>
-  <h1 class="header">Equipment</h1>
-  <div *ngFor="let equipment of allEquipment">
-  <div class = "checkpoint-rectangle">{{ equipment.name }}</div>
-</div>
-<button (click)="saveComplexTour()">Create</button>
-  </div>
-</div>
+  <div *ngIf="secondSectionActive">
+    <div class="column">
+      <h1 class="user-title">New composed tour</h1>
+      <div class="tour-info-container">
+        <p><b>Total Difficulty:</b> {{ totalDifficulty }}</p>
+        <p><b>Total Distance:</b> {{ totalDistance }}</p>
+        <p><b>Unique Tags:</b> {{ allTags.join(', ') }}</p>
+      </div>
+    </div>
 
+    <div class="column">
+      <h1 class="user-title">Checkpoints</h1>
+      <div *ngFor="let checkpoint of globalCheckpoints">
+        <div class="checkpoint-rectangle">{{ checkpoint.name }}</div>
+      </div>
+      <div *ngIf="globalCheckpoints.length < 1">
+        <img src="../../../../assets/icons/empty.png" alt="No Checkpoints Image" class="icon-empty">
+        <label class="icon-description">There are currently no checkpoints in the composed tour</label>
+      </div>
+    </div>
+    
+    <div class="column">
+      <h1 class="user-title">Equipment</h1>
+      <div *ngFor="let equipment of allEquipment">
+        <div class="checkpoint-rectangle">{{ equipment.name }}</div>
+      </div>
+      <div *ngIf="allEquipment.length < 1">
+        <img src="../../../../assets/icons/empty.png" alt="No Equipment Image" class="icon-empty">
+        <label class="icon-description">There is currently no equipment in the composed tour</label>
+      </div>
+      <button (click)="saveComplexTour()" class="create-button" style="margin-left: 5px; margin-right: auto; margin-top: 4vh; margin-bottom: auto;">Create Composed Tour</button>
+    </div>  
+  </div>
+</div>
