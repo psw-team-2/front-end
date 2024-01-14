@@ -11,8 +11,8 @@ body{
     display: grid;
     grid-template-columns: 1fr 1fr; /* Podela na dve kolone */
     gap: 20px; /* Odstupanje između kolona */
-    width: 65%;
-    height: 85%;
+    width: 63%;
+    height: 70%;
     background-color: #ffffff;
     border-radius: 8px;
     flex-direction: column; 
@@ -40,7 +40,7 @@ body{
     text-align: right; /* Postavljanje teksta na desnu stranu */
 }
 
-/* Dodatak za stilizaciju scrollbar-a u drugoj koloni */
+
 .Cart-Container .total,
 .Cart-Container .checkout,
 .Cart-Container .available-balance-label {
@@ -48,7 +48,11 @@ body{
     max-height: 90%;
 }
 
-/* ... Ostatak vašeg CSS-a ostaje nepromenjen ... */
+.discount {
+  width: 250px;
+  margin-top: -30px;
+  margin-bottom: -10px;
+}
 
 h4.discount {
   margin: 0;
@@ -213,7 +217,6 @@ h4.discount {
 }
 
 .total-row {
-  margin-top: 30px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -257,7 +260,7 @@ h4.discount {
     font-weight: 700;
     color: #202020;
     margin-bottom: 80px;
-    margin-right: 5px;
+    margin-right: 10px;
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -272,10 +275,11 @@ h4.discount {
 
 
 .checkout {
-    width: 100%;
+    width: 110%;
     text-align: right;
     font-family: 'Montserrat', sans-serif;
-    margin-top: -50px;
+    margin-top: -70px;
+    margin-left: -27px;
 }
    
    
@@ -291,7 +295,7 @@ h4.discount {
     border-radius: 0.375vw;
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s;
-    width:240px;
+    width:243px;
   }
 
   .button:hover {
@@ -328,6 +332,7 @@ h4.discount {
     justify-content: center;
     text-align: center;
     height: 100%;
+    margin-top: 30px;
 }
 
 .Empty-Cart-Image {
@@ -364,8 +369,8 @@ h4.discount {
  }
 
  .payment-title{
-  margin-bottom: 40px;
-  font-size: 19px; 
+  margin-bottom: 50px;
+  font-size: 21px; 
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   text-align: center;
@@ -380,7 +385,8 @@ h4.discount {
   font-size: 15px;
   font-family: 'Montserrat', sans-serif;
   margin-top: -18px;
-  margin-left: 206px;
+  margin-left: 140px;
+  
 }
 
 .apply-coupon {
@@ -398,6 +404,7 @@ h4.discount {
 .coupon-input-container {
   display: flex;
   align-items: center;
+  margin-bottom: 70px;
 }
 
 .coupon-textarea {
@@ -439,11 +446,13 @@ h4.discount {
 }
 
 .payment{
-  margin-top: 45px;
-  margin-left: 30px;
+  margin-top: 75px;
+  margin-left: 45px;
   overflow: hidden;
 }
 
-
+.custom-dialog-class {
+  border-radius: 20px;
+}
 
 

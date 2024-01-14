@@ -15,6 +15,8 @@ export class Followers2Component {
   profiles: Profile[];
   selectedFollower: Profile | null = null; // Initialize as null
   showMessageForm: boolean = false;
+  hasFollowers: boolean = false;
+
   toggleChat() {
     this.showMessageForm = !this.showMessageForm;
   }
@@ -46,6 +48,10 @@ export class Followers2Component {
       this.service.getAllFollowers2(this.loggedInProfile).subscribe({
         next: (result: PagedResults<Profile>) => {
           this.followers = result.results;
+          if(this.followers.length==0){
+            this.hasFollowers=true;
+            console.log("NEMA FOLLOWERA")
+          }
         },
         error: (err: any) => {
           console.error('Error while getting followers:', err);

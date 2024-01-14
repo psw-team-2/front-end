@@ -21,12 +21,22 @@ export class ProfileSettingsComponent {
   showProfilePreferences: boolean = false;
   showPurchase: boolean = false;
   wallet: Wallet;
+  showBecomeAnAuthor = false;
+
+  toggleBecomeAuthor() {
+    this.showBecomeAnAuthor = true;
+    this.showEditProfileForm =  false;
+    this.showProfilePictureForm = false;
+    this.showProfilePreferences = false;
+    this.showPurchase = false;
+  }
 
   toggleEditProfileForm() {
     this.showEditProfileForm =  true;
     this.showProfilePictureForm = false;
     this.showProfilePreferences = false;
     this.showPurchase = false;
+    this.showBecomeAnAuthor = false;
   }
 
   toggleProfilePictureForm() {
@@ -34,6 +44,7 @@ export class ProfileSettingsComponent {
     this.showEditProfileForm = false;
     this.showProfilePreferences = false;
     this.showPurchase = false;
+    this.showBecomeAnAuthor = false;
   }  
 
   togglePreferencesForm() {
@@ -41,6 +52,7 @@ export class ProfileSettingsComponent {
     this.showEditProfileForm = false;
     this.showProfilePictureForm = false;
     this.showPurchase = false;
+    this.showBecomeAnAuthor = false;
   }
   
   togglePurchaseForm() {
@@ -48,6 +60,7 @@ export class ProfileSettingsComponent {
     this.showEditProfileForm = false;
     this.showProfilePictureForm = false;
     this.showProfilePreferences = false;
+    this.showBecomeAnAuthor = false;
   }
   constructor(private service: AdministrationService , private router: Router) { }
 
@@ -99,5 +112,11 @@ export class ProfileSettingsComponent {
 
   onPurchaseReportsClicked() {
     this.togglePurchaseForm();
+  }
+
+  onAuthorClicked(profile: Profile) {
+    this.selectedProfile = profile;
+    console.log(this.selectedProfile);
+    this.toggleBecomeAuthor();
   }
 }

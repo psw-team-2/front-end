@@ -1,0 +1,16 @@
+<div class="center-class">
+    <h1>BECOME AN AUTHOR</h1>  
+  <div class="text-div">
+      <div>🌟 Embark on a journey of creativity and discovery! 🚀 Become an author with us and share your unique travel experiences, captivating stories, and hidden gems with fellow adventurers around the globe. 🌍✨ Your perspective could inspire, guide, and connect with countless wanderers seeking new horizons.
+      </div>
+      <div>
+        Join our community of storytellers, where every journey is a chapter waiting to be written. 📖✈️ Seize the opportunity to turn your passion for travel into a lasting legacy. 🌈🗺️ Let your adventures unfold on our platform, inviting others to explore the world through your lens.
+      </div>
+      <div>
+        Take the leap, send a request, and let your travel tales inspire a community of avid explorers. 🌟📝 The world is waiting to hear your story! 🌏💫
+      </div>
+  </div>
+  <div class="urgent" *ngIf="profile.numberOfCompletedTours < 10">In order for this request to be enabled, complete at least 10 tours!</div>
+  <button class="action-button" mat-raised-button *ngIf="(!profile.requestSent) && (profile.numberOfCompletedTours > 9)" (click)="onSendRequestClick()">Send a request</button>
+  <div *ngIf="profile.requestSent">Your request to become an author is sent and under review</div>
+</div>

@@ -1,5 +1,5 @@
 <!-- tourist-followers.component.html -->
-<div class="center-class">  
+<div *ngIf="!hasFollowers" class="center-class">  
   <div class="followers-container">
     <h1>Your Followers:</h1>
     <div class="follower-list">
@@ -23,4 +23,15 @@
     </button>
     <xp-message-form [selectedFollower]="selectedFollower"></xp-message-form>
   </div>
+</div>
+
+<!-- tourist-followers.component.html -->
+<div *ngIf="hasFollowers" class="center-class">  
+  <div class="followers-container">
+    <h1>Followers:</h1>
+    <p class="no-posts-message"><b>You don't have any followers 🚶‍♂️</b></p>
+
+    <img src="assets/images/Followers-rafiki.png" alt="Image Description">
+  </div>  
+  <button class="action-button" (click)="findPeople()">Find people</button>
 </div>

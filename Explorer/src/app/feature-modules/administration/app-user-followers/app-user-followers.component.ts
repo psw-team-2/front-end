@@ -21,6 +21,7 @@ export class AppUserFollowersComponent {
   followedProfiles: { [key: number]: boolean } = {};
   profileFollowed="";
   alreadyFollow: any;
+  hasFollowers: boolean = false;
 
   constructor(private service: AdministrationService,private router: Router,private route: ActivatedRoute) {}
   
@@ -52,6 +53,10 @@ export class AppUserFollowersComponent {
             this.followers = result.results;
             console.log("FOLLOWERS");
             console.log(this.followers);
+            if(this.followers.length==0){
+              this.hasFollowers=true;
+              console.log("NEMA FOLLOWERA")
+            }
           },
           error: (err: any) => {
             console.error('Error while getting followers:', err);

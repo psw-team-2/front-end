@@ -15,6 +15,7 @@ export class TouristPostsComponent implements OnInit{
   @Input() selectedProfile: Profile;
   blogPosts : Blog[] = [];
   blogRatings : number[] = [];
+  hasPosts:Boolean = false;
 
   constructor(private blogService: BlogService, private authService: AuthService) { }
 
@@ -42,6 +43,10 @@ export class TouristPostsComponent implements OnInit{
 
         console.log("BLOG POSTS");
         console.log(this.blogPosts);
+        
+        if(this.blogPosts.length==0){
+          this.hasPosts=true;
+        }
 
         this.getBlogRatings(this.blogPosts);
       }

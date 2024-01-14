@@ -1,4 +1,5 @@
 <h1>Register</h1>
+<p>Upon submitting the form, an email will be sent to the provided address to complete the registration process.</p>
 <form [formGroup]="registrationForm" (ngSubmit)="register()">
     <div>
       <mat-form-field>
@@ -40,8 +41,8 @@
           Password is required
         </mat-error>
       </mat-form-field>
-  
       <button class="action-button" type="submit" >Register</button>
     </div>
   </form>
+
   

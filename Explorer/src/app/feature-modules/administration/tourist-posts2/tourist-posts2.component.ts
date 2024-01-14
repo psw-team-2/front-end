@@ -13,6 +13,8 @@ export class TouristPosts2Component {
   @Input() selectedProfile: Profile;
   blogPosts : Blog[] = [];
   blogRatings : number[] = [];
+  
+  hasPosts:Boolean = false;
 
   constructor(private blogService: BlogService, private authService: AuthService) { }
 
@@ -39,6 +41,10 @@ export class TouristPosts2Component {
         
         console.log("BLOG POSTS");
         console.log(this.blogPosts);
+
+        if(this.blogPosts.length==0){
+          this.hasPosts=true;
+        }
 
         this.getBlogRatings(this.blogPosts);
       }

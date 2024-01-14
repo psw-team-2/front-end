@@ -111,6 +111,9 @@ margin: 10px; /* Added margin for better spacing */
 color: rgb(56, 28, 117); /* Updated color */
 cursor: pointer; /* Added cursor style */
 }
+img{
+  max-width: 25vw;
+}
 
 .profile-link {
 text-decoration: none; /* Remove underline */
@@ -118,4 +121,22 @@ text-decoration: none; /* Remove underline */
 
 .profile-link:hover {
 font-weight: bold;
+}
+
+.action-button {
+  margin-top: 20px;
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.action-button:hover {
+  background: white;
+  color: black;
+  border: 1px solid rgb(56, 28, 117);
 }

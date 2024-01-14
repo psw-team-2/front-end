@@ -49,6 +49,7 @@ import { AppUserClubsComponent } from './app-user-clubs/app-user-clubs.component
 import { VerificationComponent } from './user-account-administration/verification/verification.component';
 import { StarComponent } from './star/star.component';
 import { AuthorRequestsOverviewComponent } from './author-requests-overview/author-requests-overview.component';
+import { TouristToAuthorComponent } from './tourist-to-author/tourist-to-author.component';
 
 
 @NgModule({
@@ -93,6 +94,7 @@ import { AuthorRequestsOverviewComponent } from './author-requests-overview/auth
     TpAnswerFormComponent,
     StarComponent,
     AuthorRequestsOverviewComponent,
+    TouristToAuthorComponent,
   ],
   imports: [
     CommonModule,

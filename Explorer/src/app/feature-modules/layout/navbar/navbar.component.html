@@ -56,7 +56,8 @@
       </button>
 
       <button mat-menu-item color="primary" [routerLink]="['author-requests-overview']" *ngIf="user && user.role === 'administrator'">Author Requests Overview</button>
-
+      
+      <button mat-menu-item color="primary" [routerLink]="['applicationReview']" *ngIf="user && user.role === 'administrator'">Application reviews</button>
     </mat-menu>
   </div>
 

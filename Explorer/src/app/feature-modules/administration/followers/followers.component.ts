@@ -16,6 +16,8 @@ export class FollowersComponent implements OnInit {
   profiles: Profile[];
   selectedFollower: Profile | null = null; // Initialize as null
   showMessageForm: boolean = false;
+  hasFollowers: boolean = false;
+
   toggleChat() {
     this.showMessageForm = !this.showMessageForm;
   }
@@ -37,6 +39,7 @@ export class FollowersComponent implements OnInit {
           next: (result: PagedResults<Profile>) => {
             // Filter out the currently logged-in profile
             this.profiles = result.results.filter((profile) => profile.id !== loggedInProfile.id);
+            
           },
           error: (err: any) => {
             console.log(err);
@@ -49,6 +52,11 @@ export class FollowersComponent implements OnInit {
           this.followers = result.results;
           console.log("FOLLOWERS");
           console.log(this.followers);
+          
+          if(this.followers.length==0){
+            this.hasFollowers=true;
+            console.log("NEMA FOLLOWERA")
+          }
         },
         error: (err: any) => {
           console.error('Error while getting followers:', err);

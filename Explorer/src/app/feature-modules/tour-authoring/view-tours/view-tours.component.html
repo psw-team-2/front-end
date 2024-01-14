@@ -9,10 +9,10 @@
   <div class="card-container">
     
 <div class="header-container">   
-  <a class="cart-button" [routerLink]="isLogged ? '/shopping-cart/' : '/login'">
+  <!--<a class="cart-button" [routerLink]="isLogged ? '/shopping-cart/' : '/login'">
     <i class="fas fa-shopping-cart"></i> Shopping cart
     <span id="numberOfItems" class="numberOfItems">{{ numberOfItems }}</span>
-  </a>
+  </a>-->
   <br>
   <button class="action-button" mat-raised-button [class.view-button-activated]="isActiveTourSearchActive" [class.view-button]="!isActiveTourSearchActive" (click)="ActiveTourSearchClicked()">Active Tours</button>
   <button class="action-button" mat-raised-button [class.view-button-activated]="isNearbyTourSearchActive" [class.view-button]="!isNearbyTourSearchActive" (click)="NearbyTourSearchClicked()" >Nearby Tours</button>

@@ -72,8 +72,7 @@ import { AppUserProfileComponent } from 'src/app/feature-modules/administration/
 import { ProfileSettings2Component } from 'src/app/feature-modules/administration/profile-settings2/profile-settings2.component';
 import { AuthorReviewComponent } from 'src/app/feature-modules/tourist/author-review/author-review.component';
 import { AuthorRequestsOverviewComponent } from 'src/app/feature-modules/administration/author-requests-overview/author-requests-overview.component';
-
-
+import { RegistrationCompletedComponent } from '../auth/registration-completed/registration-completed.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -149,8 +148,7 @@ const routes: Routes = [
   {path: 'profile-settings', component: ProfileSettingsComponent},
   {path: 'profile-settings2', component: ProfileSettings2Component},
   {path: 'app-user-profile/:id', component: AppUserProfileComponent},
-  
-  
+  {path: 'registration-completed', component: RegistrationCompletedComponent},
   {path: 'authorReview', component: AuthorReviewComponent},
   {path: 'author-requests-overview', component: AuthorRequestsOverviewComponent},
 ];

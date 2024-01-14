@@ -1,0 +1,55 @@
+.container-big {
+    margin: 40px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+    color: white;
+  }
+  
+  .container {
+    text-align: center;
+  }
+  
+  .message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: rgb(56, 28, 117);
+    min-width: 70vw;
+    padding: 20px;
+    margin: 40px;
+    
+  }
+  a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-decoration: none;
+  }
+  img {
+    width: 100%;
+    max-width: 300px;
+    margin-top: 20px;
+    border-radius: 50%;
+  }
+  .action-button {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    background: white;
+    color: black;
+    border: 1px solid rgb(56, 28, 117);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    min-width: 50px;
+}
+
+  

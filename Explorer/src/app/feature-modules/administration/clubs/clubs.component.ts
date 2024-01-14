@@ -17,6 +17,7 @@ export class ClubsComponent implements OnInit{
   loggedInProfile: Profile | null = null;
   clubs: Club[] = [];
   selectedClub: Club | null = null; 
+  hasClubs: Boolean = false;
 
   constructor(private service: AdministrationService, private clubService: ClubService, private router: Router) {}
 
@@ -54,6 +55,11 @@ export class ClubsComponent implements OnInit{
             );
             console.log("KLUBOVI");
             console.log(this.clubs);
+
+            if(this.clubs.length==0){
+              this.hasClubs=true;
+            }
+            
           },
         });
       },
