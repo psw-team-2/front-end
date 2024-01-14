@@ -31,6 +31,8 @@ export class ComplexTourCreationComponent {
   allEquipmentIds: number[];
   allTags: string[] = [];
   currentComposedTours: ComposedTour[];
+  areCheckpointsEmpty: boolean = false;
+  isEquipmentEmpty: boolean = false;
   constructor(private service: ComplexTourService,private authService: AuthService,private router: Router, private tourService: TourAuthoringService){}
   
   ngOnInit() {
@@ -183,7 +185,7 @@ saveComplexTour() {
     this.service.addComplexTour(composedTour).subscribe(
       (savedTour: ComposedTour) => {
         console.log('Complex Tour saved successfully:', savedTour);
-        this.router.navigate(['/complex-tour-creaton']);
+        this.router.navigate(['/view-complex-tours']);
   
       },
       (error) => {
@@ -193,6 +195,16 @@ saveComplexTour() {
     );
   });
 
+}
+
+resetAddedTours() {
+  // Move all added tours back to displayed tours
+  this.displayedTours.push(...this.addedTours);
+  this.displayedTours = [...new Set(this.displayedTours)]; // Remove duplicates, if any
+
+  // Reset added tours and tour IDs
+  this.addedTours = [];
+  this.addedTourIds = [];
 }
 }
 
