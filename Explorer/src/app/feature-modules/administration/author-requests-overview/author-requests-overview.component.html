@@ -9,7 +9,8 @@
             <th>First Name:</th>
             <th>Last Name:</th>
             <th>Number of tours completed:</th>
-            <th>Actions:</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -20,6 +21,8 @@
             <td>{{ profiles[i]?.numberOfCompletedTours }}</td>
             <td>
               <button (click)="onAcceptClicked(request)">Accept</button>
+            </td>
+            <td>
               <button (click)="onDeclineClicked(request)">Decline</button>
             </td>
           </tr>
