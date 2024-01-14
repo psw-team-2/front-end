@@ -461,4 +461,25 @@
     font-size: 18px; /* You can adjust this value based on your preference */
   }
 
-  
+  /* Define a new CSS class for the Save Composed Tour button */
+  .save-button {
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 10px 15px;
+   
+    margin: auto;
+    margin-top: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .save-button:hover {
+    background: white;
+    color: black;
+    border: 1px solid rgb(56, 28, 117);
+  }
