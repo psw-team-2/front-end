@@ -36,28 +36,14 @@
 .questions-table th, .questions-table td {
     padding: 10px;
     text-align: center; 
+    border: 1px solid black; 
 }
-
 th{
     background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
 }
-
 .questions-table th {
     font-size: 18px;
     font-weight: normal; 
-}
-
-tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-tbody tr:last-of-type {
-    border-bottom: 2px solid #2e003e;
-}
-
-tbody tr.active-row {
-    font-weight: bold;
-    color: #2e003e;
 }
 
 .questions-table button {
@@ -73,77 +59,7 @@ tbody tr.active-row {
     border-radius: 5px;
 }
 
-.questions-table button:hover {
-    background: white;
-    color: black;
-    border: 1px solid rgb(56, 28, 117);
+.info-text {
+    font-style: italic;
+    color: rgb(125, 125, 125);
 }
-
-
-.message-form-wrapper {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 30vw;
-    height: 20vw;
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-  }
-
-
-  .close-button {
-    position: absolute;
-    top: 0; /* Adjusted position */
-    right: 0; /* Adjusted position */
-    margin: 10px; /* Added margin for better spacing */
-    color: rgb(56, 28, 117); /* Updated color */
-    cursor: pointer; /* Added cursor style */
-  }
-
-  .message-form-wrapper-admin {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 20vw; /* Adjusted width */
-    height: 10vw;
-    max-width: 400px; /* Set a maximum width if needed */
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
-
-
-.button-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px; /* Adjust the margin between the buttons and the text */
-}
-
-/* Additional styling for buttons */
-.button-container button {
-    flex: 1; /* Each button takes equal width */
-    margin: 0 5px; /* Add margin around buttons */
-    padding: 5px;
-}
-
-.message-form-wrapper-admin .close-button {
-    position: absolute!important;
-    top: 1px!important;
-    right: 1px!important;
-    cursor: pointer!important;
-    border: none !important;
-    margin: 2px!important; /* Added margin for better spacing */
-    cursor: pointer!important; /* Added cursor style */
-  }
-  
-.message-form-wrapper-admin .close-button mat-icon {
-    font-size: 22px !important;
-    color: rgb(56, 28, 117) !important;
-  }
