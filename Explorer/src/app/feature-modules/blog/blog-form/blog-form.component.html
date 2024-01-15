@@ -1,6 +1,6 @@
 <form [formGroup]="blogForm" class="center-class" >
   <h1 *ngIf="!shouldEdit">New blog</h1>
-  <h1 *ngIf="shouldEdit">Update blog</h1>
+  <h1 *ngIf="shouldEdit">Edit blog</h1>
     <div>
         <mat-form-field class="custom-form-field1">
             <mat-label>Title</mat-label>
@@ -27,7 +27,7 @@
                       cdkTextareaAutosize
                       cdkAutosizeMinRows="1"
                       formControlName="description"
-                      cdkAutosizeMaxRows="5"></textarea>
+                      cdkAutosizeMaxRows="20"></textarea>
           </mat-form-field>
           
               <label *ngIf="touristDistance">
@@ -72,7 +72,8 @@
           <img *ngIf="currentFile" [src]="currentFileUrl" alt="Selected Image" class="thumbnail"/>
           <img *ngIf="!currentFile" [src]="currentFileUrl" class="thumbnail"/>
           <mat-label>Image</mat-label>
-            <button class="action-button" mat-raised-button color="primary" (click)="fileInput.click()">Upload File</button>
+            <button *ngIf="!currentFile && !shouldEdit" class="action-button" mat-raised-button color="primary" (click)="fileInput.click()">Upload Image</button>
+            <button *ngIf="currentFile || shouldEdit" class="action-button" mat-raised-button color="primary" (click)="fileInput.click()">Change Image</button>
             <input hidden #fileInput type="file" (change)="onFileSelected($event)">
         <button class="action-button" mat-raised-button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addBlog()" >Done</button>
     <button class="action-button" mat-raised-button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateBlog()" >Done</button>

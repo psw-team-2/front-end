@@ -1,8 +1,9 @@
 #blog-review {
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 1px;
-    
+    min-height: 100vh;
 }
+
 
 .blog-card {
     width: calc(80% - 20px);  /* Podelite dostupan prostor na tri dela, sa razmakom od 10px između kartica */
@@ -16,8 +17,10 @@
     justify-content: space-between;
     padding: 30px;
     overflow: hidden;
+    align-items: center;
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 1px;
+    position: relative;
 }
 
 .blog-card:hover {
@@ -51,7 +54,7 @@
     background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     color: white;
     text-align: center;
-    min-height: 40vh;
+    min-height: 30vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -96,7 +99,6 @@
     letter-spacing: 1px;
 }
 
-
 .read-more-button {
     
     background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
@@ -108,7 +110,7 @@
     transition: background-color 0.3s;
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 1px;
-}
+  }
 
 .read-more-button:hover {
     background: linear-gradient(rgb(31, 15, 65), rgb(65, 59, 131));
@@ -118,6 +120,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    min-height: 100vh;
 }
 
 .pagination {
@@ -143,7 +146,7 @@
     background-color: white;
   }
 
-  #blog-review .blog-filtration button{
+  .filter{
     margin: 0px; 
     background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     color: #fff;
@@ -151,11 +154,11 @@
     margin-bottom: 15px;
     border: 1px solid #e1e1e1;
     border-radius: 0%;
+    margin-left: 2.7px;
+    width: 149px;
 }
-.blog-filtration{
-    margin-top: 20px;
-}
-#blog-review .blog-filtration button:hover {
+
+.filter:hover {
     background-color: white;
     color: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
     font-family: 'Montserrat', sans-serif;
@@ -166,10 +169,20 @@
     margin: 0 auto;
     max-width: 600px; /* Prilagodite vrednost prema potrebi */
     font-size: medium; /* Prilagodite vrednost prema potrebi */
-    line-height: 20;
     font-family: 'Montserrat', sans-serif;
-  }
-  
+    min-height: 100vh;
+}
+
+#blog-review .paragraf img {
+    margin-top: 100px;
+    height: 100px;
+    width: 150;
+}
+
+#blog-review .paragraf p {
+    margin-top: 10px;
+}
+
   
   
   
