@@ -3,6 +3,14 @@
     letter-spacing: 1px; 
 }
 
+.all{
+    min-height: 100vh;
+    /* margin-bottom: 35vh;
+    margin-left: 2.5vh;
+    margin-right: 2.5vh; */
+}
+
+
 .problems-title-section {
     color: white;
     text-align: center;
@@ -19,33 +27,81 @@
 
 .table-container {
     margin-top: 30px;     
-    padding-bottom: 40px;
+    padding-bottom: 10px;
     margin: 0 auto;
     width: 80%;
 }
 
 .problems-table {
     margin-top: 20px; 
-    margin-bottom: 140px;
+    margin-bottom: 30px;
     width: 100%;
     border-collapse: collapse;
-    border: 1px solid black; 
-    color:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color:  linear-gradient(rgb(56, 28, 117), rgb(206, 206, 206));
 }
 
 .problems-table th, .problems-table td {
     padding: 10px;
     text-align: center; 
-    border: 1px solid black; 
+    
+    border: none; /* Removed border for cells */
 }
 th{
     background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
 }
 .problems-table th {
     font-size: 18px;
     font-weight: normal; 
 }
 
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+    border-bottom: 2px solid #2e003e;
+}
+
+tbody tr.active-row {
+    font-weight: bold;
+    color: #2e003e;
+}
+
+.tr-tour-problem-5d-old {
+    background-color: #dfbab0;
+    border: 1px solid #851e1e; /* Add a border for separation */
+    border-radius: 3px; /* Add rounded edges */
+}
+
+.tr-tour-problem-5d-old-solved {
+    background-color: #bd5c5c;
+    border: 1px solid #851e1e; /* Add a border for separation */
+    border-radius: 3px; /* Add rounded edges */
+}
+  
+.tr-tour-problem-5d-old-expired {
+    background-color: #bd5c5c;
+    border: 1px solid #851e1e; /* Add a border for separation */
+    border-radius: 3px; /* Add rounded edges */ 
+} 
+
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+    border-bottom: 2px solid #2e003e;
+}
+
+tbody tr.active-row {
+    font-weight: bold;
+    color: #2e003e;
+}
+ 
+
+
+/*.problems-table button {
 .problems-table button {
     font-size: 16px;
     font-family: 'Open Sans', sans-serif; 
@@ -57,9 +113,48 @@ th{
     border: none; 
     cursor: pointer;
     border-radius: 5px;
-}
+}*/
 
 .info-text {
     font-style: italic;
+    color: rgb(125, 125, 125);
+}
+
+.problems-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
+.problems-table button {
+    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 10px 15px;
+   
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .problems-table button:hover {  
+    background: white;
+    color: black;
+    border: 1px solid rgb(56, 28, 117);
+  } 
+
+.message-form-wrapper {
+    margin-left: 19vh; /* Adjust the left margin as needed */
+    margin-right: 19vh; /* Adjust the right margin as needed */
+}
+
+.question-button button {
+    margin: 0 10px; /* Adjust the left and right margins as needed */
+}
+.info-text {
+    font-style: italic; 
     color: rgb(125, 125, 125);
 }
