@@ -2,7 +2,6 @@
   <xp-map-search [tours]="allTours" [selectedTour]="selectedTour" (searchResultsEvent)="handleSearchResults($event)" [isActiveTourSearchActive] = "isActiveTourSearchActive"></xp-map-search>
 </div>
 <div class="tour-list" [@slider]="sliderState">
-  <h1 class="header">Available Tours</h1>
   <div class="slider-toggle-container">
     <i [class]="sliderState === 'small' ? 'fas fa-chevron-right' : 'fas fa-chevron-left'" (click)="toggleSlider()"></i>
   </div>
@@ -19,26 +18,28 @@
 </div>
   
 <div class="card-container">    
-    <div *ngFor="let tour of tours" class="card" (click)="selectTour(tour)" [ngClass]="{'selected-card': tour === selectedTour}">
+    <div *ngFor="let tour of tours"  (click)="selectTour(tour)" [ngClass]="{'selected-card': tour === selectedTour}">
       <div class="favorite-heart" (click)="addToWishlist(tour)" >
         <i class="fas fa-heart"></i>
       </div>
       <div class="remove-when-use">
       </div>
+      <div class="bundle"  [ngStyle]="{'background-image': 'url(' + tour.image + ')'}">
       <div class="details">
         <label>{{ tour.name }}</label>
-        <p>{{ tour.description }}</p>
         <p *ngIf="tour.id !== undefined">Average grade: {{ tourAverageGrades[tour.id] }}/5</p>
-        <div class="button-container">
-          <a class="view-button" [routerLink]="'/tour/' + tour.id">View more</a>
-      </div>
       <div class="button-container">
       <!--  <a *ngIf="boughtTours.includes(tour)" class="view-button" (click)="startTour(tour)">Start tour</a>-->
+      <a class="view-button" [routerLink]="'/tour/' + tour.id">View more</a>
         <a class="view-button" (click)="startTour(tour)">Start  tour</a>
-        <a class="view-button" *ngIf="isCreatedByTourist(tour)" (click)="startTour(tour)">Start  tour (as creator)</a>
-        <!--<a class="view-button" *ngIf="!isCreatedByTourist(tour)">Add to cart (not as creator)</a>-->
+        <br>
+         <a class="view-button" *ngIf="isCreatedByTourist(tour)" (click)="startTour(tour)">Start  tour (as creator)</a>
+         <!--<a class="view-button" *ngIf="!isCreatedByTourist(tour)">Add to cart (not as creator)</a>-->
         <a class="view-button" (click)="onAddClicked(tour)">Add to cart</a>
-      
+      </div>
+      </div>
+    </div>
+    </div>
       </div>
     </div>
   </div>
