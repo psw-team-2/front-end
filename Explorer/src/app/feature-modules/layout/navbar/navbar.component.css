@@ -35,12 +35,14 @@
 
 .explorer {
   font-size: 1.8vw;
-  margin-top: 1.6vw;
+  margin-top: 1.8vw;
   color: #fff; /* Set the text color for Explorer text */
   padding-left: 10vw;
 }
-.thin-text {
-  font-weight: 300; /* You can adjust this value to control the thickness */
+.explorer-logged {
+  font-size: 1.8vw;
+  margin-top: 1.8vw;
+  color: #fff; 
 }
 .notificationsButton {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

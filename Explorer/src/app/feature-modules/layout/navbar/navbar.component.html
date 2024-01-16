@@ -63,8 +63,8 @@
     </mat-menu>
   </div>
 
-  <p class="explorer"><b><b>Seven</b></b> Wanders</p>
-
+  <p *ngIf="user && user.username !== ''" class="explorer"><b><b>SEVEN</b></b> WANDERS</p>
+  <p *ngIf="user && user.username === ''" class="explorer-logged"><b><b>SEVEN</b></b> WANDERS</p>
    <!-- <div class="navbar-right">
       
       <button class="notificationsButton" *ngIf="user && user.role === 'tourist' || user && user.role === 'author'" mat-icon-button [routerLink]="['notifications']"><mat-icon>notifications</mat-icon></button>

@@ -15,6 +15,7 @@ import { TourProblemResponseComponent } from './tour-problem-response/tour-probl
 import { TpFormComponent } from './tp-form/tp-form.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TpCommentFormComponent } from './tp-comment-form/tp-comment-form.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { TpCommentFormComponent } from './tp-comment-form/tp-comment-form.compon
     AppRoutingModule,
     MatNativeDateModule,
     DatePipe,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule
   ],
   exports: [
     TourProblemsComponent,

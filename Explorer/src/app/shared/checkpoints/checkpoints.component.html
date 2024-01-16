@@ -4,15 +4,27 @@
     <form>
       <mat-form-field>
         <label for="tour-name">Tour Name:</label>
-        <input matInput type="text" id="tour-name" name="tour-name">
+        <input matInput type="text" id="tour-name" name="tour-name" [(ngModel)]="tourName">
       </mat-form-field>
-
+      
       <mat-form-field>
         <label for="tour-description">Tour Description:</label>
-        <textarea matInput id="tour-description" name="tour-description"></textarea>
+        <textarea matInput id="tour-description" name="tour-description" [(ngModel)]="tourDescription"></textarea>
       </mat-form-field>
 
-      <button type="submit" mat-raised-button color="primary">Create Tour</button>
+          <!-- Inside the form in your HTML template -->
+    <mat-form-field>
+      <label for="tour-price">Tour Price:</label>
+      <input matInput type="number" id="tour-price" name="tour-price" [(ngModel)]="tourPrice">
+    </mat-form-field>
+
+    <mat-form-field>
+      <label for="tour-difficulty">Tour Difficulty:</label>
+      <input matInput type="text" id="tour-difficulty" name="tour-difficulty" [(ngModel)]="tourDifficulty">
+    </mat-form-field>
+
+
+      <button type="submit" mat-raised-button color="primary" (click)="createTour()">Create Tour</button>
     </form>
   </div>
   <div class="map-frame">

@@ -18,6 +18,10 @@ export class CheckpointsComponent {
   currentLongitude: number;
   checkpoints: Checkpoint[] = [];
   addMarker: boolean = false;
+  tourName: string;
+  tourDescription: string;
+  tourDifficulty: number;
+  tourPrice: number;
   constructor(private mapService: MapService, private dialog: MatDialog) {}
 
   private initMap(): void {
@@ -184,8 +188,6 @@ private addLabelToPopupContent(categoryLabel: string, imageSrc: string, name: st
       });
     });
   }
-  
-  
 
   openCheckpointModal(): void {
     const dialogRef = this.dialog.open(CheckpointModalComponent);
@@ -207,5 +209,13 @@ private addLabelToPopupContent(categoryLabel: string, imageSrc: string, name: st
     }
     });
 
+  }
+
+  createTour(): void {
+    // Use this.tourName and this.tourDescription to access the values
+    console.log('Tour Name:', this.tourName);
+    console.log('Tour Description:', this.tourDescription);
+  
+    // Rest of your logic to create the tour
   }
 }
