@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { ViewComposedTourComponent } from './view-composed-tour/view-composed-tour.component';
 import { ComposedTourOverviewComponent } from './composed-tour-overview/composed-tour-overview.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -33,6 +34,7 @@ import { ComposedTourOverviewComponent } from './composed-tour-overview/composed
     MatButtonModule,
     RouterModule,
     SharedModule,
+    MatTooltipModule
   ]
 })
 export class ComplexTourModule { }

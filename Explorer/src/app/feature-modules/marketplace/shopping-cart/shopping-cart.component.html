@@ -20,15 +20,6 @@
                     <p>Looks like you haven't added anything to your cart yet.</p>
                     <button class="shop-button" (click)="shopNow()">Shop Now</button>
                 </div>
-                        
-        </div>
-        <hr>
-        <div class="total">
-            <h4 class="discount" *ngIf="firstPurchaseDiscount > 0">Your discount is {{firstPurchaseDiscount}}%, because of first purchase.</h4>
-            <h4 class="discount" *ngIf="discount > 0">Your discount is {{discount}}%, because of your {{profile.xp}} XP.</h4>
-            <div>
-                <div class="Subtotal">Sub-Total</div>
-                <div class="items">{{ numberOfItems }} items</div>
             </div>
             <div class="Cart-Items" *ngFor="let oi of orderItems">
                 <div class="image-container">
@@ -62,7 +53,9 @@
 
         <div class="right">
             <div class="payment">
-                <p class = "payment-title">PAYMENT</p>
+                <div class="payment-title">
+                    <i class="fas fa-credit-card"></i> PAYMENT
+                </div>                
                 <div class="wallet-balance">
                     Wallet Balance
                     <div class="wallet">{{ wallet.ac }} AC</div>
@@ -73,6 +66,13 @@
                         <textarea class="coupon-textarea" placeholder="Enter coupon code"></textarea>
                         <button class="apply-button">Apply</button>
                     </div>
+                    <!--<p class="discount" *ngIf="firstPurchaseDiscount > 0">Your discount is {{firstPurchaseDiscount}}%, because of first purchase.</p>
+                    <p class="discount" *ngIf="discount > 0">Your discount is {{discount}}%, because of your {{profile.xp}} XP.</p>-->
+                    <p class="discount" *ngIf="(firstPurchaseDiscount > 0 && !(discount > 0)) || (discount > 0 && !(firstPurchaseDiscount > 0))">
+                        Your discount is 
+                        <ng-container *ngIf="firstPurchaseDiscount > 0"> {{firstPurchaseDiscount}}%, because of the first purchase.</ng-container>
+                        <ng-container *ngIf="discount > 0"> {{discount}}%, because of your {{profile.xp}} XP.</ng-container>
+                    </p>
                 </div>  
                 <div class="total-row">
                     <div class="total">
@@ -87,7 +87,7 @@
             </div> 
         </div>
 
-    </div>
+
 
     </div>
 </body>

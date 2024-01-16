@@ -37,6 +37,7 @@ mat-form-field {
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s;
     width: 100px;
+    height: 50px;
     text-align: center;
     margin: auto;
   }
@@ -68,13 +69,16 @@ mat-form-field {
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     padding-bottom: 2px;
-    margin-top: -10px;
+    /*margin-top: -10px;*/
+    width: 250px;
   }
 
   .star-image {
     width: 100px; /* Prilagodite veličinu slike prema potrebi */
     margin: 10px auto; /* Centrirajte sliku i dodajte određeni razmak */
   }
+
+
 
 /* Dugme za slanje forme */
 button.mat-raised-button {
@@ -116,8 +120,37 @@ button.mat-raised-button {
     color: black;
     margin: 10px;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 25vw;
+    /*border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+    /*width: 25vw;*/
+    margin-top: -20px;
+  }
+
+  mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffffff;
   }
   
+  button.mat-icon-button {
+    margin-left: auto; /* Postavljanje margin-left na auto će gurnuti dugme "close" na desnu stranu */
+  }
+
+  .comment {
+    width: 250px; /* Prilagodite širinu prema potrebi */
+    padding: 10px;
+    border: 1px solid #2e003e;
+    border-radius: 8px; /* Dodajte zaobljenost ivicama */
+    resize: none; /* Onemogućava korisnicima promenu veličine textarea */
+    font-size: 16px; /* Prilagodite veličinu fonta prema potrebi */
+    font-family: 'Montserrat', sans-serif;
+
+    /* Centriranje */
+    margin: auto; /* Horizontalno centriranje */
+    display: flex;
+    align-items: center; /* Vertikalno centriranje */
+
+  }
+  
+  
+ 

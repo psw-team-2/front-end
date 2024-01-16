@@ -6,6 +6,7 @@ import { ApplicationReview } from '../model/application-review.model';
 import { AuthService } from '../../../infrastructure/auth/auth.service'; 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'xp-application-review-form',
@@ -20,9 +21,12 @@ export class ApplicationReviewFormComponent{
 
   selectedStars: number = 0;
 
-  
 
-  constructor(private service: MarketplaceService, private authService: AuthService,private snackBar: MatSnackBar, private router: Router) {
+  constructor(private service: MarketplaceService, 
+              private authService: AuthService,
+              private snackBar: MatSnackBar, 
+              private router: Router,
+              public dialogRef: MatDialogRef<ApplicationReviewFormComponent>) {
   }
 
   applicationReviewForm = new FormGroup({
@@ -62,6 +66,7 @@ export class ApplicationReviewFormComponent{
       next: () => { 
         this.applicationReviewUpdated.emit();
         this.router.navigate(['/profile']);
+        this.onCloseClick();
         this.showSuccessNotification('Thank you for rating our application! Your feedback is valuable and helps us improve.');       
       },
       error: (error) => {
@@ -84,6 +89,10 @@ export class ApplicationReviewFormComponent{
       duration: 3000,
       panelClass: ['error-snackbar'] // Dodajte stilizaciju za poruku o grešci
     });
+  }
+
+  onCloseClick(): void {
+    this.dialogRef.close();
   }
 
 }

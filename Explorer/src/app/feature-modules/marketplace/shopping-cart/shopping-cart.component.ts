@@ -11,6 +11,9 @@ import { Wallet } from '../../administration/model/wallet.model';
 import { AdministrationService } from '../../administration/administration.service';
 import { Sale } from '../model/sale.model';
 import { Profile } from '../../administration/model/profile.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ApplicationReviewFormComponent } from '../application-review-form/application-review-form.component';
+
 
 @Component({
   selector: 'xp-shopping-cart',
@@ -36,7 +39,8 @@ export class ShoppingCartComponent implements OnInit{
         private router: Router,
         private snackBar: MatSnackBar,
         private administratorService: AdministrationService,
-        private adminService:AdministrationService) { }
+        private adminService:AdministrationService,
+        private dialog: MatDialog) { }
 
       async ngOnInit() {
         if (this.authService.user$.value) {
@@ -146,13 +150,14 @@ export class ShoppingCartComponent implements OnInit{
       }
       this.service.createTokens(this.orderItems, this.userId,this.discount).subscribe({
         next: () => {
-          alert('Checkout successful!');
+          alert('Congratulations! Your purchase was successful. Thank you for shopping with us.');
           this.numberOfItems = 0;
           this.totalPrice = 0;
           this.orderItems = [];
           this.profile.isFirstPurchased = true;
           this.firstPurchaseDiscount = 0;
           this.discount = 0
+          this.openSuccessModal();
         },
         error: (error) => {
           alert('You don\'t have enough money to make a purchase.');
@@ -214,5 +219,19 @@ export class ShoppingCartComponent implements OnInit{
       }
     });
   }
+
+  openSuccessModal(): void {
+    const dialogRef = this.dialog.open(ApplicationReviewFormComponent, {
+      width: '400px',    
+      data: { },
+      panelClass: 'custom-dialog-class'
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The modal was closed');
+      // Dodatna logika nakon zatvaranja moda (opciono)
+    });
+  }
+  
 
 }

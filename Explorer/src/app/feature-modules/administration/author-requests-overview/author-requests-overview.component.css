@@ -1,3 +1,64 @@
-td {
+.div {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px; 
+}
+
+.user-title-section {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.user-title {
+    color: rgb(56, 28, 117);
+    margin-bottom: 30px;
+    margin-top: 50px;
+}
+
+.table-container {
+    margin-top: 30px;     
+    padding-bottom: 40px;
+    margin: 0 auto;
+    width: 80%;
+}
+
+.user-table {
+    margin-top: 20px; 
+    margin-bottom: 140px;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid black; 
+    color:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+}
+
+.user-table th, .user-table td {
+    padding: 10px;
+    text-align: center; 
+    border: 1px solid black; 
+}
+th{
+    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+}
+.user-table th {
+    font-size: 18px;
+    font-weight: normal; 
+}
+
+.user-table button {
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif; 
+    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131)); 
+    color: white; 
+    display: block;
+    margin: 0 auto;
+    padding: 8px 16px; 
+    border: none; 
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.info-text {
+    font-style: italic;
+    color: rgb(125, 125, 125);
 }

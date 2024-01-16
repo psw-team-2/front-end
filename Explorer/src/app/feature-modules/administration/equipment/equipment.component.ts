@@ -7,7 +7,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 @Component({
   selector: 'xp-equipment',
   templateUrl: './equipment.component.html',
-  // styleUrls: ['../../../app.component.css']
+  styleUrls: ['./equipment.component.css']
 })
 export class EquipmentComponent implements OnInit {
 

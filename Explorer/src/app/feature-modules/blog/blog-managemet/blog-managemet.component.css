@@ -1,9 +1,10 @@
 #clubRequest {
     text-align: center;
     margin-top: 20px;
+    min-height: 100vh;
 }
 
-#clubRequest p {
+#clubRequest p1 {
     font-size: 24px;
     margin-bottom: 10px;
     
@@ -139,3 +140,22 @@ h1{
 .marginate{
     margin-left: 10px;
 }
+
+.paragraf {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 600px; /* Prilagodite vrednost prema potrebi */
+    font-family: 'Montserrat', sans-serif;
+    min-height: 50vh;
+  }
+  .paragraf img {
+    margin-top: 100px;
+    height: 300px;
+    width: 350;
+  }
+  
+  .paragraf p {
+    font-size: medium;
+    margin-top: 10px;
+  }
+  

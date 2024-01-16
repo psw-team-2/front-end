@@ -1,0 +1,30 @@
+.container-big {
+    margin: 40px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+    color: white;
+  }
+  
+  .container {
+    text-align: center;
+  }
+  
+  .message {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgb(56, 28, 117);
+    
+    min-width: 70vw;
+    padding: 60px;
+  }
+  
+  img {
+    width: 100%;
+    max-width: 300px;
+    margin-top: 20px;
+  }
+  

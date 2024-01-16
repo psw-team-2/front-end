@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from './registration/registration.component';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 import { RecoverComponent } from './recover/recover.component';
+import { RegistrationCompletedComponent } from './registration-completed/registration-completed.component';
 
 
 
@@ -14,7 +15,8 @@ import { RecoverComponent } from './recover/recover.component';
     LoginComponent,
     RegistrationComponent,
     PasswordRecoveryComponent,
-    RecoverComponent
+    RecoverComponent,
+    RegistrationCompletedComponent
   ],
   imports: [
     CommonModule,

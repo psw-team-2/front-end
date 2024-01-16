@@ -1,9 +1,9 @@
-<div id="entity">
-    <h1>Equipment</h1>
-    <hr>
-    <div id="entity-details">
-    <div>
-        <table>
+<div id="userAccounts">
+    <div class="user-title-section">
+        <h1 class="user-title">Equipment</h1>
+    </div>
+    <div class="table-container">
+        <table class="user-table">
             <thead>
                 <tr>
                     <th>Naziv</th>
@@ -17,11 +17,13 @@
                     <td>{{eq.name}}</td>
                     <td>{{eq.description}}</td>
                     <td>
-                        <button color="accent" (click)="deleteEquipment(eq.id || 0)" mat-icon-button id="entity-icon-button">
-                            <mat-icon >delete</mat-icon>
+                        <button color="accent" (click)="deleteEquipment(eq.id || 0)">
+                            Delete
                         </button>
-                        <button color="primary" (click)="onEditClicked(eq)" mat-icon-button id="entity-icon-button">
-                            <mat-icon >edit</mat-icon>
+                    </td>
+                    <td>
+                        <button color="primary" (click)="onEditClicked(eq)">
+                            Edit
                         </button>
                     </td>
                 </tr>
