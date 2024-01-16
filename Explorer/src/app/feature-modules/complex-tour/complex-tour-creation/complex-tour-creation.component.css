@@ -186,14 +186,14 @@
   .all{
     min-height: 100vh;
     margin-bottom: 35vh;
-    margin-left: 2.5vh;
-    margin-right: 2.5vh;
+    margin-left: 10vh;
+    margin-right: 10vh;
   }
   .tour-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    margin: 10px;
+    gap: 2px;
+    margin: 2px;
     margin-top: 50px;
 
   }
@@ -203,7 +203,7 @@
   }
   
   .tour {
-    width: 220px;
+    width: 200px;
     height: 300px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     position: relative;
@@ -375,8 +375,8 @@
   .row-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin: 10px;
+    gap: 11.25px;
+    margin: 20px;
     margin-top: 30px;
     justify-content: space-between; /* Ensure space between rows */
   }
