@@ -40,7 +40,7 @@ export class RegistrationComponent {
     if (this.registrationForm.valid) {
       this.authService.register(registration).subscribe({
         next: () => {
-          this.router.navigate(['home']);
+          this.router.navigate(['registration-completed']);
         },
       });
     }

@@ -2,6 +2,7 @@
     <h1>Manage blogs</h1>
     <button mat-raised-button class="action-button" (click)="onAddClicked()">CREATE BLOG</button>
     <div id="clubRequest-details">
+      <ng-container *ngIf="blogs && blogs.length > 0; else noBlogs">
         <div *ngFor="let bl of blogs" class="club-request-item">
             <div class="request-card">
                 <div class="div-table">
@@ -53,5 +54,12 @@
                 </div>
             </div>
         </div>
+      </ng-container>
+      <ng-template #noBlogs>
+        <div class="paragraf">
+          <img  src="assets/images/Blog post-bro.png" >
+          <p class="pf">You haven't created any blogs yet.</p>
+        </div>
+      </ng-template>
     </div>
 </div>

@@ -6,6 +6,7 @@ import { ShoppingCart } from '../../marketplace/model/shopping-cart.model';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 import { OrderItem } from '../../marketplace/model/order-item.model';
 
+
 @Component({
   selector: 'xp-navbar',
   templateUrl: './navbar.component.html',
@@ -20,7 +21,9 @@ export class NavbarComponent implements OnInit {
   userId: Number;
   numberOfItems: number;
   orderItems: OrderItem[];
-  constructor(private authService: AuthService, private router: Router,private service: TourAuthoringService) {}
+  constructor(private authService: AuthService, 
+              private router: Router,
+              private service: TourAuthoringService) {}
 
   isProfilePage(): boolean {
     return this.router.url === '/profile';

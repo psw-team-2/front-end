@@ -272,62 +272,65 @@ export class BlogFormComponent {
     }
   }
 
-async updateBlog(): Promise<void> {
-  const userId = this.authService.user$.value.id;
-  const username = this.authService.user$.value.username;
-  if (this.blogId !== null) {
-    if (!this.currentFile) {
-      const blog: Blog = {
-        userId : userId,
-        username: username,
-        title: this.blogForm.value.title || "",
-        description: this.blogForm.value.description || "",
-        creationTime: new Date('2023-10-22T10:30:00'),
-        status: BlogStatus.Published,
-        id: this.blogId,
-        image: this.blogForm.value.image || "",
-        category: this.selectedCategory,
-      };
-      this.service.updateBlog(blog).subscribe({
-        next: (_) => {
-          this.blogUpdated.emit();
-          this.router.navigate(['/blog-single-post', blog.id]).then(() => {
+  
+  
+  async updateBlog(): Promise<void> {
+    const userId = this.authService.user$.value.id;
+    const username = this.authService.user$.value.username;
+    if (this.blogId !== null) {
+      if (!this.currentFile) {
+        const currentBlog = await this.service.getBlog(this.blogId).toPromise();
+        const blog: Blog = {
+          userId : userId,
+          username: username,
+          title: this.blogForm.value.title || "",
+          description: this.blogForm.value.description || "",
+          creationTime: (currentBlog?.creationTime || new Date()) as Date,
+          status: BlogStatus.Published,
+          id: this.blogId,
+          image: this.blogForm.value.image || "",
+          category: this.selectedCategory,
+        };
+        this.service.updateBlog(blog).subscribe({
+          next: (_) => {
+            this.blogUpdated.emit();
+            this.router.navigate(['/blog-single-post', blog.id]).then(() => {
+              // Scroll na vrh stranice nakon navigacije
+              this.viewportScroller.scrollToPosition([0, 0]);
+            });
+          }
+        });
+      } else {
+        const currentBlog = await this.service.getBlog(this.blogId).toPromise();
+        const blog: Blog = {
+          userId : userId,
+          username: username,
+          title: this.blogForm.value.title || "",
+          description: this.blogForm.value.description || "",
+          creationTime: (currentBlog?.creationTime || new Date()) as Date,
+          status: BlogStatus.Published,
+          id: this.blogId,
+          image: 'https://localhost:44333/Images/' + this.currentFile.name,
+          category: this.selectedCategory,
+        };
+        await this.service.upload(this.currentFile).subscribe({
+          next: (value) => {
+  
+          },
+          error: (value) => {
+  
+          }, complete: () => {
+          },
+        });
+        this.service.updateBlog(blog).subscribe({
+          next: (_) => { this.blogUpdated.emit(), this.router.navigate(['/blog-single-post', blog.id]).then(() => {
             // Scroll na vrh stranice nakon navigacije
             this.viewportScroller.scrollToPosition([0, 0]);
-          });
-        }
-      });
-    } else {
-      const blog: Blog = {
-        userId : userId,
-        username: username,
-        title: this.blogForm.value.title || "",
-        description: this.blogForm.value.description || "",
-        creationTime: new Date('2023-10-22T10:30:00'),
-        status: BlogStatus.Published,
-        id: this.blogId,
-        image: 'https://localhost:44333/Images/' + this.currentFile.name,
-        category: this.selectedCategory,
-      };
-      await this.service.upload(this.currentFile).subscribe({
-        next: (value) => {
-
-        },
-        error: (value) => {
-
-        }, complete: () => {
-        },
-      });
-      this.service.updateBlog(blog).subscribe({
-        next: (_) => { this.blogUpdated.emit(), this.router.navigate(['/blog-single-post', blog.id]).then(() => {
-          // Scroll na vrh stranice nakon navigacije
-          this.viewportScroller.scrollToPosition([0, 0]);
+          });}
         });}
-      });}
-    
+      
+    }
   }
+  
 }
-  
-  
 
-}

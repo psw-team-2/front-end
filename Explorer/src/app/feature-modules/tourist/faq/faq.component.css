@@ -129,7 +129,8 @@
     font-size: medium; /* Prilagodite vrednost prema potrebi */
     line-height: 20;
     font-family: 'Montserrat', sans-serif;
-    margin-top: -100px;
+    margin-top: -50px;
+    height: 20px;
   }
   .create-button:hover {
     background: white;

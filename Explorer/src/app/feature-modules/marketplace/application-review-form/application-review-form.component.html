@@ -1,3 +1,10 @@
+<mat-toolbar>
+  <span></span>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="onCloseClick()">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-toolbar>
 <form [formGroup]="applicationReviewForm">
     <div class="review-card">
       <img [src]="getStarImage()" alt="Star Image" class="star-image" />
@@ -12,7 +19,7 @@
   
       <mat-form-field>
         <mat-label>Comment (optional)</mat-label>
-        <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" formControlName="comment" cdkAutosizeMaxRows="5"></textarea>
+        <textarea class = "comment" cdkTextareaAutosize cdkAutosizeMinRows="1" formControlName="comment" cdkAutosizeMaxRows="5"></textarea>
       </mat-form-field>
   
       <button *ngIf="!shouldEdit" color="primary" class="button" type="submit" (click)="addApplicationReview()" mat-raised-button>

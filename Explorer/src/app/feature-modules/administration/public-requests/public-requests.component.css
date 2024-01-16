@@ -4,34 +4,33 @@
 }
 
 .user-title-section {
-    background-color: #4A0063; 
     color: white;
     text-align: center;
-    height: 150px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .user-title {
-    letter-spacing: 1.2px; 
-    font-size: 32px;
-    margin-bottom: 20px;
+    color: rgb(56, 28, 117);
+    margin-bottom: 30px;
+    margin-top: 50px;
 }
 
 .table-container {
-    margin-top: 100px;     
+    margin-top: 30px;     
     padding-bottom: 40px;
     margin: 0 auto;
     width: 80%;
 }
 
 .user-table {
-    margin-top: 100px; 
+    margin-top: 20px; 
     margin-bottom: 140px;
     width: 100%;
     border-collapse: collapse;
     border: 1px solid black; 
+    color:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
 }
 
 .user-table th, .user-table td {
@@ -39,7 +38,9 @@
     text-align: center; 
     border: 1px solid black; 
 }
-
+th{
+    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+}
 .user-table th {
     font-size: 18px;
     font-weight: normal; 
@@ -48,7 +49,7 @@
 .user-table button {
     font-size: 16px;
     font-family: 'Open Sans', sans-serif; 
-    background-color: #4A0063; 
+    background:  linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131)); 
     color: white; 
     display: block;
     margin: 0 auto;
