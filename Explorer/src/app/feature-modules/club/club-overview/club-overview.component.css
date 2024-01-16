@@ -20,6 +20,7 @@ img {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 90%;
   box-shadow: none;
+  padding-bottom: 100px;
 }
 
 .follower-list {
@@ -226,4 +227,42 @@ button:hover {
 
 .user-message {
   text-align: right;
+}
+
+.all {
+  min-height: 100vh;
+}
+
+.action-button {
+  margin-top: 20px;
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.empty-club-img {
+  height: 50vh;
+  width: 50vh;
+}
+
+.request-message {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  border-radius: 8px;
+}
+
+.show-message {
+  opacity: 1;
 }
