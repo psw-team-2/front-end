@@ -282,6 +282,15 @@ private addLabelToPopupContent(categoryLabel: string, imageSrc: string, name: st
           console.error('Error adding checkpoints:', error);
         }
       );
+      this.tourService.upload(this.selectedFile).subscribe({
+        next: (value) => {
+  
+        },
+        error: (value) => {
+  
+        }, complete: () => {
+        },
+      });
   }
 
   onFileSelected(event: any) {
