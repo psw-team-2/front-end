@@ -1,92 +1,91 @@
-img
-{
-    width: 150px;
-    height: 150px;
-
+img {
+  width: 150px;
+  height: 150px;
 }
-/* club-overview.component.css */
+
 .center-class {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .followers-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: white;
-    color: rgb(0, 0, 0);
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    box-shadow: none;
-  }
-  .center-class {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    flex-direction: column;
-  }
-  .follower-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(7.95vw, 1fr));
-    gap: 20px;
-    justify-content: center;
-    width: 100%;
-    padding: 10px;
-    padding-bottom: 10px;
-  }
-  
-  .follower-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: white;
-    color: black;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: none;
-    width: 5vw;
-    margin: auto; /* Center horizontally */
-  }
-  
-  .profile-picture {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-  }
-  
-  .follower-details {
-    text-align: center;
-  }
-  
-  .message-button {
-    margin-top: 20px;
-    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  .message-button:hover {
-    background: white;
-    color: black;
-    border: 1px solid rgb(56, 28, 117);
-  }
-  
-  h1{
-    color: rgb(56, 28, 117);
-    margin-bottom: 30px;
-  }
-  h2{
-    color: rgb(56, 28, 117);
-    margin-bottom: 30px;
-    margin-top: 0px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  color: rgb(0, 0, 0);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  box-shadow: none;
+  padding-bottom: 100px;
+}
+
+.follower-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.95vw, 1fr));
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  padding-bottom: 10px;
+}
+
+.follower-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  color: black;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: none;
+  width: 5vw;
+  margin: auto;
+}
+
+.profile-picture {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.follower-details {
+  text-align: center;
+}
+
+.message-button {
+  margin-top: 20px;
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.message-button:hover {
+  background: white;
+  color: black;
+  border: 1px solid rgb(56, 28, 117);
+}
+
+h1 {
+  color: rgb(56, 28, 117);
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: rgb(56, 28, 117);
+  margin-bottom: 30px;
+  margin-top: 0px;
+}
+
 .find-people-button {
   margin-top: 30px;
   background: white;
@@ -106,102 +105,85 @@ img
 }
 
 .split-table {
-    width: 90vw;
-    height: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    box-shadow: none;
-}
-
-.left-side {
-    width: 40%;
-    border: none;
-    padding: 0;
+  width: 90vw;
+  height: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: none;
 }
 
 .upper-start{
-    max-height: 100%;
-}
-
-.right-side {
-    width: 100%;
-    border: none;
-    padding: 0;
-    display: flex;
-    justify-content: top;  
-    flex-direction: column;
-    align-items: center;
-    align-items: center;
+  max-height: 100%;
 }
 
 .club-container {
-    display: flex;
-    flex-direction: column;
-    height: 40vh;
-  }
-  
-  .background-gradient {
-    height: 100%;
-    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  
-  .circular-image {
-    height: 40vh;
-    width: 40vh;
-    position: relative;
-    border-radius: 50%;
-    border: 5px solid white;
-    margin-right: 10px; 
-    margin-top: 35vh;    
-    margin-left: 10vw;
-    margin-right: 3vw;
-  }
-  
-  .club-name {
-    color: white;
-    font-size: 1.5rem; 
-    margin-top: 35vh;
-  }
-  
-  .white-background {
-    flex: 1;
-    background-color: white;
-    padding: 10px; /* Add padding for better readability */
-  }
-  
-  .description {
-    margin-top: 25vh;
-    font-size: 20px;
-    color: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
-    width: 60vw;
-    text-align: center;
-  }
-  .container{
-    min-height: 80vh;
-    height: auto;
-  }
-  .label {
-    color: gray;
-    font-size: 16px;
-    margin-top: 10px;
-  }
+  display: flex;
+  flex-direction: column;
+  height: 40vh;
+}
 
-  /* Add these styles to your existing CSS */
+.background-gradient {
+  height: 100%;
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
 
-/* Updated styles for the chat-container */
+.circular-image {
+  height: 40vh;
+  width: 40vh;
+  position: relative;
+  border-radius: 50%;
+  border: 5px solid white;
+  margin-right: 10px; 
+  margin-top: 35vh;    
+  margin-left: 10vw;
+  margin-right: 3vw;
+}
+
+.club-name {
+  color: white;
+  font-size: 1.5rem; 
+  margin-top: 35vh;
+}
+
+.white-background {
+  flex: 1;
+  background-color: white;
+  padding: 10px;
+}
+  
+.description {
+  margin-top: 25vh;
+  font-size: 20px;
+  color: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  width: 60vw;
+  text-align: center;
+}
+
+.container{
+  min-height: 80vh;
+  height: auto;
+}
+
+.label {
+  color: gray;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
 .chat-container {
   background-color: #f0f0f0;
   border-radius: 8px;
   padding: 15px;
   margin-top: 20px;
-  overflow-y: scroll; /* Add scroll for overflow */
-  max-height: 300px; /* Set a maximum height for better appearance */
+  overflow-y: scroll;
+  max-height: 300px;
+  margin: 20px 0 10px;
+  width: 60%;
 }
 
-/* Styles for individual messages */
 .chat-container p {
   background-color: #ffffff;
   padding: 10px;
@@ -210,35 +192,12 @@ img
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Adjust the width of the right-side and chat-container */
-.right-side {
-  width: 60%; /* Adjust the width as needed */
-  border: none;
-  padding: 0;
-  display: flex;
-  justify-content: top;
-  flex-direction: column;
-  align-items: center;
-  align-items: center;
-}
-
-.chat-container {
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  padding: 15px;
-  margin: 20px 0 10px; /* Top margin is 20px, bottom margin is 10px */
-  overflow-y: scroll;
-  max-height: 300px;
-  width: 100%; /* Make it take up the entire width of the right-side */
-}
-
-/* Optional: Center the chat input and button */
 .new-message {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 0 20px; /* Top margin is 10px, bottom margin is 20px */
-  width: 100%; /* Make it take up the entire width of the right-side */
+  margin: 10px 0 20px;
+  width: 60%;
 }
 
 .new-message input {
@@ -249,16 +208,61 @@ img
   margin-right: 10px;
 }
 
-.new-message button {
-  background-color: #0084ff;
+button {
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 14px;
+  font-family: Roboto, sans-serif;
 }
 
-.new-message button:hover {
-  background-color: #0056b3;
+button:hover {
+  background: white;
+  color: black;
+  border: 1px solid rgb(56, 28, 117);
+}
+
+.user-message {
+  text-align: right;
+}
+
+.all {
+  min-height: 100vh;
+}
+
+.action-button {
+  margin-top: 20px;
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.empty-club-img {
+  height: 50vh;
+  width: 50vh;
+}
+
+.request-message {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  border-radius: 8px;
+}
+
+.show-message {
+  opacity: 1;
 }

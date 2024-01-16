@@ -1,64 +1,70 @@
+<div class="all">
 <div class="container">
     <div class="club-container">
         <div class="background-gradient">
           <img class="circular-image" src="{{ club?.imageUrl }}" alt="" srcset="">
           <h1 class="club-name">{{ club?.name }}</h1>
         </div>
-       
     </div>
     <div class="center-class">
         <p class="description">" {{ club?.description }} "</p>
     </div>
 </div>
-<div class="mebers">
+<div class="mebers" *ngIf="userIsMember">
     <div class="center-class">
         <table class="split-table">
             <tr>
-            <td class="left-side">
-                <div class="upper-start">            
-                    <div class="followers-container">
-                        <h2>Members:</h2>
+                <td class="left-side">
+                    <div class="upper-start">            
+                        <div class="followers-container">
+                            <h2>Members:</h2>
+                            <div class="follower-list">
+                                <div *ngFor="let individualFollower of allMembersProfiles" class="follower-card">
+                                    <img class="profile-picture" src="{{ individualFollower.profilePicture }}" alt="">
+                                    <div class="follower-details">
+                                        <div class="name">{{ individualFollower.firstName }} {{ individualFollower.lastName }}</div>
+                                        <button class="message-button" *ngIf="isOwner && individualFollower.userId !== club?.ownerId" (click)="kickMember(individualFollower.userId)">Kick</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="followers-container" *ngIf="isOwner">
+                        <h2>Invite:</h2>
                         <div class="follower-list">
-                            <div *ngFor="let individualFollower of allMembersProfiles" class="follower-card">
-                            <img class="profile-picture" src="{{ individualFollower.profilePicture }}" alt="">
-                            <div class="follower-details">
-                                <div class="name">{{ individualFollower.firstName }} {{ individualFollower.lastName }}</div>
-                                <button class="message-button" *ngIf="isOwner && individualFollower.userId !== club?.ownerId" (click)="kickMember(individualFollower.userId)">Kick</button>
-                            </div>
+                            <div *ngFor="let individualFollower of nonMembersProfiles" class="follower-card">
+                                <img class="profile-picture" src="{{ individualFollower.profilePicture }}" alt="">
+                                <div class="follower-details">
+                                    <div class="name">{{ individualFollower.firstName }} {{ individualFollower.lastName }}</div>
+                                    <button class="message-button" (click)="inviteMember(individualFollower.userId)">Invite</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="followers-container">
-                    <h2>Invite:</h2>
-                    <div class="follower-list">
-                        <div *ngFor="let individualFollower of nonMembersProfiles" class="follower-card">
-                        <img class="profile-picture" src="{{ individualFollower.profilePicture }}" alt="">
-                        <div class="follower-details">
-                            <div class="name">{{ individualFollower.firstName }} {{ individualFollower.lastName }}</div>
-                            <button class="message-button" (click)="inviteMember(individualFollower.userId)">Invite</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>  
-            </td>
-            <td class="right-side">
-                <div class="chat-container">
+                </td>
+                <td class="right-side">
                     <h2>Chatroom</h2>
-                    <div *ngFor="let message of clubMessages">
-                        <p>
-                          <strong>{{ senderProfiles[message.userId]?.firstName }} {{ senderProfiles[message.userId]?.lastName }}:</strong> {{ message.text }}
-                        </p>
+                    <div class="chat-container">
+                        <div *ngFor="let message of clubMessages">
+                            <p *ngIf="message.userId === user?.id" class="user-message"> {{ message.text }} </p>
+                            <p *ngIf="message.userId !== user?.id"><strong> {{ senderProfiles[message.userId]?.firstName }} {{ senderProfiles[message.userId]?.lastName }}: </strong> {{ message.text }}</p>
+                        </div>
                     </div>
-                  </div>
-
-                  <div class="new-message" [formGroup]="clubMessageForm">
-                    <input formControlName="newMessageText" placeholder="Type your message..." />
-                    <button (click)="addClubMessage()">Send</button>
-                  </div>
-            </td>
+                    <div class="new-message" [formGroup]="clubMessageForm">
+                        <input formControlName="newMessageText" placeholder="Type your message..." />
+                        <button (click)="addClubMessage()">Send</button>
+                    </div>
+                </td>
             </tr>
         </table>
-        </div>         
-    
-</div>    
+    </div>
+</div>
+<div *ngIf="!userIsMember" class="center-class">
+    <div class="followers-container">
+        <p class="no-posts-message"><b>You're currently not in this club 🌐</b></p>
+          <img src="assets/images/Good-team-rafiki.png" alt="Image Description" class="empty-club-img">
+          <button class="action-button" (click)="joinClub()">Join this club</button>
+          <p *ngIf="requestMessage" class="request-message show-message">{{ requestMessage }}</p>
+      </div>
+</div>
+</div>

@@ -18,6 +18,7 @@ export class ClubFormComponent implements OnChanges {
 
   user: User | undefined;
   currentFile: File | null;
+  currentFileURL: string | null = null;
   memberIds: number[] = [];
 
   constructor(private service: ClubService, private authService: AuthService){}
@@ -26,6 +27,8 @@ export class ClubFormComponent implements OnChanges {
     this.clubForm.reset();
     if(this.shouldEdit) {
       this.clubForm.patchValue(this.club);
+      this.currentFile = new File([], this.club.imageUrl);
+      this.currentFileURL = this.club.imageUrl;
     }
 
     this.authService.user$.subscribe(user => {
@@ -113,6 +116,10 @@ export class ClubFormComponent implements OnChanges {
 
   onFileSelected(event: any) {
     this.currentFile = event.target.files[0];
+    if (this.currentFile) {
+      // Create a URL for the selected file
+      this.currentFileURL = window.URL.createObjectURL(this.currentFile);
+    }
   }
 
   deleteFile() {

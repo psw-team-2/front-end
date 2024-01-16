@@ -1,130 +1,90 @@
-/* xp-message-form.component.css */
-.message-form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    font-family: Roboto, sans-serif;
-    width: 55vw;
-    height: 20vw;
+.done-button {
+  margin-top: 30px;
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: Roboto, sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
-.form-heading {
-    color: rgb(56, 28, 117); /* Adjusted color */
-    text-align: center;
-    margin-bottom: 20px;
+.done-button:hover {
+  background: white;
+  color: black;
+  border: 1px solid rgb(56, 28, 117);
 }
 
-.form-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+input {
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.message-input {
-    width: 100%;
-    margin-bottom: 20px;
-    margin-top: 30px;
+.file-upload-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
-button {
-    margin-top: 30px;
-    background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    font-family: Roboto, sans-serif;
+.fixed-width-container {
+  display: inline-block;
+  width: 20vw;
 }
 
-button:hover {
-    background: white;
-    color: black;
-    border: 1px solid rgb(56, 28, 117);
+.fixed-width-input {
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.tablecontent{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40vw;
-    margin: 0;
-    border-collapse: collapse;
+.fixed-textarea {
+  resize: none;
 }
 
-table {
-    width: 100%;    
-    display: flex;
-    flex-direction: row;    
-    box-shadow: none;
-  }
+.action-button-file{
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  padding: auto;
+}
 
-  table td {
-    padding: 10px;    
-    display: flex;
-    flex-direction: column;
-    top:0%;
-  }
+.action-button-file:hover {
+  background: white;
+  color: black;
+  border: 1px solid rgb(56, 28, 117);
+}
 
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
+.thumbnail {
+  width: 150px;
+  height: 150px;
+  margin-top: 20px;
+}
 
-  input,
-  textarea {
-    width: 100%;
-    box-sizing: border-box;
-  }
+.thumbnail img {
+  width: 100%;
+  height: auto; 
+}
 
-  .file-upload-container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
+.form-container {
+  max-width: 400px;
+  width: 100%;
+}
 
-  .upload-button {
-    margin-bottom: 10px;
-  }
+p {
+  font-size: 17px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+}
 
-  .uploaded-file-container {
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    height: auto;
-  }
-
-  .delete-button {
-    margin-left: 10px;
-    margin-top: 0;
-  }
-  .namecontainer{
-    height: 100%;
-  }
-
-  .fixed-width-container {
-    display: inline-block;
-    width: 20vw;
-  }
-
-  .fixed-width-input {
-    width: 100%;
-    box-sizing: border-box;
-  }
-  .fixed-textarea {
-    resize: none;
-  }
-  .left{
-    width: 60%;
-
-  }
-  .right{
-    width: 40%;
+.center-class {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: column;
 }
