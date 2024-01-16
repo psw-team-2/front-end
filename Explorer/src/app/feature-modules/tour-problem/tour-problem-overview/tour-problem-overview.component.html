@@ -1,3 +1,4 @@
+<div class="all">
 <div class="tour-problem-container">
     <div id="entity" class="center-content">
         <div>
@@ -29,13 +30,14 @@
                     <div  class="tour-problem-info">
                         <strong>Resolved </strong> {{ tourProblem?.isResolved ? 'Yes' : 'No' }}
                     </div>
-                    <div *ngIf="tourProblem?.deadlineTimeStamp" class="tour-problem-info">
+                    <div *ngIf="tourProblem?.deadlineTimeStamp && !isExpired()" class="tour-problem-info">
                         <strong>Deadline </strong> {{ tourProblem.deadlineTimeStamp | date: 'medium' }}
                     </div>
                     <div *ngIf="tourProblem?.deadlineTimeStamp && isExpired()" class="tour-problem-info-warning">
-                        <strong>Deadline </strong> {{ tourProblem.deadlineTimeStamp | date: 'medium' }}
-                        <br>
-                        <strong>Tour Problem Report Deadline is expired!</strong>
+                        <strong>Deadline: </strong> {{ tourProblem.deadlineTimeStamp | date: 'medium' }}
+                    </div>
+                    <div *ngIf="tourProblem?.deadlineTimeStamp && isExpired()" class="tour-problem-info-warning">
+                        <strong>Deadline for Tour Report has expired!</strong>
                     </div>
 
                     <div class="problem-info">
@@ -132,5 +134,6 @@
         <!-- <button [routerLink]="['/tour-problem', tourProblem?.id, 'responses']" color="primary" mat-raised-button id="entity-icon-button">View responses</button> -->
        <!-- <button mat-raised-button id="entity-icon-button" (click)="onViewResponsesClicked()">View Responses</button>-->
 <div>
- <xp-tour-problem-response *ngIf="shouldRenderResponses" [currentProblemId] = "tourProblemId"></xp-tour-problem-response>
- </div>
+    <xp-tour-problem-response *ngIf="shouldRenderResponses" [currentProblemId] = "tourProblemId"></xp-tour-problem-response>
+</div>
+</div>

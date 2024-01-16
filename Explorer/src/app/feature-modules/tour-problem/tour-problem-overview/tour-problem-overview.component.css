@@ -5,6 +5,13 @@
     white-space: nowrap;
 }
 
+.all{
+  min-height: 100vh;
+  margin-bottom: 35vh;
+  margin-left: 2.5vh;
+  margin-right: 2.5vh; 
+}
+
 
 .tour-problem-container {
     max-width: 900px; /* Adjust the max-width as needed */
@@ -48,7 +55,7 @@
   }
 .tour-problem-info-warning {
     color: red;
-    margin: 10px 0; /* Add margin to separate information blocks */
+    margin-bottom: 15px; /* Add margin to separate information blocks */
 }
 
 
