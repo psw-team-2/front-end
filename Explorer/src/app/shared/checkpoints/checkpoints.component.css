@@ -48,3 +48,27 @@ h2 {
   cursor: pointer;
   font-size: 14px;
 }
+
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.upload-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 95%;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0 0 4px 4px;
+  font-size: 12px;
+  transition: padding-bottom 0.3s ease; /* Add smooth transition effect for padding-bottom */
+}
+
+.image-container:hover .upload-text {
+  padding-bottom: 20px; /* Adjust the expanded padding as needed */
+}

@@ -4,7 +4,7 @@
   <div class="image-column">
     <div class="image-container">
       <!-- Your image here -->
-      <img [src]="imageSrc" alt="Image">
+      <img [src]="imageSrc" alt="Image" width = "250" height = "200">
       <div class="upload-text" (click)="uploadFile()">Upload Image</div>
           <input hidden #fileInput class="fixed-width-input" type="file" (change)="onFileSelected($event)">
     </div>
