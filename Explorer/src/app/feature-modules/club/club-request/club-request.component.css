@@ -2,8 +2,11 @@
 #clubRequest {
     text-align: center;
     margin-top: 20px;
+    
 }
-
+.all {
+    margin-top: 100vh;
+}
 #clubRequest p {
     font-size: 24px;
     margin-bottom: 10px;
