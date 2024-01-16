@@ -39,6 +39,14 @@ export class CheckpointModalComponent {
     
   }
 
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    if (this.selectedFile) {
+      // Create a URL for the selected file
+      this.imageSrc = window.URL.createObjectURL(this.selectedFile);
+    }
+  }
+
   close(): void {
     // Close the modal without saving
     this.dialogRef.close();

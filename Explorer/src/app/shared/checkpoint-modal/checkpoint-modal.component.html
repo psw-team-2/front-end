@@ -6,7 +6,7 @@
       <!-- Your image here -->
       <img [src]="imageSrc" alt="Image">
       <div class="upload-text" (click)="uploadFile()">Upload Image</div>
-      <input type="file" style="display: none;" #fileInput (change)="handleFileInput($event)">
+          <input hidden #fileInput class="fixed-width-input" type="file" (change)="onFileSelected($event)">
     </div>
   </div>
   <div class="text-column">
