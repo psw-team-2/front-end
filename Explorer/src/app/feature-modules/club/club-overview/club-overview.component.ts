@@ -43,6 +43,8 @@ export class ClubOverviewComponent {
   newMessageText : '';
   messageTime : Date;
 
+  userIsMember: boolean = false;
+
   ngOnInit(): void {
     this.clubId = Number(this.route.snapshot.paramMap.get('id'));
     this.getClub(this.clubId);
@@ -50,7 +52,9 @@ export class ClubOverviewComponent {
 
     this.authService.user$.subscribe(user => {
       this.user = user;
-
+      if (this.user.id in this.club.memberIds){
+        this.userIsMember = true;
+      }
       this.clubId = Number(this.route.snapshot.paramMap.get('id'));
 
     });
