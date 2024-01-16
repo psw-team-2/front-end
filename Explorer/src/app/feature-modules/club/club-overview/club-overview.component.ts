@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { ClubService } from '../club.service';
 import { Club } from '../model/club.model';
 import { ClubRequest } from '../model/club-request.model';
@@ -20,7 +20,7 @@ import { ClubMessageWihtUser } from '../model/club-message-with-user';
 })
 export class ClubOverviewComponent {
 
-  constructor(private route: ActivatedRoute, private service: ClubService, private authService: AuthService,private adminService: AdministrationService ) { }
+  constructor(private route: ActivatedRoute, private service: ClubService, private authService: AuthService,private adminService: AdministrationService, private zone: NgZone ) { }
 
   clubId: number;
   club: Club;
@@ -43,6 +43,10 @@ export class ClubOverviewComponent {
   newMessageText : '';
   messageTime : Date;
 
+  userIsMember: boolean = false;
+  requestMessage: string = '';
+  private timeoutId: any;
+
   ngOnInit(): void {
     this.clubId = Number(this.route.snapshot.paramMap.get('id'));
     this.getClub(this.clubId);
@@ -50,7 +54,6 @@ export class ClubOverviewComponent {
 
     this.authService.user$.subscribe(user => {
       this.user = user;
-
       this.clubId = Number(this.route.snapshot.paramMap.get('id'));
 
     });
@@ -84,6 +87,7 @@ export class ClubOverviewComponent {
               console.log("Club message successfully sent!");
               console.log(clubMessage.text);
               this.getClubMessages(this.clubId);
+              this.clubMessageForm.reset();
             }
           });
         }
@@ -124,6 +128,11 @@ export class ClubOverviewComponent {
         } else {
           this.isOwner = false;
         }
+        
+      if (this.club.memberIds.includes(this.user?.id!)) {
+        this.userIsMember = true;
+        console.log('true');
+      }
 
         this.authService.getAllUserIds().subscribe(response => {
           const userIds = Object.values(response);
@@ -221,6 +230,50 @@ export class ClubOverviewComponent {
                 return of('Unknown');
             })
         );
+      }
+
+      joinClub() {
+        // Your logic to join the club goes here
+        // For example, you might send a request to a server, and upon success, set the message
+        this.requestMessage = 'Join request sent!';
+
+        let request: ClubRequest = {
+          id: undefined, 
+          clubId: this.club.id || undefined,
+          accountId: this.user?.id!,
+          requestStatus: 0,
+          requestType: 1
+        }
+
+        this.service.sendRequest(request).subscribe({
+          next: (retval) => {
+            
+          }
+        });
+    
+        // Show the message and set a timeout to hide it after 5 seconds
+        this.showRequestMessage();
+        this.timeoutId = setTimeout(() => {
+          this.hideRequestMessage();
+        }, 4000);
+      }
+    
+      private showRequestMessage() {
+        this.zone.run(() => {
+          this.requestMessage = 'Join request sent!';
+          // Add the 'show-message' class to trigger the CSS animation
+          setTimeout(() => {
+            this.requestMessage = 'Join request sent!';
+          }, 0);
+        });
+      }
+    
+      private hideRequestMessage() {
+        this.zone.run(() => {
+          // Remove the 'show-message' class to hide the message
+          this.requestMessage = '';
+          clearTimeout(this.timeoutId);
+        });
       }
     
 }
