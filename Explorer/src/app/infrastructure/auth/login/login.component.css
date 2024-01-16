@@ -1,10 +1,31 @@
 form {
-  margin-top: 150px;
+  margin-top: 90px;
   display: flex;
   justify-content: center;
   min-height: 100vh;
 }
+.image-container {
+  text-align: center;
+}
+.user-title-section {
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
+.user-title {
+  color: rgb(56, 28, 117);
+  margin-bottom: 30px;
+  margin-top: 10px;
+}
+.Empty-Cart-Image {
+  width: 100px; /* Prilagodite širinu prema potrebama */
+  height: auto; /* Ovo održava odnos širine i visine slike */
+  display: block; /* Postavljanje na blok nivoa omogućava dodavanje margini i paddinga */
+  margin: 0 auto; /* Centrira sliku horizontalno */
+}
 div {
   width: 400px;
   display: flex;

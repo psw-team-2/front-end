@@ -18,7 +18,7 @@ footer {
 
 /* Styling for the title (bigger font) */
 footer .title {
-    font-size: 4vw; /* Increase the font size to 60px or adjust as needed */
+    font-size: 3.6vw; /* Increase the font size to 60px or adjust as needed */
     font-weight: bold;
     max-width: 40%; /* Limit the width to 50% of the footer to fit within the screen */
     text-align: right; /* Right-align the h1 element */

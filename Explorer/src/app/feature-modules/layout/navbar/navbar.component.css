@@ -35,7 +35,7 @@
 
 .explorer {
   font-size: 1.8vw;
-  margin-top: 1vw;
+  margin-top: 1.6vw;
   color: #fff; /* Set the text color for Explorer text */
   padding-left: 10vw;
 }
@@ -89,7 +89,7 @@ a {
     border-radius: 0.375vw;
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s;
-    margin-top: -480px;
+    margin-top: -477px;
     margin-right: 110px;
   
     position: absolute; /* Postavlja apsolutni položaj */

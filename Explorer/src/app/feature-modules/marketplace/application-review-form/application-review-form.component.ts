@@ -65,7 +65,7 @@ export class ApplicationReviewFormComponent{
     this.service.addApplicationReview(applicationReview).subscribe({
       next: () => { 
         this.applicationReviewUpdated.emit();
-        this.router.navigate(['/profile']);
+        //this.router.navigate(['/profile']);
         this.onCloseClick();
         this.showSuccessNotification('Thank you for rating our application! Your feedback is valuable and helps us improve.');       
       },

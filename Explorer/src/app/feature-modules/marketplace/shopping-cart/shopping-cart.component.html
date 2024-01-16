@@ -61,11 +61,6 @@
                     <div class="wallet">{{ wallet.ac }} AC</div>
                 </div>
                 <div class="apply-coupon">
-                    <p>Apply coupon</p>
-                    <div class="coupon-input-container">
-                        <textarea class="coupon-textarea" placeholder="Enter coupon code"></textarea>
-                        <button class="apply-button">Apply</button>
-                    </div>
                     <!--<p class="discount" *ngIf="firstPurchaseDiscount > 0">Your discount is {{firstPurchaseDiscount}}%, because of first purchase.</p>
                     <p class="discount" *ngIf="discount > 0">Your discount is {{discount}}%, because of your {{profile.xp}} XP.</p>-->
                     <p class="discount" *ngIf="(firstPurchaseDiscount > 0 && !(discount > 0)) || (discount > 0 && !(firstPurchaseDiscount > 0))">

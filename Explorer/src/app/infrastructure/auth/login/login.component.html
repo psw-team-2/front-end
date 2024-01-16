@@ -1,5 +1,11 @@
   <form class="center-class" [formGroup]="loginForm" (ngSubmit)="login()">
     <div>
+      <div class="image-container">
+        <img src="assets/icons/passport.png" alt="Your Cart Is Empty Image" class="Empty-Cart-Image">
+        <div class="user-title-section">
+          <h1 class="user-title">Log In</h1>
+        </div>
+      </div>
       <mat-form-field>
         <mat-label>Username</mat-label>
         <input matInput formControlName="username" type="text" />
@@ -20,7 +26,7 @@
   
       <p *ngIf="loginError" class="error-message">{{ loginError }}</p>
   
-      <p>Don't have an account yet?<a href="/register">Sign Up</a></p>
+      <p>Don't have an account yet?<a href="/register"> Sign Up</a></p>
       <p><a href="/password-recovery">Forgot Password?</a></p>
     </div>
   </form>

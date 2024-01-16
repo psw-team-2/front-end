@@ -11,7 +11,7 @@ body{
     display: grid;
     grid-template-columns: 1fr 1fr; /* Podela na dve kolone */
     gap: 20px; /* Odstupanje između kolona */
-    width: 63%;
+    width: 64%;
     height: 70%;
     background-color: #ffffff;
     border-radius: 8px;
@@ -221,10 +221,11 @@ h4.discount {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 50px;
 }
 
 .left {
-  width: 580px;
+  width: 560px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -278,8 +279,8 @@ h4.discount {
     width: 110%;
     text-align: right;
     font-family: 'Montserrat', sans-serif;
-    margin-top: -70px;
-    margin-left: -27px;
+    margin-top: -50px;
+    margin-left: -20px;
 }
    
    
@@ -295,7 +296,7 @@ h4.discount {
     border-radius: 0.375vw;
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s;
-    width:243px;
+    width:210px;
   }
 
   .button:hover {
