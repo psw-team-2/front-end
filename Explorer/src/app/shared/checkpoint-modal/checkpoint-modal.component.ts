@@ -44,6 +44,7 @@ export class CheckpointModalComponent {
     if (this.selectedFile) {
       // Create a URL for the selected file
       this.imageSrc = window.URL.createObjectURL(this.selectedFile);
+      this.imagePath = 'https://localhost:44333/Images/' +  this.selectedFile.name
     }
   }
 
@@ -57,26 +58,6 @@ export class CheckpointModalComponent {
     if (this.fileInput) {
       const fileInput = this.fileInput.nativeElement as HTMLInputElement;
       fileInput.click();
-    }
-  }
-
-  handleFileInput(event: any) {
-    // Handle the selected file, e.g., save it to a variable or perform other actions
-    const selectedFile = event.target.files[0];
-    console.log('Selected file:', selectedFile);
-    if(selectedFile){
-    this.imagePath += selectedFile.name;
-    }else
-    {
-      this.imagePath = "https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
-    }
-    // Update the image source with the selected file
-    if (selectedFile) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.imageSrc = (e?.target?.result as string) || '';
-      };
-      reader.readAsDataURL(selectedFile);
     }
   }
 }

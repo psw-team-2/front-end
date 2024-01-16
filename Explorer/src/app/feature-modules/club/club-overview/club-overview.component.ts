@@ -140,6 +140,7 @@ export class ClubOverviewComponent {
             const allProfiles: Profile[] = profilesResult.results;
             this.allMembersProfiles = allProfiles.filter(profile => this.club.memberIds.includes(profile.userId as number));
             this.nonMembersProfiles = allProfiles.filter(profile => this.nonMemberIds.includes(profile.userId as number));
+            
           });
         });
 
