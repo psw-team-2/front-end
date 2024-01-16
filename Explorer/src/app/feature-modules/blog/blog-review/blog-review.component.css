@@ -7,7 +7,7 @@
 
 .blog-card {
     width: calc(80% - 20px);  /* Podelite dostupan prostor na tri dela, sa razmakom od 10px između kartica */
-    height: 300px;
+    height: 330px;
     margin: 12px;
     border: 1px solid #e1e1e1;
     box-shadow: 0 2px 4px linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));

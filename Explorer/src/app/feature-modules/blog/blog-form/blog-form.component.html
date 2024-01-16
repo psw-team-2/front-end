@@ -71,7 +71,7 @@
           
           <img *ngIf="currentFile" [src]="currentFileUrl" alt="Selected Image" class="thumbnail"/>
           <img *ngIf="!currentFile" [src]="currentFileUrl" class="thumbnail"/>
-          <mat-label>Image</mat-label>
+          
             <button *ngIf="!currentFile && !shouldEdit" class="action-button" mat-raised-button color="primary" (click)="fileInput.click()">Upload Image</button>
             <button *ngIf="currentFile || shouldEdit" class="action-button" mat-raised-button color="primary" (click)="fileInput.click()">Change Image</button>
             <input hidden #fileInput type="file" (change)="onFileSelected($event)">
