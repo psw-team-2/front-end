@@ -1,0 +1,24 @@
+<!-- checkpoint-modal.component.html -->
+<h2>Create Checkpoint</h2>
+<div class="grid-container">
+  <div class="image-column">
+    <div class="image-container">
+      <!-- Your image here -->
+      <img [src]="imageSrc" alt="Image">
+      <div class="upload-text" (click)="uploadFile()">Upload Image</div>
+      <input type="file" style="display: none;" #fileInput (change)="handleFileInput($event)">
+    </div>
+  </div>
+  <div class="text-column">
+    <mat-form-field>
+      <input matInput placeholder="Checkpoint Name" [(ngModel)]="checkpointName">
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput placeholder="Description" [(ngModel)]="checkpointDescription"></textarea>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="button-row">
+  <button class="action-button" mat-raised-button color="primary" (click)="save()">Save</button>
+</div>

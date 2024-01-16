@@ -36,6 +36,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -71,7 +72,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     DragDropModule,
     MatTooltipModule,
     MatSnackBarModule,
-    ScrollingModule
+    ScrollingModule,
+    MatInputModule,
+    MatDialogModule,
+    MatButtonModule,
+
   ],
   providers: [
     {
