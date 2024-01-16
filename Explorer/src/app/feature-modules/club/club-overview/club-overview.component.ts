@@ -12,6 +12,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { ClubMessage } from '../model/club-message.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClubMessageWihtUser } from '../model/club-message-with-user';
+import { UserRole } from '../../administration/model/user-account.model';
 
 @Component({
   selector: 'xp-club-overview',
@@ -142,6 +143,16 @@ export class ClubOverviewComponent {
           for (let userId of this.allMemberIds) {
             if (this.club.memberIds.indexOf(userId) === -1) {
               this.nonMemberIds.push(userId);
+              this.adminService.getUserAccountById(userId).subscribe({
+                next: (retval) => {
+                  if (retval.role === UserRole.Administrator) {
+                    const indexToRemove = this.nonMemberIds.indexOf(userId);
+                    if (indexToRemove !== -1) {
+                        this.nonMemberIds.splice(indexToRemove, 1);
+                    }
+                  }
+                }
+              });
             }
           }
           this.nonMemberIds = this.nonMemberIds.filter(id => !this.club.memberIds.includes(id));
