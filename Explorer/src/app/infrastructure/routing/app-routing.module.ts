@@ -72,6 +72,7 @@ import { AppUserProfileComponent } from 'src/app/feature-modules/administration/
 import { ProfileSettings2Component } from 'src/app/feature-modules/administration/profile-settings2/profile-settings2.component';
 import { AuthorReviewComponent } from 'src/app/feature-modules/tourist/author-review/author-review.component';
 import { AuthorRequestsOverviewComponent } from 'src/app/feature-modules/administration/author-requests-overview/author-requests-overview.component';
+import { CheckpointsComponent } from 'src/app/shared/checkpoints/checkpoints.component';
 
 
 
@@ -153,6 +154,8 @@ const routes: Routes = [
   
   {path: 'authorReview', component: AuthorReviewComponent},
   {path: 'author-requests-overview', component: AuthorRequestsOverviewComponent},
+
+  {path: 'create-tour', component: CheckpointsComponent},
 ];
 
 @NgModule({

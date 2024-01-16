@@ -33,6 +33,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TpFormComponent } from '../tour-problem/tp-form/tp-form.component';
 import { TourProblemModule } from '../tour-problem/tour-problem.module';
 import { GiftCardComponent } from './gift-card/gift-card.component';
+import { TourCreationComponent } from './tour-creation/tour-creation.component';
 
 
 
@@ -57,6 +58,7 @@ import { GiftCardComponent } from './gift-card/gift-card.component';
     BundleViewComponent,
     WishlistOverviewComponent,
     GiftCardComponent,
+    TourCreationComponent,
 
   ],
   imports: [

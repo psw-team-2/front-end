@@ -18,6 +18,8 @@
         <button mat-menu-item color="primary" [routerLink]="['view-complex-tours']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">View Complex Tours</button>
         <button mat-menu-item color="primary" [routerLink]="['complex-tour-creaton']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">Create Complex Tours</button>
          <button mat-menu-item color="primary" [routerLink]="['complex-tour-creaton']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">Create Complex Tours</button>
+         <button mat-menu-item color="primary" [routerLink]="['create-tour']" *ngIf="user && user.role === 'author'" routerLinkActive="active-link">Create Tours</button>
+
       </mat-menu>
 
       <button mat-menu-item color="primary"  *ngIf="user && user.role === 'administrator'" [matMenuTriggerFor]="adminMenu">

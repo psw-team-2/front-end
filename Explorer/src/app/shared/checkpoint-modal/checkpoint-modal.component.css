@@ -1,0 +1,92 @@
+/* checkpoint-modal.component.css */
+h2 {
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  padding: 10px;
+  margin: 0;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr auto; /* Reverse the order of columns */
+  grid-template-rows: auto;
+  gap: 25px; /* Adjust the gap as needed */
+  justify-content: center; /* Center the grid horizontally */
+  align-items: stretch; /* Stretch columns to have the same height */
+  padding: 25px; /* Add padding to the entire modal container */
+  grid-template-areas: "text image"; /* Set the grid template areas */
+}
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.upload-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 95%;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0 0 4px 4px;
+  font-size: 12px;
+  transition: padding-bottom 0.3s ease; /* Add smooth transition effect for padding-bottom */
+}
+
+.image-container:hover .upload-text {
+  padding-bottom: 20px; /* Adjust the expanded padding as needed */
+}
+
+.image-column {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.image-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally in the image column */
+  grid-area: image; /* Set the grid area for the image column */
+}
+
+.text-column {
+  display: flex;
+  flex-direction: column;
+  grid-area: text; /* Set the grid area for the text column */
+}
+textarea {
+  resize: vertical;
+  width: 100%;
+  flex: 1; /* Make the textarea take the remaining height */
+  margin-bottom: 15px;
+  padding: 10px; /* Add padding as needed */
+  box-sizing: border-box; /* Include padding in the total height */
+  height: 200px;
+}
+
+.text-column input[type="file"] {
+  display: none;
+}
+
+
+.button-row {
+  display: flex;
+  justify-content: center; /* Center the buttons horizontally */
+  padding: 10px; /* Add padding as needed */
+}
+
+
+.action-button {
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
