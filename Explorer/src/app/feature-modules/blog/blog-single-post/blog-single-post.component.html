@@ -61,7 +61,7 @@
     </div>
   </div>
   <div>
-    <xp-blog-comment-form [blogId]="blogId!"></xp-blog-comment-form>
+    <xp-blog-comment-form [blogId]="blogId!" (blogCommentAdded)="onCommentAdded($event)"></xp-blog-comment-form>
   </div>
   <div>
     <xp-comments-review [comments]="comments"></xp-comments-review>
@@ -79,6 +79,10 @@
         </div>
       </div>
     </div>
+    <div class="paragraf" *ngIf="!similarBlogs || similarBlogs.length === 0">
+      <img src="assets/images/unhappy-result.png" >
+      <p class="p">No similar blogs to show right now.</p>
+  </div>
   </div>  
 </div>
  

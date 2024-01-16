@@ -1,7 +1,8 @@
 .blog-post {
  
         font-family: 'Montserrat', sans-serif;
-        letter-spacing: 1px; 
+        letter-spacing: 1px;
+        min-height: 100vh; 
     
 }
 
@@ -103,7 +104,7 @@ xp-blog-comment-form {
 
 .similar-blog-card {
   width: calc(80% - 20px);  /* Podelite dostupan prostor na tri dela, sa razmakom od 10px između kartica */
-  height: 330px;
+  height: 280px;
   margin: 20px;
   border: 1px solid #e1e1e1;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -165,4 +166,22 @@ xp-blog-comment-form {
   margin-bottom: 20px; /* Margina ispod naslova */
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 1px;
+}
+
+.paragraf {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 600px; /* Prilagodite vrednost prema potrebi */
+  font-size: medium; /* Prilagodite vrednost prema potrebi */
+  font-family: 'Montserrat', sans-serif;
+  min-height: 50vh;
+}
+.paragraf img {
+  margin-top: 100px;
+  height: 100px;
+  width: 150;
+}
+
+.paragraf p {
+  margin-top: 10px;
 }

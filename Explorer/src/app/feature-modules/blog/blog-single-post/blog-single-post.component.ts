@@ -207,6 +207,10 @@ ngOnInit(): void {
     return false;
   }
 
+onCommentAdded(comment: BlogComment): void {
+  this.comments.push(comment); 
+}
+
 }
 
     
