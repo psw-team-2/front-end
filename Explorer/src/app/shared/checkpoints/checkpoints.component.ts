@@ -1,7 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import * as L from 'leaflet';
+import { forkJoin } from 'rxjs';
 import { Checkpoint } from 'src/app/feature-modules/tour-authoring/model/checkpoint.model';
+import { Tour } from 'src/app/feature-modules/tour-authoring/model/tour.model';
+import { TourAuthoringService } from 'src/app/feature-modules/tour-authoring/tour-authoring.service';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { CheckpointModalComponent } from '../checkpoint-modal/checkpoint-modal.component';
 import { MapService } from '../map/map.service';
 
@@ -12,7 +17,7 @@ import { MapService } from '../map/map.service';
   styleUrls: ['./checkpoints.component.css']
 })
 export class CheckpointsComponent {
-
+  @ViewChild('fileInput') fileInput: ElementRef;
   private map: any;
   currentLatitude: number;
   currentLongitude: number;
@@ -22,7 +27,13 @@ export class CheckpointsComponent {
   tourDescription: string;
   tourDifficulty: number;
   tourPrice: number;
-  constructor(private mapService: MapService, private dialog: MatDialog) {}
+  tourPoint: number;
+  selectedFile: File;
+  imageSrc: string = 'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
+  imagePath: string = 'https://localhost:44333/Images/';
+  user: User;
+  checkpointIds : number[] =  []
+  constructor(private mapService: MapService, private dialog: MatDialog, private authService: AuthService, private tourService: TourAuthoringService) {}
 
   private initMap(): void {
     this.map = L.map('map', {
@@ -43,6 +54,12 @@ export class CheckpointsComponent {
   }
 
   ngAfterViewInit(): void {
+
+    this.authService.user$.subscribe((user) => {
+      this.user = user
+    });
+
+
     let DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
     });
@@ -212,10 +229,83 @@ private addLabelToPopupContent(categoryLabel: string, imageSrc: string, name: st
   }
 
   createTour(): void {
-    // Use this.tourName and this.tourDescription to access the values
-    console.log('Tour Name:', this.tourName);
-    console.log('Tour Description:', this.tourDescription);
+    const checkpointRequests = this.checkpoints.map(checkpoint =>
+      this.tourService.addCheckpoint(checkpoint)
+    );
   
-    // Rest of your logic to create the tour
+    // Use forkJoin to wait for all checkpoint requests to complete
+    forkJoin(checkpointRequests)
+      .subscribe(
+        checkpointResults => {
+          // checkpointResults is an array of results from each checkpoint request
+          checkpointResults.forEach(result => {
+            this.checkpointIds.push(result.id || 1);
+            console.log('Checkpoint added successfully:', result);
+          });
+  
+          // After all checkpoints are saved, create the tour
+          const newTour: Tour = {
+            name: this.tourName,
+            description: this.tourDescription,
+            status: 0,
+            difficulty: this.tourDifficulty,
+            tags: [],
+            checkPoints: this.checkpointIds.sort((a, b) => a - b), // Sort checkpointIds in ascending order
+            equipment: [],
+            objects: [],
+            totalLength: 0,
+            footTime: 0,
+            bicycleTime: 0,
+            carTime: 0,
+            authorId: this.user.id,
+            publishTime: new Date().toISOString(),
+            price: this.tourPrice,
+            points: this.tourPoint,
+            image: this.imagePath,
+          };
+  
+          // Now, create the tour after all checkpoints are saved
+          this.tourService.addTour(newTour)
+            .subscribe(
+              tourResult => {
+                // Handle successful response if needed
+                console.log('Tour added successfully:', tourResult);
+              },
+              tourError => {
+                // Handle error if needed
+                console.error('Error adding tour:', tourError);
+              }
+            );
+        },
+        error => {
+          // Handle error if any of the checkpoint requests fail
+          console.error('Error adding checkpoints:', error);
+        }
+      );
+      this.tourService.upload(this.selectedFile).subscribe({
+        next: (value) => {
+  
+        },
+        error: (value) => {
+  
+        }, complete: () => {
+        },
+      });
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    if (this.selectedFile) {
+      // Create a URL for the selected file
+      this.imageSrc = window.URL.createObjectURL(this.selectedFile);
+      this.imagePath = 'https://localhost:44333/Images/' +  this.selectedFile.name
+    }
+  }
+  uploadFile(): void {
+    // Trigger click on the hidden file input
+    if (this.fileInput) {
+      const fileInput = this.fileInput.nativeElement as HTMLInputElement;
+      fileInput.click();
+    }
   }
 }

@@ -2,6 +2,13 @@
   <div class="tour-creation">
     <h2>Tour Creation</h2>
     <form>
+      <div class="image-container">
+
+        <img [src]="imageSrc" alt="Image">
+        <div class="upload-text" (click)="uploadFile()">Upload Image</div>
+            <input hidden #fileInput class="fixed-width-input" type="file" (change)="onFileSelected($event)">
+      </div>
+
       <mat-form-field>
         <label for="tour-name">Tour Name:</label>
         <input matInput type="text" id="tour-name" name="tour-name" [(ngModel)]="tourName">
@@ -23,8 +30,13 @@
       <input matInput type="text" id="tour-difficulty" name="tour-difficulty" [(ngModel)]="tourDifficulty">
     </mat-form-field>
 
+    <mat-form-field>
+      <label for="tour-point">Tour Points:</label>
+      <input matInput type="number" id="tour-point" name="tour-point" [(ngModel)]="tourPoint">
+    </mat-form-field>
 
-      <button type="submit" mat-raised-button color="primary" (click)="createTour()">Create Tour</button>
+
+      <button type="submit" class="action-button" mat-raised-button color="primary" (click)="createTour()">Create Tour</button>
     </form>
   </div>
   <div class="map-frame">
