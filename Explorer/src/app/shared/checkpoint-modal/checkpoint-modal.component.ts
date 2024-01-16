@@ -19,33 +19,19 @@ export class CheckpointModalComponent {
 
   constructor(private dialogRef: MatDialogRef<CheckpointModalComponent>, private service: TourAuthoringService) {}
 
-  async save(): Promise<void> {
+   save() {
     // Emit the event with name and description values
     this.saveClicked.emit({ name: this.checkpointName, description: this.checkpointDescription, image: this.imagePath });
     // Close the modal
     this.dialogRef.close();
 
-    await this.service.upload(this.selectedFile).subscribe({
-      next: (event) => {
-        if (event.type === HttpEventType.UploadProgress && event.total) {
-          const percentDone = Math.round((100 * event.loaded) / event.total);
-          console.log(`File is ${percentDone}% uploaded.`);
-        } else if (event.type === HttpEventType.Response) {
-          // Handle successful response
-          console.log('File uploaded successfully:', event.body);
-        }
+     this.service.upload(this.selectedFile).subscribe({
+      next: (value) => {
+
       },
-      error: (error) => {
-        if (error.status === 400) {
-          console.error('No file received.');
-          // Display an error message or take appropriate action
-        } else {
-          console.error('File upload failed:', error);
-          // Handle other errors
-        }
-      },
-      complete: () => {
-        console.log('File upload complete.');
+      error: (value) => {
+
+      }, complete: () => {
       },
     });
     
