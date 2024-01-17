@@ -90,6 +90,8 @@ export class CheckpointsComponent {
       this.mapService.reverseSearch(lat, lng).subscribe((res) => {
         this.currentLatitude = lat;
         this.currentLongitude = lng;
+
+        console.log(lat + "and" + lng)
       });
 
       this.openCheckpointModal();

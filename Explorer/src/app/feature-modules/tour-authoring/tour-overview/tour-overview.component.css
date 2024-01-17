@@ -227,10 +227,25 @@ textarea {
   align-items: flex-end;
 }
 .object-actions button {
-  background-color: none;
-  margin-bottom: 5px;
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 14px;
+  margin: 5px;
+}
+
+.add-object-button {
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 5px;
 }
 
 /* Add this CSS to your stylesheet */
