@@ -2,7 +2,7 @@
 #clubRequest {
     text-align: center;
     margin-top: 20px;
-    
+    min-height: 100vh;
 }
 .all {
     margin-top: 100vh;
