@@ -346,3 +346,80 @@ textarea {
   background-color: rgb(56, 28, 117);
   color: #ffffff;
 }
+
+.checkpoints-section {
+  padding: 20px;
+  background-color: #8e44ad; /* Purple background color */
+  color: #ecf0f1; /* Light text color */
+}
+
+.checkpoint-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Align checkpoint cards in two columns */
+}
+
+.checkpoint {
+  border: 2px solid #9b59b6; /* Darker purple border */
+  margin: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  width: calc(48% - 20px); /* Adjust the width as needed for two columns */
+  box-sizing: border-box;
+  background-color: #ffffff; /* White background for contrast */
+  transition: background-color 0.3s ease;
+}
+
+.checkpoint:hover {
+  background-color: #ecf0f1; /* Light gray on hover */
+}
+
+.image-container {
+  position: relative;
+}
+
+.checkpoint-image {
+  width: 100%;
+  height: 150px; /* Fixed height for images */
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.checkpoint-details {
+  margin-top: 10px;
+}
+
+.checkpoint-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: rgb(56, 28, 117); /* Dark gray for description text */
+}
+
+.checkpoint-description {
+  font-size: 0.9em;
+  color: rgb(56, 28, 117); /* Dark gray for description text */
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.action-buttons button {
+  padding: 5px 10px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.edit-button,
+.delete-button {
+  background: linear-gradient(rgb(56, 28, 117), rgb(65, 59, 131));
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}

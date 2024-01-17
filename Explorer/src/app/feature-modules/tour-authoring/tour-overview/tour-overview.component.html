@@ -72,37 +72,29 @@
     </div>    
 
     <div *ngIf="currentSection === 1" class="section checkpoints-section">
-      <!-- Display Tour Checkpoints as a table -->
       <h2><i class="fas fa-location-dot"></i> Tour Checkpoints</h2>
-      <table style="width: 100%; text-align: center;">
-        <thead>
-          <tr>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th *ngIf="userRole === 'author'">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let checkpoint of checkpoints">
-            <td>
-              <!-- Display checkpoint image -->
-              <img *ngIf="checkpoint.image" [src]="checkpoint.image" alt="Checkpoint Image" style="width: 200px; height: 100px;">
-              <!-- Add a default image or placeholder if checkpoint.image is not available -->
-              <img *ngIf="!checkpoint.image" [src]="defaultImageUrl" alt="Default Image" style="width: 100px; height: 100px;">
-            </td>
-            <td>{{ checkpoint.name }}</td>
-            <td>{{ checkpoint.description }}</td>
-            <td *ngIf="userRole === 'author'">
-              <!-- Add options for editing and deleting -->
-              <button (click)="editCheckpoint(checkpoint)">Edit</button>
-              <button (click)="deleteCheckpoint(checkpoint)">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="checkpoint-list">
+        <div *ngFor="let checkpoint of checkpoints" class="checkpoint">
+          <div class="image-container">
+            <!-- Display checkpoint image -->
+            <img *ngIf="checkpoint.image" [src]="checkpoint.image" alt="Checkpoint Image" class="checkpoint-image">
+            <!-- Add a default image or placeholder if checkpoint.image is not available -->
+            <img *ngIf="!checkpoint.image" [src]="defaultImageUrl" alt="Default Image" class="checkpoint-image">
+          </div>
+          <div class="checkpoint-details">
+            <div class="checkpoint-name">{{ checkpoint.name }}</div>
+            <div class="checkpoint-description">{{ checkpoint.description }}</div>
+          </div>
+          <div *ngIf="userRole === 'author'" class="action-buttons">
+            <!-- Add options for editing and deleting -->
+            <button class="edit-button" (click)="editCheckpoint(checkpoint)"><i class="fas fa-edit"></i> Edit</button>
+            <button class="delete-button" (click)="deleteCheckpoint(checkpoint)"><i class="fas fa-trash"></i> Delete</button>
+          </div>
+        </div>
+      </div>
     </div>
-
+    
+    
         <!-- Tour Equipment Section -->
 <!-- tour-reviews.component.html -->
 
