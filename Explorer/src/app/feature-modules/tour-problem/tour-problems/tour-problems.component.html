@@ -38,33 +38,38 @@
                                     </td>
                                     <td>
                                         <button  [routerLink]="'/tour-problem/' + problem.id" >
-                                            See More
                                             <mat-icon>info</mat-icon>
+                                            See More
+
                                             <!-- <i class="fas fa fa-info-circle"></i> -->
                                         </button>
                                     </td>
                                     <td *ngIf="user.role === 'administrator'">
                                         <button *ngIf="isExpired(problem) && user?.role === 'administrator'" color="accent" (click)="onCloseClicked(problem)" >
-                                            Close Problem
                                             <mat-icon>check_circle</mat-icon>
+                                            Close Problem
+                                            
                                         </button>
                                     </td>
                                     <td *ngIf="user.role === 'administrator'" >    
                                         <button *ngIf="isExpired(problem) && user.role === 'administrator'" color="primary" (click)="onPenalizeClicked(problem)" >
-                                            Penalize Author
                                             <mat-icon>warning</mat-icon>
+                                            Penalize Author
+                                            
                                         </button>
                                     </td>
                                     <td *ngIf="user.role === 'tourist'">    
                                         <button  *ngIf="user.role === 'tourist' && !isProblemResolved(problem)"  (click)="onProblemSolved(problem)" >
-                                            Mark as Solved
                                             <mat-icon>build</mat-icon>
+                                            Mark as Solved
+                                            
                                             <!-- <i class="fas fa-cog"></i> -->
                                         </button>
                                         <button  *ngIf="user.role === 'tourist' && isProblemResolved(problem)" (click)="onAddCommentClicked(problem)" >
                                             <!-- <i class="fas fa-warning"></i> -->
-                                            Report Again
                                             <mat-icon>warning</mat-icon>
+                                            Report Again
+                                            
                                         </button>
                                     </td>
                                     <td *ngIf="user.role === 'author'"></td>

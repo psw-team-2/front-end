@@ -10,6 +10,18 @@
     margin-right: 2.5vh; */
 }
 
+.message-form-wrapper {
+    position: fixed;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    width: 25vw;
+    height: 33%;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
 
 .problems-title-section {
     color: white;
