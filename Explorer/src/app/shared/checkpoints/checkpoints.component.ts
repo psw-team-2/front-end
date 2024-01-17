@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import * as L from 'leaflet';
 import { forkJoin } from 'rxjs';
 import { Checkpoint } from 'src/app/feature-modules/tour-authoring/model/checkpoint.model';
@@ -33,7 +34,7 @@ export class CheckpointsComponent {
   imagePath: string = 'https://localhost:44333/Images/';
   user: User;
   checkpointIds : number[] =  []
-  constructor(private mapService: MapService, private dialog: MatDialog, private authService: AuthService, private tourService: TourAuthoringService) {}
+  constructor(private mapService: MapService, private dialog: MatDialog, private authService: AuthService, private tourService: TourAuthoringService, private router: Router) {}
 
   private initMap(): void {
     this.map = L.map('map', {
@@ -270,6 +271,8 @@ private addLabelToPopupContent(categoryLabel: string, imageSrc: string, name: st
               tourResult => {
                 // Handle successful response if needed
                 console.log('Tour added successfully:', tourResult);
+
+                this.router.navigate(['/view-tours-author']);
               },
               tourError => {
                 // Handle error if needed

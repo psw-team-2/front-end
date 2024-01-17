@@ -59,10 +59,10 @@
     <i><strong>Last published:</strong> {{ tour?.publishTime | date:'medium' }}</i>
   </label>
 
-  <button class="gift-button" (click)="onSendClicked(tour)">
-    <i  class="gift-button"  class="fas fa-gift"></i> 
+  <button class="gift-button" (click)="onSendClicked(tour)" *ngIf="userRole === 'tourist'">
+    <i  class="gift-button"  class="fas fa-gift"></i> Gift Tour
   </button>
-  <button class="report-button" (click)="onReportClicked(tour)">
+  <button class="report-button" (click)="onReportClicked(tour)" *ngIf="userRole === 'tourist'">
     <i  class="report-button"  class="fas fa-warning"></i> Report
   </button>
 
@@ -80,7 +80,7 @@
             <th>Image</th>
             <th>Name</th>
             <th>Description</th>
-            <th>Actions</th>
+            <th *ngIf="userRole === 'author'">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -93,7 +93,7 @@
             </td>
             <td>{{ checkpoint.name }}</td>
             <td>{{ checkpoint.description }}</td>
-            <td>
+            <td *ngIf="userRole === 'author'">
               <!-- Add options for editing and deleting -->
               <button (click)="editCheckpoint(checkpoint)">Edit</button>
               <button (click)="deleteCheckpoint(checkpoint)">Delete</button>
