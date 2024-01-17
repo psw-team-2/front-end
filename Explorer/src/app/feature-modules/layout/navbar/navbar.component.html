@@ -10,12 +10,14 @@
       </button>
       <mat-menu #tourMenu="matMenu">
         <!--<button mat-menu-item *ngIf="user && user.role === 'author'" color="primary" [routerLink]="['object']">Add Object</button>-->
-        <button mat-menu-item *ngIf="user && (user.role === 'administrator' || user.role === 'tourist' || user.role === 'author')"color="primary" [routerLink]="['tour-problems']">Tour Problems</button>
-        <button mat-menu-item color="primary" [routerLink]="['sale']" *ngIf="user && (user.role === 'author' || user.role === 'tourist')">Sales</button>
+        
         <button mat-menu-item color="primary" [routerLink]="['view-tours-author']" *ngIf="user && user.role === 'author'" routerLinkActive="active-link">Tours</button>
         <button mat-menu-item color="primary" [routerLink]="['view-tours-tourist']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">Tours</button>
+        <button mat-menu-item color="primary" [routerLink]="['create-tour']" *ngIf="user && user.role === 'author'" routerLinkActive="active-link">Create Tours</button>
         <button mat-menu-item color="primary" [routerLink]="['view-complex-tours']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">Complex Tours</button>
-         <button mat-menu-item color="primary" [routerLink]="['create-tour']" *ngIf="user && user.role === 'author'" routerLinkActive="active-link">Create Tours</button>
+        <button mat-menu-item *ngIf="user && (user.role === 'administrator' || user.role === 'tourist' || user.role === 'author')"color="primary" [routerLink]="['tour-problems']">Tour Problems</button>
+        <button mat-menu-item color="primary" [routerLink]="['sale']" *ngIf="user && (user.role === 'author' || user.role === 'tourist')">Sales</button>
+        <button mat-menu-item color="primary" [routerLink]="['view-complex-tours']" *ngIf="user && user.role === 'tourist'" routerLinkActive="active-link">Complex Tours</button>
 
       </mat-menu>
 
