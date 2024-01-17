@@ -30,11 +30,11 @@
                 <div class="actions" *ngIf="cr.accountId!==currentUser.id && cr.requestType==0 && cr.requestStatus==0">
                     <button class="action-button" color="accent" (click)="onWithdrawRequestClicked(cr.id || 0)">Withdraw request</button>
                 </div>
-                <div class="actions" *ngIf="cr.accountId!==currentUser.id && cr.requestType==1">
+                <div class="actions" *ngIf="cr.accountId!==currentUser.id && cr.requestType==1 && cr.requestStatus==0">
                     <button *ngIf="cr.requestStatus==0 || cr.requestStatus==2" class="action-button" color="accent" (click)="onAcceptRequestClicked(cr)">Accept request</button>                        
                     <button *ngIf="cr.requestStatus==0 || cr.requestStatus==1" class="action-button" color="accent" (click)="onRejectRequestClicked(cr)">Reject request</button>
                 </div>
-                <div class="actions" *ngIf="cr.accountId==currentUser.id && cr.requestType==0">
+                <div class="actions" *ngIf="cr.accountId==currentUser.id && cr.requestType==0 && cr.requestStatus==0">
                     <button *ngIf="cr.requestStatus==0 || cr.requestStatus==2" class="action-button" color="accent" (click)="onAcceptInvitationClicked(cr)">Accept invitation</button>
                     <button *ngIf="cr.requestStatus==0 || cr.requestStatus==1" class="action-button" color="accent" (click)="onRejectInvitationClicked(cr)">Reject invitation</button>
                 </div>
