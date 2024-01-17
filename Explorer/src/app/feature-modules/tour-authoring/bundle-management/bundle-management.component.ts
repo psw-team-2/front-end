@@ -56,7 +56,7 @@ export class BundleManagementComponent implements OnInit {
   
           // Check if the status has changed
           if (bundle.status === BundleStatus.Draft) {
-            window.alert('Status has not been changed. Bundle needs 2 tours that are published');
+            window.alert('Status has been changed.');
           } 
         },
       });

@@ -27,12 +27,11 @@
       <div class="bundle"  [ngStyle]="{'background-image': 'url(' + tour.image + ')'}">
       <div class="details">
         <label>{{ tour.name }}</label>
-        <p *ngIf="tour.id !== undefined">Average grade: {{ tourAverageGrades[tour.id] }}/5</p>
+        <p >{{ tour.price }} AC</p>
       <div class="button-container">
       <!--  <a *ngIf="boughtTours.includes(tour)" class="view-button" (click)="startTour(tour)">Start tour</a>-->
       <a class="view-button" [routerLink]="'/tour/' + tour.id">View more</a>
         <a class="view-button" (click)="startTour(tour)">Start  tour</a>
-        <br>
          <a class="view-button" *ngIf="isCreatedByTourist(tour)" (click)="startTour(tour)">Start  tour (as creator)</a>
          <!--<a class="view-button" *ngIf="!isCreatedByTourist(tour)">Add to cart (not as creator)</a>-->
         <a class="view-button" (click)="onAddClicked(tour)">Add to cart</a>
