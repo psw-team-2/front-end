@@ -26,7 +26,7 @@
 /* Section Styles */
 .section {
   width: 600px; /* Set a maximum width for the sections */
-  height: 610px;
+  height: 600px;
   background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(211, 211, 211, 0.8)), white; /* White/light gray gradient background */
   border: 1px solid black;
   padding: 15px;

@@ -88,7 +88,7 @@
           <div *ngIf="userRole === 'author'" class="action-buttons">
             <!-- Add options for editing and deleting -->
             <button class="edit-button" (click)="editCheckpoint(checkpoint)"><i class="fas fa-edit"></i> Edit</button>
-            <button class="delete-button" (click)="deleteCheckpoint(checkpoint)"><i class="fas fa-trash"></i> Delete</button>
+            <button class="delete-button" (click)="deleteCheckpoint(checkpoint)"><i class="fas fa-trash"></i> Remove</button>
           </div>
         </div>
       </div>
@@ -115,7 +115,7 @@
   </div>
 
   <!-- Add Review Form -->
-  <div class="review-form">
+  <div *ngIf="userRole === 'tourist'" class="review-form">
     <h3>Add Your Review</h3>
     <form (ngSubmit)="submitReview()">
     </form>
@@ -126,11 +126,19 @@
 <div *ngIf="currentSection === 3" class="section equipment-section">
   <!-- Display Tour Equipment here -->
   <h2><i class="fa-solid fa-binoculars"></i> Tour Equipment</h2>
+  <div class="edit-button-wrapper" *ngIf="userRole === 'author'">
+    <button class="add-object-button">
+      <i class="fas fa-circle-plus"> Add</i> <!-- FontAwesome edit icon -->
+    </button>
+  </div>
   <div class="equipment-container">
     <!-- Loop through each equipment item and display its name and description -->
     <div *ngFor="let equipmentItem of equipment" class="equipment-item">
       <h3>{{ equipmentItem.name }}</h3>
       <p>{{ equipmentItem.description }}</p>
+      <button class="add-object-button" *ngIf="userRole === 'author'">
+        <i class="fas fa-trash"></i> Remove<!-- FontAwesome edit icon -->
+      </button>
     </div>
   </div>
 </div>
@@ -165,9 +173,9 @@
         </div>
       </div>
       <!-- Move edit and delete buttons here -->
-      <div class="object-actions">
+      <div class="object-actions" *ngIf="userRole === 'author'">
         <button>
-          <i class="fas fa-edit"></i>
+          <i class="fas fa-edit"></i>  
         </button>
         <button>
           <i class="fas fa-trash"></i>

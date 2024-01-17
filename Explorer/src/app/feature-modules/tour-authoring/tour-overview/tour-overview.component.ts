@@ -161,7 +161,7 @@ export class TourOverviewComponent {
     });
   }
   private async fetchEquipmentForTour(equipmentIds: number[]): Promise<void> {
-    this.objects = undefined; // Set to undefined before fetching
+    this.equipment = undefined; // Set to undefined before fetching
   
     const allEquipment$: Observable<PagedResults<Equipment>> = this.tourService.getEquipmentTourist();
   
@@ -176,6 +176,7 @@ export class TourOverviewComponent {
   
         // Now 'selectedEquipment' contains only the equipment with the provided IDs
         console.log(selectedEquipment);
+        this.equipment = selectedEquipment
   
         // Handle the rest of your logic with the selected equipment
       },
